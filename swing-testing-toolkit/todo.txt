@@ -1,0 +1,14 @@
+- cannot move scrollbar when recording
+- list table renderers are not findable (!isShowing())
+- save and load tester file
+- tester icon
+- generate testing code
+- send keys action:
+	. list of different types of elemnts 
+	. special key type (vk_* + mofifier)
+	. text type
+- CheckVisibleStringsAction
+	. extract jtable jtree strings
+- Replay command
+- record close box action
+- class launcher (call main)???
