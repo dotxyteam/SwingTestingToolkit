@@ -8,11 +8,6 @@ public class TestingException extends RuntimeException {
 		super();
 	}
 
-	public TestingException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
-
 	public TestingException(String message, Throwable cause) {
 		super(message, cause);
 	}

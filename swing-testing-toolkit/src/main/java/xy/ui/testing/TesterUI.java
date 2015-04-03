@@ -57,7 +57,7 @@ public class TesterUI extends ReflectionUI {
 		for (JPanel form : ReflectionUIUtils.findDescendantForms(result,
 				TesterUI.INSTANCE)) {
 			if(TesterUI.INSTANCE.getObjectByForm().get(form) instanceof Tester){
-				result.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+				result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			}
 		}
 		return result;

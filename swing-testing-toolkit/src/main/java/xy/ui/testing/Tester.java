@@ -20,7 +20,6 @@ import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.action.SendClickAction;
 import xy.ui.testing.util.TestingUtils;
 
 public class Tester {
@@ -73,6 +72,7 @@ public class Tester {
 		if (!isRecording()) {
 			return;
 		}
+		handleCurrentComponentChange(null);
 		recording = false;
 	}
 
@@ -112,17 +112,16 @@ public class Tester {
 	protected void handleComponentSelection(final AWTEvent event) {
 		popupMenu.removeAll();
 		final Component c = (Component) event.getSource();
-		createComponentSelectionMenuItems(c);
-		createDoNotRecordMenuItem(c);
-		createStopRecordingMenuItem(c);
 		createReleaseComponentMenuItem(c);
+		createComponentSelectionMenuItems(c);
+		createStopRecordingMenuItem(c);
 		popupMenu.add(new JMenuItem("Cancel"));
 		MouseEvent mouseEvt = (MouseEvent) event;
 		popupMenu.show(c, mouseEvt.getX(), mouseEvt.getY());
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Release Component");
+		JMenuItem menuItem = new JMenuItem("Use This Component Normally");
 		{
 			menuItem.addActionListener(new ActionListener() {
 				@Override
@@ -161,31 +160,6 @@ public class Tester {
 		}
 	}
 
-	protected void createDoNotRecordMenuItem(final Component c) {
-		JMenuItem doNotRecordItem = new JMenuItem("Just "
-				+ getComponentSelectionActionTitle());
-		{
-			doNotRecordItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					stopRecording();
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							executeInitialActionReplacedByComponentSelection(c);
-						}
-					});
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							startRecording();
-						}
-					});
-				}
-			});
-			popupMenu.add(doNotRecordItem);
-		}
-	}
 
 	protected void createComponentSelectionMenuItems(final Component c) {
 		for (final TestAction testAction : getPossibleTestActions(c)) {
@@ -230,15 +204,6 @@ public class Tester {
 			throw new AssertionError(e);
 		}
 
-	}
-
-	protected void executeInitialActionReplacedByComponentSelection(Component c) {
-		SendClickAction action = new SendClickAction();
-		action.setButton(SendClickAction.ButtonId.LEFT_BUTTON);
-		if (!action.initializeFrom(c)) {
-			throw new AssertionError();
-		}
-		action.execute(c);
 	}
 
 	protected boolean isComponentSelectionEvent(AWTEvent event) {
