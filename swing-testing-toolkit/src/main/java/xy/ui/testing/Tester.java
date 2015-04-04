@@ -20,6 +20,7 @@ import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
 public class Tester {
@@ -32,6 +33,7 @@ public class Tester {
 	protected MouseListener[] currentComponentMouseListeners;
 	protected JPopupMenu popupMenu = new JPopupMenu();
 	protected boolean recording = false;
+	protected int millisecondsBetwneenActions = 3000;
 
 	public Tester() {
 		recordingListener = new AWTEventListener() {
@@ -52,6 +54,14 @@ public class Tester {
 		TestingUtils.removeAWTEventListener(recordingListener);
 	}
 
+	public int getMillisecondsBetwneenActions() {
+		return millisecondsBetwneenActions;
+	}
+
+	public void setMillisecondsBetwneenActions(int millisecondsBetwneenActions) {
+		this.millisecondsBetwneenActions = millisecondsBetwneenActions;
+	}
+
 	public TestAction[] getTestActions() {
 		return testActions.toArray(new TestAction[testActions.size()]);
 	}
@@ -59,6 +69,46 @@ public class Tester {
 	public void setTestActions(TestAction[] testActions) {
 		this.testActions.clear();
 		this.testActions.addAll(Arrays.asList(testActions));
+	}
+
+	public void launchClass(final String className) {
+		new Thread(className) {
+			@Override
+			public void run() {
+				try {
+					TestingUtils.launchClassMainMethod(className);
+				} catch (Exception e) {
+					TesterUI.INSTANCE.handleExceptionsFromDisplayedUI(null, e);
+				}
+			}
+		}.start();
+	}
+
+	public void replay() {
+		if (isRecording()) {
+			stopRecording();
+		}
+		new Thread(Tester.class.getName() + "#replay") {
+			@Override
+			public void run() {
+				try {
+					for (int i = 0; i < testActions.size(); i++) {
+						TestAction testAction = testActions.get(i);
+						try {
+							if (i > 0) {
+								Thread.sleep(millisecondsBetwneenActions);
+							}
+							testAction.findComponentAndExecute();
+						} catch (Exception e) {
+							throw new TestingError("Test Action n°" + (i + 1)
+									+ ": " + e.toString(), e);
+						}
+					}
+				} catch (Exception e) {
+					TesterUI.INSTANCE.handleExceptionsFromDisplayedUI(null, e);
+				}
+			}
+		}.start();
 	}
 
 	public void startRecording() {
@@ -121,14 +171,14 @@ public class Tester {
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Use This Component Normally");
+		JMenuItem menuItem = new JMenuItem("Do Not Record This Action");
 		{
 			menuItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					handleCurrentComponentChange(null);
 					stopRecording();
-					new Thread(Tester.class.getSimpleName() + " Restarter"){
+					new Thread(Tester.class.getSimpleName() + " Restarter") {
 						@Override
 						public void run() {
 							try {
@@ -137,7 +187,7 @@ public class Tester {
 								throw new AssertionError(e);
 							}
 							startRecording();
-						}						
+						}
 					}.start();
 				}
 			});
@@ -160,11 +210,11 @@ public class Tester {
 		}
 	}
 
-
 	protected void createComponentSelectionMenuItems(final Component c) {
 		for (final TestAction testAction : getPossibleTestActions(c)) {
 			JMenuItem item = new JMenuItem("Record "
-					+ TesterUI.INSTANCE.getObjectKind(testAction));
+					+ TesterUI.INSTANCE.getObjectKind(testAction)
+					+ " To This Component");
 			item.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -185,6 +235,7 @@ public class Tester {
 			newTestActionListValue.add(testAction);
 			testActionListField.setValue(Tester.this, newTestActionListValue
 					.toArray(new TestAction[newTestActionListValue.size()]));
+			handleCurrentComponentChange(null);
 			testAction.execute(c);
 		}
 	}

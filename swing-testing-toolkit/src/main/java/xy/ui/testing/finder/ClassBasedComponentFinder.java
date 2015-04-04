@@ -20,7 +20,7 @@ public class ClassBasedComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeAllCriteriasExceptOccurrencesToskip(Component c) {
+	protected boolean initializeSpecificCriterias(Component c) {
 		className = c.getClass().getName();
 		return true;
 	}
@@ -28,7 +28,7 @@ public class ClassBasedComponentFinder extends ComponentFinder {
 	@Override
 	public String toString() {
 		return "Component n°" + (occurrencesToSkip + 1) + " of type '"
-				+ className + "'";
+				+ className + "' in the window n°" + (windowIndex+1);
 	}
 
 }

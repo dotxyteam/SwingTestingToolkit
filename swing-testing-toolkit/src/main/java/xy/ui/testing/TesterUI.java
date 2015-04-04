@@ -2,11 +2,13 @@ package xy.ui.testing;
 
 import java.awt.Component;
 import java.awt.Image;
+import java.awt.Dialog.ModalExclusionType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import xy.reflect.ui.ReflectionUI;
@@ -19,15 +21,16 @@ import xy.reflect.ui.info.type.TypeInfoProxyConfiguration;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.SendClickAction;
 import xy.ui.testing.action.SendKeysAction;
 import xy.ui.testing.action.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.SendKeysAction.SpecialKey;
 import xy.ui.testing.action.SendKeysAction.WriteText;
+import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
+import xy.ui.testing.util.TestingUtils;
 
 public class TesterUI extends ReflectionUI {
 
@@ -42,9 +45,22 @@ public class TesterUI extends ReflectionUI {
 	private Component componentFinderInitializationSource;
 
 	public static void main(String[] args) {
-		Tester tester = new Tester();
-		INSTANCE.openObjectFrame(tester, INSTANCE.getObjectKind(tester), null);
-
+		try {
+			Tester tester = new Tester();
+			INSTANCE.openObjectFrame(tester, INSTANCE.getObjectKind(tester),
+					null);
+			if (args.length > 1) {
+				throw new Exception(
+						"Invalid command line arguments. Expected: [<mainClassName>]");
+			} else if (args.length == 1) {
+				String mainClassName = args[0];
+				TestingUtils.launchClassMainMethod(mainClassName);
+			}
+		} catch (Throwable t) {
+			t.printStackTrace();
+			JOptionPane.showMessageDialog(null, t.toString(), null,
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	protected TesterUI() {
@@ -53,15 +69,19 @@ public class TesterUI extends ReflectionUI {
 	@Override
 	public JFrame createFrame(Component content, String title, Image iconImage,
 			List<? extends Component> toolbarControls) {
-		JFrame result = super.createFrame(content, title, iconImage, toolbarControls);
+		JFrame result = super.createFrame(content, title, iconImage,
+				toolbarControls);
 		for (JPanel form : ReflectionUIUtils.findDescendantForms(result,
 				TesterUI.INSTANCE)) {
-			if(TesterUI.INSTANCE.getObjectByForm().get(form) instanceof Tester){
+			if (TesterUI.INSTANCE.getObjectByForm().get(form) instanceof Tester) {
 				result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 			}
 		}
 		return result;
 	}
+	
+	
 
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
@@ -83,7 +103,7 @@ public class TesterUI extends ReflectionUI {
 				result.remove(ReflectionUIUtils.findInfoByName(result,
 						"extractVisibleString"));
 				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"getKeyStrokes"));
+						"getKeyEvents"));
 				result.remove(ReflectionUIUtils.findInfoByName(result,
 						"findComponentAndExecute"));
 				return result;
@@ -182,7 +202,7 @@ public class TesterUI extends ReflectionUI {
 	public boolean openSettings(TestAction testAction, Component c) {
 		boolean[] okPressedArray = new boolean[] { false };
 		componentFinderInitializationSource = c;
-		TesterUI.INSTANCE.openObjectDialog(null, testAction,
+		TesterUI.INSTANCE.openObjectDialog(c, testAction,
 				TesterUI.INSTANCE.getObjectKind(testAction), null, true, null,
 				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;

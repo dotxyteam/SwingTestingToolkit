@@ -3,10 +3,6 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import java.awt.Window;
 
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
-import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.TestingUtils;
 
@@ -17,7 +13,7 @@ public abstract class ComponentFinder {
 
 	protected abstract boolean matches(Component c);
 
-	protected abstract boolean initializeAllCriteriasExceptOccurrencesToskip(
+	protected abstract boolean initializeSpecificCriterias(
 			Component c);
 
 	public int getWindowIndex() {
@@ -39,10 +35,8 @@ public abstract class ComponentFinder {
 	public Component find() {
 		int windowCount = 0;
 		for (Window window : Window.getWindows()) {
-			for (JPanel form : TesterUI.INSTANCE.getObjectByForm().keySet()) {
-				if (window == SwingUtilities.getWindowAncestor(form)) {
-					continue;
-				}
+			if(!isValidWindow(window)){
+				continue;
 			}
 			if (windowCount == windowIndex) {
 				return find(window);
@@ -53,6 +47,16 @@ public abstract class ComponentFinder {
 				"Component not found: Containing window not found: Window index is invalid: "
 						+ windowIndex + ": Only " + windowCount
 						+ " windows found");
+	}
+
+	protected boolean isValidWindow(Window window) {
+		if(TestingUtils.isTesterUIComponent(window)){
+			return false;
+		}
+		if(!window.isVisible()){
+			return false;
+		}
+		return true;
 	}
 
 	protected Component find(Window containingWindow) {
@@ -78,12 +82,22 @@ public abstract class ComponentFinder {
 	}
 
 	public boolean initializeFrom(final Component c) {
-		if (!initializeAllCriteriasExceptOccurrencesToskip(c)) {
+		if (!initializeSpecificCriterias(c)) {
 			return false;
 		}
-		occurrencesToSkip = 0;
-		final boolean[] ok = new boolean[] { false };
 		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
+		if(!initializeWindowIndex(componentWindow)){
+			return false;
+		}
+		if(!initializeOccurrencesToSkip(componentWindow, c)){
+			return false;
+		}
+		return true;
+	}
+
+	protected boolean initializeOccurrencesToSkip(Window componentWindow, final Component c) {
+		occurrencesToSkip = 0;
+		final boolean[] ok = new boolean[] { false };		
 		TestingUtils.visitComponentTree(componentWindow,
 				new IComponentTreeVisitor() {
 					@Override
@@ -99,6 +113,21 @@ public abstract class ComponentFinder {
 					}
 				});
 		return ok[0];
+
+	}
+
+	protected boolean initializeWindowIndex(Window componentWindow) {
+		windowIndex = 0;
+		for (Window window : Window.getWindows()) {
+			if(!isValidWindow(window)){
+				continue;
+			}
+			if(window == componentWindow){
+				return true;
+			}
+			windowIndex++;
+		}
+		return false;
 	}
 
 }

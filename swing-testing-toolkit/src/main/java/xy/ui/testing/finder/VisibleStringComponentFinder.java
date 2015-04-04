@@ -18,7 +18,7 @@ public class VisibleStringComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeAllCriteriasExceptOccurrencesToskip(Component c) {
+	protected boolean initializeSpecificCriterias(Component c) {
 		visibleString = extractVisibleString(c);
 		return visibleString != null;
 	}
@@ -62,6 +62,7 @@ public class VisibleStringComponentFinder extends ComponentFinder {
 	public String toString() {
 		return "Component n°" + (occurrencesToSkip + 1)
 				+ " displaying the string \""
-				+ StringEscapeUtils.escapeJava(visibleString) + "\"";
+				+ StringEscapeUtils.escapeJava(visibleString)
+				+ "\" in the window n°" + (windowIndex + 1);
 	}
 }

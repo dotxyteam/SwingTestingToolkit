@@ -9,6 +9,7 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.AWTEventListenerProxy;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -17,8 +18,6 @@ import javax.swing.SwingUtilities;
 import xy.ui.testing.TesterUI;
 
 public class TestingUtils {
-
-	
 
 	public static boolean visitComponentTree(Component treeRoot,
 			IComponentTreeVisitor visitor) {
@@ -72,7 +71,7 @@ public class TestingUtils {
 
 	public static boolean isTesterUIComponent(Component c) {
 		for (JPanel testerForm : TesterUI.INSTANCE.getObjectByForm().keySet()) {
-			Window componentWindow = SwingUtilities.getWindowAncestor(c);
+			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
 			if (componentWindow != null) {
 				Window testerWindow = SwingUtilities
 						.getWindowAncestor(testerForm);
@@ -89,22 +88,35 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static void  insertMouseListener(Component c,int position,
+	public static void insertMouseListener(Component c, int position,
 			MouseListener listenerToInsert) {
 		MouseListener[] currentListeners = c.getMouseListeners();
 		while (c.getMouseListeners().length > 0) {
 			c.removeMouseListener(c.getMouseListeners()[0]);
 		}
 		c.addMouseListener(listenerToInsert);
-		for (int i=0; i<currentListeners.length; i++) {
+		for (int i = 0; i < currentListeners.length; i++) {
 			MouseListener l = currentListeners[i];
-			if(i == position){
+			if (i == position) {
 				c.addMouseListener(listenerToInsert);
 			}
 			c.addMouseListener(l);
 		}
-		if(position == -1){
+		if (position == -1) {
 			c.addMouseListener(listenerToInsert);
-		}			
+		}
+	}
+
+	public static void launchClassMainMethod(String mainClassName) throws Exception{
+		Class.forName(mainClassName)
+				.getMethod("main", new Class[] { String[].class })
+				.invoke(null, new Object[] { new String[0] });
+	}
+
+	public static <T> List<T> getReversed(
+			List<T> list) {
+		List<T> result = new ArrayList<T>(list);
+		Collections.reverse(result);
+		return result;
 	}
 }
