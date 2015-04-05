@@ -5,7 +5,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class SendClickAction extends TestAction {
-
+	private static final long serialVersionUID = 1L;
+	
 	public enum ButtonId {
 		LEFT_BUTTON, MIDDLE_BUTTON, RIGHT_BUTTON
 	};

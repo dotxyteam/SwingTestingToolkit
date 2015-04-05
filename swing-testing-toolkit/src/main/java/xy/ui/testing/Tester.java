@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,22 +21,26 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
+import com.thoughtworks.xstream.XStream;
+
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
 public class Tester {
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
-	protected AWTEventListener recordingListener;
-	protected Component currentComponent;
-	protected Color currentComponentBackground;
-	protected Color currentComponentForeground;
-	protected MouseListener[] currentComponentMouseListeners;
-	protected JPopupMenu popupMenu = new JPopupMenu();
-	protected boolean recording = false;
 	protected int millisecondsBetwneenActions = 3000;
+
+	transient protected AWTEventListener recordingListener;
+	transient protected Component currentComponent;
+	transient protected Color currentComponentBackground;
+	transient protected Color currentComponentForeground;
+	transient protected MouseListener[] currentComponentMouseListeners;
+	transient protected JPopupMenu popupMenu = new JPopupMenu();
+	transient protected boolean recording = false;
 
 	public Tester() {
 		recordingListener = new AWTEventListener() {
@@ -84,31 +91,51 @@ public class Tester {
 		}.start();
 	}
 
-	public void replay() {
+	public void replayAll() {
+		replay(testActions, null);
+	}
+
+	public void replay(final List<TestAction> toReplay,
+			Runnable runBeforeEachAction) {
 		if (isRecording()) {
 			stopRecording();
 		}
-		new Thread(Tester.class.getName() + "#replay") {
-			@Override
-			public void run() {
+		try {
+			for (int i = 0; i < toReplay.size(); i++) {
+				if (runBeforeEachAction != null) {
+					runBeforeEachAction.run();
+				}
+				TestAction testAction = toReplay.get(i);
 				try {
-					for (int i = 0; i < testActions.size(); i++) {
-						TestAction testAction = testActions.get(i);
-						try {
-							if (i > 0) {
-								Thread.sleep(millisecondsBetwneenActions);
-							}
-							testAction.findComponentAndExecute();
-						} catch (Exception e) {
-							throw new TestingError("Test Action n°" + (i + 1)
-									+ ": " + e.toString(), e);
-						}
+					if(i>0){
+						Thread.sleep(millisecondsBetwneenActions);
 					}
+					ComponentFinder componentFinder = testAction
+							.getComponentFinder();
+					Component c = componentFinder.find();
+					if (c == null) {
+						throw new TestingError("Unable to find "
+								+ componentFinder.toString());
+					}
+					if (i > 0) {
+						unhighlightCurrentComponent();
+					}
+					currentComponent = c;
+					highlightCurrentComponent();
+					Thread.sleep(1000);
+					testAction.execute(c);
 				} catch (Exception e) {
-					TesterUI.INSTANCE.handleExceptionsFromDisplayedUI(null, e);
+					handleCurrentComponentChange(null);
+					throw new TestingError("Test Action n°" + (i + 1) + ": "
+							+ e.toString(), e);
 				}
 			}
-		}.start();
+		} finally {
+			if (currentComponent != null) {
+				unhighlightCurrentComponent();
+				currentComponent = null;
+			}
+		}
 	}
 
 	public void startRecording() {
@@ -152,7 +179,7 @@ public class Tester {
 			return;
 		}
 		if (isCurrentComponentChangeEvent(event)) {
-			handleCurrentComponentChange(event);
+			handleCurrentComponentChange(c);
 		}
 		if (isComponentSelectionEvent(event)) {
 			handleComponentSelection(event);
@@ -171,7 +198,7 @@ public class Tester {
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Do Not Record This Action");
+		JMenuItem menuItem = new JMenuItem("Do Not Record The Next Action");
 		{
 			menuItem.addActionListener(new ActionListener() {
 				@Override
@@ -285,16 +312,16 @@ public class Tester {
 		return false;
 	}
 
-	protected void handleCurrentComponentChange(final AWTEvent event) {
+	protected void handleCurrentComponentChange(Component c) {
 		if (currentComponent != null) {
 			unhighlightCurrentComponent();
 			restoreComponentListeners();
 			currentComponent = null;
 		}
-		if (event == null) {
+		if (c == null) {
 			return;
 		}
-		currentComponent = (Component) event.getSource();
+		currentComponent = c;
 		highlightCurrentComponent();
 		disableComponentListeners();
 	}
@@ -328,4 +355,20 @@ public class Tester {
 			currentComponent.setForeground(new Color(136, 0, 21));
 		}
 	}
+
+	public void loadFromFile(File input) {
+		XStream xstream = new XStream();
+		Tester loaded = (Tester) xstream.fromXML(input);
+		testActions = loaded.testActions;
+		millisecondsBetwneenActions = loaded.millisecondsBetwneenActions;
+	}
+
+	public void saveToFile(File output) throws IOException {
+		XStream xstream = new XStream();
+		FileWriter fileWriter = new FileWriter(output);
+		xstream.toXML(this, fileWriter);
+		fileWriter.flush();
+		fileWriter.close();
+	}
+
 }

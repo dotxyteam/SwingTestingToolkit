@@ -1,13 +1,15 @@
 package xy.ui.testing.action;
 
 import java.awt.Component;
+import java.io.Serializable;
 
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.finder.ComponentFinder;
-import xy.ui.testing.util.TestingError;
 
-public abstract class TestAction {
+public abstract class TestAction implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	protected ComponentFinder componentFinder;
 
 	public abstract void execute(Component c);
@@ -35,15 +37,6 @@ public abstract class TestAction {
 			}
 		}
 		return false;
-	}
-	
-	public void findComponentAndExecute(){
-		Component c = componentFinder.find();
-		if (c == null) {
-			throw new TestingError("Unable to find "
-					+ componentFinder.toString());
-		}
-		execute(c);
 	}
 
 }

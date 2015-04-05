@@ -6,7 +6,8 @@ import java.lang.reflect.Method;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 public class VisibleStringComponentFinder extends ComponentFinder {
-
+	private static final long serialVersionUID = 1L;
+	
 	protected String visibleString = "";
 
 	public String getVisibleString() {

@@ -1,0 +1,96 @@
+<xy.ui.testing.Tester>
+  <testActions>
+    <xy.ui.testing.action.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <className>javax.swing.plaf.basic.BasicOptionPaneUI$MultiplexingTextField</className>
+      </componentFinder>
+      <keyboardInteractions>
+        <xy.ui.testing.action.SendKeysAction_-WriteText>
+          <text>java.awt.Point</text>
+        </xy.ui.testing.action.SendKeysAction_-WriteText>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.SendKeysAction>
+    <xy.ui.testing.action.SendClickAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <className>javax.swing.JButton</className>
+      </componentFinder>
+      <button>LEFT_BUTTON</button>
+    </xy.ui.testing.action.SendClickAction>
+    <xy.ui.testing.action.SendClickAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <className>javax.swing.JButton</className>
+      </componentFinder>
+      <button>LEFT_BUTTON</button>
+    </xy.ui.testing.action.SendClickAction>
+    <xy.ui.testing.action.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <className>javax.swing.JTextArea</className>
+      </componentFinder>
+      <keyboardInteractions>
+        <xy.ui.testing.action.SendKeysAction_-SpecialKey>
+          <keyName>KEY_A</keyName>
+          <shiftDown>false</shiftDown>
+          <ctrlDown>true</ctrlDown>
+          <metaDown>false</metaDown>
+          <altDown>false</altDown>
+          <altGrtDown>false</altGrtDown>
+        </xy.ui.testing.action.SendKeysAction_-SpecialKey>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.SendKeysAction>
+    <xy.ui.testing.action.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <className>javax.swing.JTextArea</className>
+      </componentFinder>
+      <keyboardInteractions>
+        <xy.ui.testing.action.SendKeysAction_-WriteText>
+          <text>1</text>
+        </xy.ui.testing.action.SendKeysAction_-WriteText>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.SendKeysAction>
+    <xy.ui.testing.action.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <className>javax.swing.JTextArea</className>
+      </componentFinder>
+      <keyboardInteractions>
+        <xy.ui.testing.action.SendKeysAction_-SpecialKey>
+          <keyName>KEY_A</keyName>
+          <shiftDown>false</shiftDown>
+          <ctrlDown>true</ctrlDown>
+          <metaDown>false</metaDown>
+          <altDown>false</altDown>
+          <altGrtDown>false</altGrtDown>
+        </xy.ui.testing.action.SendKeysAction_-SpecialKey>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.SendKeysAction>
+    <xy.ui.testing.action.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <windowIndex>0</windowIndex>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <className>javax.swing.JTextArea</className>
+      </componentFinder>
+      <keyboardInteractions>
+        <xy.ui.testing.action.SendKeysAction_-WriteText>
+          <text>2</text>
+        </xy.ui.testing.action.SendKeysAction_-WriteText>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.SendKeysAction>
+  </testActions>
+  <millisecondsBetwneenActions>3000</millisecondsBetwneenActions>
+</xy.ui.testing.Tester>

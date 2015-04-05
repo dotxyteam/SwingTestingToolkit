@@ -15,6 +15,9 @@ import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
+import xy.reflect.ui.info.type.IListTypeInfo;
+import xy.reflect.ui.info.type.IListTypeInfo.IItemPosition;
+import xy.reflect.ui.info.type.IListTypeInfo.IListAction;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfoSource;
 import xy.reflect.ui.info.type.TypeInfoProxyConfiguration;
@@ -80,8 +83,6 @@ public class TesterUI extends ReflectionUI {
 		}
 		return result;
 	}
-	
-	
 
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
@@ -104,8 +105,8 @@ public class TesterUI extends ReflectionUI {
 						"extractVisibleString"));
 				result.remove(ReflectionUIUtils.findInfoByName(result,
 						"getKeyEvents"));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"findComponentAndExecute"));
+				result.remove(ReflectionUIUtils
+						.findInfoByName(result, "replay"));
 				return result;
 			}
 
@@ -182,6 +183,40 @@ public class TesterUI extends ReflectionUI {
 						object, valueByParameterName);
 			}
 
+			@Override
+			protected List<IListAction> getSpecificListActions(
+					IListTypeInfo type, final Object object, IFieldInfo field,
+					final List<? extends IItemPosition> selection) {
+				if ((object instanceof Tester)
+						&& (field.getName().equals("testActions"))) {
+					if (selection.size() > 0) {
+						List<IListAction> result = new ArrayList<IListTypeInfo.IListAction>();
+						result.add(new IListAction() {
+
+							@Override
+							public void perform(final Component listControl) {
+								List<TestAction> selectedActions = new ArrayList<TestAction>();
+								for (IItemPosition itemPosition : selection) {
+									TestAction testAction = (TestAction) itemPosition
+											.getItem();
+									selectedActions.add(testAction);
+								}
+								Tester tester = (Tester) object;
+								tester.replay(selectedActions, null);
+							}
+
+							@Override
+							public String getTitle() {
+								return "Replay Selected Action(s)";
+							}
+						});
+						return result;
+					}
+				}
+				return super.getSpecificListActions(type, object, field,
+						selection);
+			}
+
 		}.get(super.getTypeInfo(typeSource));
 	}
 
@@ -200,8 +235,8 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	public boolean openSettings(TestAction testAction, Component c) {
-		boolean[] okPressedArray = new boolean[] { false };
 		componentFinderInitializationSource = c;
+		boolean[] okPressedArray = new boolean[] { false };
 		TesterUI.INSTANCE.openObjectDialog(c, testAction,
 				TesterUI.INSTANCE.getObjectKind(testAction), null, true, null,
 				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);

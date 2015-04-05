@@ -1,6 +1,4 @@
-- cannot move scrollbar when recording
 - list table renderers are not findable (!isShowing())
-- save and load tester file
 - tester icon
 - generate testing code
 - send keys action:

@@ -2,12 +2,14 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 import java.awt.Window;
+import java.io.Serializable;
 
 import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.TestingUtils;
 
-public abstract class ComponentFinder {
-
+public abstract class ComponentFinder implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	protected int windowIndex;
 	protected int occurrencesToSkip;
 
