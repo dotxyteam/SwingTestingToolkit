@@ -3,7 +3,9 @@ package xy.ui.testing;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Dialog.ModalExclusionType;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,17 +15,21 @@ import javax.swing.JPanel;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.info.IInfoCollectionSettings;
+import xy.reflect.ui.info.InfoCollectionSettingsProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.IListTypeInfo;
-import xy.reflect.ui.info.type.IListTypeInfo.IItemPosition;
+import xy.reflect.ui.info.type.IListTypeInfo.ItemPosition;
 import xy.reflect.ui.info.type.IListTypeInfo.IListAction;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfoSource;
 import xy.reflect.ui.info.type.TypeInfoProxyConfiguration;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
+import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.ui.testing.action.CheckWindowVisibleStringsAction;
+import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.SendClickAction;
 import xy.ui.testing.action.SendKeysAction;
 import xy.ui.testing.action.SendKeysAction.KeyboardInteraction;
@@ -33,15 +39,17 @@ import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
-import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.finder.WindowFinder;
 
 public class TesterUI extends ReflectionUI {
 
 	public final static TesterUI INSTANCE = new TesterUI();
 	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] {
-			SendClickAction.class, SendKeysAction.class };
+			CallMainMethodAction.class, SendClickAction.class,
+			SendKeysAction.class, CheckWindowVisibleStringsAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			ClassBasedComponentFinder.class, VisibleStringComponentFinder.class };
+			ClassBasedComponentFinder.class,
+			VisibleStringComponentFinder.class, WindowFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class };
 
@@ -50,15 +58,15 @@ public class TesterUI extends ReflectionUI {
 	public static void main(String[] args) {
 		try {
 			Tester tester = new Tester();
-			INSTANCE.openObjectFrame(tester, INSTANCE.getObjectKind(tester),
-					null);
 			if (args.length > 1) {
 				throw new Exception(
-						"Invalid command line arguments. Expected: [<mainClassName>]");
+						"Invalid command line arguments. Expected: [<fileName>]");
 			} else if (args.length == 1) {
-				String mainClassName = args[0];
-				TestingUtils.launchClassMainMethod(mainClassName);
+				String fileName = args[0];
+				tester.loadFromFile(new File(fileName));
 			}
+			INSTANCE.openObjectFrame(tester, INSTANCE.getObjectKind(tester),
+					null);
 		} catch (Throwable t) {
 			t.printStackTrace();
 			JOptionPane.showMessageDialog(null, t.toString(), null,
@@ -89,37 +97,6 @@ public class TesterUI extends ReflectionUI {
 		return new TypeInfoProxyConfiguration() {
 
 			@Override
-			protected List<IMethodInfo> getMethods(ITypeInfo type) {
-				List<IMethodInfo> result = new ArrayList<IMethodInfo>(
-						super.getMethods(type));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"openSettings"));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"execute"));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"openWindow"));
-				result.remove(ReflectionUIUtils.findInfoByName(result, "find"));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"initializeFrom"));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"extractVisibleString"));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"getKeyEvents"));
-				result.remove(ReflectionUIUtils
-						.findInfoByName(result, "replay"));
-				return result;
-			}
-
-			@Override
-			protected List<IFieldInfo> getFields(ITypeInfo type) {
-				List<IFieldInfo> result = new ArrayList<IFieldInfo>(
-						super.getFields(type));
-				result.remove(ReflectionUIUtils.findInfoByName(result,
-						"keyStrokes"));
-				return result;
-			}
-
-			@Override
 			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(
 					ITypeInfo type) {
 				if (type.getName().equals(TestAction.class.getName())) {
@@ -129,7 +106,7 @@ public class TesterUI extends ReflectionUI {
 							result.add(getTypeInfo(getTypeInfoSource(clazz
 									.newInstance())));
 						} catch (Exception e) {
-							throw new AssertionError(e);
+							throw new ReflectionUIError(e);
 						}
 					}
 					return result;
@@ -149,7 +126,7 @@ public class TesterUI extends ReflectionUI {
 								result.add(getTypeInfo(getTypeInfoSource(newInstance)));
 							}
 						} catch (Exception e) {
-							throw new AssertionError(e);
+							throw new ReflectionUIError(e);
 						}
 					}
 					return result;
@@ -161,7 +138,7 @@ public class TesterUI extends ReflectionUI {
 							result.add(getTypeInfo(getTypeInfoSource(clazz
 									.newInstance())));
 						} catch (Exception e) {
-							throw new AssertionError(e);
+							throw new ReflectionUIError(e);
 						}
 					}
 					return result;
@@ -172,7 +149,7 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			protected IModification getUndoModification(IMethodInfo method,
 					ITypeInfo containingType, Object object,
-					Map<String, Object> valueByParameterName) {
+					Map<Integer, Object> valueByParameterPosition) {
 				if (method.getName().equals("startRecording")) {
 					return ModificationStack.NULL_MODIFICATION;
 				}
@@ -180,13 +157,13 @@ public class TesterUI extends ReflectionUI {
 					return ModificationStack.NULL_MODIFICATION;
 				}
 				return super.getUndoModification(method, containingType,
-						object, valueByParameterName);
+						object, valueByParameterPosition);
 			}
 
 			@Override
 			protected List<IListAction> getSpecificListActions(
 					IListTypeInfo type, final Object object, IFieldInfo field,
-					final List<? extends IItemPosition> selection) {
+					final List<? extends ItemPosition> selection) {
 				if ((object instanceof Tester)
 						&& (field.getName().equals("testActions"))) {
 					if (selection.size() > 0) {
@@ -195,19 +172,35 @@ public class TesterUI extends ReflectionUI {
 
 							@Override
 							public void perform(final Component listControl) {
-								List<TestAction> selectedActions = new ArrayList<TestAction>();
-								for (IItemPosition itemPosition : selection) {
-									TestAction testAction = (TestAction) itemPosition
-											.getItem();
-									selectedActions.add(testAction);
+								try {
+									List<TestAction> selectedActions = new ArrayList<TestAction>();
+									for (ItemPosition itemPosition : selection) {
+										TestAction testAction = (TestAction) itemPosition
+												.getItem();
+										selectedActions.add(testAction);
+									}
+									Tester tester = (Tester) object;
+									IMethodInfo playMethod = getFormsUpdatingMethod(
+											object,
+											ReflectionUIUtils
+													.getJavaMethodSignature(Tester.class
+															.getMethod(
+																	"play",
+																	List.class,
+																	Runnable.class)));
+									Map<Integer, Object> valueByParameterPosition = new HashMap<Integer, Object>();
+									valueByParameterPosition.put(0,
+											selectedActions);
+									playMethod.invoke(tester,
+											valueByParameterPosition);
+								} catch (Exception e) {
+									throw new ReflectionUIError(e);
 								}
-								Tester tester = (Tester) object;
-								tester.replay(selectedActions, null);
 							}
 
 							@Override
 							public String getTitle() {
-								return "Replay Selected Action(s)";
+								return "Play Selected Action(s)";
 							}
 						});
 						return result;
@@ -242,6 +235,49 @@ public class TesterUI extends ReflectionUI {
 				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
+	}
+
+	@Override
+	public JPanel createObjectForm(Object object,
+			IInfoCollectionSettings settings) {
+		settings = new InfoCollectionSettingsProxy(settings) {
+
+			@Override
+			public boolean excludeMethod(IMethodInfo method) {
+				if (method.getName().equals("execute")) {
+					return true;
+				}
+				if (method.getName().equals("find")) {
+					return true;
+				}
+				if (method.getName().equals("initializeFrom")) {
+					return true;
+				}
+				if (method.getName().equals("extractVisibleString")) {
+					return true;
+				}
+				if (method.getName().equals("getKeyEvents")) {
+					return true;
+				}
+				if (method.getName().equals("play")) {
+					return true;
+				}
+				if (method.getName().equals("collectVisibleStrings")) {
+					return true;
+				}
+				return super.excludeMethod(method);
+			}
+
+			@Override
+			public boolean excludeField(IFieldInfo field) {
+				if (field.getName().equals("keyStrokes")) {
+					return true;
+				}
+				return super.excludeField(field);
+			}
+
+		};
+		return super.createObjectForm(object, settings);
 	}
 
 }

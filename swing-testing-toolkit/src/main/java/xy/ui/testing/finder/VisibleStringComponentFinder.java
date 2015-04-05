@@ -25,7 +25,7 @@ public class VisibleStringComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	protected boolean matches(Component c) {
+	protected boolean matchesInContainingWindow(Component c) {
 		return visibleString.equals(extractVisibleString(c));
 	}
 

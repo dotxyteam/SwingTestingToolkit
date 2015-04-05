@@ -14,6 +14,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.util.StandardKey;
+import xy.ui.testing.util.TestingError;
 
 public class SendKeysAction extends TestAction {
 	private static final long serialVersionUID = 1L;
@@ -41,14 +42,20 @@ public class SendKeysAction extends TestAction {
 		this.keyboardInteractions.addAll(Arrays.asList(keyboardInteractions));
 	}
 
+
+	@Override
+	protected boolean initializeSpecificProperties(Component c) {
+		return true;
+	}
+	
 	@Override
 	public void execute(final Component c) {
-		if(requestToFocusOnTheComponent){
-			c.requestFocus();
-		}
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				if(requestToFocusOnTheComponent){
+					c.requestFocus();
+				}
 				for (KeyboardInteraction interaction : keyboardInteractions) {
 					for (KeyEvent keEvt : interaction.getKeyEvents(c)) {
 						c.dispatchEvent(keEvt);
@@ -226,7 +233,7 @@ public class SendKeysAction extends TestAction {
 				Field codeField = KeyEvent.class.getField(codeFieldName);
 				return codeField.getInt(null);
 			} catch (Exception e) {
-				throw new AssertionError(e);
+				throw new TestingError(e);
 			}
 		}
 

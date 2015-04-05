@@ -5,6 +5,7 @@ import java.awt.Window;
 import java.io.Serializable;
 
 import xy.ui.testing.util.IComponentTreeVisitor;
+import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
 public abstract class ComponentFinder implements Serializable{
@@ -13,7 +14,7 @@ public abstract class ComponentFinder implements Serializable{
 	protected int windowIndex;
 	protected int occurrencesToSkip;
 
-	protected abstract boolean matches(Component c);
+	protected abstract boolean matchesInContainingWindow(Component c);
 
 	protected abstract boolean initializeSpecificCriterias(
 			Component c);
@@ -45,10 +46,10 @@ public abstract class ComponentFinder implements Serializable{
 			}
 			windowCount++;
 		}
-		throw new AssertionError(
-				"Component not found: Containing window not found: Window index is invalid: "
+		throw new TestingError(
+				"Component not found: Containing window index is out of bounds: "
 						+ windowIndex + ": Only " + windowCount
-						+ " windows found");
+						+ " window(s) found");
 	}
 
 	protected boolean isValidWindow(Window window) {
@@ -69,7 +70,7 @@ public abstract class ComponentFinder implements Serializable{
 
 					@Override
 					public boolean visit(Component c) {
-						if (matches(c)) {
+						if (matchesInContainingWindow(c)) {
 							if (occurrences == occurrencesToSkip) {
 								result[0] = c;
 								return false;
@@ -108,7 +109,7 @@ public abstract class ComponentFinder implements Serializable{
 							ok[0] = true;
 							return false;
 						}
-						if (matches(otherComponent)) {
+						if (matchesInContainingWindow(otherComponent)) {
 							occurrencesToSkip++;
 						}
 						return true;

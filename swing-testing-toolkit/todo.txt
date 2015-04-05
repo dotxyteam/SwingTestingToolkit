@@ -1,3 +1,4 @@
+- make the test action list tabular (add a getter to testAction)
 - list table renderers are not findable (!isShowing())
 - tester icon
 - generate testing code

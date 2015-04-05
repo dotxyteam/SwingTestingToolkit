@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.finder.ComponentFinder;
+import xy.ui.testing.util.TestingError;
 
 public abstract class TestAction implements Serializable{
 
@@ -13,6 +14,7 @@ public abstract class TestAction implements Serializable{
 	protected ComponentFinder componentFinder;
 
 	public abstract void execute(Component c);
+	protected abstract boolean initializeSpecificProperties(Component c);
 
 	public ComponentFinder getComponentFinder() {
 		return componentFinder;
@@ -24,19 +26,26 @@ public abstract class TestAction implements Serializable{
 
 	public boolean initializeFrom(Component c) {
 		for (Class<?> componentFinderClass : TesterUI.COMPONENT_FINDER_CLASSESS) {
-			ComponentFinder componentFinder;
+			ComponentFinder componentFinderCandidate;
 			try {
-				componentFinder = (ComponentFinder) componentFinderClass
+				componentFinderCandidate = (ComponentFinder) componentFinderClass
 						.newInstance();
 			} catch (Exception e) {
-				throw new AssertionError(e);
+				throw new TestingError(e);
 			}
-			if (componentFinder.initializeFrom(c)) {
-				setComponentFinder(componentFinder);
-				return true;
+			if (componentFinderCandidate.initializeFrom(c)) {
+				setComponentFinder(componentFinderCandidate);
+				break;
 			}
 		}
-		return false;
+		if(getComponentFinder() == null){
+			return false;
+		}
+		if(!initializeSpecificProperties(c)){
+			return false;
+		}		
+		return true;
 	}
+
 
 }

@@ -16,7 +16,7 @@ public class ClassBasedComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	protected boolean matches(Component c) {
+	protected boolean matchesInContainingWindow(Component c) {
 		return c.getClass().getName().equals(className);
 	}
 

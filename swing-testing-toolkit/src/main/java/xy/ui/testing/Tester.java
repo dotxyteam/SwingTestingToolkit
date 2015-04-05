@@ -78,62 +78,45 @@ public class Tester {
 		this.testActions.addAll(Arrays.asList(testActions));
 	}
 
-	public void launchClass(final String className) {
-		new Thread(className) {
-			@Override
-			public void run() {
-				try {
-					TestingUtils.launchClassMainMethod(className);
-				} catch (Exception e) {
-					TesterUI.INSTANCE.handleExceptionsFromDisplayedUI(null, e);
-				}
-			}
-		}.start();
+	public void playAll() {
+		play(testActions, null);
 	}
 
-	public void replayAll() {
-		replay(testActions, null);
-	}
-
-	public void replay(final List<TestAction> toReplay,
+	public void play(final List<TestAction> toReplay,
 			Runnable runBeforeEachAction) {
 		if (isRecording()) {
 			stopRecording();
 		}
-		try {
-			for (int i = 0; i < toReplay.size(); i++) {
-				if (runBeforeEachAction != null) {
-					runBeforeEachAction.run();
+		for (int i = 0; i < toReplay.size(); i++) {
+			if (runBeforeEachAction != null) {
+				runBeforeEachAction.run();
+			}
+			final TestAction testAction = toReplay.get(i);
+			try {
+				if (i > 0) {
+					Thread.sleep(millisecondsBetwneenActions);
 				}
-				TestAction testAction = toReplay.get(i);
-				try {
-					if(i>0){
-						Thread.sleep(millisecondsBetwneenActions);
-					}
-					ComponentFinder componentFinder = testAction
-							.getComponentFinder();
-					Component c = componentFinder.find();
+				ComponentFinder componentFinder = testAction
+						.getComponentFinder();
+				final Component c;
+				if (componentFinder == null) {
+					c = null;
+				} else {
+					c = componentFinder.find();
 					if (c == null) {
 						throw new TestingError("Unable to find "
 								+ componentFinder.toString());
 					}
-					if (i > 0) {
-						unhighlightCurrentComponent();
-					}
 					currentComponent = c;
 					highlightCurrentComponent();
 					Thread.sleep(1000);
-					testAction.execute(c);
-				} catch (Exception e) {
-					handleCurrentComponentChange(null);
-					throw new TestingError("Test Action n°" + (i + 1) + ": "
-							+ e.toString(), e);
+					unhighlightCurrentComponent();
+					currentComponent = null;
 				}
-			}
-		} finally {
-			if (currentComponent != null) {
-				unhighlightCurrentComponent();
-				currentComponent = null;
+				testAction.execute(c);
+			} catch (Exception e) {
+				throw new TestingError("Test Action n°" + (i + 1) + ": "
+						+ e.toString(), e);
 			}
 		}
 	}
@@ -211,7 +194,7 @@ public class Tester {
 							try {
 								sleep(3000);
 							} catch (InterruptedException e) {
-								throw new AssertionError(e);
+								throw new TestingError(e);
 							}
 							startRecording();
 						}
@@ -228,9 +211,9 @@ public class Tester {
 			stopRecordingItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					TesterUI.INSTANCE.getFormsUpdatingmethod(Tester.this,
+					TesterUI.INSTANCE.getFormsUpdatingMethod(Tester.this,
 							"stopRecording").invoke(Tester.this,
-							Collections.<String, Object> emptyMap());
+							Collections.<Integer, Object> emptyMap());
 				}
 			});
 			popupMenu.add(stopRecordingItem);
@@ -239,9 +222,8 @@ public class Tester {
 
 	protected void createComponentSelectionMenuItems(final Component c) {
 		for (final TestAction testAction : getPossibleTestActions(c)) {
-			JMenuItem item = new JMenuItem("Record "
-					+ TesterUI.INSTANCE.getObjectKind(testAction)
-					+ " To This Component");
+			JMenuItem item = new JMenuItem("Record For This Component: "
+					+ TesterUI.INSTANCE.getObjectKind(testAction));
 			item.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -279,7 +261,7 @@ public class Tester {
 			}
 			return result;
 		} catch (Exception e) {
-			throw new AssertionError(e);
+			throw new TestingError(e);
 		}
 
 	}

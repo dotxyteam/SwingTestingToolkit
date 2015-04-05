@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import xy.ui.testing.util.TestingError;
+
 public class SendClickAction extends TestAction {
 	private static final long serialVersionUID = 1L;
 	
@@ -21,6 +23,11 @@ public class SendClickAction extends TestAction {
 		this.button = button;
 	}
 
+
+	@Override
+	protected boolean initializeSpecificProperties(Component c) {
+		return true;
+	}
 	@Override
 	public void execute(Component c) {
 		int buttonMask;
@@ -45,7 +52,7 @@ public class SendClickAction extends TestAction {
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
-			throw new AssertionError(e);
+			throw new TestingError(e);
 		}
 		mouseEvent = new MouseEvent(c, MouseEvent.MOUSE_RELEASED,
 				System.currentTimeMillis(), 0, c.getWidth() / 2,
