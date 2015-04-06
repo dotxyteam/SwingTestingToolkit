@@ -1,0 +1,8 @@
+<xy.ui.testing.Tester>
+  <testActions>
+    <xy.ui.testing.action.CallMainMethodAction>
+      <className>com.sun.swingset3.SwingSet3</className>
+    </xy.ui.testing.action.CallMainMethodAction>
+  </testActions>
+  <millisecondsBetwneenActions>5000</millisecondsBetwneenActions>
+</xy.ui.testing.Tester>

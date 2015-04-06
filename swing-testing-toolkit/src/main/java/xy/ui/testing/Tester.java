@@ -4,11 +4,13 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,13 +23,15 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
-
 import xy.reflect.ui.info.field.IFieldInfo;
+import xy.ui.testing.action.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestingError;
@@ -76,7 +80,7 @@ public class Tester {
 		Toolkit.getDefaultToolkit().addAWTEventListener(
 				recordingListener,
 				AWTEvent.MOUSE_MOTION_EVENT_MASK + AWTEvent.MOUSE_EVENT_MASK
-						+ AWTEvent.KEY_EVENT_MASK);
+						+ AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
 	}
 
 	@Override
@@ -188,20 +192,41 @@ public class Tester {
 		if (isCurrentComponentChangeEvent(event)) {
 			handleCurrentComponentChange(c);
 		}
-		if (isComponentSelectionEvent(event)) {
-			handleComponentSelection(event);
+		if (isFocusOnComponentEvent(event)) {
+			handleFocusOnComponent(event);
 		}
 	}
 
-	protected void handleComponentSelection(final AWTEvent event) {
-		popupMenu.removeAll();
-		final Component c = (Component) event.getSource();
-		createReleaseComponentMenuItem(c);
-		createComponentSelectionMenuItems(c);
-		createStopRecordingMenuItem(c);
-		popupMenu.add(new JMenuItem("Cancel"));
-		MouseEvent mouseEvt = (MouseEvent) event;
-		popupMenu.show(c, mouseEvt.getX(), mouseEvt.getY());
+	protected void handleFocusOnComponent(final AWTEvent event) {
+		if (event instanceof MouseEvent) {
+			MouseEvent mouseEvt = (MouseEvent) event;
+			popupMenu.removeAll();
+			Component c = (Component) event.getSource();
+			createReleaseComponentMenuItem(c);
+			createTestActionMenuItems(c);
+			createStopRecordingMenuItem(c);
+			popupMenu.add(new JMenuItem("Cancel"));
+			popupMenu.show(c, mouseEvt.getX(), mouseEvt.getY());
+		}
+		if (event instanceof WindowEvent) {
+			WindowEvent windowEvent = (WindowEvent) event;
+			Window window = windowEvent.getWindow();
+			stopRecording();
+			ImageIcon icon = new ImageIcon(
+					TesterUI.INSTANCE.getObjectIconImage(Tester.this));
+			String message = "Do you want to record this window closing event?";
+			String title = TesterUI.INSTANCE.getObjectKind(Tester.this);
+			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(window,
+					message, title, JOptionPane.YES_NO_OPTION,
+					JOptionPane.QUESTION_MESSAGE, icon)) {
+				record();
+				CloseWindowAction closeAction = new CloseWindowAction();
+				closeAction.initializeFrom(window);
+				onTestActionSelection(closeAction, window);
+			} else {
+				record();
+			}
+		}
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
@@ -244,7 +269,7 @@ public class Tester {
 		}
 	}
 
-	protected void createComponentSelectionMenuItems(final Component c) {
+	protected void createTestActionMenuItems(final Component c) {
 		for (final TestAction testAction : getPossibleTestActions(c)) {
 			JMenuItem item = new JMenuItem("(Execute and Record) "
 					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
@@ -291,18 +316,22 @@ public class Tester {
 
 	}
 
-	protected boolean isComponentSelectionEvent(AWTEvent event) {
-		if (!(event instanceof MouseEvent)) {
-			return false;
+	protected boolean isFocusOnComponentEvent(AWTEvent event) {
+		if (event instanceof MouseEvent) {
+			MouseEvent mouseEvent = (MouseEvent) event;
+			if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
+				if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+					return true;
+				}
+			}
 		}
-		MouseEvent mouseEvent = (MouseEvent) event;
-		if (mouseEvent.getID() != MouseEvent.MOUSE_CLICKED) {
-			return false;
+		if (event instanceof WindowEvent) {
+			WindowEvent windowEvent = (WindowEvent) event;
+			if (windowEvent.getID() == WindowEvent.WINDOW_CLOSING) {
+				return true;
+			}
 		}
-		if (mouseEvent.getButton() != MouseEvent.BUTTON1) {
-			return false;
-		}
-		return true;
+		return false;
 	}
 
 	protected String getComponentSelectionActionTitle() {
@@ -366,9 +395,8 @@ public class Tester {
 			currentComponentBorder = ((JComponent) currentComponent)
 					.getBorder();
 			((JComponent) currentComponent).setBorder(BorderFactory
-					.createCompoundBorder(BorderFactory
-							.createLineBorder(HIGHLIGHT_FOREGROUND, 5),
-							currentComponentBorder));
+					.createCompoundBorder(BorderFactory.createLineBorder(
+							HIGHLIGHT_FOREGROUND, 5), currentComponentBorder));
 		}
 	}
 

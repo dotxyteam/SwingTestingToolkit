@@ -1,4 +1,3 @@
-. extract jlist, jtree, jtable strings
 - record close box action
 - wait action
 - double click, mouse down or up, mouse motion events

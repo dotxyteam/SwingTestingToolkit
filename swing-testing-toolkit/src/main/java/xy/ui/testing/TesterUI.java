@@ -32,6 +32,7 @@ import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.CallMainMethodAction;
+import xy.ui.testing.action.CloseWindowAction;
 import xy.ui.testing.action.SendClickAction;
 import xy.ui.testing.action.SendKeysAction;
 import xy.ui.testing.action.SendKeysAction.KeyboardInteraction;
@@ -48,7 +49,8 @@ public class TesterUI extends ReflectionUI {
 	public final static TesterUI INSTANCE = new TesterUI();
 	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] {
 			CallMainMethodAction.class, SendClickAction.class,
-			SendKeysAction.class, CheckWindowVisibleStringsAction.class };
+			SendKeysAction.class, CheckWindowVisibleStringsAction.class,
+			CloseWindowAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
 			ClassBasedComponentFinder.class,
 			VisibleStringComponentFinder.class, WindowFinder.class };
