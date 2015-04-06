@@ -10,8 +10,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,18 +24,21 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 
-import com.thoughtworks.xstream.XStream;
-
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
+import com.thoughtworks.xstream.XStream;
+
 public class Tester {
 
+	public static final Color HIGHLIGHT_FOREGROUND = new Color(224, 75, 75);
+	public static final Color HIGHLIGHT_BACKGROUND = new Color(255, 242, 0);
+
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
-	protected int millisecondsBetwneenActions = 3000;
+	protected int millisecondsBetwneenActions = 5000;
 
 	transient protected AWTEventListener recordingListener;
 	transient protected Component currentComponent;
@@ -41,6 +47,20 @@ public class Tester {
 	transient protected MouseListener[] currentComponentMouseListeners;
 	transient protected JPopupMenu popupMenu = new JPopupMenu();
 	transient protected boolean recording = false;
+
+	public static void assertSuccessfulReplay(File replayFile)
+			throws IOException {
+		Tester tester = new Tester();
+		tester.loadFromFile(replayFile);
+		tester.playAll();
+	}
+
+	public static void assertSuccessfulReplay(InputStream replayStream)
+			throws IOException {
+		Tester tester = new Tester();
+		tester.loadFromStream(replayStream);
+		tester.playAll();
+	}
 
 	public Tester() {
 		recordingListener = new AWTEventListener() {
@@ -121,7 +141,7 @@ public class Tester {
 		}
 	}
 
-	public void startRecording() {
+	public void record() {
 		if (isRecording()) {
 			return;
 		}
@@ -196,7 +216,7 @@ public class Tester {
 							} catch (InterruptedException e) {
 								throw new TestingError(e);
 							}
-							startRecording();
+							record();
 						}
 					}.start();
 				}
@@ -222,8 +242,9 @@ public class Tester {
 
 	protected void createComponentSelectionMenuItems(final Component c) {
 		for (final TestAction testAction : getPossibleTestActions(c)) {
-			JMenuItem item = new JMenuItem("Record For This Component: "
-					+ TesterUI.INSTANCE.getObjectKind(testAction));
+			JMenuItem item = new JMenuItem("Record: "
+					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
+							" Action$", ""));
 			item.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -330,15 +351,27 @@ public class Tester {
 	protected void highlightCurrentComponent() {
 		currentComponentBackground = currentComponent.getBackground();
 		if (currentComponentBackground != null) {
-			currentComponent.setBackground(new Color(255, 200, 0));
+			currentComponent.setBackground(HIGHLIGHT_BACKGROUND);
 		}
 		currentComponentForeground = currentComponent.getForeground();
 		if (currentComponentForeground != null) {
-			currentComponent.setForeground(new Color(136, 0, 21));
+			currentComponent.setForeground(HIGHLIGHT_FOREGROUND);
 		}
 	}
 
-	public void loadFromFile(File input) {
+	public void loadFromFile(File input) throws IOException {
+		FileInputStream stream = new FileInputStream(input);
+		try {
+			loadFromStream(stream);
+		} finally {
+			try {
+				stream.close();
+			} catch (Exception ignore) {
+			}
+		}
+	}
+
+	public void loadFromStream(InputStream input) {
 		XStream xstream = new XStream();
 		Tester loaded = (Tester) xstream.fromXML(input);
 		testActions = loaded.testActions;
@@ -346,11 +379,20 @@ public class Tester {
 	}
 
 	public void saveToFile(File output) throws IOException {
+		FileOutputStream stream = new FileOutputStream(output);
+		try {
+			saveToStream(stream);
+		} finally {
+			try {
+				stream.close();
+			} catch (Exception ignore) {
+			}
+		}
+	}
+
+	public void saveToStream(OutputStream output) throws IOException {
 		XStream xstream = new XStream();
-		FileWriter fileWriter = new FileWriter(output);
-		xstream.toXML(this, fileWriter);
-		fileWriter.flush();
-		fileWriter.close();
+		xstream.toXML(this, output);
 	}
 
 }

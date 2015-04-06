@@ -1,14 +1,19 @@
 package xy.ui.testing;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.Window;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -65,8 +70,7 @@ public class TesterUI extends ReflectionUI {
 				String fileName = args[0];
 				tester.loadFromFile(new File(fileName));
 			}
-			INSTANCE.openObjectFrame(tester, INSTANCE.getObjectKind(tester),
-					null);
+			INSTANCE.openObjectFrame(tester);
 		} catch (Throwable t) {
 			t.printStackTrace();
 			JOptionPane.showMessageDialog(null, t.toString(), null,
@@ -265,6 +269,15 @@ public class TesterUI extends ReflectionUI {
 				if (method.getName().equals("collectVisibleStrings")) {
 					return true;
 				}
+				if (method.getName().equals("loadFromStream")) {
+					return true;
+				}
+				if (method.getName().equals("saveToStream")) {
+					return true;
+				}
+				if (method.getName().equals("assertSuccessfulReplay")) {
+					return true;
+				}
 				return super.excludeMethod(method);
 			}
 
@@ -273,11 +286,29 @@ public class TesterUI extends ReflectionUI {
 				if (field.getName().equals("keyStrokes")) {
 					return true;
 				}
+				if (field.getName().equals("valueDescription")) {
+					return true;
+				}
 				return super.excludeField(field);
 			}
 
 		};
 		return super.createObjectForm(object, settings);
+	}
+
+	@Override
+	public Image getObjectIconImage(Object object) {
+		String imageResourceName = object.getClass().getSimpleName() + ".png";
+		if (TesterUI.class.getResource(imageResourceName) != null) {
+			try {
+				return ImageIO.read(TesterUI.class
+						.getResourceAsStream(imageResourceName));
+			} catch (IOException e) {
+				throw new AssertionError(e);
+			}
+		} else {
+			return super.getObjectIconImage(object);
+		}
 	}
 
 }

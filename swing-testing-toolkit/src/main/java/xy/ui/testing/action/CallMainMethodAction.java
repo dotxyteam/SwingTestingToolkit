@@ -52,8 +52,12 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
+	public String getValueDescription() {
+		return className;
+	}
+
+	@Override
 	public String toString() {
 		return "Call main method of <" + className + ">";
 	}
-
 }

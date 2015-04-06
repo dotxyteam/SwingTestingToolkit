@@ -3,6 +3,7 @@ package xy.ui.testing.action;
 import java.awt.Component;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -62,8 +63,11 @@ public class CheckWindowVisibleStringsAction extends TestAction {
 		});
 		return result;
 	}
-	
 
+	@Override
+	public String getValueDescription() {
+		return  Arrays.toString(visibleStrings.toArray());
+	}
 
 	@Override
 	public String toString() {

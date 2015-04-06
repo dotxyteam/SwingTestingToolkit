@@ -18,7 +18,7 @@ import xy.ui.testing.util.TestingError;
 
 public class SendKeysAction extends TestAction {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected List<KeyboardInteraction> keyboardInteractions = new ArrayList<KeyboardInteraction>();
 	protected boolean requestToFocusOnTheComponent = true;
 
@@ -42,18 +42,17 @@ public class SendKeysAction extends TestAction {
 		this.keyboardInteractions.addAll(Arrays.asList(keyboardInteractions));
 	}
 
-
 	@Override
 	protected boolean initializeSpecificProperties(Component c) {
 		return true;
 	}
-	
+
 	@Override
 	public void execute(final Component c) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				if(requestToFocusOnTheComponent){
+				if (requestToFocusOnTheComponent) {
 					c.requestFocus();
 				}
 				for (KeyboardInteraction interaction : keyboardInteractions) {
@@ -67,8 +66,13 @@ public class SendKeysAction extends TestAction {
 	}
 
 	@Override
+	public String getValueDescription() {
+		return Arrays.toString(keyboardInteractions.toArray());
+	}
+
+	@Override
 	public String toString() {
-		return "Send " + Arrays.toString(keyboardInteractions.toArray())
+		return "Send " + getValueDescription()
 				+ " event(s) to the " + getComponentFinder();
 	}
 

@@ -14,6 +14,8 @@ public abstract class TestAction implements Serializable{
 	protected ComponentFinder componentFinder;
 
 	public abstract void execute(Component c);
+	public abstract String getValueDescription(); 
+	
 	protected abstract boolean initializeSpecificProperties(Component c);
 
 	public ComponentFinder getComponentFinder() {

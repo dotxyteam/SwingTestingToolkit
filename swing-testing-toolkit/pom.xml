@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>xy</groupId>
 	<artifactId>swing-testing-toolkit</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>Swing Testing</name>
 	<dependencies>
 		<dependency>
