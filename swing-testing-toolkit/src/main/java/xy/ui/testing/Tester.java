@@ -20,9 +20,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.TestAction;
@@ -34,8 +37,8 @@ import com.thoughtworks.xstream.XStream;
 
 public class Tester {
 
-	public static final Color HIGHLIGHT_FOREGROUND = new Color(224, 75, 75);
-	public static final Color HIGHLIGHT_BACKGROUND = new Color(255, 242, 0);
+	public static final Color HIGHLIGHT_FOREGROUND = new Color(255, 0, 0);
+	public static final Color HIGHLIGHT_BACKGROUND = new Color(255, 220, 220);
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
 	protected int millisecondsBetwneenActions = 5000;
@@ -47,6 +50,7 @@ public class Tester {
 	transient protected MouseListener[] currentComponentMouseListeners;
 	transient protected JPopupMenu popupMenu = new JPopupMenu();
 	transient protected boolean recording = false;
+	private Border currentComponentBorder;
 
 	public static void assertSuccessfulReplay(File replayFile)
 			throws IOException {
@@ -201,7 +205,7 @@ public class Tester {
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Do Not Record The Next Action");
+		JMenuItem menuItem = new JMenuItem("Do not record the next action");
 		{
 			menuItem.addActionListener(new ActionListener() {
 				@Override
@@ -242,7 +246,7 @@ public class Tester {
 
 	protected void createComponentSelectionMenuItems(final Component c) {
 		for (final TestAction testAction : getPossibleTestActions(c)) {
-			JMenuItem item = new JMenuItem("Record: "
+			JMenuItem item = new JMenuItem("(Execute and Record) "
 					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
 							" Action$", ""));
 			item.addActionListener(new ActionListener() {
@@ -346,16 +350,25 @@ public class Tester {
 	protected void unhighlightCurrentComponent() {
 		currentComponent.setBackground(currentComponentBackground);
 		currentComponent.setForeground(currentComponentForeground);
+		if (currentComponent instanceof JComponent) {
+			((JComponent) currentComponent).setBorder(currentComponentBorder);
+		}
 	}
 
 	protected void highlightCurrentComponent() {
 		currentComponentBackground = currentComponent.getBackground();
-		if (currentComponentBackground != null) {
-			currentComponent.setBackground(HIGHLIGHT_BACKGROUND);
-		}
+		currentComponent.setBackground(HIGHLIGHT_BACKGROUND);
+
 		currentComponentForeground = currentComponent.getForeground();
-		if (currentComponentForeground != null) {
-			currentComponent.setForeground(HIGHLIGHT_FOREGROUND);
+		currentComponent.setForeground(HIGHLIGHT_FOREGROUND);
+
+		if (currentComponent instanceof JComponent) {
+			currentComponentBorder = ((JComponent) currentComponent)
+					.getBorder();
+			((JComponent) currentComponent).setBorder(BorderFactory
+					.createCompoundBorder(BorderFactory
+							.createLineBorder(HIGHLIGHT_FOREGROUND, 5),
+							currentComponentBorder));
 		}
 	}
 

@@ -1,13 +1,15 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
-import java.lang.reflect.Method;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import xy.ui.testing.util.TestingUtils;
 
 public class VisibleStringComponentFinder extends ComponentFinder {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected String visibleString = "";
 
 	public String getVisibleString() {
@@ -20,43 +22,15 @@ public class VisibleStringComponentFinder extends ComponentFinder {
 
 	@Override
 	protected boolean initializeSpecificCriterias(Component c) {
-		visibleString = extractVisibleString(c);
-		return visibleString != null;
+		visibleString = StringUtils.join(TestingUtils.extractVisibleStrings(c),
+				", ");
+		return visibleString.length() > 0;
 	}
 
 	@Override
 	protected boolean matchesInContainingWindow(Component c) {
-		return visibleString.equals(extractVisibleString(c));
-	}
-
-	public static String extractVisibleString(Component c) {
-		String s;
-		s = extractVisibleStringThroughMethod(c, "getTitle");
-		if (s != null) {
-			return s;
-		}
-		s = extractVisibleStringThroughMethod(c, "getText");
-		if (s != null) {
-			return s;
-		}
-		return null;
-	}
-
-	protected static String extractVisibleStringThroughMethod(Component c,
-			String methodName) {
-		try {
-			Method method = c.getClass().getMethod(methodName);
-			String result = (String) method.invoke(c);
-			if (result == null) {
-				return null;
-			}
-			if (result.trim().length() == 0) {
-				return null;
-			}
-			return result;
-		} catch (Exception e) {
-			return null;
-		}
+		return visibleString.equals(StringUtils.join(
+				TestingUtils.extractVisibleStrings(c), ", "));
 	}
 
 	@Override

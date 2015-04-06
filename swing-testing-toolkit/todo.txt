@@ -1,13 +1,10 @@
-- make the test action list tabular (add a getter to testAction)
-- list table renderers are not findable (!isShowing())
-- tester icon
-- generate testing code
-- send keys action:
-	. list of different types of elemnts 
-	. special key type (vk_* + mofifier)
-	. text type
-- CheckVisibleStringsAction
-	. extract jtable jtree strings
-- Replay command
+. extract jlist, jtree, jtable strings
 - record close box action
-- class launcher (call main)???
+- wait action
+- double click, mouse down or up, mouse motion events
+- jlist, jtree, jtable, jcombobox, ... specific actions
+- extensivity
+- list table renderers are not findable (!isShowing())
+- generate testing code
+- CheckVisibleStringsAction
+- remove nullability

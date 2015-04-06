@@ -8,12 +8,25 @@ import java.awt.Window;
 import java.awt.event.AWTEventListener;
 import java.awt.event.AWTEventListenerProxy;
 import java.awt.event.MouseListener;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.tree.TreeModel;
 
 import xy.ui.testing.TesterUI;
 
@@ -107,16 +120,153 @@ public class TestingUtils {
 		}
 	}
 
-	public static void launchClassMainMethod(String mainClassName) throws Exception{
+	public static void launchClassMainMethod(String mainClassName)
+			throws Exception {
 		Class.forName(mainClassName)
 				.getMethod("main", new Class[] { String[].class })
 				.invoke(null, new Object[] { new String[0] });
 	}
 
-	public static <T> List<T> getReversed(
-			List<T> list) {
+	public static <T> List<T> getReversed(List<T> list) {
 		List<T> result = new ArrayList<T>(list);
 		Collections.reverse(result);
+		return result;
+	}
+
+	public static List<String> extractVisibleStrings(Component c) {
+		List<String> result = new ArrayList<String>();
+		String s;
+		s = extractVisibleStringThroughMethod(c, "getTitle");
+		if (s != null) {
+			result.add(s);
+		}
+		s = extractVisibleStringThroughMethod(c, "getText");
+		if (s != null) {
+			result.add(s);
+		}
+		if (c instanceof JComponent) {
+			Border border = ((JComponent) c).getBorder();
+			if (border != null) {
+				s = extractVisibleStringFromBorder(border);
+				if ((s != null) && (s.trim().length() > 0)) {
+					result.add(s);
+				}
+			}
+		}
+		if (c instanceof JTable) {
+			JTable table = (JTable) c;
+			result.addAll(extractVisibleStringsFromTable(table));
+		}
+		if (c instanceof JTree) {
+			JTree tree = (JTree) c;
+			result.addAll(extractVisibleStringsFromTree(tree));
+		}
+		if (c instanceof JList) {
+			JList list = (JList) c;
+			result.addAll(extractVisibleStringsFromList(list));
+		}
+		return result;
+	}
+
+	private static String extractVisibleStringFromBorder(Border border) {
+		if (border instanceof TitledBorder) {
+			String s = ((TitledBorder) border).getTitle();
+			if ((s != null) && (s.trim().length() > 0)) {
+				return s;
+			}
+		}
+		return null;
+	}
+
+
+	private static Collection<? extends String> extractVisibleStringsFromList(
+			JList list) {
+		List<String> result = new ArrayList<String>();
+		ListModel model = list.getModel();
+		ListCellRenderer cellRenderer = list.getCellRenderer();
+		for(int i=0; i<model.getSize(); i++){
+			Object item = model.getElementAt(i);
+			Component cellComponent = cellRenderer.getListCellRendererComponent(list, item, i, false, false);
+			result.addAll(extractVisibleStrings(cellComponent));
+		}
+		return result;
+	}
+
+	private static List<String> extractVisibleStringsFromTable(JTable table) {
+		List<String> result = new ArrayList<String>();
+		TableModel model = table.getModel();
+		String s;
+		for (int i = 0; i < model.getColumnCount(); i++) {
+			s = model.getColumnName(i);
+			if ((s != null) && (s.trim().length() > 0)) {
+				result.add(s);
+			}
+		}
+		for (int iRow = 0; iRow < model.getRowCount(); iRow++) {
+			for (int iCol = 0; iCol < model.getColumnCount(); iCol++) {
+				Object cellValue = model.getValueAt(iRow, iCol);
+				TableCellRenderer cellRenderer = table.getCellRenderer(iRow,
+						iCol);
+				Component cellComponent = cellRenderer
+						.getTableCellRendererComponent(table, cellValue, false,
+								false, iRow, iCol);
+				result.addAll(extractVisibleStrings(cellComponent));
+			}
+		}
+		return result;
+	}
+
+	private static Collection<? extends String> extractVisibleStringsFromTree(
+			JTree tree) {
+		List<String> result = new ArrayList<String>();
+		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
+		return result;
+	}
+
+	private static List<String> extractVisibleStringsFromTree(int currentRow,
+			Object currentNode, JTree tree) {
+		List<String> result = new ArrayList<String>();
+		TreeModel model = tree.getModel();
+		String s = tree.convertValueToText(currentNode, false, true,
+				model.isLeaf(currentNode), currentRow, false);
+		if ((s != null) && (s.trim().length() > 0)) {
+			result.add(s);
+		}
+		for (int i = 0; i < model.getChildCount(currentNode); i++) {
+			Object childNode = model.getChild(currentNode, i);
+			result.addAll(extractVisibleStringsFromTree(currentRow + 1, childNode,
+					tree));
+		}
+		return result;
+	}
+
+	private static String extractVisibleStringThroughMethod(Component c,
+			String methodName) {
+		try {
+			Method method = c.getClass().getMethod(methodName);
+			String result = (String) method.invoke(c);
+			if (result == null) {
+				return null;
+			}
+			if (result.trim().length() == 0) {
+				return null;
+			}
+			return result;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public static Collection<String> collectVisibleStrings(Window window) {
+		final List<String> result = new ArrayList<String>();
+		visitComponentTree(window, new IComponentTreeVisitor() {
+
+			@Override
+			public boolean visit(Component c) {
+				result.addAll(extractVisibleStrings(c));
+				return true;
+			}
+		});
 		return result;
 	}
 }

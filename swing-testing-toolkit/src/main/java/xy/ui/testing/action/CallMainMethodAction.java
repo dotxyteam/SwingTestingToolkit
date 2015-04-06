@@ -23,7 +23,7 @@ public class CallMainMethodAction extends TestAction {
 	@Override
 	public void setComponentFinder(ComponentFinder componentFinder) {
 		throw new TestingError(
-				"cannot set the component finder for this type of action");
+				"Cannot set the component finder for this type of action");
 	}
 
 	@Override
