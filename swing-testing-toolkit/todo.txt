@@ -1,4 +1,4 @@
-- record close box action
+- remove list multiple elements does not undo in batch mode
 - wait action
 - double click, mouse down or up, mouse motion events
 - jlist, jtree, jtable, jcombobox, ... specific actions
