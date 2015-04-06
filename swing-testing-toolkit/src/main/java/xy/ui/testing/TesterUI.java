@@ -1,10 +1,8 @@
 package xy.ui.testing;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Dialog.ModalExclusionType;
-import java.awt.Window;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
