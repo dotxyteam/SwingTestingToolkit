@@ -2,7 +2,7 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 
-public class ClassBasedComponentFinder extends ComponentFinder {
+public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 	
 	protected String className = "";

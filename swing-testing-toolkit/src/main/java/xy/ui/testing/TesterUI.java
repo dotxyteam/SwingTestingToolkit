@@ -1,8 +1,13 @@
 package xy.ui.testing;
 
+import java.awt.Color;
 import java.awt.Component;
-import java.awt.Image;
+import java.awt.Container;
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Window;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,8 +26,8 @@ import xy.reflect.ui.info.InfoCollectionSettingsProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.IListTypeInfo;
-import xy.reflect.ui.info.type.IListTypeInfo.ItemPosition;
 import xy.reflect.ui.info.type.IListTypeInfo.IListAction;
+import xy.reflect.ui.info.type.IListTypeInfo.ItemPosition;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfoSource;
 import xy.reflect.ui.info.type.TypeInfoProxyConfiguration;
@@ -30,8 +35,8 @@ import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.ui.testing.action.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.CallMainMethodAction;
+import xy.ui.testing.action.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.CloseWindowAction;
 import xy.ui.testing.action.SendClickAction;
 import xy.ui.testing.action.SendKeysAction;
@@ -43,7 +48,10 @@ import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.WindowFinder;
+import xy.ui.testing.util.AlternateWindowDecorationsPanel;
+import xy.ui.testing.util.TestingUtils;
 
+@SuppressWarnings("unused")
 public class TesterUI extends ReflectionUI {
 
 	public final static TesterUI INSTANCE = new TesterUI();
@@ -57,7 +65,9 @@ public class TesterUI extends ReflectionUI {
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class };
 
-	private Component componentFinderInitializationSource;
+	protected Component componentFinderInitializationSource;
+	protected Map<String, Image> imageCache = new HashMap<String, Image>();
+	protected TestAction lastExecutedTestAction;
 
 	public static void main(String[] args) {
 		try {
@@ -78,6 +88,14 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected TesterUI() {
+	}
+
+	public TestAction getLastExecutedTestAction() {
+		return lastExecutedTestAction;
+	}
+
+	public void setLastExecutedTestAction(TestAction lastExecutedTestAction) {
+		this.lastExecutedTestAction = lastExecutedTestAction;
 	}
 
 	@Override
@@ -250,6 +268,9 @@ public class TesterUI extends ReflectionUI {
 				if (method.getName().equals("execute")) {
 					return true;
 				}
+				if (method.getName().equals("findComponent")) {
+					return true;
+				}
 				if (method.getName().equals("find")) {
 					return true;
 				}
@@ -299,15 +320,84 @@ public class TesterUI extends ReflectionUI {
 	public Image getObjectIconImage(Object object) {
 		String imageResourceName = object.getClass().getSimpleName() + ".png";
 		if (TesterUI.class.getResource(imageResourceName) != null) {
-			try {
-				return ImageIO.read(TesterUI.class
-						.getResourceAsStream(imageResourceName));
-			} catch (IOException e) {
-				throw new AssertionError(e);
+			Image result = imageCache.get(imageResourceName);
+			if (result == null) {
+				try {
+					result = ImageIO.read(TesterUI.class
+							.getResourceAsStream(imageResourceName));
+				} catch (IOException e) {
+					throw new AssertionError(e);
+				}
+				imageCache.put(imageResourceName, result);
 			}
+			if (object instanceof TestAction) {
+				if (object != lastExecutedTestAction) {
+					imageResourceName = "unhiglighted-" + imageResourceName;
+					Image unhighlighted = imageCache.get(imageResourceName);
+					if (unhighlighted == null) {
+						unhighlighted = unhighlightIconImage(result);
+						imageCache.put(imageResourceName, unhighlighted);
+					}
+					result = unhighlighted;
+				}
+			}
+			return result;
+
 		} else {
 			return super.getObjectIconImage(object);
 		}
+	}
+
+	protected Image unhighlightIconImage(Image image) {
+		BufferedImage result = new BufferedImage(image.getWidth(null),
+				image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		Graphics graphics = result.getGraphics();
+		graphics.drawImage(image, 0, 0, null);
+		graphics.dispose();
+		for (int i = 0; i < result.getWidth(); i++) {
+			for (int j = 0; j < result.getHeight(); j++) {
+				Color color = new Color(result.getRGB(i, j), true);
+				int grayLevel = Math
+						.round((color.getRed() + color.getGreen() + color
+								.getBlue()) / 3f);
+				Color newColor = new Color(grayLevel, grayLevel, grayLevel,
+						color.getAlpha());
+				result.setRGB(i, j, newColor.getRGB());
+			}
+		}
+		return result;
+	}
+
+	public void upadateTestActionsControl(Tester tester) {
+		for (JPanel form : getForms(tester)) {
+			refreshFieldControl(form, "testActions");
+		}
+	}
+
+	@Override
+	public Container createWindowContentPane(Window window, Component content,
+			List<? extends Component> toolbarControls) {
+		Container result = super.createWindowContentPane(window, content, toolbarControls);
+		AlternateWindowDecorationsPanel decorationsPanel = new AlternateWindowDecorationsPanel(
+				ReflectionUIUtils.getWindowTitle(window)){
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public Color getDecorationsBackgroundColor() {
+						return Tester.HIGHLIGHT_BACKGROUND;
+					}
+
+					@Override
+					public Color getDecorationsForegroundColor() {
+						return Tester.HIGHLIGHT_FOREGROUND;
+					}
+			
+		};
+		decorationsPanel.configureWindow(window);
+		decorationsPanel.getContentPanel().add(result);
+		result = decorationsPanel;
+		return result;
 	}
 
 }

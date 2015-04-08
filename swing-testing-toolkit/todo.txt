@@ -3,7 +3,5 @@
 - double click, mouse down or up, mouse motion events
 - jlist, jtree, jtable, jcombobox, ... specific actions
 - extensivity
-- list table renderers are not findable (!isShowing())
-- generate testing code
-- CheckVisibleStringsAction
+- generate testing code???
 - remove nullability

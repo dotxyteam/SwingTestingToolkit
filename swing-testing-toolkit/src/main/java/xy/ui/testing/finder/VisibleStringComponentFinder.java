@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import xy.ui.testing.util.TestingUtils;
 
-public class VisibleStringComponentFinder extends ComponentFinder {
+public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 
 	protected String visibleString = "";

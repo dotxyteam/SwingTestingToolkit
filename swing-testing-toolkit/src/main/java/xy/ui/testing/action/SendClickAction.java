@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 import xy.ui.testing.util.TestingError;
 
-public class SendClickAction extends TestAction {
+public class SendClickAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
 	public enum ButtonId {

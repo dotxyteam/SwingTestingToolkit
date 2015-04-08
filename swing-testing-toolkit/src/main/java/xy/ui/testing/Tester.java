@@ -30,14 +30,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
 public class Tester {
 
@@ -47,14 +48,14 @@ public class Tester {
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
 	protected int millisecondsBetwneenActions = 5000;
 
-	transient protected AWTEventListener recordingListener;
-	transient protected Component currentComponent;
-	transient protected Color currentComponentBackground;
-	transient protected Color currentComponentForeground;
-	transient protected MouseListener[] currentComponentMouseListeners;
-	transient protected JPopupMenu popupMenu = new JPopupMenu();
-	transient protected boolean recording = false;
-	private Border currentComponentBorder;
+	protected AWTEventListener recordingListener;
+	protected Component currentComponent;
+	protected Color currentComponentBackground;
+	protected Color currentComponentForeground;
+	protected MouseListener[] currentComponentMouseListeners;
+	protected JPopupMenu popupMenu = new JPopupMenu();
+	protected boolean recording = false;
+	protected Border currentComponentBorder;
 
 	public static void assertSuccessfulReplay(File replayFile)
 			throws IOException {
@@ -116,25 +117,19 @@ public class Tester {
 			stopRecording();
 		}
 		for (int i = 0; i < toReplay.size(); i++) {
+			if (Thread.currentThread().isInterrupted()) {
+				break;
+			}
 			if (runBeforeEachAction != null) {
 				runBeforeEachAction.run();
 			}
 			final TestAction testAction = toReplay.get(i);
 			try {
-				if (i > 0) {
-					Thread.sleep(millisecondsBetwneenActions);
-				}
-				ComponentFinder componentFinder = testAction
-						.getComponentFinder();
-				final Component c;
-				if (componentFinder == null) {
-					c = null;
-				} else {
-					c = componentFinder.find();
-					if (c == null) {
-						throw new TestingError("Unable to find "
-								+ componentFinder.toString());
-					}
+				TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
+				TesterUI.INSTANCE.upadateTestActionsControl(Tester.this);
+				Thread.sleep(millisecondsBetwneenActions);
+				Component c = testAction.findComponent();
+				if (c != null) {
 					currentComponent = c;
 					highlightCurrentComponent();
 					Thread.sleep(1000);
@@ -143,6 +138,13 @@ public class Tester {
 				}
 				testAction.execute(c);
 			} catch (Exception e) {
+				if (e instanceof InterruptedException) {
+					if (currentComponent != null) {
+						unhighlightCurrentComponent();
+						currentComponent = null;
+					}
+					break;
+				}
 				throw new TestingError("Test Action n°" + (i + 1) + ": "
 						+ e.toString(), e);
 			}
@@ -396,7 +398,7 @@ public class Tester {
 					.getBorder();
 			((JComponent) currentComponent).setBorder(BorderFactory
 					.createCompoundBorder(BorderFactory.createLineBorder(
-							HIGHLIGHT_FOREGROUND, 5), currentComponentBorder));
+							HIGHLIGHT_FOREGROUND, 1), currentComponentBorder));
 		}
 	}
 
@@ -414,6 +416,8 @@ public class Tester {
 
 	public void loadFromStream(InputStream input) {
 		XStream xstream = new XStream();
+		xstream.registerConverter(new JavaBeanConverter(xstream.getMapper()),
+				-20);
 		Tester loaded = (Tester) xstream.fromXML(input);
 		testActions = loaded.testActions;
 		millisecondsBetwneenActions = loaded.millisecondsBetwneenActions;
@@ -433,6 +437,8 @@ public class Tester {
 
 	public void saveToStream(OutputStream output) throws IOException {
 		XStream xstream = new XStream();
+		xstream.registerConverter(new JavaBeanConverter(xstream.getMapper()),
+				-20);
 		xstream.toXML(this, output);
 	}
 

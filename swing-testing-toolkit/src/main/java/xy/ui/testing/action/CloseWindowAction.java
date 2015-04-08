@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent;
 
 import xy.ui.testing.finder.WindowFinder;
 
-public class CloseWindowAction extends TestAction {
+public class CloseWindowAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
 

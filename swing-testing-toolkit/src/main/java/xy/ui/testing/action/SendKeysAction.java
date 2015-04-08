@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import xy.ui.testing.util.StandardKey;
 import xy.ui.testing.util.TestingError;
 
-public class SendKeysAction extends TestAction {
+public class SendKeysAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
 	protected List<KeyboardInteraction> keyboardInteractions = new ArrayList<KeyboardInteraction>();

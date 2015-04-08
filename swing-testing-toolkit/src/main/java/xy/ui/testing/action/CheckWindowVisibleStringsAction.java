@@ -4,14 +4,13 @@ import java.awt.Component;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 import xy.ui.testing.finder.WindowFinder;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
-public class CheckWindowVisibleStringsAction extends TestAction {
+public class CheckWindowVisibleStringsAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,22 +37,28 @@ public class CheckWindowVisibleStringsAction extends TestAction {
 	@Override
 	public void execute(Component c) {
 		Window window = TestingUtils.getWindowAncestorOrSelf(c);
-		Collection<String> currentVisibleStrings = TestingUtils.collectVisibleStrings(window);
+		List<String> currentVisibleStrings = TestingUtils
+				.collectVisibleStrings(window);
 		if (!visibleStrings.equals(currentVisibleStrings)) {
 			throw new TestingError(
 					"The visible strings have changed: These are the original and the current visible strings:\n"
-							+ visibleStrings + "\n" + currentVisibleStrings);
+							+ TestingUtils.formatVisibleStrings(visibleStrings)
+							+ "\n"
+							+ TestingUtils.formatVisibleStrings(currentVisibleStrings));
 		}
+	}
+	
+	public void loadVisibleStringsFromText(String s){
+		visibleStrings = TestingUtils.parseVisibleStrings(s);
 	}
 
 	@Override
 	public String getValueDescription() {
-		return  Arrays.toString(visibleStrings.toArray());
+		return Arrays.toString(visibleStrings.toArray());
 	}
 
 	@Override
 	public String toString() {
 		return "Check the visible strings of the " + getComponentFinder();
 	}
-
 }

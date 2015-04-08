@@ -14,6 +14,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -27,6 +30,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreeModel;
+
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.text.StrBuilder;
 
 import xy.ui.testing.TesterUI;
 
@@ -72,7 +78,13 @@ public class TestingUtils {
 		int red = (color.getRed() + redOffset) % 256;
 		int green = (color.getGreen() + greenOffset) % 256;
 		int blue = (color.getBlue() + blueOffset) % 256;
-		return new Color(red, green, blue);
+		while (red < 0)
+			red += 256;
+		while (green < 0)
+			green += 256;
+		while (blue < 0)
+			blue += 256;
+		return new Color(red, green, blue, color.getAlpha());
 	}
 
 	public static Window getWindowAncestorOrSelf(Component c) {
@@ -178,15 +190,15 @@ public class TestingUtils {
 		return null;
 	}
 
-
-	private static Collection<? extends String> extractVisibleStringsFromList(
+	private static Collection<String> extractVisibleStringsFromList(
 			JList list) {
 		List<String> result = new ArrayList<String>();
 		ListModel model = list.getModel();
 		ListCellRenderer cellRenderer = list.getCellRenderer();
-		for(int i=0; i<model.getSize(); i++){
+		for (int i = 0; i < model.getSize(); i++) {
 			Object item = model.getElementAt(i);
-			Component cellComponent = cellRenderer.getListCellRendererComponent(list, item, i, false, false);
+			Component cellComponent = cellRenderer
+					.getListCellRendererComponent(list, item, i, false, false);
 			result.addAll(extractVisibleStrings(cellComponent));
 		}
 		return result;
@@ -219,7 +231,8 @@ public class TestingUtils {
 	private static Collection<? extends String> extractVisibleStringsFromTree(
 			JTree tree) {
 		List<String> result = new ArrayList<String>();
-		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
+		result.addAll(extractVisibleStringsFromTree(0, tree.getModel()
+				.getRoot(), tree));
 		return result;
 	}
 
@@ -234,8 +247,8 @@ public class TestingUtils {
 		}
 		for (int i = 0; i < model.getChildCount(currentNode); i++) {
 			Object childNode = model.getChild(currentNode, i);
-			result.addAll(extractVisibleStringsFromTree(currentRow + 1, childNode,
-					tree));
+			result.addAll(extractVisibleStringsFromTree(currentRow + 1,
+					childNode, tree));
 		}
 		return result;
 	}
@@ -257,7 +270,7 @@ public class TestingUtils {
 		}
 	}
 
-	public static Collection<String> collectVisibleStrings(Window window) {
+	public static List<String> collectVisibleStrings(Window window) {
 		final List<String> result = new ArrayList<String>();
 		visitComponentTree(window, new IComponentTreeVisitor() {
 
@@ -268,5 +281,31 @@ public class TestingUtils {
 			}
 		});
 		return result;
+	}
+
+	public static String formatVisibleStrings(List<String> visibleStrings) {
+		StrBuilder result = new StrBuilder();
+		for (int i = 0; i < visibleStrings.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			String s = visibleStrings.get(i);
+			s = "\"" + StringEscapeUtils.escapeJava(s) + "\"";
+			result.append(s);
+		}
+		return result.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<String> parseVisibleStrings(
+			String formattedVisibleStrings) {
+		ScriptEngineManager factory = new ScriptEngineManager();
+		ScriptEngine engine = factory.getEngineByName("JavaScript");
+		try {
+			return (List<String>) engine.eval("java.util.Arrays.asList("
+					+ formattedVisibleStrings + ")");
+		} catch (ScriptException e) {
+			throw new TestingError("The string list is invalid", e);
+		}
 	}
 }

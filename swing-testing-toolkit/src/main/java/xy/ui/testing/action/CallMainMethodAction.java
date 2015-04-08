@@ -2,7 +2,6 @@ package xy.ui.testing.action;
 
 import java.awt.Component;
 
-import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
@@ -12,27 +11,16 @@ public class CallMainMethodAction extends TestAction {
 
 	protected String className = "";
 
-	public String getMainClassName() {
+	public String getClassName() {
 		return className;
 	}
 
-	public void setMainClassName(String mainClassName) {
+	public void setClassName(String mainClassName) {
 		this.className = mainClassName;
 	}
 
 	@Override
-	public void setComponentFinder(ComponentFinder componentFinder) {
-		throw new TestingError(
-				"Cannot set the component finder for this type of action");
-	}
-
-	@Override
 	public boolean initializeFrom(Component c) {
-		return false;
-	}
-
-	@Override
-	protected boolean initializeSpecificProperties(Component c) {
 		return false;
 	}
 
@@ -57,7 +45,18 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
+	public Component findComponent() {
+		return null;
+	}
+
+	@Override
+	public String getComponentDescription() {
+		return "";
+	}
+
+	@Override
 	public String toString() {
 		return "Call main method of <" + className + ">";
 	}
+
 }

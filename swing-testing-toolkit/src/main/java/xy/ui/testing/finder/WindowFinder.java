@@ -1,31 +1,47 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
-
-import xy.ui.testing.util.TestingError;
+import java.awt.Window;
 
 public class WindowFinder extends ComponentFinder {
 
 	private static final long serialVersionUID = 1L;
+	protected MatchingComponentFinder subFinder = new MatchingComponentFinder() {
 
-	@Override
-	protected boolean matchesInContainingWindow(Component c) {
-		return true;
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		protected boolean matchesInContainingWindow(Component c) {
+			return c instanceof Window;
+		}
+
+		@Override
+		protected boolean initializeSpecificCriterias(Component c) {
+			return true;
+		}
+	};
+
+	public int getWindowIndex() {
+		return subFinder.getWindowIndex();
+	}
+
+	public void setWindowIndex(int index) {
+		subFinder.setWindowIndex(index);
 	}
 
 	@Override
-	protected boolean initializeSpecificCriterias(Component c) {
-		return true;
+	public Component find() {
+		return subFinder.find();
 	}
 
 	@Override
-	public void setOccurrencesToSkip(int occurrencesToSkip) {
-		throw new TestingError(
-				"Cannot change the number of occurrences to skip on this type of component finder");
+	public boolean initializeFrom(Component c) {
+		return subFinder.initializeFrom(c);
 	}
 
 	@Override
 	public String toString() {
-		return "Window n°" + (windowIndex + 1);
+		return "Window n°" + (getWindowIndex() + 1);
 	}
+
 }
