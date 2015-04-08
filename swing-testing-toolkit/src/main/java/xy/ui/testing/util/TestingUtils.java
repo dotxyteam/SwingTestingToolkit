@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -190,8 +189,7 @@ public class TestingUtils {
 		return null;
 	}
 
-	private static Collection<String> extractVisibleStringsFromList(
-			JList list) {
+	private static Collection<String> extractVisibleStringsFromList(JList list) {
 		List<String> result = new ArrayList<String>();
 		ListModel model = list.getModel();
 		ListCellRenderer cellRenderer = list.getCellRenderer();
@@ -296,16 +294,17 @@ public class TestingUtils {
 		return result.toString();
 	}
 
-	@SuppressWarnings("unchecked")
 	public static List<String> parseVisibleStrings(
 			String formattedVisibleStrings) {
-		ScriptEngineManager factory = new ScriptEngineManager();
-		ScriptEngine engine = factory.getEngineByName("JavaScript");
-		try {
-			return (List<String>) engine.eval("java.util.Arrays.asList("
-					+ formattedVisibleStrings + ")");
-		} catch (ScriptException e) {
-			throw new TestingError("The string list is invalid", e);
+		List<String> result = new ArrayList<String>();
+		Pattern p = Pattern.compile("\".*?(?<!\\\\)\"");
+		Matcher m = p.matcher(formattedVisibleStrings);
+		while (m.find()) {
+			String s = m.group();
+			s = s.substring(1, s.length()-1);
+			s = StringEscapeUtils.unescapeJava(s);
+			result.add(s);
 		}
+		return result;
 	}
 }

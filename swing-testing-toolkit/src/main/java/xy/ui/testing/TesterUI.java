@@ -212,6 +212,7 @@ public class TesterUI extends ReflectionUI {
 											selectedActions);
 									playMethod.invoke(tester,
 											valueByParameterPosition);
+									onSuccessfulPlay(tester, listControl);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -227,6 +228,22 @@ public class TesterUI extends ReflectionUI {
 				}
 				return super.getSpecificListActions(type, object, field,
 						selection);
+			}
+
+			@Override
+			protected Object invoke(Object object,
+					Map<Integer, Object> valueByParameterPosition,
+					IMethodInfo method, ITypeInfo containingType) {
+				Object result = super.invoke(object, valueByParameterPosition,
+						method, containingType);
+				if (containingType.getName().equals(Tester.class.getName())) {
+					if (method.getName().equals("playAll")) {
+						for (JPanel form : getForms(object)) {
+							onSuccessfulPlay((Tester) object, form);
+						}
+					}
+				}
+				return result;
 			}
 
 		}.get(super.getTypeInfo(typeSource));
@@ -397,6 +414,13 @@ public class TesterUI extends ReflectionUI {
 		decorationsPanel.getContentPanel().add(result);
 		result = decorationsPanel;
 		return result;
+	}
+
+	protected void onSuccessfulPlay(Tester tester, Component activatorComponent) {
+		showMessageDialog(activatorComponent,
+				"The test action(s) completed successfully!",
+				getObjectKind(tester));
+
 	}
 
 }
