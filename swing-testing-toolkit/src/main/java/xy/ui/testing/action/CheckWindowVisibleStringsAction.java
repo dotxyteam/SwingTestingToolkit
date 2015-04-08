@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import xy.ui.testing.finder.WindowFinder;
+import xy.ui.testing.finder.MatchingComponentFinder;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
-public class CheckWindowVisibleStringsAction extends TargetComponentTestAction {
+@SuppressWarnings("unused")
+public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,39 +25,7 @@ public class CheckWindowVisibleStringsAction extends TargetComponentTestAction {
 		this.visibleStrings = visibleStrings;
 	}
 
-	@Override
-	protected boolean initializeSpecificProperties(Component c) {
-		WindowFinder windowFinder = new WindowFinder();
-		Window window = TestingUtils.getWindowAncestorOrSelf(c);
-		windowFinder.initializeFrom(window);
-		setComponentFinder(windowFinder);
-		visibleStrings.addAll(TestingUtils.collectVisibleStrings(window));
-		return true;
-	}
-	
-	
-	
-
-	@Override
-	public Component findComponent() {
-		Window window =  (Window) super.findComponent();
-		List<String> currentVisibleStrings = TestingUtils
-				.collectVisibleStrings(window);
-		if (!visibleStrings.equals(currentVisibleStrings)) {
-			throw new TestingError(
-					"The visible strings have changed: These are the original and the current visible strings:\n"
-							+ TestingUtils.formatVisibleStrings(visibleStrings)
-							+ "\n"
-							+ TestingUtils.formatVisibleStrings(currentVisibleStrings));
-		}
-		return window;
-	}
-
-	@Override
-	public void execute(Component c) {		
-	}
-	
-	public void loadVisibleStringsFromText(String s){
+	public void loadVisibleStringsFromText(String s) {
 		visibleStrings = TestingUtils.parseVisibleStrings(s);
 	}
 
@@ -67,6 +36,32 @@ public class CheckWindowVisibleStringsAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Check the visible strings of the " + getComponentFinder();
+		return "Check the visible strings of the " + getComponentDescription();
+	}
+
+	@Override
+	protected boolean initializeSpecificProperties(Window w) {
+		visibleStrings.addAll(TestingUtils.collectVisibleStrings(w));
+		return true;
+	}
+
+	@Override
+	public Window findComponent() {
+		Window window = super.findComponent();
+		List<String> currentVisibleStrings = TestingUtils
+				.collectVisibleStrings(window);
+		if (!visibleStrings.equals(currentVisibleStrings)) {
+			throw new TestingError(
+					"The visible strings have changed: These are the original and the current visible strings:\n"
+							+ TestingUtils.formatVisibleStrings(visibleStrings)
+							+ "\n"
+							+ TestingUtils
+									.formatVisibleStrings(currentVisibleStrings));
+		}
+		return window;
+	}
+
+	@Override
+	public void execute(Component c) {
 	}
 }

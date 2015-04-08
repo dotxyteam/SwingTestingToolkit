@@ -5,30 +5,16 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 
-import xy.ui.testing.finder.WindowFinder;
-
-public class CloseWindowAction extends TargetComponentTestAction {
+public class CloseWindowAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	@Override
-	public boolean initializeFrom(Component c) {
-		if(!(c instanceof Window)){
-			return false;
-		}
-		Window window = (Window) c;
-		WindowFinder windowFinder = new WindowFinder();
-		if(!windowFinder.initializeFrom(window)){
-			return false;
-		}
-		setComponentFinder(windowFinder);
+	protected boolean initializeSpecificProperties(Window w) {
 		return true;
 	}
 
-	@Override
-	protected boolean initializeSpecificProperties(Component c) {
-		throw new AssertionError();
-	}
 
 	@Override
 	public void execute(Component c) {

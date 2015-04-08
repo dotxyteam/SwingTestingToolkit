@@ -47,7 +47,6 @@ import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
-import xy.ui.testing.finder.WindowFinder;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingUtils;
 
@@ -60,8 +59,7 @@ public class TesterUI extends ReflectionUI {
 			SendKeysAction.class, CheckWindowVisibleStringsAction.class,
 			CloseWindowAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			ClassBasedComponentFinder.class,
-			VisibleStringComponentFinder.class, WindowFinder.class };
+			ClassBasedComponentFinder.class, VisibleStringComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class };
 
@@ -377,22 +375,23 @@ public class TesterUI extends ReflectionUI {
 	@Override
 	public Container createWindowContentPane(Window window, Component content,
 			List<? extends Component> toolbarControls) {
-		Container result = super.createWindowContentPane(window, content, toolbarControls);
+		Container result = super.createWindowContentPane(window, content,
+				toolbarControls);
 		AlternateWindowDecorationsPanel decorationsPanel = new AlternateWindowDecorationsPanel(
-				ReflectionUIUtils.getWindowTitle(window)){
+				ReflectionUIUtils.getWindowTitle(window)) {
 
-					private static final long serialVersionUID = 1L;
+			private static final long serialVersionUID = 1L;
 
-					@Override
-					public Color getDecorationsBackgroundColor() {
-						return Tester.HIGHLIGHT_BACKGROUND;
-					}
+			@Override
+			public Color getDecorationsBackgroundColor() {
+				return Tester.HIGHLIGHT_BACKGROUND;
+			}
 
-					@Override
-					public Color getDecorationsForegroundColor() {
-						return Tester.HIGHLIGHT_FOREGROUND;
-					}
-			
+			@Override
+			public Color getDecorationsForegroundColor() {
+				return Tester.HIGHLIGHT_FOREGROUND;
+			}
+
 		};
 		decorationsPanel.configureWindow(window);
 		decorationsPanel.getContentPanel().add(result);
