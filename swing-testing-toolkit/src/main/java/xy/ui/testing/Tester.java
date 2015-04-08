@@ -46,7 +46,8 @@ public class Tester {
 	public static final Color HIGHLIGHT_BACKGROUND = new Color(255, 220, 220);
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
-	protected int millisecondsBetwneenActions = 5000;
+	protected int minimumSecondsToWaitBetwneenActions = 2;
+	protected int maximumSecondsToWaitBetwneenActions = 15;
 
 	protected AWTEventListener recordingListener;
 	protected Component currentComponent;
@@ -90,12 +91,22 @@ public class Tester {
 		TestingUtils.removeAWTEventListener(recordingListener);
 	}
 
-	public int getMillisecondsBetwneenActions() {
-		return millisecondsBetwneenActions;
+	public int getMinimumSecondsToWaitBetwneenActions() {
+		return minimumSecondsToWaitBetwneenActions;
 	}
 
-	public void setMillisecondsBetwneenActions(int millisecondsBetwneenActions) {
-		this.millisecondsBetwneenActions = millisecondsBetwneenActions;
+	public void setMinimumSecondsToWaitBetwneenActions(
+			int minimumSecondsToWaitBetwneenActions) {
+		this.minimumSecondsToWaitBetwneenActions = minimumSecondsToWaitBetwneenActions;
+	}
+
+	public int getMaximumSecondsToWaitBetwneenActions() {
+		return maximumSecondsToWaitBetwneenActions;
+	}
+
+	public void setMaximumSecondsToWaitBetwneenActions(
+			int maximumSecondsToWaitBetwneenActions) {
+		this.maximumSecondsToWaitBetwneenActions = maximumSecondsToWaitBetwneenActions;
 	}
 
 	public TestAction[] getTestActions() {
@@ -127,8 +138,8 @@ public class Tester {
 			try {
 				TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
 				TesterUI.INSTANCE.upadateTestActionsControl(Tester.this);
-				Thread.sleep(millisecondsBetwneenActions);
-				Component c = testAction.findComponent();
+				Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+				Component c = findComponentImmediatelyOrRetry(testAction);
 				if (c != null) {
 					currentComponent = c;
 					highlightCurrentComponent();
@@ -149,6 +160,29 @@ public class Tester {
 						+ e.toString(), e);
 			}
 		}
+	}
+
+	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {
+		Component result = null;
+		int remainingSeconds = maximumSecondsToWaitBetwneenActions
+				- minimumSecondsToWaitBetwneenActions;
+		while (true) {
+			try {
+				result = testAction.findComponent();
+				break;
+			} catch (Exception e) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e1) {
+					throw new TestingError(e);
+				}
+				remainingSeconds--;
+				if (remainingSeconds == 0) {
+					throw new TestingError(e);
+				}
+			}
+		}
+		return result;
 	}
 
 	public void record() {
@@ -420,7 +454,8 @@ public class Tester {
 				-20);
 		Tester loaded = (Tester) xstream.fromXML(input);
 		testActions = loaded.testActions;
-		millisecondsBetwneenActions = loaded.millisecondsBetwneenActions;
+		minimumSecondsToWaitBetwneenActions = loaded.minimumSecondsToWaitBetwneenActions;
+		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
 	}
 
 	public void saveToFile(File output) throws IOException {

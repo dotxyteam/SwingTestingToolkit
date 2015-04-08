@@ -33,10 +33,13 @@ public class CheckWindowVisibleStringsAction extends TargetComponentTestAction {
 		visibleStrings.addAll(TestingUtils.collectVisibleStrings(window));
 		return true;
 	}
+	
+	
+	
 
 	@Override
-	public void execute(Component c) {
-		Window window = TestingUtils.getWindowAncestorOrSelf(c);
+	public Component findComponent() {
+		Window window =  (Window) super.findComponent();
 		List<String> currentVisibleStrings = TestingUtils
 				.collectVisibleStrings(window);
 		if (!visibleStrings.equals(currentVisibleStrings)) {
@@ -46,6 +49,11 @@ public class CheckWindowVisibleStringsAction extends TargetComponentTestAction {
 							+ "\n"
 							+ TestingUtils.formatVisibleStrings(currentVisibleStrings));
 		}
+		return window;
+	}
+
+	@Override
+	public void execute(Component c) {		
 	}
 	
 	public void loadVisibleStringsFromText(String s){
