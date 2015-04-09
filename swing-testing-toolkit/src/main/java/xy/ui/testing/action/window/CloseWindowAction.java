@@ -1,4 +1,4 @@
-package xy.ui.testing.action;
+package xy.ui.testing.action.window;
 
 import java.awt.Component;
 import java.awt.Toolkit;

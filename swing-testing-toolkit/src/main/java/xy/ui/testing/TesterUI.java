@@ -36,13 +36,16 @@ import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.CallMainMethodAction;
-import xy.ui.testing.action.CheckWindowVisibleStringsAction;
-import xy.ui.testing.action.CloseWindowAction;
-import xy.ui.testing.action.SendClickAction;
-import xy.ui.testing.action.SendKeysAction;
-import xy.ui.testing.action.SendKeysAction.KeyboardInteraction;
-import xy.ui.testing.action.SendKeysAction.SpecialKey;
-import xy.ui.testing.action.SendKeysAction.WriteText;
+import xy.ui.testing.action.WaitAction;
+import xy.ui.testing.action.component.ClickAction;
+import xy.ui.testing.action.component.SendKeysAction;
+import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
+import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
+import xy.ui.testing.action.component.SendKeysAction.WriteText;
+import xy.ui.testing.action.table.ClickOnTableCellAction;
+import xy.ui.testing.action.table.SelectTableRowAction;
+import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
+import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
@@ -55,9 +58,10 @@ public class TesterUI extends ReflectionUI {
 
 	public final static TesterUI INSTANCE = new TesterUI();
 	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] {
-			CallMainMethodAction.class, SendClickAction.class,
-			SendKeysAction.class, CheckWindowVisibleStringsAction.class,
-			CloseWindowAction.class };
+			CallMainMethodAction.class, WaitAction.class,
+			SelectTableRowAction.class, ClickOnTableCellAction.class,
+			ClickAction.class, SendKeysAction.class,
+			CheckWindowVisibleStringsAction.class, CloseWindowAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
 			ClassBasedComponentFinder.class, VisibleStringComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
@@ -322,6 +326,9 @@ public class TesterUI extends ReflectionUI {
 					return true;
 				}
 				if (field.getName().equals("valueDescription")) {
+					return true;
+				}
+				if (field.getName().equals("componentInformation")) {
 					return true;
 				}
 				return super.excludeField(field);

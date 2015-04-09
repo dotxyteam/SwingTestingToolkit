@@ -1,5 +1,6 @@
-package xy.ui.testing.action;
+package xy.ui.testing.action.component;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -43,7 +44,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		return true;
 	}
 

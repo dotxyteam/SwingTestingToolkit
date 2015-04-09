@@ -32,8 +32,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 import xy.reflect.ui.info.field.IFieldInfo;
-import xy.ui.testing.action.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
 
@@ -239,7 +239,7 @@ public class Tester {
 			popupMenu.removeAll();
 			Component c = (Component) event.getSource();
 			createReleaseComponentMenuItem(c);
-			createTestActionMenuItems(c);
+			createTestActionMenuItems(c, event);
 			createStopRecordingMenuItem(c);
 			popupMenu.add(new JMenuItem("Cancel"));
 			popupMenu.show(c, mouseEvt.getX(), mouseEvt.getY());
@@ -257,7 +257,7 @@ public class Tester {
 					JOptionPane.QUESTION_MESSAGE, icon)) {
 				record();
 				CloseWindowAction closeAction = new CloseWindowAction();
-				closeAction.initializeFrom(window);
+				closeAction.initializeFrom(window, event);
 				onTestActionSelection(closeAction, window);
 			} else {
 				record();
@@ -305,8 +305,8 @@ public class Tester {
 		}
 	}
 
-	protected void createTestActionMenuItems(final Component c) {
-		for (final TestAction testAction : getPossibleTestActions(c)) {
+	protected void createTestActionMenuItems(final Component c, AWTEvent event) {
+		for (final TestAction testAction : getPossibleTestActions(c, event)) {
 			JMenuItem item = new JMenuItem("(Execute and Record) "
 					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
 							" Action$", ""));
@@ -335,13 +335,13 @@ public class Tester {
 		}
 	}
 
-	protected List<TestAction> getPossibleTestActions(Component c) {
+	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
 		try {
 			List<TestAction> result = new ArrayList<TestAction>();
 			for (Class<?> testActionClass : TesterUI.TEST_ACTION_CLASSESS) {
 				TestAction testAction = (TestAction) testActionClass
 						.newInstance();
-				if (testAction.initializeFrom(c)) {
+				if (testAction.initializeFrom(c, event)) {
 					result.add(testAction);
 				}
 			}

@@ -1,5 +1,5 @@
 import xy.ui.testing.TesterUI;
-import xy.ui.testing.action.SendKeysAction;
+import xy.ui.testing.action.component.SendKeysAction;
 
 
 public class TestSpecialKeyInteraction {

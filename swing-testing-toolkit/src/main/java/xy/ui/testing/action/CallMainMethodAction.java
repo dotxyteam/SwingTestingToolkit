@@ -1,5 +1,6 @@
 package xy.ui.testing.action;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
 
 import xy.ui.testing.util.TestingError;
@@ -20,7 +21,7 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c) {
+	public boolean initializeFrom(Component c, AWTEvent event) {
 		return false;
 	}
 
@@ -50,7 +51,7 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
-	public String getComponentDescription() {
+	public String getComponentInformation() {
 		return "";
 	}
 

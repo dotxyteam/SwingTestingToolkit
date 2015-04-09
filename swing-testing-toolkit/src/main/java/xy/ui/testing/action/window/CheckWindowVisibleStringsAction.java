@@ -1,4 +1,4 @@
-package xy.ui.testing.action;
+package xy.ui.testing.action.window;
 
 import java.awt.Component;
 import java.awt.Window;
@@ -36,7 +36,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	@Override
 	public String toString() {
-		return "Check the visible strings of the " + getComponentDescription();
+		return "Check the visible strings of the " + getComponentInformation();
 	}
 
 	@Override

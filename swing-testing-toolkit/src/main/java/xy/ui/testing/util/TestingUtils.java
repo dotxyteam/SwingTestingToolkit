@@ -194,10 +194,14 @@ public class TestingUtils {
 		ListModel model = list.getModel();
 		ListCellRenderer cellRenderer = list.getCellRenderer();
 		for (int i = 0; i < model.getSize(); i++) {
-			Object item = model.getElementAt(i);
-			Component cellComponent = cellRenderer
-					.getListCellRendererComponent(list, item, i, false, false);
-			result.addAll(extractVisibleStrings(cellComponent));
+			try {
+				Object item = model.getElementAt(i);
+				Component cellComponent = cellRenderer
+						.getListCellRendererComponent(list, item, i, false,
+								false);
+				result.addAll(extractVisibleStrings(cellComponent));
+			} catch (Exception ignore) {
+			}
 		}
 		return result;
 	}
@@ -214,13 +218,16 @@ public class TestingUtils {
 		}
 		for (int iRow = 0; iRow < model.getRowCount(); iRow++) {
 			for (int iCol = 0; iCol < model.getColumnCount(); iCol++) {
-				Object cellValue = model.getValueAt(iRow, iCol);
-				TableCellRenderer cellRenderer = table.getCellRenderer(iRow,
-						iCol);
-				Component cellComponent = cellRenderer
-						.getTableCellRendererComponent(table, cellValue, false,
-								false, iRow, iCol);
-				result.addAll(extractVisibleStrings(cellComponent));
+				try {
+					Object cellValue = model.getValueAt(iRow, iCol);
+					TableCellRenderer cellRenderer = table.getCellRenderer(
+							iRow, iCol);
+					Component cellComponent = cellRenderer
+							.getTableCellRendererComponent(table, cellValue,
+									false, false, iRow, iCol);
+					result.addAll(extractVisibleStrings(cellComponent));
+				} catch (Exception ignore) {
+				}
 			}
 		}
 		return result;
@@ -238,10 +245,13 @@ public class TestingUtils {
 			Object currentNode, JTree tree) {
 		List<String> result = new ArrayList<String>();
 		TreeModel model = tree.getModel();
-		String s = tree.convertValueToText(currentNode, false, true,
-				model.isLeaf(currentNode), currentRow, false);
-		if ((s != null) && (s.trim().length() > 0)) {
-			result.add(s);
+		try {
+			String s = tree.convertValueToText(currentNode, false, true,
+					model.isLeaf(currentNode), currentRow, false);
+			if ((s != null) && (s.trim().length() > 0)) {
+				result.add(s);
+			}
+		} catch (Exception ignore) {
 		}
 		for (int i = 0; i < model.getChildCount(currentNode); i++) {
 			Object childNode = model.getChild(currentNode, i);
@@ -301,7 +311,7 @@ public class TestingUtils {
 		Matcher m = p.matcher(formattedVisibleStrings);
 		while (m.find()) {
 			String s = m.group();
-			s = s.substring(1, s.length()-1);
+			s = s.substring(1, s.length() - 1);
 			s = StringEscapeUtils.unescapeJava(s);
 			result.add(s);
 		}

@@ -1,8 +1,10 @@
-package xy.ui.testing.action;
+package xy.ui.testing.action.window;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Window;
 
+import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MatchingComponentFinder;
 import xy.ui.testing.util.TestingUtils;
 
@@ -41,7 +43,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 
 
 	@Override
-	public boolean initializeFrom(Component c) {
+	public boolean initializeFrom(Component c, AWTEvent event) {
 		Window window = TestingUtils.getWindowAncestorOrSelf(c);
 		if (!windowFinder.initializeFrom(window)) {
 			return false;
@@ -57,7 +59,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 	}
 
 	@Override
-	public String getComponentDescription() {
+	public String getComponentInformation() {
 		return "Window n°" + (getWindowIndex() + 1);
 	}
 }

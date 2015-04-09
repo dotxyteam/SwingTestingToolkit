@@ -1,8 +1,10 @@
-package xy.ui.testing.action;
+package xy.ui.testing.action.component;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
 
 import xy.ui.testing.TesterUI;
+import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestingError;
 
@@ -12,7 +14,7 @@ public abstract class TargetComponentTestAction extends TestAction{
 	
 	protected ComponentFinder componentFinder;
 
-	protected abstract boolean initializeSpecificProperties(Component c);
+	protected abstract boolean initializeSpecificProperties(Component c, AWTEvent event);
 
 	public ComponentFinder getComponentFinder() {
 		return componentFinder;
@@ -23,7 +25,7 @@ public abstract class TargetComponentTestAction extends TestAction{
 	}
 
 	@Override
-	public boolean initializeFrom(Component c) {
+	public boolean initializeFrom(Component c, AWTEvent event) {
 		for (Class<?> componentFinderClass : TesterUI.COMPONENT_FINDER_CLASSESS) {
 			ComponentFinder componentFinderCandidate;
 			try {
@@ -40,7 +42,7 @@ public abstract class TargetComponentTestAction extends TestAction{
 		if(getComponentFinder() == null){
 			return false;
 		}
-		if(!initializeSpecificProperties(c)){
+		if(!initializeSpecificProperties(c, event)){
 			return false;
 		}		
 		return true;
@@ -63,7 +65,7 @@ public abstract class TargetComponentTestAction extends TestAction{
 	}
 
 	@Override
-	public String getComponentDescription() {
+	public String getComponentInformation() {
 		if(getComponentFinder() == null){
 			return null;
 		}
