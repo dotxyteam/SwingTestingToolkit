@@ -68,7 +68,7 @@ public class TesterUI extends ReflectionUI {
 			ClickAction.class, SendKeysAction.class,
 			CheckWindowVisibleStringsAction.class, CloseWindowAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			VisibleStringComponentFinder.class, ClassBasedComponentFinder.class };
+			ClassBasedComponentFinder.class, VisibleStringComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
 			CtrlV.class, CtrlX.class };
@@ -222,7 +222,6 @@ public class TesterUI extends ReflectionUI {
 											selectedActions);
 									playMethod.invoke(tester,
 											valueByParameterPosition);
-									onSuccessfulPlay(tester, listControl);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -440,12 +439,12 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public Color getDecorationsBackgroundColor() {
-				return Tester.HIGHLIGHT_BACKGROUND;
+				return Tester.HIGHLIGHT_FOREGROUND;
 			}
 
 			@Override
 			public Color getDecorationsForegroundColor() {
-				return Tester.HIGHLIGHT_FOREGROUND;
+				return Tester.HIGHLIGHT_BACKGROUND;
 			}
 
 		};

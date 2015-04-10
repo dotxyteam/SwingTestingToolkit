@@ -225,7 +225,8 @@ public class TestingUtils {
 					Component cellComponent = cellRenderer
 							.getTableCellRendererComponent(table, cellValue,
 									false, false, iRow, iCol);
-					result.addAll(extractVisibleStrings(cellComponent));
+					List<String> cellVisibleStrings = extractVisibleStrings(cellComponent);
+					result.addAll(cellVisibleStrings);
 				} catch (Exception ignore) {
 				}
 			}
