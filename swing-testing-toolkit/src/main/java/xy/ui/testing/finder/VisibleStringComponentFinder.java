@@ -36,7 +36,7 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	@Override
 	public String toString() {
 		return "Component n°" + (occurrencesToSkip + 1)
-				+ " displaying the string \""
+				+ " displaying \""
 				+ StringEscapeUtils.escapeJava(visibleString)
 				+ "\" in the window n°" + (windowIndex + 1);
 	}

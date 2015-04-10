@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.info.IInfoCollectionSettings;
@@ -41,7 +42,11 @@ import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
+import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlC;
+import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlV;
+import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlX;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
+import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
 import xy.ui.testing.action.table.ClickOnTableCellAction;
 import xy.ui.testing.action.table.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
@@ -63,9 +68,10 @@ public class TesterUI extends ReflectionUI {
 			ClickAction.class, SendKeysAction.class,
 			CheckWindowVisibleStringsAction.class, CloseWindowAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			ClassBasedComponentFinder.class, VisibleStringComponentFinder.class };
+			VisibleStringComponentFinder.class, ClassBasedComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
-			WriteText.class, SpecialKey.class };
+			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
+			CtrlV.class, CtrlX.class };
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
@@ -235,19 +241,45 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected Object invoke(Object object,
-					Map<Integer, Object> valueByParameterPosition,
-					IMethodInfo method, ITypeInfo containingType) {
-				Object result = super.invoke(object, valueByParameterPosition,
-						method, containingType);
+			protected Object invoke(final Object object,
+					final Map<Integer, Object> valueByParameterPosition,
+					final IMethodInfo method, final ITypeInfo containingType) {
 				if (containingType.getName().equals(Tester.class.getName())) {
-					if (method.getName().equals("playAll")) {
-						for (JPanel form : getForms(object)) {
+					if (method.getName().startsWith("play")) {
+						for (final JPanel form : getForms(object)) {
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									SwingUtilities.getWindowAncestor(form)
+											.toBack();
+								}
+							});
+							Object result = super.invoke(object,
+									valueByParameterPosition, method,
+									containingType);
 							onSuccessfulPlay((Tester) object, form);
+							return result;
 						}
 					}
 				}
-				return result;
+				if (containingType.getName().equals(Tester.class.getName())) {
+					if (method.getName().startsWith("record")) {
+						for (final JPanel form : getForms(object)) {
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									SwingUtilities.getWindowAncestor(form)
+											.toBack();
+								}
+							});
+							return super.invoke(object,
+									valueByParameterPosition, method,
+									containingType);
+						}
+					}
+				}
+				return super.invoke(object, valueByParameterPosition, method,
+						containingType);
 			}
 
 		}.get(super.getTypeInfo(typeSource));

@@ -307,7 +307,7 @@ public class Tester {
 
 	protected void createTestActionMenuItems(final Component c, AWTEvent event) {
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
-			JMenuItem item = new JMenuItem("(Execute and Record) "
+			JMenuItem item = new JMenuItem("(Record and Execute) "
 					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
 							" Action$", ""));
 			item.addActionListener(new ActionListener() {
@@ -323,6 +323,7 @@ public class Tester {
 	protected void onTestActionSelection(final TestAction testAction,
 			final Component c) {
 		if (TesterUI.INSTANCE.openSettings(testAction, c)) {
+			TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
 			IFieldInfo testActionListField = TesterUI.INSTANCE
 					.getFormsUpdatingField(Tester.this, "testActions");
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(

@@ -73,8 +73,8 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Send " + getValueDescription()
-				+ " event(s) to the " + getComponentFinder();
+		return "Send " + getValueDescription() + " event(s) to the "
+				+ getComponentFinder();
 	}
 
 	public static abstract class KeyboardInteraction implements Serializable {
@@ -261,6 +261,42 @@ public class SendKeysAction extends TargetComponentTestAction {
 				result = "Ctrl + " + result;
 			}
 			return result;
+		}
+
+		public static class CtrlC extends SpecialKey {
+			private static final long serialVersionUID = 1L;
+
+			public CtrlC() {
+				setCtrlDown(true);
+				setKeyName(KeyName.KEY_C);
+			}
+		}
+
+		public static class CtrlX extends SpecialKey {
+			private static final long serialVersionUID = 1L;
+
+			public CtrlX() {
+				setCtrlDown(true);
+				setKeyName(KeyName.KEY_X);
+			}
+		}
+
+		public static class CtrlV extends SpecialKey {
+			private static final long serialVersionUID = 1L;
+
+			public CtrlV() {
+				setCtrlDown(true);
+				setKeyName(KeyName.KEY_V);
+			}
+		}
+
+		public static class CtrlA extends SpecialKey {
+			private static final long serialVersionUID = 1L;
+
+			public CtrlA() {
+				setCtrlDown(true);
+				setKeyName(KeyName.KEY_A);
+			}
 		}
 
 	}
