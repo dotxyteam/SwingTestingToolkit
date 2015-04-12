@@ -1,4 +1,4 @@
-package xy.ui.testing.action.table;
+package xy.ui.testing.action.component.table;
 
 import java.awt.AWTEvent;
 import java.awt.Component;

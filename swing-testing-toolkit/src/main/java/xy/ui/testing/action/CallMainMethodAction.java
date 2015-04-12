@@ -11,6 +11,7 @@ public class CallMainMethodAction extends TestAction {
 	private static final long serialVersionUID = 1L;
 
 	protected String className = "";
+	protected String[] arguments;
 
 	public String getClassName() {
 		return className;
@@ -18,6 +19,14 @@ public class CallMainMethodAction extends TestAction {
 
 	public void setClassName(String mainClassName) {
 		this.className = mainClassName;
+	}
+
+	public String[] getArguments() {
+		return arguments;
+	}
+
+	public void setArguments(String[] arguments) {
+		this.arguments = arguments;
 	}
 
 	@Override

@@ -37,6 +37,7 @@ import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.CallMainMethodAction;
+import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.WaitAction;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.SendKeysAction;
@@ -47,8 +48,10 @@ import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlV;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlX;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
-import xy.ui.testing.action.table.ClickOnTableCellAction;
-import xy.ui.testing.action.table.SelectTableRowAction;
+import xy.ui.testing.action.component.combobox.SelectComboBoxItemAction;
+import xy.ui.testing.action.component.table.ClickOnTableCellAction;
+import xy.ui.testing.action.component.table.SelectTableRowAction;
+import xy.ui.testing.action.component.treetable.ExpandTreetTableToItemAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
@@ -64,11 +67,13 @@ public class TesterUI extends ReflectionUI {
 	public final static TesterUI INSTANCE = new TesterUI();
 	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] {
 			CallMainMethodAction.class, WaitAction.class,
+			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
 			SelectTableRowAction.class, ClickOnTableCellAction.class,
 			ClickAction.class, SendKeysAction.class,
-			CheckWindowVisibleStringsAction.class, CloseWindowAction.class };
+			CheckWindowVisibleStringsAction.class, CloseWindowAction.class,
+			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			ClassBasedComponentFinder.class, VisibleStringComponentFinder.class };
+			VisibleStringComponentFinder.class, ClassBasedComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
 			CtrlV.class, CtrlX.class };

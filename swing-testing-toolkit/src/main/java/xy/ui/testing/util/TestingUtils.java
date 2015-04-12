@@ -318,4 +318,22 @@ public class TestingUtils {
 		}
 		return result;
 	}
+
+	public static boolean isTestableWindow(Window window) {
+		if(isTesterUIComponent(window)){
+			return false;
+		}
+		if(!window.isVisible()){
+			return false;
+		}
+		return true;
+	}
+
+	public static void closeAllTestableWindows() {
+		for(Window w: Window.getWindows()){
+			if(isTestableWindow(w)){
+				w.dispose();
+			}
+		}
+	}
 }

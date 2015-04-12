@@ -97,13 +97,13 @@ public class ClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return (doubleClick ? "Double-" : "Simple-") + " Click with the "
-				+ button.name();
+		return button.name() + " " + (doubleClick ? "Double-" : "")
+				+ " Click";
 	}
 
 	@Override
 	public String toString() {
-		return getValueDescription() +" on the " + getComponentFinder();
+		return getValueDescription() + " on the " + getComponentFinder();
 	}
 
 	public enum ButtonId {

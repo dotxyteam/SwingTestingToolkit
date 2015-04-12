@@ -116,7 +116,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 		@Override
 		public String toString() {
-			return "Type \"" + StringEscapeUtils.escapeJava(text) + "\"";
+			return "\"" + StringEscapeUtils.escapeJava(text) + "\"";
 		}
 
 	}

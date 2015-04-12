@@ -1,6 +1,7 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
+import java.text.MessageFormat;
 
 public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
@@ -28,8 +29,9 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	public String toString() {
-		return "Component n°" + (occurrencesToSkip + 1) + " of type '"
-				+ className + "' in the window n°" + (windowIndex+1);
+		return MessageFormat.format(
+				"<{0}> component ''{1}'' in the window n°{2}",
+				className, (occurrencesToSkip + 1), (windowIndex+1));
 	}
 
 }

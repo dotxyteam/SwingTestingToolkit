@@ -46,7 +46,7 @@ public class Tester {
 	public static final Color HIGHLIGHT_BACKGROUND = new Color(255, 220, 220);
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
-	protected int minimumSecondsToWaitBetwneenActions = 2;
+	protected int minimumSecondsToWaitBetwneenActions = 1;
 	protected int maximumSecondsToWaitBetwneenActions = 15;
 
 	protected AWTEventListener recordingListener;
@@ -266,7 +266,7 @@ public class Tester {
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Do not record the next action");
+		JMenuItem menuItem = new JMenuItem("Stop Recording During 5 Seconds");
 		{
 			menuItem.addActionListener(new ActionListener() {
 				@Override
@@ -277,7 +277,7 @@ public class Tester {
 						@Override
 						public void run() {
 							try {
-								sleep(3000);
+								sleep(5000);
 							} catch (InterruptedException e) {
 								throw new TestingError(e);
 							}
@@ -307,7 +307,7 @@ public class Tester {
 
 	protected void createTestActionMenuItems(final Component c, AWTEvent event) {
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
-			JMenuItem item = new JMenuItem("(Record and Execute) "
+			JMenuItem item = new JMenuItem("(Add and Execute) "
 					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
 							" Action$", ""));
 			item.addActionListener(new ActionListener() {

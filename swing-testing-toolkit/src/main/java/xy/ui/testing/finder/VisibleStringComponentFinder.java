@@ -1,6 +1,7 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
+import java.text.MessageFormat;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,9 +36,9 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	public String toString() {
-		return "Component n°" + (occurrencesToSkip + 1)
-				+ " displaying \""
-				+ StringEscapeUtils.escapeJava(visibleString)
-				+ "\" in the window n°" + (windowIndex + 1);
+		return MessageFormat.format(
+				"\"{0}\" component n°{1} in the window n°{2}",
+				StringEscapeUtils.escapeJava(visibleString),
+				(occurrencesToSkip + 1), (windowIndex + 1));
 	}
 }

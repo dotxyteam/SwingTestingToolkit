@@ -37,7 +37,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder{
 	public Component find() {
 		int windowCount = 0;
 		for (Window window : Window.getWindows()) {
-			if(!isValidWindow(window)){
+			if(!TestingUtils.isTestableWindow(window)){
 				continue;
 			}
 			if (windowCount == windowIndex) {
@@ -49,16 +49,6 @@ public abstract class MatchingComponentFinder extends ComponentFinder{
 				"Component not found: Containing window index is out of bounds: "
 						+ windowIndex + ": Only " + windowCount
 						+ " window(s) found");
-	}
-
-	protected boolean isValidWindow(Window window) {
-		if(TestingUtils.isTesterUIComponent(window)){
-			return false;
-		}
-		if(!window.isVisible()){
-			return false;
-		}
-		return true;
 	}
 
 	protected Component find(Window containingWindow) {
@@ -122,7 +112,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder{
 	protected boolean initializeWindowIndex(Window componentWindow) {
 		windowIndex = 0;
 		for (Window window : Window.getWindows()) {
-			if(!isValidWindow(window)){
+			if(!TestingUtils.isTestableWindow(window)){
 				continue;
 			}
 			if(window == componentWindow){
