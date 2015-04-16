@@ -39,6 +39,7 @@ import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.WaitAction;
+import xy.ui.testing.action.component.CheckComponentPropertyAction;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
@@ -70,6 +71,7 @@ public class TesterUI extends ReflectionUI {
 			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
 			SelectTableRowAction.class, ClickOnTableCellAction.class,
 			ClickAction.class, SendKeysAction.class,
+			CheckComponentPropertyAction.class,
 			CheckWindowVisibleStringsAction.class, CloseWindowAction.class,
 			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
@@ -376,6 +378,9 @@ public class TesterUI extends ReflectionUI {
 
 	@Override
 	public Image getObjectIconImage(Object object) {
+		if(object == null){
+			return null;
+		}
 		String imageResourceName = object.getClass().getSimpleName() + ".png";
 		if (TesterUI.class.getResource(imageResourceName) != null) {
 			Image result = imageCache.get(imageResourceName);
