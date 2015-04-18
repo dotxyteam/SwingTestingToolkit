@@ -18,7 +18,10 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
@@ -95,18 +98,25 @@ public class TestingUtils {
 
 	public static boolean isTesterUIComponent(Component c) {
 		for (JPanel testerForm : TesterUI.INSTANCE.getObjectByForm().keySet()) {
+			Window testerWindow = SwingUtilities.getWindowAncestor(testerForm);
 			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
 			if (componentWindow != null) {
-				Window testerWindow = SwingUtilities
-						.getWindowAncestor(testerForm);
 				if (testerWindow == componentWindow) {
 					return true;
 				}
-				while ((componentWindow = componentWindow.getOwner()) != null) {
-					if (testerWindow == componentWindow) {
-						return true;
-					}
+				if (isDIrectOrIndirectOwner(testerWindow, componentWindow)) {
+					return true;
 				}
+			}
+		}
+		return false;
+	}
+
+	public static boolean isDIrectOrIndirectOwner(Window ownerWindow,
+			Window window) {
+		while ((window = window.getOwner()) != null) {
+			if (ownerWindow == window) {
+				return true;
 			}
 		}
 		return false;
@@ -320,20 +330,90 @@ public class TestingUtils {
 	}
 
 	public static boolean isTestableWindow(Window window) {
-		if(isTesterUIComponent(window)){
+		if (isTesterUIComponent(window)) {
 			return false;
 		}
-		if(!window.isVisible()){
+		if (!window.isVisible()) {
 			return false;
 		}
 		return true;
 	}
 
 	public static void closeAllTestableWindows() {
-		for(Window w: Window.getWindows()){
-			if(isTestableWindow(w)){
+		for (Window w : Window.getWindows()) {
+			if (isTestableWindow(w)) {
 				w.dispose();
 			}
 		}
+	}
+
+	public static List<Component> getAncestors(Component c) {
+		List<Component> result = new ArrayList<Component>();
+		while ((c = c.getParent()) != null) {
+			result.add(c);
+		}
+		return result;
+	}
+
+	public static List<JMenuItem> getAncestorMenuItems(JMenuItem menuItem) {
+		List<JMenuItem> result = new ArrayList<JMenuItem>();
+		while (true) {
+			if (menuItem.getParent() instanceof JMenu) {
+				result.add((JMenu) menuItem.getParent());
+				break;
+			}
+			if (!(menuItem.getParent() instanceof JPopupMenu)) {
+				break;
+			}
+			JPopupMenu popupMenu = (JPopupMenu) menuItem.getParent();
+			Component invoker = popupMenu.getInvoker();
+			if (!(invoker instanceof JMenuItem)) {
+				break;
+			}
+			menuItem = (JMenuItem) invoker;
+			result.add(menuItem);
+		}
+		return result;
+	}
+
+	public static List<JPopupMenu> getPopupMenuAncestors(JPopupMenu popupMenu) {
+		List<JPopupMenu> result = new ArrayList<JPopupMenu>();
+		while (true) {
+			Component invoker = popupMenu.getInvoker();
+			if (!(invoker instanceof JMenuItem)) {
+				break;
+			}
+			JMenuItem menuItem = (JMenuItem) invoker;
+			if (!(menuItem.getParent() instanceof JPopupMenu)) {
+				break;
+			}
+			popupMenu = (JPopupMenu) menuItem.getParent();
+			result.add(popupMenu);
+		}
+		return result;
+	}
+
+	public static boolean belongsToPopupMenu(Component c, JPopupMenu popupMenu) {
+		if (c == popupMenu) {
+			return true;
+		}
+		if (c instanceof JMenuItem) {
+			if (c.getParent() == popupMenu) {
+				return true;
+			}
+			JMenuItem menuItem = (JMenuItem) c;
+			for (JMenuItem ancestorMenuItem : TestingUtils
+					.getAncestorMenuItems(menuItem)) {
+				if (ancestorMenuItem.getParent() == popupMenu) {
+					return true;
+				}
+			}
+		}
+		if (c instanceof JPopupMenu) {
+			if (getPopupMenuAncestors((JPopupMenu) c).contains(popupMenu)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

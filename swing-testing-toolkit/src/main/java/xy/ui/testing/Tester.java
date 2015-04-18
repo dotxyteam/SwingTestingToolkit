@@ -25,10 +25,10 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
 import xy.reflect.ui.info.field.IFieldInfo;
@@ -222,8 +222,8 @@ public class Tester {
 		if (TestingUtils.isTesterUIComponent(c)) {
 			return;
 		}
-		if (SwingUtilities.getAncestorOfClass(JPopupMenu.class, c) == popupMenu) {
-			return;
+		if (TestingUtils.belongsToPopupMenu(c, popupMenu)) {
+			return; 
 		}
 		if (isCurrentComponentChangeEvent(event)) {
 			handleCurrentComponentChange(c);
@@ -266,7 +266,7 @@ public class Tester {
 	}
 
 	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Stop Recording During 5 Seconds");
+		JMenuItem menuItem = new JMenuItem("Pause Recording (5 Seconds)");
 		{
 			menuItem.addActionListener(new ActionListener() {
 				@Override
@@ -306,17 +306,24 @@ public class Tester {
 	}
 
 	protected void createTestActionMenuItems(final Component c, AWTEvent event) {
+		JMenu actionsMenu = new JMenu("Execute And Record Action");
+		popupMenu.add(actionsMenu);
+		JMenu assertionssMenu = new JMenu("Execute And Record Assertion");
+		popupMenu.add(assertionssMenu);
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
-			JMenuItem item = new JMenuItem("(Add and Execute) "
-					+ TesterUI.INSTANCE.getObjectKind(testAction).replaceAll(
-							" Action$", ""));
+			JMenuItem item = new JMenuItem(TesterUI.INSTANCE.getObjectKind(
+					testAction).replaceAll(" Action$", ""));
 			item.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					onTestActionSelection(testAction, c);
 				}
 			});
-			popupMenu.add(item);
+			if (item.getText().startsWith("Check")) {
+				assertionssMenu.add(item);
+			} else {
+				actionsMenu.add(item);
+			}
 		}
 	}
 
