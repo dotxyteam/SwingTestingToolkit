@@ -39,7 +39,6 @@ import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.WaitAction;
-import xy.ui.testing.action.component.CheckComponentPropertyAction;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
@@ -50,6 +49,8 @@ import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlX;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
 import xy.ui.testing.action.component.combobox.SelectComboBoxItemAction;
+import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
+import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.action.component.table.ClickOnTableCellAction;
 import xy.ui.testing.action.component.table.SelectTableRowAction;
 import xy.ui.testing.action.component.treetable.ExpandTreetTableToItemAction;
@@ -72,6 +73,7 @@ public class TesterUI extends ReflectionUI {
 			SelectTableRowAction.class, ClickOnTableCellAction.class,
 			ClickAction.class, SendKeysAction.class,
 			CheckComponentPropertyAction.class,
+			ChangeComponentPropertyAction.class,
 			CheckWindowVisibleStringsAction.class, CloseWindowAction.class,
 			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
@@ -378,7 +380,7 @@ public class TesterUI extends ReflectionUI {
 
 	@Override
 	public Image getObjectIconImage(Object object) {
-		if(object == null){
+		if (object == null) {
 			return null;
 		}
 		String imageResourceName = object.getClass().getSimpleName() + ".png";

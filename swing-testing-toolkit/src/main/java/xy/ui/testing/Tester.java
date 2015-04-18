@@ -237,7 +237,7 @@ public class Tester {
 		if (event instanceof MouseEvent) {
 			MouseEvent mouseEvt = (MouseEvent) event;
 			popupMenu.removeAll();
-			Component c = (Component) event.getSource();
+			final Component c = (Component) event.getSource();
 			createReleaseComponentMenuItem(c);
 			createTestActionMenuItems(c, event);
 			createStopRecordingMenuItem(c);
@@ -336,7 +336,8 @@ public class Tester {
 		}
 	}
 
-	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
+	protected List<TestAction> getPossibleTestActions(Component c,
+			AWTEvent event) {
 		try {
 			List<TestAction> result = new ArrayList<TestAction>();
 			for (Class<?> testActionClass : TesterUI.TEST_ACTION_CLASSESS) {
@@ -388,7 +389,7 @@ public class Tester {
 	protected void handleCurrentComponentChange(Component c) {
 		if (currentComponent != null) {
 			unhighlightCurrentComponent();
-			restoreComponentListeners();
+			restoreCurrentComponentListeners();
 			currentComponent = null;
 		}
 		if (c == null) {
@@ -396,16 +397,16 @@ public class Tester {
 		}
 		currentComponent = c;
 		highlightCurrentComponent();
-		disableComponentListeners();
+		disableCurrentComponentListeners();
 	}
 
-	protected void restoreComponentListeners() {
+	protected void restoreCurrentComponentListeners() {
 		for (MouseListener l : currentComponentMouseListeners) {
 			currentComponent.addMouseListener(l);
 		}
 	}
 
-	protected void disableComponentListeners() {
+	protected void disableCurrentComponentListeners() {
 		currentComponentMouseListeners = currentComponent.getMouseListeners();
 		while (currentComponent.getMouseListeners().length > 0) {
 			currentComponent.removeMouseListener(currentComponent

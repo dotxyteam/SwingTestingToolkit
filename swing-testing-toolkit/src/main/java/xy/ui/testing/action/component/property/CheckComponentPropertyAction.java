@@ -1,0 +1,47 @@
+package xy.ui.testing.action.component.property;
+
+import java.awt.Component;
+
+import xy.reflect.ui.info.field.IFieldInfo;
+import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.ui.testing.util.TestingError;
+
+public class CheckComponentPropertyAction extends ComponentPropertyAction {
+	private static final long serialVersionUID = 1L;
+
+	protected String propertyValueExpected;
+
+	public String getPropertyValueExpected() {
+		return propertyValueExpected;
+	}
+
+	public void setPropertyValueExpected(String propertyValueExpected) {
+		this.propertyValueExpected = propertyValueExpected;
+	}
+
+	@Override
+	public void execute(final Component c) {
+		IFieldInfo field = getPropertyFieldInfo();
+		Object currentFieldValue = field.getValue(c);
+		Object expectedFieldValue = propertyValueToFieldValue(propertyValueExpected);
+		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue,
+				expectedFieldValue)) {
+			throw new TestingError(
+					"Component property checking failed: Unexpected property value: '"
+							+ currentFieldValue + "'. Expected: '"
+							+ expectedFieldValue + "'");
+		}
+	}
+
+	@Override
+	public String getValueDescription() {
+		return propertyName + " = " + propertyValueExpected;
+	}
+
+	@Override
+	public String toString() {
+		return "Check that \"" + getValueDescription() + "\" for the "
+				+ getComponentFinder();
+	}
+
+}
