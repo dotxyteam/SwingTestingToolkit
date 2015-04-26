@@ -42,7 +42,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		this.componentClassName = componentClassName;
 	}
 
-	public List<String> getPropertyNameEnumeration() {
+	public List<String> getPropertyNameOptions() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
 			return Collections.emptyList();
@@ -63,6 +63,9 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		if (componentClassName == null) {
 			return null;
 		}
+		if (componentClassName.trim().length() == 0) {
+			return null;
+		}
 		try {
 			return TesterUI.INSTANCE.getTypeInfo(new JavaTypeInfoSource(Class
 					.forName(componentClassName)));
@@ -72,6 +75,9 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 	}
 
 	protected Object filedValueToPropertyValue(Object fieldValue) {
+		if(fieldValue == null){
+			return null;
+		}
 		IFieldInfo field = getPropertyFieldInfo();
 		if (field == null) {
 			return null;
@@ -87,6 +93,9 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 	}
 
 	protected Object propertyValueToFieldValue(String propertyValue) {
+		if(propertyValue == null){
+			return null;
+		}
 		IFieldInfo field = getPropertyFieldInfo();
 		if (field == null) {
 			return null;
@@ -113,9 +122,11 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		componentClassName = c.getClass().getName();
-		if (getPropertyNameEnumeration().size() == 0) {
+		List<String> propertyNameOptions = getPropertyNameOptions();
+		if (propertyNameOptions.size() == 0) {
 			return false;
 		}
+		propertyName = propertyNameOptions.get(0);		
 		return true;
 	}
 

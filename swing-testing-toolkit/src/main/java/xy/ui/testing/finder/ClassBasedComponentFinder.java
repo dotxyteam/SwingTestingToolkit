@@ -30,7 +30,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	@Override
 	public String toString() {
 		return MessageFormat.format(
-				"<{0}> component ''{1}'' in the window n°{2}",
+				"<{0}> component n°{1} in the window n°{2}",
 				className, (occurrencesToSkip + 1), (windowIndex+1));
 	}
 

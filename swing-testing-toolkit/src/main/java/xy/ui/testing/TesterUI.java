@@ -59,6 +59,7 @@ import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
+import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingUtils;
@@ -71,13 +72,14 @@ public class TesterUI extends ReflectionUI {
 			CallMainMethodAction.class, WaitAction.class,
 			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
 			SelectTableRowAction.class, ClickOnTableCellAction.class,
-			ClickAction.class, SendKeysAction.class,
-			CheckComponentPropertyAction.class,
+			ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
 			ChangeComponentPropertyAction.class,
-			CheckWindowVisibleStringsAction.class, CloseWindowAction.class,
+			CheckComponentPropertyAction.class,
+			CheckWindowVisibleStringsAction.class,
 			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			VisibleStringComponentFinder.class, ClassBasedComponentFinder.class };
+			VisibleStringComponentFinder.class,
+			ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
 			CtrlV.class, CtrlX.class };
@@ -265,7 +267,12 @@ public class TesterUI extends ReflectionUI {
 							Object result = super.invoke(object,
 									valueByParameterPosition, method,
 									containingType);
-							onSuccessfulPlay((Tester) object, form);
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									onSuccessfulPlay((Tester) object, form);
+								}
+							});
 							return result;
 						}
 					}
