@@ -364,6 +364,9 @@ public class TesterUI extends ReflectionUI {
 				if (method.getName().equals("assertSuccessfulReplay")) {
 					return true;
 				}
+				if (method.getName().equals("matches")) {
+					return true;
+				}
 				return super.excludeMethod(method);
 			}
 

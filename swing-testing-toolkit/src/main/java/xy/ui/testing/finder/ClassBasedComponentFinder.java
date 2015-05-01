@@ -6,24 +6,33 @@ import java.text.MessageFormat;
 public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 	
-	protected String className = "";
+	protected String componentClassName = "";
 
-	public String getClassName() {
-		return className;
+	public String getComponentClassName() {
+		return componentClassName;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
+	public void setComponentClassName(String componentClassName) {
+		this.componentClassName = componentClassName;
 	}
 
 	@Override
 	protected boolean matchesInContainingWindow(Component c) {
-		return c.getClass().getName().equals(className);
+		Class<?> expectedClass;
+		try {
+			expectedClass = Class.forName(componentClassName);
+		} catch (ClassNotFoundException e) {
+			throw new AssertionError(e);
+		}
+		if (!expectedClass.isInstance(c)) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	protected boolean initializeSpecificCriterias(Component c) {
-		className = c.getClass().getName();
+		componentClassName = c.getClass().getName();
 		return true;
 	}
 
@@ -31,7 +40,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	public String toString() {
 		return MessageFormat.format(
 				"<{0}> component n°{1} in the window n°{2}",
-				className, (occurrencesToSkip + 1), (windowIndex+1));
+				componentClassName, (occurrencesToSkip + 1), (windowIndex+1));
 	}
 
 }

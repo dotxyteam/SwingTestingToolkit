@@ -2,66 +2,55 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.util.TestingError;
 
-public class PropertyBasedComponentFinder extends MatchingComponentFinder {
+public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
-	CheckComponentPropertyAction checkPropertyAction = new CheckComponentPropertyAction();
 
-	public String getPropertyName() {
-		return checkPropertyAction.getPropertyName();
+	protected CheckComponentPropertyAction checkPropertyAction = new CheckComponentPropertyAction();
+	protected List<PropertyCriteria> propertyCriterias = new ArrayList<PropertyBasedComponentFinder.PropertyCriteria>();
+
+	public List<PropertyCriteria> getPropertyCriterias() {
+		return propertyCriterias;
 	}
 
-	public void setPropertyName(String propertyyName) {
-		checkPropertyAction.setPropertyName(propertyyName);
-	}
-
-	public String getComponentClassName() {
-		return checkPropertyAction.getComponentClassName();
-	}
-
-	public void setComponentClassName(String componentClassName) {
-		checkPropertyAction.setComponentClassName(componentClassName);
-	}
-
-	public List<String> getPropertyNameEnumeration() {
-		return checkPropertyAction.getPropertyNameOptions();
-	}
-
-	public String getPropertyValue() {
-		return checkPropertyAction.getPropertyValueExpected();
-	}
-
-	public void setPropertyValue(String value) {
-		checkPropertyAction.setPropertyValueExpected(value);
+	public void setPropertyCriterias(List<PropertyCriteria> propertyCriterias) {
+		this.propertyCriterias = propertyCriterias;
 	}
 
 	@Override
 	protected boolean matchesInContainingWindow(Component c) {
-		try {
-			Class<?> expectedClass;
-			try {
-				expectedClass = Class.forName(checkPropertyAction
-						.getComponentClassName());
-			} catch (ClassNotFoundException e) {
-				throw new AssertionError(e);
-			}
-			if (!expectedClass.isInstance(c)) {
-				return false;
-			}
-			checkPropertyAction.execute(c);
-			return true;
-		} catch (TestingError e) {
+		if (!super.matchesInContainingWindow(c)) {
 			return false;
 		}
+		for (PropertyCriteria propertyOption : propertyCriterias) {
+			if (!propertyOption.matches(c)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
 	protected boolean initializeSpecificCriterias(Component c) {
-		return checkPropertyAction.initializeFrom(c, null);
+		if (!super.initializeSpecificCriterias(c)) {
+			return false;
+		}
+		if (!checkPropertyAction.initializeFrom(c, null)) {
+			return false;
+		}
+		PropertyCriteria firsPropertyOption = new PropertyCriteria();
+		firsPropertyOption.setPropertyName(checkPropertyAction
+				.getPropertyName());
+		firsPropertyOption.setPropertyValueExpected(checkPropertyAction
+				.getPropertyValueExpected());
+		propertyCriterias.add(firsPropertyOption);
+		return true;
+
 	}
 
 	@Override
@@ -70,6 +59,56 @@ public class PropertyBasedComponentFinder extends MatchingComponentFinder {
 				"\"{0}\" component n°{1} in the window n°{2}",
 				checkPropertyAction.getValueDescription(),
 				(occurrencesToSkip + 1), (windowIndex + 1));
+	}
+
+	public class PropertyCriteria {
+
+		protected String propertyName;
+		protected String propertyValueExpected;
+
+		public String getPropertyName() {
+			return propertyName;
+		}
+
+		public void setPropertyName(String propertyName) {
+			this.propertyName = propertyName;
+		}
+
+		public String getPropertyValueExpected() {
+			return propertyValueExpected;
+		}
+
+		public void setPropertyValueExpected(String propertyValueExpected) {
+			this.propertyValueExpected = propertyValueExpected;
+		}
+
+		public boolean matches(Component c) {
+			try {
+				getSubCheckPropertyAction().execute(c);
+				return true;
+			} catch (TestingError e) {
+				return false;
+			}
+		}
+
+		protected CheckComponentPropertyAction getSubCheckPropertyAction() {
+			CheckComponentPropertyAction result = new CheckComponentPropertyAction();
+			result.setComponentClassName(checkPropertyAction
+					.getComponentClassName());
+			result.setPropertyName(propertyName);
+			result.setPropertyValueExpected(propertyValueExpected);
+			return result;
+		}
+
+		public List<String> getPropertyNameOptions() {
+			return checkPropertyAction.getPropertyNameOptions();
+		}
+
+		@Override
+		public String toString() {
+			return getSubCheckPropertyAction().getValueDescription();
+		}
+
 	}
 
 }

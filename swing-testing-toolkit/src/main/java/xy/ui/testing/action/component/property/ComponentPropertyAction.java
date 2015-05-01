@@ -30,8 +30,8 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		return propertyName;
 	}
 
-	public void setPropertyName(String propertyyName) {
-		this.propertyName = propertyyName;
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
 	}
 
 	public String getComponentClassName() {

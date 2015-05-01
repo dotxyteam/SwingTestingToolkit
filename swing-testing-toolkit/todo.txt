@@ -1,3 +1,6 @@
+- Action PAnel: put the componentFinder in another tab???
+- add validation
+- add online help
 - disable key events when recording and replace by the tester popup
 - check all actions available with swingset
 - menu/popup menu actions
@@ -9,6 +12,6 @@
 - wait action
 - double click, mouse down or up, mouse motion events
 - jlist, jtree, jtable,  ... specific actions
-- extensivity
+- extensibility
 - generate testing code???
 - remove nullability

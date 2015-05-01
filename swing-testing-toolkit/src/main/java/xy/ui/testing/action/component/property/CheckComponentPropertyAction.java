@@ -35,7 +35,11 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 
 	@Override
 	public String getValueDescription() {
-		return propertyName + " = " + propertyValueExpected;
+		if(propertyValueExpected == null){
+			return propertyName + " = <null>";
+		}else{
+			return propertyName + " = " + propertyValueExpected;
+		}			
 	}
 
 	@Override
