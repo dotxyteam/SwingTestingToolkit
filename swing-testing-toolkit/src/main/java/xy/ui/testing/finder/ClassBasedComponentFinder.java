@@ -18,16 +18,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	protected boolean matchesInContainingWindow(Component c) {
-		Class<?> expectedClass;
-		try {
-			expectedClass = Class.forName(componentClassName);
-		} catch (ClassNotFoundException e) {
-			throw new AssertionError(e);
-		}
-		if (!expectedClass.isInstance(c)) {
-			return false;
-		}
-		return true;
+		return c.getClass().getName().equals(componentClassName);
 	}
 
 	@Override

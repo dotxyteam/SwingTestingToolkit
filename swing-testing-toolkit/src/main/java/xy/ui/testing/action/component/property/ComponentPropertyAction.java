@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.ClassUtils;
+
+import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
-import xy.reflect.ui.info.type.IBooleanTypeInfo;
-import xy.reflect.ui.info.type.ITextualTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
-import xy.reflect.ui.info.type.JavaTypeInfoSource;
+import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
+import xy.reflect.ui.info.type.custom.TextualTypeInfo;
+import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.component.TargetComponentTestAction;
@@ -42,6 +45,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		this.componentClassName = componentClassName;
 	}
 
+	@ValueOptionsForField("propertyName")
 	public List<String> getPropertyNameOptions() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
@@ -49,14 +53,32 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 		List<String> result = new ArrayList<String>();
 		for (IFieldInfo field : componentType.getFields()) {
-			if (field.getType() instanceof ITextualTypeInfo) {
+			if(isSupportedPropertyField(field)){
 				result.add(field.getCaption());
-			} else if (field.getType() instanceof IBooleanTypeInfo) {
-				result.add(field.getCaption());
-			}
+			}			
 		}
 		Collections.sort(result);
 		return result;
+	}
+
+
+	protected boolean isSupportedPropertyField(IFieldInfo field) {
+		Class<?> javaType = getFieldJavaType(field);
+		if(TextualTypeInfo.isCompatibleWith(javaType)){
+			return true;
+		}
+		if(BooleanTypeInfo.isCompatibleWith(javaType)){
+			return true;
+		}
+		return false;
+	}
+
+	protected Class<?> getFieldJavaType(IFieldInfo field) {
+		try {
+			return ClassUtils.getClass(field.getType().getName());
+		} catch (ClassNotFoundException e) {
+			throw new AssertionError(e);
+		}
 	}
 
 	protected ITypeInfo getComponentTypeInfo() {
@@ -75,36 +97,35 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 	}
 
 	protected Object filedValueToPropertyValue(Object fieldValue) {
-		if(fieldValue == null){
+		if (fieldValue == null) {
 			return null;
 		}
 		IFieldInfo field = getPropertyFieldInfo();
 		if (field == null) {
 			return null;
 		}
-		if (field.getType() instanceof ITextualTypeInfo) {
-			return ((ITextualTypeInfo) field.getType()).toText(fieldValue);
-		} else if (field.getType() instanceof IBooleanTypeInfo) {
-			return ((IBooleanTypeInfo) field.getType()).toBoolean(fieldValue)
-					.toString();
+		if (TextualTypeInfo.isCompatibleWith(fieldValue.getClass())) {
+			return TextualTypeInfo.toText(fieldValue);
+		} else if (BooleanTypeInfo.isCompatibleWith(fieldValue.getClass())) {
+			return fieldValue.toString();
 		} else {
 			throw new AssertionError();
 		}
 	}
 
 	protected Object propertyValueToFieldValue(String propertyValue) {
-		if(propertyValue == null){
+		if (propertyValue == null) {
 			return null;
 		}
 		IFieldInfo field = getPropertyFieldInfo();
 		if (field == null) {
 			return null;
 		}
-		if (field.getType() instanceof ITextualTypeInfo) {
-			return ((ITextualTypeInfo) field.getType()).fromText(propertyValue);
-		} else if (field.getType() instanceof IBooleanTypeInfo) {
-			return ((IBooleanTypeInfo) field.getType()).fromBoolean(Boolean
-					.valueOf(propertyValue));
+		Class<?> javaType = getFieldJavaType(field);
+		if (TextualTypeInfo.isCompatibleWith(javaType)) {
+			return TextualTypeInfo.fromText(propertyValue, javaType);
+		} else if (BooleanTypeInfo.isCompatibleWith(javaType)) {
+			return Boolean.valueOf(propertyValue);
 		} else {
 			throw new AssertionError();
 		}
@@ -126,7 +147,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		if (propertyNameOptions.size() == 0) {
 			return false;
 		}
-		propertyName = propertyNameOptions.get(0);		
+		propertyName = propertyNameOptions.get(0);
 		return true;
 	}
 

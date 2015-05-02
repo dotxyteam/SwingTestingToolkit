@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.util.TestingError;
 
@@ -100,6 +101,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			return result;
 		}
 
+		@ValueOptionsForField("propertyName")
 		public List<String> getPropertyNameOptions() {
 			return checkPropertyAction.getPropertyNameOptions();
 		}

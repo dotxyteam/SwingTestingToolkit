@@ -18,6 +18,14 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 	}
 
 	@Override
+	protected boolean isSupportedPropertyField(IFieldInfo field) {
+		if(field.isReadOnly()){
+			return false;
+		}
+		return super.isSupportedPropertyField(field);
+	}
+
+	@Override
 	public void execute(final Component c) {
 		IFieldInfo field = getPropertyFieldInfo();
 		Object newFieldValue = propertyValueToFieldValue(newPropertyValue);
