@@ -26,9 +26,9 @@ import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
-import xy.reflect.ui.info.type.list.IListTypeInfo;
-import xy.reflect.ui.info.type.list.IListTypeInfo.IListAction;
-import xy.reflect.ui.info.type.list.IListTypeInfo.ItemPosition;
+import xy.reflect.ui.info.type.iterable.IListTypeInfo;
+import xy.reflect.ui.info.type.iterable.util.IListAction;
+import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -207,7 +207,7 @@ public class TesterUI extends ReflectionUI {
 				if ((object instanceof Tester)
 						&& (field.getName().equals("testActions"))) {
 					if (selection.size() > 0) {
-						List<IListAction> result = new ArrayList<IListTypeInfo.IListAction>();
+						List<IListAction> result = new ArrayList<IListAction>();
 						result.add(new IListAction() {
 
 							@Override
