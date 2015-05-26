@@ -1,3 +1,8 @@
+- adding a field or method through the TypeInfoProxyConf
+results in the field/method multiply added. 
+The problem is caused by the precomputedTypeInstances with
+which multiple calls are made to the ReflectionUI.getTypeInfo()
+
 - Action PAnel: put the componentFinder in another tab???
 - add validation
 - add online help

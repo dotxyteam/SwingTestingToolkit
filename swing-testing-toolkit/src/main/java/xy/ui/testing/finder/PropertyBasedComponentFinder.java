@@ -15,12 +15,24 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	protected CheckComponentPropertyAction checkPropertyAction = new CheckComponentPropertyAction();
 	protected List<PropertyCriteria> propertyCriterias = new ArrayList<PropertyBasedComponentFinder.PropertyCriteria>();
 
-	public List<PropertyCriteria> getPropertyCriterias() {
-		return propertyCriterias;
+	public PropertyCriteria createPropertyCriteria() {
+		return new PropertyCriteria();
 	}
 
-	public void setPropertyCriterias(List<PropertyCriteria> propertyCriterias) {
-		this.propertyCriterias = propertyCriterias;
+	public PropertyCriteria getPropertyCriteria(int index) {
+		return propertyCriterias.get(index);
+	}
+
+	public void addPropertyCriteria(int index, PropertyCriteria c) {
+		propertyCriterias.add(index, c);
+	}
+
+	public void removePropertyCriteria(int index) {
+		propertyCriterias.remove(index);
+	}
+
+	public int getPropertyCriteriaCount() {
+		return propertyCriterias.size();
 	}
 
 	@Override

@@ -24,13 +24,16 @@ import javax.swing.SwingUtilities;
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
+import xy.reflect.ui.info.field.ComposedListField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.util.IListAction;
 import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
+import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
+import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
@@ -61,6 +64,7 @@ import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
+import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyCriteria;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingUtils;
 
@@ -135,6 +139,47 @@ public class TesterUI extends ReflectionUI {
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
 		return new TypeInfoProxyConfiguration() {
+
+			@Override
+			protected List<IFieldInfo> getFields(ITypeInfo type) {
+				if ((type instanceof DefaultTypeInfo)  && type.getName().equals(
+						PropertyBasedComponentFinder.class.getName())) {
+					List<IFieldInfo> result = new ArrayList<IFieldInfo>(
+							super.getFields(type));
+					ITypeInfo propertyCriteriaType = INSTANCE
+							.getTypeInfo(new JavaTypeInfoSource(PropertyCriteria.class));
+					result.add(new ComposedListField(INSTANCE,
+							"propertyCriterias", type, propertyCriteriaType,
+							"createPropertyCriteria", "getPropertyCriteria",
+							"addPropertyCriteria", "removePropertyCriteria",
+							"propertyCriteriaCount"));
+					return result;
+				} else {
+					return super.getFields(type);
+				}
+			}
+
+			@Override
+			protected List<IMethodInfo> getMethods(ITypeInfo type) {
+				if (type.getName().equals(
+						PropertyBasedComponentFinder.class.getName())) {
+					List<IMethodInfo> result = new ArrayList<IMethodInfo>(
+							super.getMethods(type));
+					result.remove(ReflectionUIUtils.findInfoByName(result,
+							"createPropertyCriteria"));
+					result.remove(ReflectionUIUtils.findInfoByName(result,
+							"getPropertyCriteria"));
+					result.remove(ReflectionUIUtils.findInfoByName(result,
+							"addPropertyCriteria"));
+					result.remove(ReflectionUIUtils.findInfoByName(result,
+							"removePropertyCriteria"));
+					result.remove(ReflectionUIUtils.findInfoByName(result,
+							"getPropertyCriteriaCount"));
+					return result;
+				} else {
+					return super.getMethods(type);
+				}
+			}
 
 			@Override
 			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(
