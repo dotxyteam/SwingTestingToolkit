@@ -146,10 +146,8 @@ public class TesterUI extends ReflectionUI {
 						PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(
 							super.getFields(type));
-					ITypeInfo propertyCriteriaType = INSTANCE
-							.getTypeInfo(new JavaTypeInfoSource(PropertyCriteria.class));
 					result.add(new ComposedListField(INSTANCE,
-							"propertyCriterias", type, propertyCriteriaType,
+							"propertyCriterias", type, 
 							"createPropertyCriteria", "getPropertyCriteria",
 							"addPropertyCriteria", "removePropertyCriteria",
 							"propertyCriteriaCount"));
@@ -159,7 +157,7 @@ public class TesterUI extends ReflectionUI {
 				}
 			}
 
-			@Override
+			/*@Override
 			protected List<IMethodInfo> getMethods(ITypeInfo type) {
 				if (type.getName().equals(
 						PropertyBasedComponentFinder.class.getName())) {
@@ -179,7 +177,7 @@ public class TesterUI extends ReflectionUI {
 				} else {
 					return super.getMethods(type);
 				}
-			}
+			}*/
 
 			@Override
 			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(

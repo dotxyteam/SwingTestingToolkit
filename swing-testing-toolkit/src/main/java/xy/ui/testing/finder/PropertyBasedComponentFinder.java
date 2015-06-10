@@ -36,6 +36,12 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
+	public void setComponentClassName(String componentClassName) {
+		super.setComponentClassName(componentClassName);
+		checkPropertyAction.setComponentClassName(componentClassName);
+	}
+
+	@Override
 	protected boolean matchesInContainingWindow(Component c) {
 		if (!super.matchesInContainingWindow(c)) {
 			return false;
