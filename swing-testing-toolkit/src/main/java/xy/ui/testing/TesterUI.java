@@ -374,7 +374,7 @@ public class TesterUI extends ReflectionUI {
 					}
 				}
 				if (containingType.getName().equals(Tester.class.getName())) {
-					if (method.getName().startsWith("record")) {
+					if (method.getName().equals("startRecording")) {
 						for (final JPanel form : getForms(object)) {
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override

@@ -13,7 +13,6 @@ import xy.ui.testing.util.TestingError;
 public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
 
-	protected CheckComponentPropertyAction checkPropertyAction = new CheckComponentPropertyAction();
 	protected List<PropertyCriteria> propertyCriterias = new ArrayList<PropertyBasedComponentFinder.PropertyCriteria>();
 
 	public PropertyCriteria createPropertyCriteria() {
@@ -37,12 +36,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
-	public void setComponentClassName(String componentClassName) {
-		super.setComponentClassName(componentClassName);
-		checkPropertyAction.setComponentClassName(componentClassName);
-	}
-
-	@Override
 	protected boolean matchesInContainingWindow(Component c) {
 		if (!super.matchesInContainingWindow(c)) {
 			return false;
@@ -55,36 +48,19 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		return true;
 	}
 
-	@Override
-	protected boolean initializeSpecificCriterias(Component c) {
-		if (!super.initializeSpecificCriterias(c)) {
-			return false;
-		}
-		if (!checkPropertyAction.initializeFrom(c, null)) {
-			return false;
-		}
-		PropertyCriteria firsPropertyOption = new PropertyCriteria();
-		firsPropertyOption.setPropertyName(checkPropertyAction
-				.getPropertyName());
-		firsPropertyOption.setPropertyValueExpected(checkPropertyAction
-				.getPropertyValueExpected());
-		propertyCriterias.add(firsPropertyOption);
-		return true;
-
-	}
 
 	@Override
 	public String toString() {
 		String criteriasDescription;
-		if(propertyCriterias.size() == 0){
+		if (propertyCriterias.size() == 0) {
 			criteriasDescription = "";
-		}else{
+		} else {
 			List<String> criteriaStrings = new ArrayList<String>();
 			for (PropertyCriteria criteria : propertyCriterias) {
 				criteriaStrings.add(criteria.toString());
 			}
 			criteriasDescription = ", having the following properties:\n"
-			+ StringUtils.join(criteriaStrings, "\n");
+					+ StringUtils.join(criteriaStrings, "\n");
 		}
 		return super.toString() + criteriasDescription;
 	}
@@ -121,8 +97,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 		protected CheckComponentPropertyAction getSubCheckPropertyAction() {
 			CheckComponentPropertyAction result = new CheckComponentPropertyAction();
-			result.setComponentClassName(checkPropertyAction
-					.getComponentClassName());
+			result.setComponentClassName(getComponentClassName());
 			result.setPropertyName(propertyName);
 			result.setPropertyValueExpected(propertyValueExpected);
 			return result;
@@ -130,7 +105,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 		@ValueOptionsForField("propertyName")
 		public List<String> getPropertyNameOptions() {
-			return checkPropertyAction.getPropertyNameOptions();
+			return getSubCheckPropertyAction().getPropertyNameOptions();
 		}
 
 		@Override

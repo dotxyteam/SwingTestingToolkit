@@ -194,7 +194,7 @@ public class Tester {
 		return result;
 	}
 
-	public void record() {
+	public void startRecording() {
 		if (isRecording()) {
 			return;
 		}
@@ -263,12 +263,12 @@ public class Tester {
 			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(window,
 					message, title, JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE, icon)) {
-				record();
+				startRecording();
 				CloseWindowAction closeAction = new CloseWindowAction();
 				closeAction.initializeFrom(window, event);
 				onTestActionSelection(closeAction, window);
 			} else {
-				record();
+				startRecording();
 			}
 		}
 	}
@@ -299,7 +299,11 @@ public class Tester {
 
 		};
 		dialog.setVisible(true);
-		return (AbstractAction) dialog.getSelection();
+		DefaultMutableTreeNode selected = (DefaultMutableTreeNode) dialog.getSelection();
+		if(selected == null){
+			return null;
+		}
+		return (AbstractAction) selected.getUserObject();
 	}
 
 	protected INodePropertyAccessor<String> getTestActionMenuItemTextAccessor() {
@@ -355,7 +359,7 @@ public class Tester {
 								} catch (InterruptedException e) {
 									throw new TestingError(e);
 								}
-								record();
+								startRecording();
 							}
 						}.start();
 					}
