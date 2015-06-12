@@ -156,7 +156,8 @@ public class Tester {
 					}
 					break;
 				}
-				throw new TestingError("Test Action n°" + (i + 1) + ": "
+				throw new TestingError("Test Action n°"
+						+ (testActions.indexOf(testAction) + 1) + ": "
 						+ e.toString(), e);
 			}
 		}
@@ -223,7 +224,7 @@ public class Tester {
 			return;
 		}
 		if (TestingUtils.belongsToPopupMenu(c, popupMenu)) {
-			return; 
+			return;
 		}
 		if (isCurrentComponentChangeEvent(event)) {
 			handleCurrentComponentChange(c);

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,13 +24,16 @@ import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.info.IInfoCollectionSettings;
+import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
-import xy.reflect.ui.info.field.ComposedListField;
+import xy.reflect.ui.info.field.ImplicitListField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.util.IListAction;
 import xy.reflect.ui.info.type.iterable.util.ItemPosition;
+import xy.reflect.ui.info.type.iterable.util.structure.IListStructuralInfo;
+import xy.reflect.ui.info.type.iterable.util.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
@@ -141,13 +145,65 @@ public class TesterUI extends ReflectionUI {
 		return new TypeInfoProxyConfiguration() {
 
 			@Override
+			protected IListStructuralInfo getStructuralInfo(IListTypeInfo type) {
+				ITypeInfo itemtype = type.getItemType();
+				if (itemtype.getName().equals(TestAction.class.getName())) {
+					return new ListStructuralInfoProxy(
+							super.getStructuralInfo(type)) {
+
+						@Override
+						public String getCellValue(ItemPosition itemPosition,
+								int columnIndex) {
+							if (columnIndex == 0) {
+								return Integer
+										.toString(itemPosition.getIndex() + 1);
+							} else {
+								columnIndex--;
+								return super.getCellValue(itemPosition,
+										columnIndex);
+							}
+						}
+
+						@Override
+						public Image getCellIconImage(
+								ItemPosition itemPosition, int columnIndex) {
+							if (columnIndex == 1) {
+								return super.getCellIconImage(itemPosition, 0);
+							} else {
+								return null;
+							}
+						}
+
+						@Override
+						public String getColumnCaption(int columnIndex) {
+							if (columnIndex == 0) {
+								return "N°";
+							} else {
+								columnIndex--;
+								return super.getColumnCaption(columnIndex);
+							}
+						}
+
+						@Override
+						public int getColumnCount() {
+							return super.getColumnCount() + 1;
+						}
+
+					};
+				} else {
+					return super.getStructuralInfo(type);
+				}
+			}
+
+			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
-				if ((type instanceof DefaultTypeInfo)  && type.getName().equals(
-						PropertyBasedComponentFinder.class.getName())) {
+				if ((type instanceof DefaultTypeInfo)
+						&& type.getName().equals(
+								PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(
 							super.getFields(type));
-					result.add(new ComposedListField(INSTANCE,
-							"propertyCriterias", type, 
+					result.add(new ImplicitListField(INSTANCE,
+							"propertyCriterias", type,
 							"createPropertyCriteria", "getPropertyCriteria",
 							"addPropertyCriteria", "removePropertyCriteria",
 							"propertyCriteriaCount"));
@@ -157,27 +213,24 @@ public class TesterUI extends ReflectionUI {
 				}
 			}
 
-			/*@Override
-			protected List<IMethodInfo> getMethods(ITypeInfo type) {
-				if (type.getName().equals(
-						PropertyBasedComponentFinder.class.getName())) {
-					List<IMethodInfo> result = new ArrayList<IMethodInfo>(
-							super.getMethods(type));
-					result.remove(ReflectionUIUtils.findInfoByName(result,
-							"createPropertyCriteria"));
-					result.remove(ReflectionUIUtils.findInfoByName(result,
-							"getPropertyCriteria"));
-					result.remove(ReflectionUIUtils.findInfoByName(result,
-							"addPropertyCriteria"));
-					result.remove(ReflectionUIUtils.findInfoByName(result,
-							"removePropertyCriteria"));
-					result.remove(ReflectionUIUtils.findInfoByName(result,
-							"getPropertyCriteriaCount"));
-					return result;
-				} else {
-					return super.getMethods(type);
-				}
-			}*/
+			/*
+			 * @Override protected List<IMethodInfo> getMethods(ITypeInfo type)
+			 * { if (type.getName().equals(
+			 * PropertyBasedComponentFinder.class.getName())) {
+			 * List<IMethodInfo> result = new ArrayList<IMethodInfo>(
+			 * super.getMethods(type));
+			 * result.remove(ReflectionUIUtils.findInfoByName(result,
+			 * "createPropertyCriteria"));
+			 * result.remove(ReflectionUIUtils.findInfoByName(result,
+			 * "getPropertyCriteria"));
+			 * result.remove(ReflectionUIUtils.findInfoByName(result,
+			 * "addPropertyCriteria"));
+			 * result.remove(ReflectionUIUtils.findInfoByName(result,
+			 * "removePropertyCriteria"));
+			 * result.remove(ReflectionUIUtils.findInfoByName(result,
+			 * "getPropertyCriteriaCount")); return result; } else { return
+			 * super.getMethods(type); } }
+			 */
 
 			@Override
 			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(

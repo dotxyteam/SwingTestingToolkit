@@ -1,9 +1,10 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
@@ -46,8 +47,8 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		if (!super.matchesInContainingWindow(c)) {
 			return false;
 		}
-		for (PropertyCriteria propertyOption : propertyCriterias) {
-			if (!propertyOption.matches(c)) {
+		for (PropertyCriteria propertyCriteria : propertyCriterias) {
+			if (!propertyCriteria.matches(c)) {
 				return false;
 			}
 		}
@@ -74,10 +75,18 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	@Override
 	public String toString() {
-		return MessageFormat.format(
-				"\"{0}\" component n°{1} in the window n°{2}",
-				checkPropertyAction.getValueDescription(),
-				(occurrencesToSkip + 1), (windowIndex + 1));
+		String criteriasDescription;
+		if(propertyCriterias.size() == 0){
+			criteriasDescription = "";
+		}else{
+			List<String> criteriaStrings = new ArrayList<String>();
+			for (PropertyCriteria criteria : propertyCriterias) {
+				criteriaStrings.add(criteria.toString());
+			}
+			criteriasDescription = ", having the following properties:\n"
+			+ StringUtils.join(criteriaStrings, "\n");
+		}
+		return super.toString() + criteriasDescription;
 	}
 
 	public class PropertyCriteria {
