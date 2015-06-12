@@ -3,11 +3,13 @@ package xy.ui.testing;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -22,21 +24,27 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.window.CloseWindowAction;
+import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingError;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.TreeSelectionDialog;
+import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
@@ -55,7 +63,6 @@ public class Tester {
 	protected Color currentComponentBackground;
 	protected Color currentComponentForeground;
 	protected MouseListener[] currentComponentMouseListeners;
-	protected JPopupMenu popupMenu = new JPopupMenu();
 	protected boolean recording = false;
 	protected Border currentComponentBorder;
 
@@ -77,7 +84,7 @@ public class Tester {
 		super.finalize();
 		TestingUtils.removeAWTEventListener(recordingListener);
 	}
-	
+
 	public static void assertSuccessfulReplay(File replayFile)
 			throws IOException {
 		Tester tester = new Tester();
@@ -91,8 +98,6 @@ public class Tester {
 		tester.loadFromStream(replayStream);
 		tester.playAll();
 	}
-
-
 
 	public int getMinimumSecondsToWaitBetwneenActions() {
 		return minimumSecondsToWaitBetwneenActions;
@@ -226,9 +231,6 @@ public class Tester {
 		if (TestingUtils.isTesterUIComponent(c)) {
 			return;
 		}
-		if (TestingUtils.belongsToPopupMenu(c, popupMenu)) {
-			return;
-		}
 		if (isCurrentComponentChangeEvent(event)) {
 			handleCurrentComponentChange(c);
 		}
@@ -239,14 +241,16 @@ public class Tester {
 
 	protected void handleComponentIntrospectionRequest(final AWTEvent event) {
 		if (event instanceof MouseEvent) {
-			popupMenu.removeAll();
+			DefaultMutableTreeNode menuRoot = new DefaultMutableTreeNode();
 			final Component c = (Component) event.getSource();
-			createReleaseComponentMenuItem(c);
-			createTestActionMenuItems(c, event);
-			createStopRecordingMenuItem(c);
-			popupMenu.add(new JMenuItem("Cancel"));
-			final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(TesterUI.INSTANCE.getObjectByForm(), this).get(0);
-			popupMenu.show(testerForm, 0, 0);			
+			createReleaseComponentMenuItem(menuRoot, c);
+			createStopRecordingMenuItem(menuRoot, c);
+			createTestActionMenuItems(menuRoot, c, event);
+			AbstractAction todo = openTestActionMenu(menuRoot);
+			if (todo == null) {
+				return;
+			}
+			todo.actionPerformed(null);
 		}
 		if (event instanceof WindowEvent) {
 			WindowEvent windowEvent = (WindowEvent) event;
@@ -269,65 +273,160 @@ public class Tester {
 		}
 	}
 
-	protected void createReleaseComponentMenuItem(Component c) {
-		JMenuItem menuItem = new JMenuItem("Pause Recording (5 Seconds)");
-		{
-			menuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					handleCurrentComponentChange(null);
-					stopRecording();
-					new Thread(Tester.class.getSimpleName() + " Restarter") {
-						@Override
-						public void run() {
-							try {
-								sleep(5000);
-							} catch (InterruptedException e) {
-								throw new TestingError(e);
-							}
-							record();
-						}
-					}.start();
-				}
-			});
-			popupMenu.add(menuItem);
-		}
-	}
-
-	protected void createStopRecordingMenuItem(Component c) {
-		JMenuItem stopRecordingItem = new JMenuItem("Stop Recording");
-		{
-			stopRecordingItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					TesterUI.INSTANCE.getFormsUpdatingMethod(Tester.this,
-							"stopRecording").invoke(Tester.this,
-							Collections.<Integer, Object> emptyMap());
-				}
-			});
-			popupMenu.add(stopRecordingItem);
-		}
-	}
-
-	protected void createTestActionMenuItems(final Component c, AWTEvent event) {
-		JMenu actionsMenu = new JMenu("Execute And Record Action");
-		popupMenu.add(actionsMenu);
-		JMenu assertionssMenu = new JMenu("Execute And Record Assertion");
-		popupMenu.add(assertionssMenu);
-		for (final TestAction testAction : getPossibleTestActions(c, event)) {
-			JMenuItem item = new JMenuItem(TesterUI.INSTANCE.getObjectKind(
-					testAction).replaceAll(" Action$", ""));
-			item.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					onTestActionSelection(testAction, c);
-				}
-			});
-			if (item.getText().startsWith("Check")) {
-				assertionssMenu.add(item);
-			} else {
-				actionsMenu.add(item);
+	protected AbstractAction openTestActionMenu(DefaultMutableTreeNode menuRoot) {
+		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(
+				TesterUI.INSTANCE.getObjectByForm(), this).get(0);
+		Window parentWindow = SwingUtilities.getWindowAncestor(testerForm);
+		String title = TesterUI.INSTANCE.getObjectKind(this);
+		DefaultTreeModel treeModel = new DefaultTreeModel(menuRoot);
+		final TreeSelectionDialog dialog = new TreeSelectionDialog(
+				parentWindow, title, null, treeModel,
+				getTestActionMenuItemTextAccessor(),
+				getTestActionMenuItemIconAccessor(), true,
+				ModalityType.DOCUMENT_MODAL) {
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			protected Container createContentPane(String message) {
+				Container result = super.createContentPane(message);
+				AlternateWindowDecorationsPanel decorationsPanel = TesterUI
+						.getAlternateWindowDecorationsPanel(this);
+				decorationsPanel.configureWindow(this);
+				decorationsPanel.getContentPanel().add(result);
+				result = decorationsPanel;
+				return result;
 			}
+
+		};
+		dialog.setVisible(true);
+		return (AbstractAction) dialog.getSelection();
+	}
+
+	protected INodePropertyAccessor<String> getTestActionMenuItemTextAccessor() {
+		return new INodePropertyAccessor<String>() {
+
+			@Override
+			public String get(Object node) {
+				Object object = ((DefaultMutableTreeNode) node).getUserObject();
+				if (object instanceof AbstractAction) {
+					AbstractAction swingAction = (AbstractAction) object;
+					return (String) swingAction.getValue(AbstractAction.NAME);
+				} else if (object instanceof String) {
+					return (String) object;
+				} else {
+					return null;
+				}
+			}
+		};
+	}
+
+	protected INodePropertyAccessor<Icon> getTestActionMenuItemIconAccessor() {
+		return new INodePropertyAccessor<Icon>() {
+
+			@Override
+			public Icon get(Object node) {
+				Object object = ((DefaultMutableTreeNode) node).getUserObject();
+				if (object instanceof AbstractAction) {
+					AbstractAction swingAction = (AbstractAction) object;
+					return (Icon) swingAction
+							.getValue(AbstractAction.SMALL_ICON);
+				} else {
+					return null;
+				}
+			}
+		};
+	}
+
+	protected void createReleaseComponentMenuItem(DefaultMutableTreeNode root,
+			Component c) {
+		DefaultMutableTreeNode pauseItem = new DefaultMutableTreeNode(
+				new AbstractAction("Pause Recording (5 seconds)") {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						handleCurrentComponentChange(null);
+						stopRecording();
+						new Thread(Tester.class.getSimpleName() + " Restarter") {
+							@Override
+							public void run() {
+								try {
+									sleep(5000);
+								} catch (InterruptedException e) {
+									throw new TestingError(e);
+								}
+								record();
+							}
+						}.start();
+					}
+				});
+		root.add(pauseItem);
+	}
+
+	protected void createStopRecordingMenuItem(DefaultMutableTreeNode root,
+			Component c) {
+		DefaultMutableTreeNode stopRecordingItem = new DefaultMutableTreeNode(
+				new AbstractAction("Stop Recording") {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						TesterUI.INSTANCE.getFormsUpdatingMethod(Tester.this,
+								"stopRecording").invoke(Tester.this,
+								Collections.<Integer, Object> emptyMap());
+					}
+				});
+		root.add(stopRecordingItem);
+	}
+
+	protected void createTestActionMenuItems(DefaultMutableTreeNode root,
+			final Component c, AWTEvent event) {
+		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode(
+				"Execute And Record");
+		TreeSelectionDialog.setGrouNode(recordGroup, true);
+		root.add(recordGroup);
+		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode(
+				"Actions");
+		TreeSelectionDialog.setGrouNode(actionsGroup, true);
+		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode(
+				"Assertion");
+		TreeSelectionDialog.setGrouNode(assertionssGroup, true);
+		for (final TestAction testAction : getPossibleTestActions(c, event)) {
+			String testActionTypeName = TesterUI.INSTANCE.getObjectKind(
+					testAction).replaceAll(" Action$", "");
+			DefaultMutableTreeNode item = new DefaultMutableTreeNode(
+					new AbstractAction(testActionTypeName) {
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							onTestActionSelection(testAction, c);
+						}
+
+						@Override
+						public Object getValue(String key) {
+							if (key == AbstractAction.SMALL_ICON) {
+								Image image = TesterUI.INSTANCE
+										.getObjectIconImage(testAction);
+								return new ImageIcon(image);
+							} else {
+								return super.getValue(key);
+							}
+						}
+
+					});
+			if (testActionTypeName.startsWith("Check")) {
+				assertionssGroup.add(item);
+			} else {
+				actionsGroup.add(item);
+			}
+			if (actionsGroup.getChildCount() > 0) {
+				recordGroup.add(actionsGroup);
+			}
+			if (assertionssGroup.getChildCount() > 0) {
+				recordGroup.add(assertionssGroup);
+			}
+
 		}
 	}
 

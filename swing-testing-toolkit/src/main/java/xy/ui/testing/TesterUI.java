@@ -550,7 +550,16 @@ public class TesterUI extends ReflectionUI {
 			List<? extends Component> toolbarControls) {
 		Container result = super.createWindowContentPane(window, content,
 				toolbarControls);
-		AlternateWindowDecorationsPanel decorationsPanel = new AlternateWindowDecorationsPanel(
+		AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window);
+		decorationsPanel.configureWindow(window);
+		decorationsPanel.getContentPanel().add(result);
+		result = decorationsPanel;
+		return result;
+	}
+
+	public static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(
+			Window window) {
+		return new AlternateWindowDecorationsPanel(
 				ReflectionUIUtils.getWindowTitle(window)) {
 
 			private static final long serialVersionUID = 1L;
@@ -566,10 +575,6 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		};
-		decorationsPanel.configureWindow(window);
-		decorationsPanel.getContentPanel().add(result);
-		result = decorationsPanel;
-		return result;
 	}
 
 	protected void onSuccessfulPlay(Tester tester, Component activatorComponent) {

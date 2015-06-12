@@ -1,0 +1,255 @@
+package xy.ui.testing.util;
+
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.WeakHashMap;
+
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTree;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+
+public class TreeSelectionDialog extends JDialog {
+
+	protected static final long serialVersionUID = 1L;
+
+	protected final JPanel contentPanel = new JPanel();
+	protected JTree tree;
+	protected boolean okPressed = false;
+	protected JButton okButton;
+	protected JButton cancelButton;
+	protected JLabel messageControl;
+
+	protected static WeakHashMap<Object, Boolean> groupFlagByNode = new WeakHashMap<Object, Boolean>();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
+		DefaultMutableTreeNode child1 = new DefaultMutableTreeNode("child1");
+		root.add(child1);
+		DefaultMutableTreeNode child2 = new DefaultMutableTreeNode("child2");
+		root.add(child2);
+		DefaultMutableTreeNode child3 = new DefaultMutableTreeNode("child3");
+		child2.add(child3);
+		DefaultMutableTreeNode child4 = new DefaultMutableTreeNode("child4");
+		child3.add(child4);
+		open(null, null, null, new DefaultTreeModel(root), null, null, true);
+	}
+
+	public static Object open(Component parent, String title, String message,
+			TreeModel treeModel,
+			final INodePropertyAccessor<String> textAccessor,
+			final INodePropertyAccessor<Icon> iconAccessor, boolean expandAll) {
+		Window parentWindow = null;
+		{
+			if (parent != null) {
+				if (parent instanceof Window) {
+					parentWindow = (Window) parent;
+				} else {
+					parentWindow = SwingUtilities.getWindowAncestor(parent);
+				}
+			}
+		}
+		TreeSelectionDialog dialog = new TreeSelectionDialog(parentWindow,
+				title, message, treeModel, textAccessor, iconAccessor,
+				expandAll, ModalityType.APPLICATION_MODAL);
+
+		dialog.setVisible(true);
+
+		if (dialog.okPressed) {
+			return dialog.tree.getLastSelectedPathComponent();
+		} else {
+			return null;
+		}
+	}
+
+	public TreeSelectionDialog(Window parent, String title, String message,
+			TreeModel treeModel,
+			final INodePropertyAccessor<String> textAccessor,
+			final INodePropertyAccessor<Icon> iconAccessor, boolean expandAll,
+			ModalityType modalityType) {
+		super(parent);
+		if (title != null) {
+			setTitle(title);
+		}
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setModalityType(modalityType);
+		initializeTree(treeModel, textAccessor, iconAccessor, expandAll);
+		setContentPane(createContentPane(message));
+		pack();
+		setLocationRelativeTo(null);
+	}
+
+	protected Container createContentPane(String message) {
+		JPanel contentPane = new JPanel();
+		contentPane.setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(new BorderLayout(10, 10));
+		{
+			contentPanel.add(new JScrollPane(tree));
+		}
+		{
+			messageControl = new JLabel("Choose:");
+			messageControl.setHorizontalAlignment(SwingConstants.CENTER);
+			if (message != null) {
+				messageControl.setText(message);
+			}
+			contentPanel.add(messageControl, BorderLayout.NORTH);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new BevelBorder(BevelBorder.RAISED, null,
+					null, null, null));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			contentPane.add(buttonPane, BorderLayout.SOUTH);
+			{
+				okButton = new JButton("OK");
+				okButton.setEnabled(false);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						onOK();
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						onCancel();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+		return contentPane;
+	}
+
+	protected void initializeTree(TreeModel treeModel,
+			final INodePropertyAccessor<String> textAccessor,
+			final INodePropertyAccessor<Icon> iconAccessor, boolean expandAll) {
+		tree = new JTree();
+		tree.setPreferredSize(new Dimension(300, 0));
+		tree.setVisibleRowCount(10);
+		tree.setRootVisible(false);
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent e) {
+				onTreeSelectionChange();
+			}
+		});
+		tree.setModel(treeModel);
+		tree.setCellRenderer(new DefaultTreeCellRenderer() {
+			protected static final long serialVersionUID = 1L;
+
+			@Override
+			public Component getTreeCellRendererComponent(JTree tree,
+					Object value, boolean selected, boolean expanded,
+					boolean isLeaf, int row, boolean focused) {
+				JLabel label = (JLabel) super.getTreeCellRendererComponent(
+						tree, value, selected, expanded, isLeaf, row, focused);
+				if (textAccessor != null) {
+					label.setText(textAccessor.get(value));
+				}
+				if (iconAccessor != null) {
+					Icon icon = iconAccessor.get(value);
+					if (icon != null) {
+						label.setIcon(iconAccessor.get(value));
+					} else {
+						if (isGrouNode(value)) {
+							if (expanded) {
+								icon = getOpenIcon();
+							} else {
+								icon = getClosedIcon();
+							}
+						}
+					}
+					label.setIcon(icon);
+				} else {
+					label.setIcon(null);
+				}
+				return label;
+			}
+		});
+		if (expandAll) {
+			expandAll();
+		}
+	}
+
+	public JTree getTree() {
+		return tree;
+	}
+	
+
+
+	public Object getSelection() {
+		if(!okPressed){
+			return null;
+		}
+		return tree.getLastSelectedPathComponent();
+	}
+
+	protected void onTreeSelectionChange() {
+		if (tree.getSelectionCount() == 1) {
+			if (!isGrouNode(tree.getLastSelectedPathComponent())) {
+				okButton.setEnabled(true);
+				return;
+			}
+		}
+		okButton.setEnabled(false);
+	}
+
+	public static boolean isGrouNode(Object node) {
+		return Boolean.TRUE.equals(groupFlagByNode.get(node));
+	}
+
+	public static void setGrouNode(Object node, boolean b) {
+		groupFlagByNode.put(node, b);
+	}
+
+	protected void onCancel() {
+		dispose();
+	}
+
+	protected void onOK() {
+		okPressed = true;
+		dispose();
+	}
+
+	public void expandAll() {
+		int row = 0;
+		while (row < tree.getRowCount()) {
+			tree.expandRow(row);
+			row++;
+		}
+	}
+
+	public static interface INodePropertyAccessor<T> {
+		T get(Object node);
+	}
+
+}
