@@ -1,3 +1,5 @@
+- allow to run actions from the current single selected element to the end
+- select currently executed action 
 - adding a field or method through the TypeInfoProxyConf
 results in the field/method multiply added. 
 The problem is caused by the precomputedTypeInstances with

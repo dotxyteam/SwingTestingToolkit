@@ -2,6 +2,8 @@ package xy.ui.testing.action.component.property;
 
 import java.awt.Component;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.util.TestingError;
@@ -35,11 +37,20 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 
 	@Override
 	public String getValueDescription() {
-		if(propertyValueExpected == null){
+		if (propertyValueExpected == null) {
 			return propertyName + " = <null>";
-		}else{
-			return propertyName + " = " + propertyValueExpected;
-		}			
+		} else {
+			String propertyValueString;
+			if (String.class.getName().equals(
+					getPropertyFieldInfo().getType().getName())) {
+				propertyValueString = "\""
+						+ StringEscapeUtils.escapeJava(propertyValueExpected)
+						+ "\"";
+			} else {
+				propertyValueString = propertyValueExpected;
+			}
+			return propertyName + " = " + propertyValueString;
+		}
 	}
 
 	@Override

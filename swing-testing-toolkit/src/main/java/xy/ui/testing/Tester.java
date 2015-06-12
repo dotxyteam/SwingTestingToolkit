@@ -28,10 +28,11 @@ import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
-
 import xy.reflect.ui.info.field.IFieldInfo;
+import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.util.TestingError;
@@ -58,20 +59,6 @@ public class Tester {
 	protected boolean recording = false;
 	protected Border currentComponentBorder;
 
-	public static void assertSuccessfulReplay(File replayFile)
-			throws IOException {
-		Tester tester = new Tester();
-		tester.loadFromFile(replayFile);
-		tester.playAll();
-	}
-
-	public static void assertSuccessfulReplay(InputStream replayStream)
-			throws IOException {
-		Tester tester = new Tester();
-		tester.loadFromStream(replayStream);
-		tester.playAll();
-	}
-
 	public Tester() {
 		recordingListener = new AWTEventListener() {
 			@Override
@@ -90,6 +77,22 @@ public class Tester {
 		super.finalize();
 		TestingUtils.removeAWTEventListener(recordingListener);
 	}
+	
+	public static void assertSuccessfulReplay(File replayFile)
+			throws IOException {
+		Tester tester = new Tester();
+		tester.loadFromFile(replayFile);
+		tester.playAll();
+	}
+
+	public static void assertSuccessfulReplay(InputStream replayStream)
+			throws IOException {
+		Tester tester = new Tester();
+		tester.loadFromStream(replayStream);
+		tester.playAll();
+	}
+
+
 
 	public int getMinimumSecondsToWaitBetwneenActions() {
 		return minimumSecondsToWaitBetwneenActions;
@@ -229,21 +232,21 @@ public class Tester {
 		if (isCurrentComponentChangeEvent(event)) {
 			handleCurrentComponentChange(c);
 		}
-		if (isFocusOnComponentEvent(event)) {
-			handleFocusOnComponent(event);
+		if (isComponentIntrospectionRequestEvent(event)) {
+			handleComponentIntrospectionRequest(event);
 		}
 	}
 
-	protected void handleFocusOnComponent(final AWTEvent event) {
+	protected void handleComponentIntrospectionRequest(final AWTEvent event) {
 		if (event instanceof MouseEvent) {
-			MouseEvent mouseEvt = (MouseEvent) event;
 			popupMenu.removeAll();
 			final Component c = (Component) event.getSource();
 			createReleaseComponentMenuItem(c);
 			createTestActionMenuItems(c, event);
 			createStopRecordingMenuItem(c);
 			popupMenu.add(new JMenuItem("Cancel"));
-			popupMenu.show(c, mouseEvt.getX(), mouseEvt.getY());
+			final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(TesterUI.INSTANCE.getObjectByForm(), this).get(0);
+			popupMenu.show(testerForm, 0, 0);			
 		}
 		if (event instanceof WindowEvent) {
 			WindowEvent windowEvent = (WindowEvent) event;
@@ -362,7 +365,7 @@ public class Tester {
 
 	}
 
-	protected boolean isFocusOnComponentEvent(AWTEvent event) {
+	protected boolean isComponentIntrospectionRequestEvent(AWTEvent event) {
 		if (event instanceof MouseEvent) {
 			MouseEvent mouseEvent = (MouseEvent) event;
 			if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
