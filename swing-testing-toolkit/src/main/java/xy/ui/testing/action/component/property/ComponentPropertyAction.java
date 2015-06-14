@@ -96,7 +96,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 	}
 
-	protected Object filedValueToPropertyValue(Object fieldValue) {
+	protected String filedValueToPropertyValue(Object fieldValue) {
 		if (fieldValue == null) {
 			return null;
 		}

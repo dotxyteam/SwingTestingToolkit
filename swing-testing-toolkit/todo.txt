@@ -1,3 +1,5 @@
+- popup menus must be handled in a special way beacuse
+they are sensitive in a way to the Tester workflow 
 - allow to run actions from the current single selected element to the end
 - select currently executed action 
 - adding a field or method through the TypeInfoProxyConf

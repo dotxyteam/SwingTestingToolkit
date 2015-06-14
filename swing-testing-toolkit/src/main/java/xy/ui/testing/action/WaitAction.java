@@ -20,7 +20,7 @@ public class WaitAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent event) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
 		return false;
 	}
 

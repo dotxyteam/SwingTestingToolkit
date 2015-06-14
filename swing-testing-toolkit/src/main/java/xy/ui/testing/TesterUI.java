@@ -47,6 +47,7 @@ import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.WaitAction;
 import xy.ui.testing.action.component.ClickAction;
+import xy.ui.testing.action.component.ClickOnMenuItemAction;
 import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
@@ -80,7 +81,8 @@ public class TesterUI extends ReflectionUI {
 			CallMainMethodAction.class, WaitAction.class,
 			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
 			SelectTableRowAction.class, ClickOnTableCellAction.class,
-			ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
+			ClickOnMenuItemAction.class, ClickAction.class,
+			SendKeysAction.class, CloseWindowAction.class,
 			ChangeComponentPropertyAction.class,
 			CheckComponentPropertyAction.class,
 			CheckWindowVisibleStringsAction.class,
@@ -373,22 +375,17 @@ public class TesterUI extends ReflectionUI {
 						}
 					}
 				}
-				if (containingType.getName().equals(Tester.class.getName())) {
-					if (method.getName().equals("startRecording")) {
-						for (final JPanel form : getForms(object)) {
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									SwingUtilities.getWindowAncestor(form)
-											.toBack();
-								}
-							});
-							return super.invoke(object,
-									valueByParameterPosition, method,
-									containingType);
-						}
-					}
-				}
+				/*
+				 * if (containingType.getName().equals(Tester.class.getName()))
+				 * { if (method.getName().equals("startRecording")) { for (final
+				 * JPanel form : getForms(object)) {
+				 * SwingUtilities.invokeLater(new Runnable() {
+				 * 
+				 * @Override public void run() {
+				 * SwingUtilities.getWindowAncestor(form) .toBack(); } });
+				 * return super.invoke(object, valueByParameterPosition, method,
+				 * containingType); } } }
+				 */
 				return super.invoke(object, valueByParameterPosition, method,
 						containingType);
 			}

@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
+import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.util.TestingError;
 
@@ -14,6 +15,19 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
 
 	protected List<PropertyCriteria> propertyCriterias = new ArrayList<PropertyBasedComponentFinder.PropertyCriteria>();
+
+	public PropertyBasedComponentFinder(String... propertynames) {
+		for (int i = 0; i < propertynames.length; i++) {
+			String propertyName = propertynames[i];
+			PropertyCriteria propertyCriteria = createPropertyCriteria();
+			propertyCriteria.setPropertyName(propertyName);
+			addPropertyCriteria(i, propertyCriteria);
+		}
+	}
+	
+	public PropertyBasedComponentFinder(){
+		this(new String[0]);
+	}
 
 	public PropertyCriteria createPropertyCriteria() {
 		return new PropertyCriteria();
@@ -36,6 +50,19 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
+	protected boolean initializeSpecificCriterias(Component c) {
+		if (!super.initializeSpecificCriterias(c)) {
+			return false;
+		}
+		for (PropertyCriteria propertyCriteria : propertyCriterias) {
+			if (!propertyCriteria.initialize(c)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
 	protected boolean matchesInContainingWindow(Component c) {
 		if (!super.matchesInContainingWindow(c)) {
 			return false;
@@ -47,7 +74,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		}
 		return true;
 	}
-
 
 	@Override
 	public String toString() {
@@ -84,6 +110,24 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 		public void setPropertyValueExpected(String propertyValueExpected) {
 			this.propertyValueExpected = propertyValueExpected;
+		}
+
+		public boolean initialize(final Component c) {
+			final boolean[] ok = new boolean[] { false };
+			new CheckComponentPropertyAction() {
+				private static final long serialVersionUID = 1L;
+				{
+					setComponentClassName(PropertyBasedComponentFinder.this.componentClassName);
+					setPropertyName(PropertyCriteria.this.propertyName);
+					IFieldInfo field = super.getPropertyFieldInfo();
+					if (field != null) {
+						Object fieldValue = field.getValue(c);
+						PropertyCriteria.this.propertyValueExpected = filedValueToPropertyValue(fieldValue);
+						ok[0] = true;
+					}
+				}
+			};
+			return ok[0];
 		}
 
 		public boolean matches(Component c) {

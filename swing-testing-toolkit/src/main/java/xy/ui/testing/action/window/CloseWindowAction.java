@@ -1,5 +1,6 @@
 package xy.ui.testing.action.window;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -28,5 +29,16 @@ public class CloseWindowAction extends TargetWindowTestAction {
 	@Override
 	public String getValueDescription() {
 		return "";
+	}
+
+
+	public static boolean matchIntrospectionRequestEvent(AWTEvent event) {
+		if (event instanceof WindowEvent) {
+			WindowEvent windowEvent = (WindowEvent) event;
+			if (windowEvent.getID() == WindowEvent.WINDOW_CLOSING) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

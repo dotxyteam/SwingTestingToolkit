@@ -8,7 +8,6 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.WeakHashMap;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -39,8 +38,7 @@ public class TreeSelectionDialog extends JDialog {
 	protected JButton cancelButton;
 	protected JLabel messageControl;
 
-	protected static WeakHashMap<Object, Boolean> groupFlagByNode = new WeakHashMap<Object, Boolean>();
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -54,13 +52,16 @@ public class TreeSelectionDialog extends JDialog {
 		child2.add(child3);
 		DefaultMutableTreeNode child4 = new DefaultMutableTreeNode("child4");
 		child3.add(child4);
-		open(null, null, null, new DefaultTreeModel(root), null, null, true);
+		open(null, null, null, new DefaultTreeModel(root), null, null, null,
+				true);
 	}
 
 	public static Object open(Component parent, String title, String message,
 			TreeModel treeModel,
 			final INodePropertyAccessor<String> textAccessor,
-			final INodePropertyAccessor<Icon> iconAccessor, boolean expandAll) {
+			final INodePropertyAccessor<Icon> iconAccessor,
+			final INodePropertyAccessor<Boolean> selectableAccessor,
+			boolean expandAll) {
 		Window parentWindow = null;
 		{
 			if (parent != null) {
@@ -73,7 +74,7 @@ public class TreeSelectionDialog extends JDialog {
 		}
 		TreeSelectionDialog dialog = new TreeSelectionDialog(parentWindow,
 				title, message, treeModel, textAccessor, iconAccessor,
-				expandAll, ModalityType.APPLICATION_MODAL);
+				selectableAccessor, expandAll, ModalityType.APPLICATION_MODAL);
 
 		dialog.setVisible(true);
 
@@ -87,15 +88,17 @@ public class TreeSelectionDialog extends JDialog {
 	public TreeSelectionDialog(Window parent, String title, String message,
 			TreeModel treeModel,
 			final INodePropertyAccessor<String> textAccessor,
-			final INodePropertyAccessor<Icon> iconAccessor, boolean expandAll,
-			ModalityType modalityType) {
+			final INodePropertyAccessor<Icon> iconAccessor,
+			final INodePropertyAccessor<Boolean> selectableAccessor,
+			boolean expandAll, ModalityType modalityType) {
 		super(parent);
 		if (title != null) {
 			setTitle(title);
 		}
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(modalityType);
-		initializeTree(treeModel, textAccessor, iconAccessor, expandAll);
+		initializeTree(treeModel, textAccessor, iconAccessor,
+				selectableAccessor, expandAll);
 		setContentPane(createContentPane(message));
 		pack();
 		setLocationRelativeTo(null);
@@ -152,14 +155,16 @@ public class TreeSelectionDialog extends JDialog {
 
 	protected void initializeTree(TreeModel treeModel,
 			final INodePropertyAccessor<String> textAccessor,
-			final INodePropertyAccessor<Icon> iconAccessor, boolean expandAll) {
+			final INodePropertyAccessor<Icon> iconAccessor,
+			final INodePropertyAccessor<Boolean> selectableAccessor,
+			boolean expandAll) {
 		tree = new JTree();
 		tree.setPreferredSize(new Dimension(300, 0));
 		tree.setVisibleRowCount(10);
 		tree.setRootVisible(false);
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
-				onTreeSelectionChange();
+				onTreeSelectionChange(selectableAccessor);
 			}
 		});
 		tree.setModel(treeModel);
@@ -177,17 +182,6 @@ public class TreeSelectionDialog extends JDialog {
 				}
 				if (iconAccessor != null) {
 					Icon icon = iconAccessor.get(value);
-					if (icon != null) {
-						label.setIcon(iconAccessor.get(value));
-					} else {
-						if (isGrouNode(value)) {
-							if (expanded) {
-								icon = getOpenIcon();
-							} else {
-								icon = getClosedIcon();
-							}
-						}
-					}
 					label.setIcon(icon);
 				} else {
 					label.setIcon(null);
@@ -203,32 +197,29 @@ public class TreeSelectionDialog extends JDialog {
 	public JTree getTree() {
 		return tree;
 	}
-	
-
 
 	public Object getSelection() {
-		if(!okPressed){
+		if (!okPressed) {
 			return null;
 		}
 		return tree.getLastSelectedPathComponent();
 	}
 
-	protected void onTreeSelectionChange() {
+	protected void onTreeSelectionChange(
+			INodePropertyAccessor<Boolean> selectableAccessor) {
 		if (tree.getSelectionCount() == 1) {
-			if (!isGrouNode(tree.getLastSelectedPathComponent())) {
+			if (selectableAccessor != null) {
+				if (Boolean.TRUE.equals(selectableAccessor.get(tree
+						.getLastSelectedPathComponent()))) {
+					okButton.setEnabled(true);
+					return;
+				}
+			} else {
 				okButton.setEnabled(true);
 				return;
 			}
 		}
 		okButton.setEnabled(false);
-	}
-
-	public static boolean isGrouNode(Object node) {
-		return Boolean.TRUE.equals(groupFlagByNode.get(node));
-	}
-
-	public static void setGrouNode(Object node, boolean b) {
-		groupFlagByNode.put(node, b);
 	}
 
 	protected void onCancel() {

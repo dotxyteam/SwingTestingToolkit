@@ -8,7 +8,7 @@ public abstract class TestAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public abstract boolean initializeFrom(Component c, AWTEvent event);
+	public abstract boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent);
 	public abstract Component findComponent();
 	public abstract void execute(Component c);
 

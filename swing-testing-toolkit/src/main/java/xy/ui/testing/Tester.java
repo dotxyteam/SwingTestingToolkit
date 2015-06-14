@@ -29,16 +29,20 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.action.component.ClickOnMenuItemAction;
+import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingError;
@@ -240,19 +244,7 @@ public class Tester {
 	}
 
 	protected void handleComponentIntrospectionRequest(final AWTEvent event) {
-		if (event instanceof MouseEvent) {
-			DefaultMutableTreeNode menuRoot = new DefaultMutableTreeNode();
-			final Component c = (Component) event.getSource();
-			createReleaseComponentMenuItem(menuRoot, c);
-			createStopRecordingMenuItem(menuRoot, c);
-			createTestActionMenuItems(menuRoot, c, event);
-			AbstractAction todo = openTestActionMenu(menuRoot);
-			if (todo == null) {
-				return;
-			}
-			todo.actionPerformed(null);
-		}
-		if (event instanceof WindowEvent) {
+		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
 			WindowEvent windowEvent = (WindowEvent) event;
 			Window window = windowEvent.getWindow();
 			stopRecording();
@@ -266,26 +258,56 @@ public class Tester {
 				startRecording();
 				CloseWindowAction closeAction = new CloseWindowAction();
 				closeAction.initializeFrom(window, event);
-				onTestActionSelection(closeAction, window);
+				onTestActionRecordingRequest(closeAction, window, false);
 			} else {
 				startRecording();
 			}
+		} else if (ClickOnMenuItemAction.mactchIntrospectionRequestEvent(event)) {
+			final JMenuItem menuItem = (JMenuItem) event.getSource();
+			stopRecording();
+			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
+			testACtion.initializeFrom(menuItem, event);
+			ImageIcon icon = new ImageIcon(
+					TesterUI.INSTANCE.getObjectIconImage(Tester.this));
+			String message = "Do you want to record this menu item activation event?";
+			String title = TesterUI.INSTANCE.getObjectKind(Tester.this);
+			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(
+					getTesterWindow(), message, title,
+					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+					icon)) {
+				startRecording();
+				if (onTestActionRecordingRequest(testACtion, menuItem, false)) {
+					menuItem.getAction().actionPerformed(new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, null));
+				}
+			} else {
+				startRecording();
+			}
+			return;
+		} else {
+			DefaultMutableTreeNode menuRoot = new DefaultMutableTreeNode();
+			final Component c = (Component) event.getSource();
+			createReleaseComponentMenuItem(menuRoot, c);
+			createStopRecordingMenuItem(menuRoot, c);
+			createTestActionMenuItems(menuRoot, c, event);
+			AbstractAction todo = openTestActionMenu(menuRoot);
+			if (todo == null) {
+				return;
+			}
+			todo.actionPerformed(null);
 		}
 	}
 
 	protected AbstractAction openTestActionMenu(DefaultMutableTreeNode menuRoot) {
-		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(
-				TesterUI.INSTANCE.getObjectByForm(), this).get(0);
-		Window parentWindow = SwingUtilities.getWindowAncestor(testerForm);
 		String title = TesterUI.INSTANCE.getObjectKind(this);
 		DefaultTreeModel treeModel = new DefaultTreeModel(menuRoot);
 		final TreeSelectionDialog dialog = new TreeSelectionDialog(
-				parentWindow, title, null, treeModel,
+				getTesterWindow(), title, null, treeModel,
 				getTestActionMenuItemTextAccessor(),
-				getTestActionMenuItemIconAccessor(), true,
+				getTestActionMenuItemIconAccessor(),
+				getTestActionMenuItemSelectableAccessor(), true,
 				ModalityType.DOCUMENT_MODAL) {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			protected Container createContentPane(String message) {
 				Container result = super.createContentPane(message);
@@ -299,11 +321,32 @@ public class Tester {
 
 		};
 		dialog.setVisible(true);
-		DefaultMutableTreeNode selected = (DefaultMutableTreeNode) dialog.getSelection();
-		if(selected == null){
+		DefaultMutableTreeNode selected = (DefaultMutableTreeNode) dialog
+				.getSelection();
+		if (selected == null) {
 			return null;
 		}
 		return (AbstractAction) selected.getUserObject();
+	}
+
+	protected Window getTesterWindow() {
+		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(
+				TesterUI.INSTANCE.getObjectByForm(), this).get(0);
+		if (testerForm == null) {
+			return null;
+		}
+		return SwingUtilities.getWindowAncestor(testerForm);
+	}
+
+	protected INodePropertyAccessor<Boolean> getTestActionMenuItemSelectableAccessor() {
+		return new INodePropertyAccessor<Boolean>() {
+
+			@Override
+			public Boolean get(Object node) {
+				Object object = ((DefaultMutableTreeNode) node).getUserObject();
+				return object instanceof AbstractAction;
+			}
+		};
 	}
 
 	protected INodePropertyAccessor<String> getTestActionMenuItemTextAccessor() {
@@ -327,6 +370,8 @@ public class Tester {
 	protected INodePropertyAccessor<Icon> getTestActionMenuItemIconAccessor() {
 		return new INodePropertyAccessor<Icon>() {
 
+			DefaultTreeCellRenderer treeCellRenderer = new DefaultTreeCellRenderer();
+
 			@Override
 			public Icon get(Object node) {
 				Object object = ((DefaultMutableTreeNode) node).getUserObject();
@@ -334,6 +379,8 @@ public class Tester {
 					AbstractAction swingAction = (AbstractAction) object;
 					return (Icon) swingAction
 							.getValue(AbstractAction.SMALL_ICON);
+				} else if (object instanceof String) {
+					return treeCellRenderer.getOpenIcon();
 				} else {
 					return null;
 				}
@@ -387,14 +434,11 @@ public class Tester {
 			final Component c, AWTEvent event) {
 		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode(
 				"Execute And Record");
-		TreeSelectionDialog.setGrouNode(recordGroup, true);
 		root.add(recordGroup);
 		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode(
 				"Actions");
-		TreeSelectionDialog.setGrouNode(actionsGroup, true);
 		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode(
 				"Assertion");
-		TreeSelectionDialog.setGrouNode(assertionssGroup, true);
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
 			String testActionTypeName = TesterUI.INSTANCE.getObjectKind(
 					testAction).replaceAll(" Action$", "");
@@ -404,7 +448,7 @@ public class Tester {
 
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							onTestActionSelection(testAction, c);
+							onTestActionRecordingRequest(testAction, c, true);
 						}
 
 						@Override
@@ -434,8 +478,8 @@ public class Tester {
 		}
 	}
 
-	protected void onTestActionSelection(final TestAction testAction,
-			final Component c) {
+	protected boolean onTestActionRecordingRequest(final TestAction testAction,
+			final Component c, boolean execute) {
 		if (TesterUI.INSTANCE.openSettings(testAction, c)) {
 			TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
 			IFieldInfo testActionListField = TesterUI.INSTANCE
@@ -446,8 +490,12 @@ public class Tester {
 			testActionListField.setValue(Tester.this, newTestActionListValue
 					.toArray(new TestAction[newTestActionListValue.size()]));
 			handleCurrentComponentChange(null);
-			testAction.execute(c);
+			if (execute) {
+				testAction.execute(c);
+			}
+			return true;
 		}
+		return false;
 	}
 
 	protected List<TestAction> getPossibleTestActions(Component c,
@@ -469,19 +517,14 @@ public class Tester {
 	}
 
 	protected boolean isComponentIntrospectionRequestEvent(AWTEvent event) {
-		if (event instanceof MouseEvent) {
-			MouseEvent mouseEvent = (MouseEvent) event;
-			if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
-				if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-					return true;
-				}
-			}
+		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
+			return true;
 		}
-		if (event instanceof WindowEvent) {
-			WindowEvent windowEvent = (WindowEvent) event;
-			if (windowEvent.getID() == WindowEvent.WINDOW_CLOSING) {
-				return true;
-			}
+		if (ClickOnMenuItemAction.mactchIntrospectionRequestEvent(event)) {
+			return true;
+		}
+		if (TargetComponentTestAction.matchIntrospectionRequestEvent(event)) {
+			return true;
 		}
 		return false;
 	}

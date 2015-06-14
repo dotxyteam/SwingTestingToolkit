@@ -43,7 +43,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent event) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
 		Window window = TestingUtils.getWindowAncestorOrSelf(c);
 		if (!windowFinder.initializeFrom(window)) {
 			return false;
