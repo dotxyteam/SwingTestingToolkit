@@ -34,6 +34,7 @@ public class CallMainMethodAction extends TestAction {
 		return false;
 	}
 
+	
 	@Override
 	public void execute(Component c) {
 		new Thread(CallMainMethodAction.class.getName()) {
