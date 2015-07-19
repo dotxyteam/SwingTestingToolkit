@@ -72,6 +72,8 @@ import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyCriteria;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingUtils;
+import xy.reflect.ui.info.method.InvocationData;
+import xy.reflect.ui.info.method.InvocationData;
 
 @SuppressWarnings("unused")
 public class TesterUI extends ReflectionUI {
@@ -287,7 +289,7 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			protected IModification getUndoModification(IMethodInfo method,
 					ITypeInfo containingType, Object object,
-					Map<Integer, Object> valueByParameterPosition) {
+					InvocationData invocationData) {
 				if (method.getName().equals("startRecording")) {
 					return ModificationStack.NULL_MODIFICATION;
 				}
@@ -295,7 +297,7 @@ public class TesterUI extends ReflectionUI {
 					return ModificationStack.NULL_MODIFICATION;
 				}
 				return super.getUndoModification(method, containingType,
-						object, valueByParameterPosition);
+						object, invocationData);
 			}
 
 			@Override
@@ -326,11 +328,9 @@ public class TesterUI extends ReflectionUI {
 																	"play",
 																	List.class,
 																	Runnable.class)));
-									Map<Integer, Object> valueByParameterPosition = new HashMap<Integer, Object>();
-									valueByParameterPosition.put(0,
-											selectedActions);
+									InvocationData invocationData = new InvocationData(selectedActions);
 									playMethod.invoke(tester,
-											valueByParameterPosition);
+											invocationData);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -350,7 +350,7 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected Object invoke(final Object object,
-					final Map<Integer, Object> valueByParameterPosition,
+					final InvocationData invocationData,
 					final IMethodInfo method, final ITypeInfo containingType) {
 				if (containingType.getName().equals(Tester.class.getName())) {
 					if (method.getName().startsWith("play")) {
@@ -363,7 +363,7 @@ public class TesterUI extends ReflectionUI {
 								}
 							});
 							Object result = super.invoke(object,
-									valueByParameterPosition, method,
+									invocationData, method,
 									containingType);
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
@@ -383,10 +383,10 @@ public class TesterUI extends ReflectionUI {
 				 * 
 				 * @Override public void run() {
 				 * SwingUtilities.getWindowAncestor(form) .toBack(); } });
-				 * return super.invoke(object, valueByParameterPosition, method,
+				 * return super.invoke(object, invocationData, method,
 				 * containingType); } } }
 				 */
-				return super.invoke(object, valueByParameterPosition, method,
+				return super.invoke(object, invocationData, method,
 						containingType);
 			}
 

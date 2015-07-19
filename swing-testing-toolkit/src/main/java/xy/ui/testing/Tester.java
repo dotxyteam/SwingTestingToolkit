@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -39,6 +38,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.info.field.IFieldInfo;
+import xy.reflect.ui.info.method.InvocationData;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
@@ -277,7 +277,9 @@ public class Tester {
 					icon)) {
 				startRecording();
 				if (onTestActionRecordingRequest(testACtion, menuItem, false)) {
-					menuItem.getAction().actionPerformed(new ActionEvent(menuItem, ActionEvent.ACTION_PERFORMED, null));
+					menuItem.getAction().actionPerformed(
+							new ActionEvent(menuItem,
+									ActionEvent.ACTION_PERFORMED, null));
 				}
 			} else {
 				startRecording();
@@ -424,7 +426,7 @@ public class Tester {
 					public void actionPerformed(ActionEvent e) {
 						TesterUI.INSTANCE.getFormsUpdatingMethod(Tester.this,
 								"stopRecording").invoke(Tester.this,
-								Collections.<Integer, Object> emptyMap());
+								new InvocationData());
 					}
 				});
 		root.add(stopRecordingItem);
