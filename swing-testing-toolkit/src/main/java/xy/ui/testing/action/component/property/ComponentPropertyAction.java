@@ -17,7 +17,6 @@ import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.component.TargetComponentTestAction;
-import xy.ui.testing.util.TestingError;
 
 public abstract class ComponentPropertyAction extends TargetComponentTestAction {
 
@@ -92,7 +91,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 			return TesterUI.INSTANCE.getTypeInfo(new JavaTypeInfoSource(Class
 					.forName(componentClassName)));
 		} catch (ClassNotFoundException e) {
-			throw new TestingError(e);
+			return null;
 		}
 	}
 

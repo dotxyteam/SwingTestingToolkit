@@ -2,48 +2,30 @@ package xy.ui.testing.action.component;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.finder.PropertyBasedComponentFinder;
+import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestingError;
 
 public class ClickOnMenuItemAction extends TestAction {
 	private static final long serialVersionUID = 1L;
-	private PropertyBasedComponentFinder componentFinder = new PropertyBasedComponentFinder(
-			"Text");
+	
+	protected MenuItemComponentFinder componentFinder = new MenuItemComponentFinder();
 
-	public int getWindowIndex() {
-		return componentFinder.getWindowIndex();
+	public MenuItemComponentFinder getComponentFinder() {
+		return componentFinder;
 	}
 
-	public void setWindowIndex(int windowIndex) {
-		componentFinder.setWindowIndex(windowIndex);
-	}
-
-	public int getOccurrencesToSkip() {
-		return componentFinder.getOccurrencesToSkip();
-	}
-
-	public void setOccurrencesToSkip(int occurrencesToSkip) {
-		componentFinder.setOccurrencesToSkip(occurrencesToSkip);
-	}
-
-	public String getText() {
-		return componentFinder.getPropertyCriteria(0)
-				.getPropertyValueExpected();
-	}
-
-	public void setText(String text) {
-		componentFinder.getPropertyCriteria(0).setPropertyValueExpected(text);
+	public void setComponentFinder(MenuItemComponentFinder componentFinder) {
+		this.componentFinder = componentFinder;
 	}
 
 	@Override
 	public boolean initializeFrom(Component c,
 			AWTEvent introspectionRequestEvent) {
-		if (!new ClickAction().initializeFrom(c, introspectionRequestEvent)) {
-			return false;
-		}
 		if (!macthesComponent(c)) {
 			return false;
 		}
@@ -65,8 +47,8 @@ public class ClickOnMenuItemAction extends TestAction {
 
 	@Override
 	public void execute(final Component c) {
-		ClickAction clickACtion = new ClickAction();
-		clickACtion.execute(c);
+		JMenuItem menuItem = (JMenuItem) c;
+		new ClickAction().execute(menuItem);
 	}
 
 	@Override
@@ -87,7 +69,7 @@ public class ClickOnMenuItemAction extends TestAction {
 		return "Click on the " + componentFinder + "\"";
 	}
 
-	public static boolean mactchIntrospectionRequestEvent(AWTEvent event) {
+	public static boolean matchIntrospectionRequestEvent(AWTEvent event) {
 		if (!TargetComponentTestAction.matchIntrospectionRequestEvent(event)) {
 			return false;
 		}
@@ -108,5 +90,7 @@ public class ClickOnMenuItemAction extends TestAction {
 		}
 		return true;
 	}
+
+
 
 }

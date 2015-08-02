@@ -67,6 +67,7 @@ import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
+import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyCriteria;
@@ -91,7 +92,8 @@ public class TesterUI extends ReflectionUI {
 			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
 			VisibleStringComponentFinder.class,
-			ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class };
+			ClassBasedComponentFinder.class,
+			PropertyBasedComponentFinder.class, MenuItemComponentFinder.class };
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
 			CtrlV.class, CtrlX.class };
@@ -328,9 +330,9 @@ public class TesterUI extends ReflectionUI {
 																	"play",
 																	List.class,
 																	Runnable.class)));
-									InvocationData invocationData = new InvocationData(selectedActions);
-									playMethod.invoke(tester,
-											invocationData);
+									InvocationData invocationData = new InvocationData(
+											selectedActions);
+									playMethod.invoke(tester, invocationData);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -363,8 +365,7 @@ public class TesterUI extends ReflectionUI {
 								}
 							});
 							Object result = super.invoke(object,
-									invocationData, method,
-									containingType);
+									invocationData, method, containingType);
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
@@ -460,6 +461,15 @@ public class TesterUI extends ReflectionUI {
 				if (method.getName().equals("matches")) {
 					return true;
 				}
+				if (method.getName().equals("matches")) {
+					return true;
+				}
+				if (method.getName().equals("matchIntrospectionRequestEvent")) {
+					return true;             
+				}
+				if (method.getName().equals("macthesComponent")) {
+					return true;
+				}
 				return super.excludeMethod(method);
 			}
 
@@ -472,6 +482,9 @@ public class TesterUI extends ReflectionUI {
 					return true;
 				}
 				if (field.getName().equals("componentInformation")) {
+					return true;
+				}
+				if (field.getName().equals("propertyCriteriaList")) {
 					return true;
 				}
 				return super.excludeField(field);

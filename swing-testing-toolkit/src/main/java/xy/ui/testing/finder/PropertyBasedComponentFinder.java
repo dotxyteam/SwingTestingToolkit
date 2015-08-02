@@ -1,6 +1,7 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +25,19 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			addPropertyCriteria(i, propertyCriteria);
 		}
 	}
-	
-	public PropertyBasedComponentFinder(){
+
+	public PropertyBasedComponentFinder() {
 		this(new String[0]);
+	}
+	
+	
+
+	public List<PropertyCriteria> getPropertyCriteriaList() {
+		return propertyCriterias;
+	}
+
+	public void setPropertyCriteriaList(List<PropertyCriteria> propertyCriterias) {
+		this.propertyCriterias = propertyCriterias;
 	}
 
 	public PropertyCriteria createPropertyCriteria() {
@@ -38,6 +49,11 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	public void addPropertyCriteria(int index, PropertyCriteria c) {
+		if (findPropertyCriteria(c.getPropertyName()) != null) {
+			throw new TestingError(
+					"Cannot have duplicate property criterias: '"
+							+ c.getPropertyName() + "'");
+		}
 		propertyCriterias.add(index, c);
 	}
 
@@ -47,6 +63,36 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	public int getPropertyCriteriaCount() {
 		return propertyCriterias.size();
+	}
+
+	public void setPropertyCriteria(String propertyName,
+			String propertyValueExpected) {
+		PropertyCriteria criteria = findPropertyCriteria(propertyName);
+		if (criteria == null) {
+			criteria = createPropertyCriteria();
+			criteria.setPropertyName(propertyName);
+			addPropertyCriteria(getPropertyCriteriaCount(), criteria);
+		}
+		criteria.setPropertyValueExpected(propertyValueExpected);
+	}
+	
+
+
+	public String getPropertyCriteria(String propertyName) {
+		PropertyCriteria criteria = findPropertyCriteria(propertyName);
+		if (criteria == null) {
+			return null;
+		}
+		return criteria.getPropertyValueExpected();
+	}
+
+	public PropertyCriteria findPropertyCriteria(String propertyName) {
+		for (PropertyCriteria criteria : propertyCriterias) {
+			if (propertyName.equals(criteria.getPropertyName())) {
+				return criteria;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -91,8 +137,10 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		return super.toString() + criteriasDescription;
 	}
 
-	public class PropertyCriteria {
+	public class PropertyCriteria implements Serializable {
 
+		private static final long serialVersionUID = 1L;
+		
 		protected String propertyName;
 		protected String propertyValueExpected;
 

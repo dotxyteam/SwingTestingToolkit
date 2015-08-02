@@ -14,6 +14,7 @@ public class ClickAction extends TargetComponentTestAction {
 
 	protected ButtonId button = ButtonId.LEFT_BUTTON;
 	protected boolean doubleClick = false;
+	protected boolean poupTrigger = false;
 
 	public ButtonId getButton() {
 		return button;
@@ -29,6 +30,16 @@ public class ClickAction extends TargetComponentTestAction {
 
 	public void setDoubleClick(boolean doubleClick) {
 		this.doubleClick = doubleClick;
+	}
+	
+	
+
+	public boolean isPoupTrigger() {
+		return poupTrigger;
+	}
+
+	public void setPoupTrigger(boolean poupTrigger) {
+		this.poupTrigger = poupTrigger;
 	}
 
 	@Override
@@ -80,7 +91,7 @@ public class ClickAction extends TargetComponentTestAction {
 	protected MouseEvent createPressedEvent(Component c) {
 		return new MouseEvent(c, MouseEvent.MOUSE_PRESSED,
 				System.currentTimeMillis(), 0, c.getWidth() / 2,
-				c.getHeight() / 2, 1, false, getButtonMask());
+				c.getHeight() / 2, 1, poupTrigger , getButtonMask());
 	}
 
 	protected int getButtonMask() {

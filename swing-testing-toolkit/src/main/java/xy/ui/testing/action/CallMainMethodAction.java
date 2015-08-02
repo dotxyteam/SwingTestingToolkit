@@ -12,6 +12,7 @@ public class CallMainMethodAction extends TestAction {
 
 	protected String className = "";
 	protected String[] arguments;
+	protected Integer checkThrownExceptionAFterSeconds = 2;
 
 	public String getClassName() {
 		return className;
@@ -28,26 +29,49 @@ public class CallMainMethodAction extends TestAction {
 	public void setArguments(String[] arguments) {
 		this.arguments = arguments;
 	}
+	
+	
+
+	public Integer getCheckThrownExceptionAFterSeconds() {
+		return checkThrownExceptionAFterSeconds;
+	}
+
+	public void setCheckThrownExceptionAFterSeconds(
+			Integer checkThrownExceptionAFterSeconds) {
+		this.checkThrownExceptionAFterSeconds = checkThrownExceptionAFterSeconds;
+	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c,
+			AWTEvent introspectionRequestEvent) {
 		return false;
 	}
 
-	
 	@Override
 	public void execute(Component c) {
+		final TestingError[] error = new TestingError[1];
 		new Thread(CallMainMethodAction.class.getName()) {
 			@Override
 			public void run() {
 				try {
 					TestingUtils.launchClassMainMethod(className);
 				} catch (Exception e) {
-					throw new TestingError("Failed to run the main method of '"
-							+ className + "': " + e.toString(), e);
+					error[0] = new TestingError(
+							"Failed to run the main method of '" + className
+									+ "': " + e.toString(), e);
 				}
 			}
 		}.start();
+		if(checkThrownExceptionAFterSeconds != null){
+			try {
+				Thread.sleep(checkThrownExceptionAFterSeconds*1000);
+			} catch (InterruptedException e) {
+				throw new TestingError(e);
+			}
+			if(error[0] != null){
+				throw error[0];
+			}
+		}
 	}
 
 	@Override

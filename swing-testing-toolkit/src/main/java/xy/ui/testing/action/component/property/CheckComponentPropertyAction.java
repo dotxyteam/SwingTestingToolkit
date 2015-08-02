@@ -41,8 +41,10 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 			return propertyName + " = <null>";
 		} else {
 			String propertyValueString;
-			if (String.class.getName().equals(
-					getPropertyFieldInfo().getType().getName())) {
+			IFieldInfo propertyFieldInfo = getPropertyFieldInfo();
+			if ((propertyFieldInfo != null)
+					&& String.class.getName().equals(
+							propertyFieldInfo.getType().getName())) {
 				propertyValueString = "\""
 						+ StringEscapeUtils.escapeJava(propertyValueExpected)
 						+ "\"";

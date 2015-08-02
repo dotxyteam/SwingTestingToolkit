@@ -18,7 +18,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -358,20 +357,19 @@ public class TestingUtils {
 	public static List<JMenuItem> getAncestorMenuItems(JMenuItem menuItem) {
 		List<JMenuItem> result = new ArrayList<JMenuItem>();
 		while (true) {
-			if (menuItem.getParent() instanceof JMenu) {
-				result.add((JMenu) menuItem.getParent());
+			Container menuItemParent = menuItem.getParent();
+			boolean isSubMenuOrContextMenuIItem = menuItemParent instanceof JPopupMenu;
+			if (isSubMenuOrContextMenuIItem) {
+				JPopupMenu popupMenu = (JPopupMenu) menuItem.getParent();
+				Component invoker = popupMenu.getInvoker();
+				if (!(invoker instanceof JMenuItem)) {
+					break;
+				}
+				menuItem = (JMenuItem) invoker;
+				result.add(menuItem);
+			} else {
 				break;
 			}
-			if (!(menuItem.getParent() instanceof JPopupMenu)) {
-				break;
-			}
-			JPopupMenu popupMenu = (JPopupMenu) menuItem.getParent();
-			Component invoker = popupMenu.getInvoker();
-			if (!(invoker instanceof JMenuItem)) {
-				break;
-			}
-			menuItem = (JMenuItem) invoker;
-			result.add(menuItem);
 		}
 		return result;
 	}

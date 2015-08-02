@@ -262,7 +262,7 @@ public class Tester {
 			} else {
 				startRecording();
 			}
-		} else if (ClickOnMenuItemAction.mactchIntrospectionRequestEvent(event)) {
+		} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
 			final JMenuItem menuItem = (JMenuItem) event.getSource();
 			stopRecording();
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
@@ -276,11 +276,7 @@ public class Tester {
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 					icon)) {
 				startRecording();
-				if (onTestActionRecordingRequest(testACtion, menuItem, false)) {
-					menuItem.getAction().actionPerformed(
-							new ActionEvent(menuItem,
-									ActionEvent.ACTION_PERFORMED, null));
-				}
+				onTestActionRecordingRequest(testACtion, menuItem, true);
 			} else {
 				startRecording();
 			}
@@ -522,7 +518,7 @@ public class Tester {
 		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
 			return true;
 		}
-		if (ClickOnMenuItemAction.mactchIntrospectionRequestEvent(event)) {
+		if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
 			return true;
 		}
 		if (TargetComponentTestAction.matchIntrospectionRequestEvent(event)) {

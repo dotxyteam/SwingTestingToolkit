@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Icon;
 import javax.swing.JButton;
@@ -26,6 +28,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreePath;
 
 public class TreeSelectionDialog extends JDialog {
 
@@ -38,7 +41,6 @@ public class TreeSelectionDialog extends JDialog {
 	protected JButton cancelButton;
 	protected JLabel messageControl;
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -100,6 +102,7 @@ public class TreeSelectionDialog extends JDialog {
 		initializeTree(treeModel, textAccessor, iconAccessor,
 				selectableAccessor, expandAll);
 		setContentPane(createContentPane(message));
+		setPreferredSize(new Dimension(300, 300));
 		pack();
 		setLocationRelativeTo(null);
 	}
@@ -159,12 +162,23 @@ public class TreeSelectionDialog extends JDialog {
 			final INodePropertyAccessor<Boolean> selectableAccessor,
 			boolean expandAll) {
 		tree = new JTree();
-		tree.setPreferredSize(new Dimension(300, 0));
 		tree.setVisibleRowCount(10);
 		tree.setRootVisible(false);
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent e) {
 				onTreeSelectionChange(selectableAccessor);
+			}
+		});
+		tree.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent me) {
+				if (me.getClickCount() == 2) {
+					TreePath treePath = tree.getPathForLocation(me.getX(),
+							me.getY());
+					if (treePath != null) {
+						onTreeItemDoubleClick(treePath, selectableAccessor);
+					}
+				}
 			}
 		});
 		tree.setModel(treeModel);
@@ -191,6 +205,15 @@ public class TreeSelectionDialog extends JDialog {
 		});
 		if (expandAll) {
 			expandAll();
+		}
+	}
+
+	protected void onTreeItemDoubleClick(TreePath treePath,
+			INodePropertyAccessor<Boolean> selectableAccessor) {
+		if (treePath.equals(tree.getSelectionPath())) {
+			if (okButton.isEnabled()) {
+				TreeSelectionDialog.this.dispose();
+			}
 		}
 	}
 
