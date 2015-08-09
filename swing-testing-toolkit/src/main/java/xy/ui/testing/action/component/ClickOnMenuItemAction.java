@@ -8,11 +8,12 @@ import javax.swing.JMenuItem;
 
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MenuItemComponentFinder;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestingUtils;
 
 public class ClickOnMenuItemAction extends TestAction {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected MenuItemComponentFinder componentFinder = new MenuItemComponentFinder();
 
 	public MenuItemComponentFinder getComponentFinder() {
@@ -39,8 +40,11 @@ public class ClickOnMenuItemAction extends TestAction {
 	public Component findComponent() {
 		Component c = componentFinder.find();
 		if (c == null) {
-			throw new TestingError("Unable to find "
-					+ componentFinder.toString());
+			throw new TesterError("Unable to find "
+					+ componentFinder.toString()
+					+ ".\nCurrent window image:\n"
+					+ TestingUtils.saveWindowImage(componentFinder
+							.getWindowIndex()));
 		}
 		return c;
 	}
@@ -90,7 +94,5 @@ public class ClickOnMenuItemAction extends TestAction {
 		}
 		return true;
 	}
-
-
 
 }

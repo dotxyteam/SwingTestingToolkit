@@ -3,7 +3,7 @@ package xy.ui.testing.action;
 import java.awt.AWTEvent;
 import java.awt.Component;
 
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 import xy.ui.testing.util.TestingUtils;
 
 public class CallMainMethodAction extends TestAction {
@@ -49,14 +49,14 @@ public class CallMainMethodAction extends TestAction {
 
 	@Override
 	public void execute(Component c) {
-		final TestingError[] error = new TestingError[1];
+		final TesterError[] error = new TesterError[1];
 		new Thread(CallMainMethodAction.class.getName()) {
 			@Override
 			public void run() {
 				try {
 					TestingUtils.launchClassMainMethod(className);
 				} catch (Exception e) {
-					error[0] = new TestingError(
+					error[0] = new TesterError(
 							"Failed to run the main method of '" + className
 									+ "': " + e.toString(), e);
 				}
@@ -66,7 +66,7 @@ public class CallMainMethodAction extends TestAction {
 			try {
 				Thread.sleep(checkThrownExceptionAFterSeconds*1000);
 			} catch (InterruptedException e) {
-				throw new TestingError(e);
+				throw new TesterError(e);
 			}
 			if(error[0] != null){
 				throw error[0];

@@ -8,6 +8,9 @@ import java.awt.Window;
 import java.awt.event.AWTEventListener;
 import java.awt.event.AWTEventListenerProxy;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -32,9 +36,11 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreeModel;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 
+import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 
 public class TestingUtils {
@@ -96,7 +102,8 @@ public class TestingUtils {
 	}
 
 	public static boolean isTesterUIComponent(Component c) {
-		for (JPanel testerForm : TesterUI.INSTANCE.getObjectByForm().keySet()) {
+		for (JPanel testerForm : TesterUI.INSTANCE.getSwingRenderer()
+				.getObjectByForm().keySet()) {
 			Window testerWindow = SwingUtilities.getWindowAncestor(testerForm);
 			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
 			if (componentWindow != null) {
@@ -188,7 +195,7 @@ public class TestingUtils {
 		return result;
 	}
 
-	private static String extractVisibleStringFromBorder(Border border) {
+	public static String extractVisibleStringFromBorder(Border border) {
 		if (border instanceof TitledBorder) {
 			String s = ((TitledBorder) border).getTitle();
 			if ((s != null) && (s.trim().length() > 0)) {
@@ -198,7 +205,7 @@ public class TestingUtils {
 		return null;
 	}
 
-	private static Collection<String> extractVisibleStringsFromList(JList list) {
+	public static Collection<String> extractVisibleStringsFromList(JList list) {
 		List<String> result = new ArrayList<String>();
 		ListModel model = list.getModel();
 		ListCellRenderer cellRenderer = list.getCellRenderer();
@@ -215,7 +222,7 @@ public class TestingUtils {
 		return result;
 	}
 
-	private static List<String> extractVisibleStringsFromTable(JTable table) {
+	public static List<String> extractVisibleStringsFromTable(JTable table) {
 		List<String> result = new ArrayList<String>();
 		TableModel model = table.getModel();
 		String s;
@@ -243,7 +250,7 @@ public class TestingUtils {
 		return result;
 	}
 
-	private static Collection<? extends String> extractVisibleStringsFromTree(
+	public static Collection<? extends String> extractVisibleStringsFromTree(
 			JTree tree) {
 		List<String> result = new ArrayList<String>();
 		result.addAll(extractVisibleStringsFromTree(0, tree.getModel()
@@ -251,7 +258,7 @@ public class TestingUtils {
 		return result;
 	}
 
-	private static List<String> extractVisibleStringsFromTree(int currentRow,
+	public static List<String> extractVisibleStringsFromTree(int currentRow,
 			Object currentNode, JTree tree) {
 		List<String> result = new ArrayList<String>();
 		TreeModel model = tree.getModel();
@@ -271,7 +278,7 @@ public class TestingUtils {
 		return result;
 	}
 
-	private static String extractVisibleStringThroughMethod(Component c,
+	public static String extractVisibleStringThroughMethod(Component c,
 			String methodName) {
 		try {
 			Method method = c.getClass().getMethod(methodName);
@@ -339,11 +346,19 @@ public class TestingUtils {
 	}
 
 	public static void closeAllTestableWindows() {
+		for (Window w : getAllTestableWindows()) {
+			w.dispose();
+		}
+	}
+
+	public static List<Window> getAllTestableWindows() {
+		List<Window> result = new ArrayList<Window>();
 		for (Window w : Window.getWindows()) {
 			if (isTestableWindow(w)) {
-				w.dispose();
+				result.add(w);
 			}
 		}
+		return result;
 	}
 
 	public static List<Component> getAncestors(Component c) {
@@ -414,4 +429,74 @@ public class TestingUtils {
 		}
 		return false;
 	}
+
+	public static List<File> saveAllTestableWindows() {
+		List<File> result = new ArrayList<File>();
+		for (Window w : getAllTestableWindows()) {
+			BufferedImage windowImage = getScreenShot(w);
+			result.add(saveImage(windowImage));
+		}
+		return result;
+	}
+
+	public static File saveImage(BufferedImage image) {
+		File dir = getSavedImagesDirectory();
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
+				throw new TesterError("Failed to create the directory: '"
+						+ dir.getAbsolutePath() + "'");
+			}
+		}
+		String fileExtension = "png";
+		File outputfile;
+		try {
+			outputfile = File.createTempFile("image-", "."
+					+ fileExtension, dir);
+		} catch (IOException e1) {
+			throw new TesterError("Failed to save image file in the directory: '"
+					+ dir.getAbsolutePath() + "': " + e1, e1);
+		}
+		try {
+			ImageIO.write(image, fileExtension, outputfile);
+		} catch (IOException e) {
+			throw new TesterError("Failed to save the image file: '"
+					+ outputfile.getAbsolutePath() + "': " + e, e);
+		}
+		return outputfile.getAbsoluteFile();
+	}
+
+	public static File getSavedImagesDirectory() {
+		return new File(Tester.class.getSimpleName().toLowerCase()
+				+ "-saved-images");
+	}
+
+	public static BufferedImage getScreenShot(Component component) {
+		BufferedImage image = new BufferedImage(component.getWidth(),
+				component.getHeight(), BufferedImage.TYPE_INT_RGB);
+		component.paint(image.getGraphics());
+		return image;
+	}
+
+	public static File saveWindowImage(int windowIndex) {
+		return saveImage(getScreenShot(getAllTestableWindows().get(windowIndex)));
+	}
+
+	public static File saveImage(Component c) {
+		return saveImage(getScreenShot(c));
+	}
+
+	public static void purgeSavedImagesDirectory() {
+		File dir = getSavedImagesDirectory();
+		try {
+			FileUtils.deleteDirectory(dir);
+		} catch (IOException e) {
+			throw new TesterError("Failed to delete the directory: '"
+					+ dir.getAbsolutePath() + "': " + e, e);
+		}
+	}
+	
+	
+	
+	
+	
 }

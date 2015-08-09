@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.util.StandardKey;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 
 public class SendKeysAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
@@ -238,7 +238,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 				Field codeField = KeyEvent.class.getField(codeFieldName);
 				return codeField.getInt(null);
 			} catch (Exception e) {
-				throw new TestingError(e);
+				throw new TesterError(e);
 			}
 		}
 

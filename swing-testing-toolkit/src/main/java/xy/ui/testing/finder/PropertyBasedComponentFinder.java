@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 
 public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
@@ -50,7 +50,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	public void addPropertyCriteria(int index, PropertyCriteria c) {
 		if (findPropertyCriteria(c.getPropertyName()) != null) {
-			throw new TestingError(
+			throw new TesterError(
 					"Cannot have duplicate property criterias: '"
 							+ c.getPropertyName() + "'");
 		}
@@ -182,7 +182,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			try {
 				getSubCheckPropertyAction().execute(c);
 				return true;
-			} catch (TestingError e) {
+			} catch (TesterError e) {
 				return false;
 			}
 		}

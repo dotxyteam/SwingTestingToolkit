@@ -1,22 +1,22 @@
 package xy.ui.testing.util;
 
-public class TestingError extends RuntimeException {
+public class TesterError extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public TestingError() {
+	public TesterError() {
 		super();
 	}
 
-	public TestingError(String message, Throwable cause) {
+	public TesterError(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public TestingError(String message) {
+	public TesterError(String message) {
 		super(message);
 	}
 
-	public TestingError(Throwable cause) {
+	public TesterError(Throwable cause) {
 		super(cause);
 	}
 

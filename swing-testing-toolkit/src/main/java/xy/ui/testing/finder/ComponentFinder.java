@@ -10,5 +10,7 @@ public abstract class ComponentFinder implements Serializable {
 	public abstract Component find();
 
 	public abstract boolean initializeFrom(final Component c);
+	
+	public abstract int getWindowIndex();
 
 }

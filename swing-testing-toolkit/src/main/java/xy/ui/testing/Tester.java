@@ -45,7 +45,7 @@ import xy.ui.testing.action.component.ClickOnMenuItemAction;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
 import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
@@ -168,7 +168,7 @@ public class Tester {
 					}
 					break;
 				}
-				throw new TestingError("Test Action n°"
+				throw new TesterError("Test Action n°"
 						+ (testActions.indexOf(testAction) + 1) + ": "
 						+ e.toString(), e);
 			}
@@ -187,11 +187,11 @@ public class Tester {
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e1) {
-					throw new TestingError(e);
+					throw new TesterError(e);
 				}
 				remainingSeconds--;
 				if (remainingSeconds == 0) {
-					throw new TestingError(e);
+					throw new TesterError(e);
 				}
 			}
 		}
@@ -329,7 +329,7 @@ public class Tester {
 
 	protected Window getTesterWindow() {
 		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(
-				TesterUI.INSTANCE.getObjectByForm(), this).get(0);
+				TesterUI.INSTANCE.getSwingRenderer().getObjectByForm(), this).get(0);
 		if (testerForm == null) {
 			return null;
 		}
@@ -402,7 +402,7 @@ public class Tester {
 								try {
 									sleep(5000);
 								} catch (InterruptedException e) {
-									throw new TestingError(e);
+									throw new TesterError(e);
 								}
 								startRecording();
 							}
@@ -420,7 +420,7 @@ public class Tester {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						TesterUI.INSTANCE.getFormsUpdatingMethod(Tester.this,
+						TesterUI.INSTANCE.getSwingRenderer().getFormsUpdatingMethod(Tester.this,
 								"stopRecording").invoke(Tester.this,
 								new InvocationData());
 					}
@@ -481,7 +481,7 @@ public class Tester {
 		if (TesterUI.INSTANCE.openSettings(testAction, c)) {
 			TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
 			IFieldInfo testActionListField = TesterUI.INSTANCE
-					.getFormsUpdatingField(Tester.this, "testActions");
+					.getSwingRenderer().getFormsUpdatingField(Tester.this, "testActions");
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					testActions);
 			newTestActionListValue.add(testAction);
@@ -509,7 +509,7 @@ public class Tester {
 			}
 			return result;
 		} catch (Exception e) {
-			throw new TestingError(e);
+			throw new TesterError(e);
 		}
 
 	}

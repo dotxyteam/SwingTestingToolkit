@@ -2,8 +2,10 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 import java.awt.Window;
+
+import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.util.IComponentTreeVisitor;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 import xy.ui.testing.util.TestingUtils;
 
 public abstract class MatchingComponentFinder extends ComponentFinder{
@@ -45,10 +47,12 @@ public abstract class MatchingComponentFinder extends ComponentFinder{
 			}
 			windowCount++;
 		}
-		throw new TestingError(
+		throw new TesterError(
 				"Component not found: Containing window index is out of bounds: "
 						+ windowIndex + ": Only " + windowCount
-						+ " window(s) found");
+						+ " window(s) found"+ ".\nFound windows images:\n"
+								+ ReflectionUIUtils.stringJoin(
+										TestingUtils.saveAllTestableWindows(), "\n"));
 	}
 
 	protected Component find(Window containingWindow) {

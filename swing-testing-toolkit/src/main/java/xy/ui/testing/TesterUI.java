@@ -39,10 +39,12 @@ import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
+import xy.reflect.ui.renderer.SwingRenderer;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.WaitAction;
@@ -112,7 +114,7 @@ public class TesterUI extends ReflectionUI {
 				String fileName = args[0];
 				tester.loadFromFile(new File(fileName));
 			}
-			INSTANCE.openObjectFrame(tester);
+			INSTANCE.getSwingRenderer().openObjectFrame(tester);
 		} catch (Throwable t) {
 			t.printStackTrace();
 			JOptionPane.showMessageDialog(null, t.toString(), null,
@@ -132,18 +134,129 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	@Override
-	public JFrame createFrame(Component content, String title, Image iconImage,
-			List<? extends Component> toolbarControls) {
-		JFrame result = super.createFrame(content, title, iconImage,
-				toolbarControls);
-		for (JPanel form : ReflectionUIUtils.findDescendantForms(result,
-				TesterUI.INSTANCE)) {
-			if (TesterUI.INSTANCE.getObjectByForm().get(form) instanceof Tester) {
-				result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+	public SwingRenderer createSwingRenderer() {
+		return new SwingRenderer(TesterUI.this) {
+
+			@Override
+			public Container createWindowContentPane(Window window,
+					Component content, List<? extends Component> toolbarControls) {
+				Container result = super.createWindowContentPane(window,
+						content, toolbarControls);
+				AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window);
+				decorationsPanel.configureWindow(window);
+				decorationsPanel.getContentPanel().add(result);
+				result = decorationsPanel;
+				return result;
 			}
-		}
-		return result;
+
+			@Override
+			public Object onTypeInstanciationRequest(
+					Component activatorComponent, ITypeInfo type, boolean silent) {
+				Object result = super.onTypeInstanciationRequest(
+						activatorComponent, type, silent);
+				if (result instanceof ComponentFinder) {
+					if (componentFinderInitializationSource != null) {
+						((ComponentFinder) result)
+								.initializeFrom(componentFinderInitializationSource);
+					}
+				}
+				return result;
+			}
+
+			@Override
+			public JFrame createFrame(Component content, String title,
+					Image iconImage, List<? extends Component> toolbarControls) {
+				JFrame result = super.createFrame(content, title, iconImage,
+						toolbarControls);
+				for (JPanel form : SwingRendererUtils.findDescendantForms(
+						result, TesterUI.INSTANCE)) {
+					if (TesterUI.INSTANCE.getSwingRenderer().getObjectByForm()
+							.get(form) instanceof Tester) {
+						result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+					}
+				}
+				return result;
+			}
+
+			@Override
+			public JPanel createObjectForm(Object object,
+					IInfoCollectionSettings settings) {
+				settings = new InfoCollectionSettingsProxy(settings) {
+
+					@Override
+					public boolean excludeMethod(IMethodInfo method) {
+						if (method.getName().equals("execute")) {
+							return true;
+						}
+						if (method.getName().equals("findComponent")) {
+							return true;
+						}
+						if (method.getName().equals("find")) {
+							return true;
+						}
+						if (method.getName().equals("initializeFrom")) {
+							return true;
+						}
+						if (method.getName().equals("extractVisibleString")) {
+							return true;
+						}
+						if (method.getName().equals("getKeyEvents")) {
+							return true;
+						}
+						if (method.getName().equals("play")) {
+							return true;
+						}
+						if (method.getName().equals("collectVisibleStrings")) {
+							return true;
+						}
+						if (method.getName().equals("loadFromStream")) {
+							return true;
+						}
+						if (method.getName().equals("saveToStream")) {
+							return true;
+						}
+						if (method.getName().equals("assertSuccessfulReplay")) {
+							return true;
+						}
+						if (method.getName().equals("matches")) {
+							return true;
+						}
+						if (method.getName().equals("matches")) {
+							return true;
+						}
+						if (method.getName().equals(
+								"matchIntrospectionRequestEvent")) {
+							return true;
+						}
+						if (method.getName().equals("macthesComponent")) {
+							return true;
+						}
+						return super.excludeMethod(method);
+					}
+
+					@Override
+					public boolean excludeField(IFieldInfo field) {
+						if (field.getName().equals("keyStrokes")) {
+							return true;
+						}
+						if (field.getName().equals("valueDescription")) {
+							return true;
+						}
+						if (field.getName().equals("componentInformation")) {
+							return true;
+						}
+						if (field.getName().equals("propertyCriteriaList")) {
+							return true;
+						}
+						return super.excludeField(field);
+					}
+
+				};
+				return super.createObjectForm(object, settings);
+			}
+
+		};
 	}
 
 	@Override
@@ -322,14 +435,15 @@ public class TesterUI extends ReflectionUI {
 										selectedActions.add(testAction);
 									}
 									Tester tester = (Tester) object;
-									IMethodInfo playMethod = getFormsUpdatingMethod(
-											object,
-											ReflectionUIUtils
-													.getJavaMethodSignature(Tester.class
-															.getMethod(
-																	"play",
-																	List.class,
-																	Runnable.class)));
+									IMethodInfo playMethod = getSwingRenderer()
+											.getFormsUpdatingMethod(
+													object,
+													ReflectionUIUtils
+															.getJavaMethodSignature(Tester.class
+																	.getMethod(
+																			"play",
+																			List.class,
+																			Runnable.class)));
 									InvocationData invocationData = new InvocationData(
 											selectedActions);
 									playMethod.invoke(tester, invocationData);
@@ -355,143 +469,53 @@ public class TesterUI extends ReflectionUI {
 					final InvocationData invocationData,
 					final IMethodInfo method, final ITypeInfo containingType) {
 				if (containingType.getName().equals(Tester.class.getName())) {
-					if (method.getName().startsWith("play")) {
-						for (final JPanel form : getForms(object)) {
+
+					if (method.getName().startsWith("play")
+							|| method.getName().equals("startRecording")) {
+						for (final JPanel form : getSwingRenderer().getForms(
+								object)) {
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
-									SwingUtilities.getWindowAncestor(form)
-											.toBack();
+									//SwingUtilities.getWindowAncestor(form)
+										//	.toBack();
 								}
 							});
-							Object result = super.invoke(object,
-									invocationData, method, containingType);
+						}
+					}
+
+					Object result = super.invoke(object, invocationData,
+							method, containingType);
+
+					if (method.getName().startsWith("play")) {
+						for (final JPanel form : getSwingRenderer().getForms(
+								object)) {
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
 									onSuccessfulPlay((Tester) object, form);
 								}
 							});
-							return result;
 						}
 					}
+					return result;
+				} else {
+					return super.invoke(object, invocationData, method,
+							containingType);
 				}
-				/*
-				 * if (containingType.getName().equals(Tester.class.getName()))
-				 * { if (method.getName().equals("startRecording")) { for (final
-				 * JPanel form : getForms(object)) {
-				 * SwingUtilities.invokeLater(new Runnable() {
-				 * 
-				 * @Override public void run() {
-				 * SwingUtilities.getWindowAncestor(form) .toBack(); } });
-				 * return super.invoke(object, invocationData, method,
-				 * containingType); } } }
-				 */
-				return super.invoke(object, invocationData, method,
-						containingType);
 			}
 
 		}.get(super.getTypeInfo(typeSource));
 	}
 
-	@Override
-	public Object onTypeInstanciationRequest(Component activatorComponent,
-			ITypeInfo type, boolean silent) {
-		Object result = super.onTypeInstanciationRequest(activatorComponent,
-				type, silent);
-		if (result instanceof ComponentFinder) {
-			if (componentFinderInitializationSource != null) {
-				((ComponentFinder) result)
-						.initializeFrom(componentFinderInitializationSource);
-			}
-		}
-		return result;
-	}
-
 	public boolean openSettings(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		TesterUI.INSTANCE.openObjectDialog(c, testAction,
+		TesterUI.INSTANCE.getSwingRenderer().openObjectDialog(c, testAction,
 				TesterUI.INSTANCE.getObjectKind(testAction), null, true, null,
 				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
-	}
-
-	@Override
-	public JPanel createObjectForm(Object object,
-			IInfoCollectionSettings settings) {
-		settings = new InfoCollectionSettingsProxy(settings) {
-
-			@Override
-			public boolean excludeMethod(IMethodInfo method) {
-				if (method.getName().equals("execute")) {
-					return true;
-				}
-				if (method.getName().equals("findComponent")) {
-					return true;
-				}
-				if (method.getName().equals("find")) {
-					return true;
-				}
-				if (method.getName().equals("initializeFrom")) {
-					return true;
-				}
-				if (method.getName().equals("extractVisibleString")) {
-					return true;
-				}
-				if (method.getName().equals("getKeyEvents")) {
-					return true;
-				}
-				if (method.getName().equals("play")) {
-					return true;
-				}
-				if (method.getName().equals("collectVisibleStrings")) {
-					return true;
-				}
-				if (method.getName().equals("loadFromStream")) {
-					return true;
-				}
-				if (method.getName().equals("saveToStream")) {
-					return true;
-				}
-				if (method.getName().equals("assertSuccessfulReplay")) {
-					return true;
-				}
-				if (method.getName().equals("matches")) {
-					return true;
-				}
-				if (method.getName().equals("matches")) {
-					return true;
-				}
-				if (method.getName().equals("matchIntrospectionRequestEvent")) {
-					return true;             
-				}
-				if (method.getName().equals("macthesComponent")) {
-					return true;
-				}
-				return super.excludeMethod(method);
-			}
-
-			@Override
-			public boolean excludeField(IFieldInfo field) {
-				if (field.getName().equals("keyStrokes")) {
-					return true;
-				}
-				if (field.getName().equals("valueDescription")) {
-					return true;
-				}
-				if (field.getName().equals("componentInformation")) {
-					return true;
-				}
-				if (field.getName().equals("propertyCriteriaList")) {
-					return true;
-				}
-				return super.excludeField(field);
-			}
-
-		};
-		return super.createObjectForm(object, settings);
 	}
 
 	@Override
@@ -550,27 +574,15 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	public void upadateTestActionsControl(Tester tester) {
-		for (JPanel form : getForms(tester)) {
-			refreshFieldControl(form, "testActions");
+		for (JPanel form : getSwingRenderer().getForms(tester)) {
+			getSwingRenderer().refreshFieldControlsByName(form, "testActions");
 		}
-	}
-
-	@Override
-	public Container createWindowContentPane(Window window, Component content,
-			List<? extends Component> toolbarControls) {
-		Container result = super.createWindowContentPane(window, content,
-				toolbarControls);
-		AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window);
-		decorationsPanel.configureWindow(window);
-		decorationsPanel.getContentPanel().add(result);
-		result = decorationsPanel;
-		return result;
 	}
 
 	public static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(
 			Window window) {
 		return new AlternateWindowDecorationsPanel(
-				ReflectionUIUtils.getWindowTitle(window)) {
+				SwingRendererUtils.getWindowTitle(window)) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -588,7 +600,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void onSuccessfulPlay(Tester tester, Component activatorComponent) {
-		showMessageDialog(activatorComponent,
+		getSwingRenderer().showMessageDialog(activatorComponent,
 				"The test action(s) completed successfully!",
 				getObjectKind(tester));
 

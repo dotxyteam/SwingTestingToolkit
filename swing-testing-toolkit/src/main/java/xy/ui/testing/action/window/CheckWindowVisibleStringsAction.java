@@ -9,7 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import xy.ui.testing.finder.MatchingComponentFinder;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 import xy.ui.testing.util.TestingUtils;
 
 @SuppressWarnings("unused")
@@ -70,32 +70,33 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 		Window window = super.findComponent();
 		List<String> currentVisibleStrings = TestingUtils
 				.collectVisibleStrings(window);
-		check(currentVisibleStrings);
+		check(currentVisibleStrings, window);
 		return window;
 	}
 
-	protected void check(List<String> currentVisibleStrings) {
+	protected void check(List<String> currentVisibleStrings, Window window) {
 		try {
 			if (completenessChecked && orderChecked) {
 				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TestingError(
-							"The visible string(s) have changed");
+					throw new TesterError("The visible string(s) have changed");
 				}
 			} else if (completenessChecked && !orderChecked) {
-				currentVisibleStrings = new ArrayList<String>(currentVisibleStrings);
+				currentVisibleStrings = new ArrayList<String>(
+						currentVisibleStrings);
 				currentVisibleStrings.removeAll(visibleStrings);
 				if (currentVisibleStrings.size() > 0) {
-					throw new TestingError(
+					throw new TesterError(
 							"The following visible string(s) were not declared: "
 									+ TestingUtils
 											.formatVisibleStrings(new ArrayList<String>(
 													currentVisibleStrings)));
 				}
 			} else if (!completenessChecked && orderChecked) {
-				currentVisibleStrings = new ArrayList<String>(currentVisibleStrings);
+				currentVisibleStrings = new ArrayList<String>(
+						currentVisibleStrings);
 				currentVisibleStrings.retainAll(visibleStrings);
 				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TestingError(
+					throw new TesterError(
 							"The visible strings order have changed");
 				}
 			} else if (!completenessChecked && !orderChecked) {
@@ -103,7 +104,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 						visibleStrings);
 				visibleStringSortedSet.removeAll(currentVisibleStrings);
 				if (visibleStringSortedSet.size() > 0) {
-					throw new TestingError(
+					throw new TesterError(
 							"The following declared visible string(s) were not found: "
 									+ TestingUtils
 											.formatVisibleStrings(new ArrayList<String>(
@@ -111,15 +112,15 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 				}
 			}
 		} catch (Exception e) {
-			throw new TestingError(
+			throw new TesterError(
 					"Visible strings checking failed: "
 							+ e.toString()
 							+ ":\nThese are the original and the current visible strings:\n"
 							+ TestingUtils.formatVisibleStrings(visibleStrings)
 							+ "\n"
-							+ TestingUtils
-									.formatVisibleStrings(currentVisibleStrings),
-					e);
+							+ TestingUtils.formatVisibleStrings(currentVisibleStrings)
+							+ ".\nCurrent window image:\n"
+							+ TestingUtils.saveImage(window), e);
 		}
 	}
 

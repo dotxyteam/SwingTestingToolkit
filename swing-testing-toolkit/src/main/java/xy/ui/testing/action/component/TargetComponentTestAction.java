@@ -7,7 +7,8 @@ import java.awt.event.MouseEvent;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ComponentFinder;
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestingUtils;
 
 public abstract class TargetComponentTestAction extends TestAction{
 
@@ -33,7 +34,7 @@ public abstract class TargetComponentTestAction extends TestAction{
 				componentFinderCandidate = (ComponentFinder) componentFinderClass
 						.newInstance();
 			} catch (Exception e) {
-				throw new TestingError(e);
+				throw new TesterError(e);
 			}
 			if (componentFinderCandidate.initializeFrom(c)) {
 				setComponentFinder(componentFinderCandidate);
@@ -58,8 +59,10 @@ public abstract class TargetComponentTestAction extends TestAction{
 		} else {
 			Component c = getComponentFinder().find();
 			if (c == null) {
-				throw new TestingError("Unable to find "
-						+ getComponentFinder().toString());
+				throw new TesterError("Unable to find "
+						+ getComponentFinder().toString()+ ".\nCurrent window image:\n"
+								+ TestingUtils.saveWindowImage(getComponentFinder()
+										.getWindowIndex()));
 			}
 			return c;
 		}

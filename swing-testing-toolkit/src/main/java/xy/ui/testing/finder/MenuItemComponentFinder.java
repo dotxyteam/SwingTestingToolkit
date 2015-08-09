@@ -12,7 +12,7 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.ui.testing.util.TestingError;
+import xy.ui.testing.util.TesterError;
 import xy.ui.testing.util.TestingUtils;
 
 public class MenuItemComponentFinder extends ComponentFinder {
@@ -32,14 +32,17 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	@Override
 	public Component find() {
 		if (menuItemPath.size() == 0) {
-			throw new TestingError("Cannot find menu item: menu path not set");
+			throw new TesterError("Cannot find menu item: menu path not set");
 		}
 		for (int i = 0; i < menuItemPath.size(); i++) {
 			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
 			JMenuItem menuItem = (JMenuItem) menuItemFinder.find();
 			if (menuItem == null) {
-				throw new TestingError("Unable to find "
-						+ menuItemFinder.toString());
+				throw new TesterError("Unable to find "
+						+ menuItemFinder.toString()
+						+ ".\nCurrent window image:\n"
+						+ TestingUtils.saveWindowImage(menuItemFinder
+								.getWindowIndex()));
 			}
 			boolean lastMenuItem = i == (menuItemPath.size() - 1);
 			if (lastMenuItem) {
@@ -87,6 +90,14 @@ public class MenuItemComponentFinder extends ComponentFinder {
 				"Text");
 		result.initializeFrom(menuItem);
 		return result;
+	}
+
+	public int getWindowIndex() {
+		if (menuItemPath.size() > 0) {
+			return menuItemPath.get(0).getWindowIndex();
+		} else {
+			return -1;
+		}
 	}
 
 	@Override
