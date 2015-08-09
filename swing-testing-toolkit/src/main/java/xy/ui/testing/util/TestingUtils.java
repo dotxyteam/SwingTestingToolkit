@@ -3,6 +3,7 @@ package xy.ui.testing.util;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.AWTEventListener;
@@ -430,12 +431,34 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static List<File> saveAllTestableWindows() {
-		List<File> result = new ArrayList<File>();
+	public static File saveAllTestableWindows() {
+		List<BufferedImage> images = new ArrayList<BufferedImage>();
 		for (Window w : getAllTestableWindows()) {
 			BufferedImage windowImage = getScreenShot(w);
-			result.add(saveImage(windowImage));
+			images.add(windowImage);
 		}
+		if(images.size()==0){
+			return null;
+		}
+		return saveImage(joinImages(images));
+	}
+
+	public static BufferedImage joinImages(List<BufferedImage> images) {
+		int width = 0;
+		int height =0;
+		for(BufferedImage image: images){
+			width += image.getWidth();
+			height = Math.max(height, image.getHeight());
+		}
+		BufferedImage result = new BufferedImage(width, height,
+				BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = result.createGraphics();
+		int x=0;
+		for(BufferedImage image: images){
+			g.drawImage(image, null, x, 0);
+			x += image.getWidth();
+		}
+		g.dispose();
 		return result;
 	}
 
@@ -443,26 +466,27 @@ public class TestingUtils {
 		File dir = getSavedImagesDirectory();
 		if (!dir.exists()) {
 			if (!dir.mkdir()) {
-				throw new TesterError("Failed to create the directory: '"
+				throw new AssertionError("Failed to create the directory: '"
 						+ dir.getAbsolutePath() + "'");
 			}
 		}
 		String fileExtension = "png";
 		File outputfile;
 		try {
-			outputfile = File.createTempFile("image-", "."
-					+ fileExtension, dir);
+			outputfile = File
+					.createTempFile("image-", "." + fileExtension, dir);
 		} catch (IOException e1) {
-			throw new TesterError("Failed to save image file in the directory: '"
-					+ dir.getAbsolutePath() + "': " + e1, e1);
+			throw new AssertionError(
+					"Failed to save image file in the directory: '"
+							+ dir.getAbsolutePath() + "': " + e1);
 		}
 		try {
 			ImageIO.write(image, fileExtension, outputfile);
 		} catch (IOException e) {
-			throw new TesterError("Failed to save the image file: '"
-					+ outputfile.getAbsolutePath() + "': " + e, e);
+			throw new AssertionError("Failed to save the image file: '"
+					+ outputfile.getAbsolutePath() + "': " + e);
 		}
-		return outputfile.getAbsoluteFile();
+		return outputfile;
 	}
 
 	public static File getSavedImagesDirectory() {
@@ -490,13 +514,9 @@ public class TestingUtils {
 		try {
 			FileUtils.deleteDirectory(dir);
 		} catch (IOException e) {
-			throw new TesterError("Failed to delete the directory: '"
-					+ dir.getAbsolutePath() + "': " + e, e);
+			throw new AssertionError("Failed to delete the directory: '"
+					+ dir.getAbsolutePath() + "': " + e);
 		}
 	}
-	
-	
-	
-	
-	
+
 }

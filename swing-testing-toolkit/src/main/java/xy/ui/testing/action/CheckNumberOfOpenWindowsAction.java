@@ -4,8 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Window;
 
-import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 public class CheckNumberOfOpenWindowsAction extends TestAction {
@@ -32,13 +31,9 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	public void execute(Component c) {
 		int n = countWindows();
 		if (count != n) {
-			throw new TesterError("The number of currently open windows ("
-					+ n
-					+ ") does not match the declared number: "
-					+ count
-					+ ".\nFound windows images:\n"
-					+ ReflectionUIUtils.stringJoin(
-							TestingUtils.saveAllTestableWindows(), "\n"));
+			throw new TestFailure("The number of currently open windows (" + n
+					+ ") does not match the declared number: " + count,
+					"Found window(s)", TestingUtils.saveAllTestableWindows());
 		}
 	}
 

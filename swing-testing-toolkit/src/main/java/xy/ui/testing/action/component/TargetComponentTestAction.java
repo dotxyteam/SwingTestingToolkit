@@ -7,16 +7,17 @@ import java.awt.event.MouseEvent;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ComponentFinder;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
-public abstract class TargetComponentTestAction extends TestAction{
+public abstract class TargetComponentTestAction extends TestAction {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	protected ComponentFinder componentFinder;
 
-	protected abstract boolean initializeSpecificProperties(Component c, AWTEvent event);
+	protected abstract boolean initializeSpecificProperties(Component c,
+			AWTEvent event);
 
 	public ComponentFinder getComponentFinder() {
 		return componentFinder;
@@ -27,31 +28,30 @@ public abstract class TargetComponentTestAction extends TestAction{
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c,
+			AWTEvent introspectionRequestEvent) {
 		for (Class<?> componentFinderClass : TesterUI.COMPONENT_FINDER_CLASSESS) {
 			ComponentFinder componentFinderCandidate;
 			try {
 				componentFinderCandidate = (ComponentFinder) componentFinderClass
 						.newInstance();
 			} catch (Exception e) {
-				throw new TesterError(e);
+				throw new AssertionError(e);
 			}
 			if (componentFinderCandidate.initializeFrom(c)) {
 				setComponentFinder(componentFinderCandidate);
 				break;
 			}
 		}
-		if(getComponentFinder() == null){
+		if (getComponentFinder() == null) {
 			return false;
 		}
-		if(!initializeSpecificProperties(c, introspectionRequestEvent)){
+		if (!initializeSpecificProperties(c, introspectionRequestEvent)) {
 			return false;
-		}		
+		}
 		return true;
 	}
-	
-	
-	
+
 	@Override
 	public Component findComponent() {
 		if (getComponentFinder() == null) {
@@ -59,10 +59,11 @@ public abstract class TargetComponentTestAction extends TestAction{
 		} else {
 			Component c = getComponentFinder().find();
 			if (c == null) {
-				throw new TesterError("Unable to find "
-						+ getComponentFinder().toString()+ ".\nCurrent window image:\n"
-								+ TestingUtils.saveWindowImage(getComponentFinder()
-										.getWindowIndex()));
+				throw new TestFailure("Unable to find "
+						+ getComponentFinder().toString(),
+						"Window",
+						TestingUtils.saveWindowImage(getComponentFinder()
+								.getWindowIndex()));
 			}
 			return c;
 		}
@@ -70,7 +71,7 @@ public abstract class TargetComponentTestAction extends TestAction{
 
 	@Override
 	public String getComponentInformation() {
-		if(getComponentFinder() == null){
+		if (getComponentFinder() == null) {
 			return null;
 		}
 		return getComponentFinder().toString();
@@ -87,8 +88,5 @@ public abstract class TargetComponentTestAction extends TestAction{
 		}
 		return false;
 	}
-	
-	
-
 
 }

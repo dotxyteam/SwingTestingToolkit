@@ -12,7 +12,7 @@ import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 
 import xy.ui.testing.action.component.TargetComponentTestAction;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
@@ -88,10 +88,10 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		treeTable.collapseAll();
 		TreePath treePath = fromIntPathToTreePath(itemPath, treeTable);
 		if (treePath == null) {
-			throw new TesterError(
+			throw new TestFailure(
 					"Cannot expand to the specified item: The path is not valid: "
-							+ itemPath+ ".\nCurrent component image:\n"
-									+ TestingUtils.saveImage(c));
+							+ itemPath, "Component",
+					TestingUtils.saveImage(c));
 		}
 		treeTable.expandPath(treePath.getParentPath());
 	}

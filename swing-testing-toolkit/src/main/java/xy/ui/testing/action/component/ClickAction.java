@@ -7,7 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.SwingUtilities;
 
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 
 public class ClickAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +71,7 @@ public class ClickAction extends TargetComponentTestAction {
 		try {
 			Thread.sleep(10);
 		} catch (InterruptedException e) {
-			throw new TesterError(e);
+			throw new TestFailure(e);
 		}
 		mouseEvent = createReleaseEvent(c);
 		for (MouseListener l : c.getMouseListeners()) {

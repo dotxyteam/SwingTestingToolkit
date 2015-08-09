@@ -3,7 +3,7 @@ package xy.ui.testing.action;
 import java.awt.AWTEvent;
 import java.awt.Component;
 
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 
 public class WaitAction extends TestAction {
 
@@ -29,7 +29,7 @@ public class WaitAction extends TestAction {
 		try {
 			Thread.sleep(secondsToWait * 1000);
 		} catch (InterruptedException e) {
-			throw new TesterError(e);
+			throw new TestFailure(e);
 		}
 	}
 

@@ -12,7 +12,7 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 public class MenuItemComponentFinder extends ComponentFinder {
@@ -32,16 +32,15 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	@Override
 	public Component find() {
 		if (menuItemPath.size() == 0) {
-			throw new TesterError("Cannot find menu item: menu path not set");
+			throw new TestFailure("Cannot find menu item: menu path not set");
 		}
 		for (int i = 0; i < menuItemPath.size(); i++) {
 			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
 			JMenuItem menuItem = (JMenuItem) menuItemFinder.find();
 			if (menuItem == null) {
-				throw new TesterError("Unable to find "
-						+ menuItemFinder.toString()
-						+ ".\nCurrent window image:\n"
-						+ TestingUtils.saveWindowImage(menuItemFinder
+				throw new TestFailure("Unable to find "
+						+ menuItemFinder.toString(), "Window",
+						TestingUtils.saveWindowImage(menuItemFinder
 								.getWindowIndex()));
 			}
 			boolean lastMenuItem = i == (menuItemPath.size() - 1);

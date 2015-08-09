@@ -45,7 +45,7 @@ import xy.ui.testing.action.component.ClickOnMenuItemAction;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
 import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
@@ -160,17 +160,17 @@ public class Tester {
 					currentComponent = null;
 				}
 				testAction.execute(c);
-			} catch (Exception e) {
-				if (e instanceof InterruptedException) {
+			} catch (Throwable t) {
+				if (t instanceof InterruptedException) {
 					if (currentComponent != null) {
 						unhighlightCurrentComponent();
 						currentComponent = null;
 					}
 					break;
 				}
-				throw new TesterError("Test Action n°"
+				throw new TestFailure("Test Action n°"
 						+ (testActions.indexOf(testAction) + 1) + ": "
-						+ e.toString(), e);
+						+ t.toString(), t);
 			}
 		}
 	}
@@ -183,15 +183,15 @@ public class Tester {
 			try {
 				result = testAction.findComponent();
 				break;
-			} catch (Exception e) {
+			} catch (TestFailure e) {
 				try {
 					Thread.sleep(1000);
-				} catch (InterruptedException e1) {
-					throw new TesterError(e);
+				} catch (InterruptedException ignore) {
+					throw e;
 				}
 				remainingSeconds--;
 				if (remainingSeconds == 0) {
-					throw new TesterError(e);
+					throw e;
 				}
 			}
 		}
@@ -402,7 +402,7 @@ public class Tester {
 								try {
 									sleep(5000);
 								} catch (InterruptedException e) {
-									throw new TesterError(e);
+									throw new AssertionError(e);
 								}
 								startRecording();
 							}
@@ -509,7 +509,7 @@ public class Tester {
 			}
 			return result;
 		} catch (Exception e) {
-			throw new TesterError(e);
+			throw new AssertionError(e);
 		}
 
 	}

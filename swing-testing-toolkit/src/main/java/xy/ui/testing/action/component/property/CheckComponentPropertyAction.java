@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 public class CheckComponentPropertyAction extends ComponentPropertyAction {
@@ -29,11 +29,11 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 		Object expectedFieldValue = propertyValueToFieldValue(propertyValueExpected);
 		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue,
 				expectedFieldValue)) {
-			throw new TesterError(
+			throw new TestFailure(
 					"Component property checking failed: Unexpected property value: '"
 							+ currentFieldValue + "'. Expected: '"
-							+ expectedFieldValue + "'"+ ".\nCurrent component image:\n"
-									+ TestingUtils.saveImage(c));
+							+ expectedFieldValue + "'",
+					"Component", TestingUtils.saveImage(c));
 		}
 	}
 

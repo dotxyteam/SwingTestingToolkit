@@ -8,7 +8,7 @@ import javax.swing.JMenuItem;
 
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MenuItemComponentFinder;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 public class ClickOnMenuItemAction extends TestAction {
@@ -40,10 +40,9 @@ public class ClickOnMenuItemAction extends TestAction {
 	public Component findComponent() {
 		Component c = componentFinder.find();
 		if (c == null) {
-			throw new TesterError("Unable to find "
-					+ componentFinder.toString()
-					+ ".\nCurrent window image:\n"
-					+ TestingUtils.saveWindowImage(componentFinder
+			throw new TestFailure("Unable to find "
+					+ componentFinder.toString(), "Window",
+					TestingUtils.saveWindowImage(componentFinder
 							.getWindowIndex()));
 		}
 		return c;

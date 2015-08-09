@@ -9,7 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import xy.ui.testing.finder.MatchingComponentFinder;
-import xy.ui.testing.util.TesterError;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 @SuppressWarnings("unused")
@@ -78,14 +78,14 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 		try {
 			if (completenessChecked && orderChecked) {
 				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TesterError("The visible string(s) have changed");
+					throw new TestFailure("The visible string(s) have changed");
 				}
 			} else if (completenessChecked && !orderChecked) {
 				currentVisibleStrings = new ArrayList<String>(
 						currentVisibleStrings);
 				currentVisibleStrings.removeAll(visibleStrings);
 				if (currentVisibleStrings.size() > 0) {
-					throw new TesterError(
+					throw new TestFailure(
 							"The following visible string(s) were not declared: "
 									+ TestingUtils
 											.formatVisibleStrings(new ArrayList<String>(
@@ -96,7 +96,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 						currentVisibleStrings);
 				currentVisibleStrings.retainAll(visibleStrings);
 				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TesterError(
+					throw new TestFailure(
 							"The visible strings order have changed");
 				}
 			} else if (!completenessChecked && !orderChecked) {
@@ -104,7 +104,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 						visibleStrings);
 				visibleStringSortedSet.removeAll(currentVisibleStrings);
 				if (visibleStringSortedSet.size() > 0) {
-					throw new TesterError(
+					throw new TestFailure(
 							"The following declared visible string(s) were not found: "
 									+ TestingUtils
 											.formatVisibleStrings(new ArrayList<String>(
@@ -112,15 +112,15 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 				}
 			}
 		} catch (Exception e) {
-			throw new TesterError(
+			throw new TestFailure(
 					"Visible strings checking failed: "
 							+ e.toString()
 							+ ":\nThese are the original and the current visible strings:\n"
 							+ TestingUtils.formatVisibleStrings(visibleStrings)
 							+ "\n"
-							+ TestingUtils.formatVisibleStrings(currentVisibleStrings)
-							+ ".\nCurrent window image:\n"
-							+ TestingUtils.saveImage(window), e);
+							+ TestingUtils
+									.formatVisibleStrings(currentVisibleStrings),
+					"Window image", TestingUtils.saveImage(window), e);
 		}
 	}
 
