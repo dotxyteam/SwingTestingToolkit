@@ -47,7 +47,7 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 			g2.dispose();
 		}
 	};
-	
+
 	public AlternateWindowDecorationsPanel(String titleText) {
 		super(new BorderLayout());
 		add(resizePanel, BorderLayout.CENTER);
@@ -69,14 +69,13 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 		titlePanel.addMouseListener(dwl);
 		titlePanel.addMouseMotionListener(dwl);
 		titlePanel.setOpaque(false);
-		// title.setBackground(Color.ORANGE);
 		titlePanel.setBorder(BorderFactory.createEmptyBorder(W, W, W, W));
 
 		JLabel titleLabel = new JLabel(titleText, JLabel.CENTER);
 		titleLabel.setForeground(getDecorationsForegroundColor());
+		titleLabel.setFont(getDecorationsFont());
 		titlePanel.add(titleLabel);
-		titlePanel.add(makeCloseButton(), BorderLayout.EAST);
-		// title.add(iconify, BorderLayout.WEST);
+		titlePanel.add(makeButtons(), BorderLayout.EAST);
 
 		JPanel titlePanelContainer = new JPanel(new BorderLayout(0, 0));
 		titlePanelContainer.add(top, BorderLayout.NORTH);
@@ -110,6 +109,15 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 		return contentPanel;
 	}
 
+	private JPanel makeButtons() {
+		JPanel result = new JPanel();
+		result.setLayout(new FlowLayout());
+		result.setOpaque(false);
+		//result.add(makeMaximizeButton());
+		result.add(makeCloseButton());
+		return result;
+	}
+
 	private JButton makeCloseButton() {
 		JButton button = new JButton(new CloseIcon());
 		button.setContentAreaFilled(false);
@@ -117,6 +125,7 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 		button.setBorder(BorderFactory.createEmptyBorder());
 		button.setOpaque(true);
 		button.setBackground(getDecorationsBackgroundColor());
+		button.setFont(getDecorationsFont());
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -131,19 +140,39 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 		return button;
 	}
 
-	// private static JButton makeIconifyButton() {
-	// JButton iconify = new JButton("_");
-	// iconify.setContentAreaFilled(false);
-	// iconify.setFocusPainted(false);
-	// iconify.setBorder(BorderFactory.createEmptyBorder());
-	// iconify.setOpaque(true);
-	// iconify.setBackground(Color.ORANGE);
-	// iconify.addActionListener(new ActionListener() {
-	// @Override public void actionPerformed(ActionEvent e) {
-	// frame.setExtendedState(state | Frame.ICONIFIED);
-	// }
-	// });
-	// }
+	@SuppressWarnings("unused")
+	private JButton makeMaximizeButton() {
+		JButton button = new JButton(new MaximizeIcon());
+		button.setContentAreaFilled(false);
+		button.setFocusPainted(false);
+		button.setBorder(BorderFactory.createEmptyBorder());
+		button.setOpaque(true);
+		button.setBackground(getDecorationsBackgroundColor());
+		button.setFont(getDecorationsFont());
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JComponent b = (JComponent) e.getSource();
+				Window w = SwingUtilities.getWindowAncestor(b);
+				if (w instanceof JFrame) {
+					JFrame frame = (JFrame) w;
+					int state = frame.getExtendedState();
+					if ((state & Frame.MAXIMIZED_BOTH) == 0) {
+						frame.setExtendedState(state
+								| Frame.MAXIMIZED_BOTH);
+					}else{
+						frame.setExtendedState(state
+								& ~Frame.MAXIMIZED_BOTH);
+					}
+				}
+			}
+		});
+		return button;
+	}
+
+	public Font getDecorationsFont() {
+		return new Font("Arial", Font.BOLD, 14);
+	}
 
 	public void configureWindow(Window window) {
 		if (window instanceof JFrame) {
@@ -157,7 +186,6 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 			l.addMouseListener(rwl);
 			l.addMouseMotionListener(rwl);
 		}
-
 	}
 
 	private enum Side {
@@ -311,6 +339,29 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 			g.drawLine(11, 4, 4, 11);
 			g.drawLine(11, 5, 5, 11);
 			g.drawLine(10, 4, 4, 10);
+			g.translate(-x, -y);
+		}
+
+		@Override
+		public int getIconWidth() {
+			return 16;
+		}
+
+		@Override
+		public int getIconHeight() {
+			return 16;
+		}
+	}
+
+	private class MaximizeIcon implements Icon {
+		@Override
+		public void paintIcon(Component c, Graphics g, int x, int y) {
+			g.translate(x, y);
+			g.setColor(getDecorationsForegroundColor());
+			g.drawLine(4, 4, 11, 4);
+			g.drawLine(11, 4, 11, 11);
+			g.drawLine(11, 11, 4, 11);
+			g.drawLine(4, 11, 4, 4);
 			g.translate(-x, -y);
 		}
 

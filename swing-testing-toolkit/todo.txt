@@ -1,26 +1,14 @@
-- popup menus must be handled in a special way beacuse
-they are sensitive in a way to the Tester workflow 
-- allow to run actions from the current single selected element to the end
-- select currently executed action 
-- adding a field or method through the TypeInfoProxyConf
-results in the field/method multiply added. 
-The problem is caused by the precomputedTypeInstances with
-which multiple calls are made to the ReflectionUI.getTypeInfo()
-
-- Action PAnel: put the componentFinder in another tab???
+- allow to view screenshots ???
+- enhance tree selection dialog:
+	. groups should not be selectable
+- Action Panel: put the componentFinder in another tab???
 - add validation
 - add online help
-- disable key events when recording and replace by the tester popup
 - check all actions available with swingset
-- menu/popup menu actions
-- custom component finder
-- custom component check
-- rename actions: checkXXX => assertXXX
+- rename actions: checkXXX => assertXXX ???
 - add action: check visible strings inside component (not whole window)
-- remove list multiple elements does not undo in batch mode
 - wait action
-- double click, mouse down or up, mouse motion events
+- mouse down or up, mouse motion events
 - jlist, jtree, jtable,  ... specific actions
 - extensibility
 - generate testing code???
-- remove nullability

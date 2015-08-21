@@ -23,6 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
+import xy.reflect.ui.control.swing.ListControl;
+import xy.reflect.ui.control.swing.ListControl.AutoUpdatingFieldItemPosition;
+import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
@@ -36,6 +39,7 @@ import xy.reflect.ui.info.type.iterable.util.structure.IListStructuralInfo;
 import xy.reflect.ui.info.type.iterable.util.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
+import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyConfiguration;
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -102,7 +106,6 @@ public class TesterUI extends ReflectionUI {
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
-	protected TestAction lastExecutedTestAction;
 
 	public static void main(String[] args) {
 		try {
@@ -124,14 +127,8 @@ public class TesterUI extends ReflectionUI {
 
 	protected TesterUI() {
 	}
-
-	public TestAction getLastExecutedTestAction() {
-		return lastExecutedTestAction;
-	}
-
-	public void setLastExecutedTestAction(TestAction lastExecutedTestAction) {
-		this.lastExecutedTestAction = lastExecutedTestAction;
-	}
+	
+	
 
 	@Override
 	public SwingRenderer createSwingRenderer() {
@@ -261,7 +258,7 @@ public class TesterUI extends ReflectionUI {
 
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
-		return new TypeInfoProxyConfiguration() {
+		return new HiddenNullableFacetsTypeInfoProxyConfiguration(TesterUI.this) {
 
 			@Override
 			protected IListStructuralInfo getStructuralInfo(IListTypeInfo type) {
@@ -331,25 +328,6 @@ public class TesterUI extends ReflectionUI {
 					return super.getFields(type);
 				}
 			}
-
-			/*
-			 * @Override protected List<IMethodInfo> getMethods(ITypeInfo type)
-			 * { if (type.getName().equals(
-			 * PropertyBasedComponentFinder.class.getName())) {
-			 * List<IMethodInfo> result = new ArrayList<IMethodInfo>(
-			 * super.getMethods(type));
-			 * result.remove(ReflectionUIUtils.findInfoByName(result,
-			 * "createPropertyCriteria"));
-			 * result.remove(ReflectionUIUtils.findInfoByName(result,
-			 * "getPropertyCriteria"));
-			 * result.remove(ReflectionUIUtils.findInfoByName(result,
-			 * "addPropertyCriteria"));
-			 * result.remove(ReflectionUIUtils.findInfoByName(result,
-			 * "removePropertyCriteria"));
-			 * result.remove(ReflectionUIUtils.findInfoByName(result,
-			 * "getPropertyCriteriaCount")); return result; } else { return
-			 * super.getMethods(type); } }
-			 */
 
 			@Override
 			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(
@@ -435,18 +413,7 @@ public class TesterUI extends ReflectionUI {
 										selectedActions.add(testAction);
 									}
 									Tester tester = (Tester) object;
-									IMethodInfo playMethod = getSwingRenderer()
-											.getFormsUpdatingMethod(
-													object,
-													ReflectionUIUtils
-															.getJavaMethodSignature(Tester.class
-																	.getMethod(
-																			"play",
-																			List.class,
-																			Runnable.class)));
-									InvocationData invocationData = new InvocationData(
-											selectedActions);
-									playMethod.invoke(tester, invocationData);
+									tester.play(selectedActions, null);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -457,6 +424,34 @@ public class TesterUI extends ReflectionUI {
 								return "Play Selected Action(s)";
 							}
 						});
+						if (selection.size() == 1) {
+							result.add(new IListAction() {
+
+								@Override
+								public void perform(final Component listControl) {
+									try {
+										List<TestAction> actionsToPlay = new ArrayList<TestAction>();
+										ItemPosition singleSelection = selection
+												.get(0);
+										for (int i = singleSelection.getIndex(); i < singleSelection
+												.getContainingListValue().length; i++) {
+											TestAction testAction = (TestAction) singleSelection
+													.getSibling(i).getItem();
+											actionsToPlay.add(testAction);
+										}
+										Tester tester = (Tester) object;
+										tester.play(actionsToPlay, null);
+									} catch (Exception e) {
+										throw new ReflectionUIError(e);
+									}
+								}
+
+								@Override
+								public String getTitle() {
+									return "Play From Selection To End";
+								}
+							});
+						}
 						return result;
 					}
 				}
@@ -472,31 +467,27 @@ public class TesterUI extends ReflectionUI {
 
 					if (method.getName().startsWith("play")
 							|| method.getName().equals("startRecording")) {
-						for (final JPanel form : getSwingRenderer().getForms(
-								object)) {
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									//SwingUtilities.getWindowAncestor(form)
-										//	.toBack();
-								}
-							});
-						}
+						final JPanel form = getTesterForm((Tester) object);
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								// SwingUtilities.getWindowAncestor(form)
+								// .toBack();
+							}
+						});
 					}
 
 					Object result = super.invoke(object, invocationData,
 							method, containingType);
 
 					if (method.getName().startsWith("play")) {
-						for (final JPanel form : getSwingRenderer().getForms(
-								object)) {
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									onSuccessfulPlay((Tester) object, form);
-								}
-							});
-						}
+						final JPanel form = getTesterForm((Tester) object);
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								onSuccessfulPlay((Tester) object, form);
+							}
+						});
 					}
 					return result;
 				} else {
@@ -508,7 +499,39 @@ public class TesterUI extends ReflectionUI {
 		}.get(super.getTypeInfo(typeSource));
 	}
 
-	public boolean openSettings(TestAction testAction, Component c) {
+	protected JPanel getTesterForm(Tester tester) {
+		List<JPanel> result = getSwingRenderer().getForms(tester);
+		if (result.size() == 0) {
+			return null;
+		}
+		if (result.size() > 1) {
+			throw new AssertionError("More than 1 form was found for: "
+					+ tester);
+		}
+		return result.get(0);
+	}
+	
+	protected ListControl getTestActionsControl(Tester tester) {
+		final JPanel form = getTesterForm(tester);
+		if (form == null) {
+			return null;
+		}
+		List<Component> result = getSwingRenderer().getFieldControlsByName(
+				form, "testActions");
+		if (result.size() != 1) {
+			throw new AssertionError("'testActions' control not found for: "
+					+ tester);
+		}
+		Component c = result.get(0);
+		if (c instanceof NullableControl) {
+			c = ((NullableControl) c).getSubControl();
+		}
+		return (ListControl) c;
+	}
+
+
+
+	public boolean openSettings(TestAction testAction, Component c, Tester tester) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
 		TesterUI.INSTANCE.getSwingRenderer().openObjectDialog(c, testAction,
@@ -535,17 +558,6 @@ public class TesterUI extends ReflectionUI {
 				}
 				imageCache.put(imageResourceName, result);
 			}
-			if (object instanceof TestAction) {
-				if (object != lastExecutedTestAction) {
-					imageResourceName = "unhiglighted-" + imageResourceName;
-					Image unhighlighted = imageCache.get(imageResourceName);
-					if (unhighlighted == null) {
-						unhighlighted = unhighlightIconImage(result);
-						imageCache.put(imageResourceName, unhighlighted);
-					}
-					result = unhighlighted;
-				}
-			}
 			return result;
 
 		} else {
@@ -553,30 +565,19 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected Image unhighlightIconImage(Image image) {
-		BufferedImage result = new BufferedImage(image.getWidth(null),
-				image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-		Graphics graphics = result.getGraphics();
-		graphics.drawImage(image, 0, 0, null);
-		graphics.dispose();
-		for (int i = 0; i < result.getWidth(); i++) {
-			for (int j = 0; j < result.getHeight(); j++) {
-				Color color = new Color(result.getRGB(i, j), true);
-				int grayLevel = Math
-						.round((color.getRed() + color.getGreen() + color
-								.getBlue()) / 3f);
-				Color newColor = new Color(grayLevel, grayLevel, grayLevel,
-						color.getAlpha());
-				result.setRGB(i, j, newColor.getRGB());
-			}
-		}
-		return result;
+	public void selectTestAction(TestAction testAction, Tester tester) {
+		ListControl testActionsControl = getTestActionsControl(tester);
+		testActionsControl.setSingleSelection(testActionsControl
+				.findItemPosition(testAction));
 	}
 
-	public void upadateTestActionsControl(Tester tester) {
-		for (JPanel form : getSwingRenderer().getForms(tester)) {
-			getSwingRenderer().refreshFieldControlsByName(form, "testActions");
+	public int getSelectedActionIndex(Tester tester) {
+		ListControl testActionsControl = getTestActionsControl(tester);
+		AutoUpdatingFieldItemPosition result = testActionsControl.getSingleSelection();
+		if (result == null) {
+			return -1;
 		}
+		return result.getIndex();
 	}
 
 	public static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(

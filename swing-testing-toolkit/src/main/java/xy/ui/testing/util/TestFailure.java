@@ -1,8 +1,6 @@
 package xy.ui.testing.util;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 
 public class TestFailure extends RuntimeException {
 

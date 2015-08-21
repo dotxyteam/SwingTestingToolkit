@@ -212,6 +212,7 @@ public class TreeSelectionDialog extends JDialog {
 			INodePropertyAccessor<Boolean> selectableAccessor) {
 		if (treePath.equals(tree.getSelectionPath())) {
 			if (okButton.isEnabled()) {
+				okPressed = true;
 				TreeSelectionDialog.this.dispose();
 			}
 		}

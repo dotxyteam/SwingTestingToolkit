@@ -69,6 +69,7 @@ public class Tester {
 	protected MouseListener[] currentComponentMouseListeners;
 	protected boolean recording = false;
 	protected Border currentComponentBorder;
+	protected transient boolean recordingInsertedBeforeSelection = false;
 
 	public Tester() {
 		recordingListener = new AWTEventListener() {
@@ -148,8 +149,7 @@ public class Tester {
 			}
 			final TestAction testAction = toReplay.get(i);
 			try {
-				TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
-				TesterUI.INSTANCE.upadateTestActionsControl(Tester.this);
+				TesterUI.INSTANCE.selectTestAction(testAction, Tester.this);
 				Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
 				Component c = findComponentImmediatelyOrRetry(testAction);
 				if (c != null) {
@@ -215,6 +215,15 @@ public class Tester {
 
 	public boolean isRecording() {
 		return recording;
+	}
+
+	public boolean isRecordingInsertedBeforeSelection() {
+		return recordingInsertedBeforeSelection;
+	}
+
+	public void setRecordingInsertedBeforeSelection(
+			boolean recordingInsertedBeforeSelection) {
+		this.recordingInsertedBeforeSelection = recordingInsertedBeforeSelection;
 	}
 
 	protected void awtEventDispatched(AWTEvent event) {
@@ -329,7 +338,8 @@ public class Tester {
 
 	protected Window getTesterWindow() {
 		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(
-				TesterUI.INSTANCE.getSwingRenderer().getObjectByForm(), this).get(0);
+				TesterUI.INSTANCE.getSwingRenderer().getObjectByForm(), this)
+				.get(0);
 		if (testerForm == null) {
 			return null;
 		}
@@ -420,9 +430,11 @@ public class Tester {
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						TesterUI.INSTANCE.getSwingRenderer().getFormsUpdatingMethod(Tester.this,
-								"stopRecording").invoke(Tester.this,
-								new InvocationData());
+						TesterUI.INSTANCE
+								.getSwingRenderer()
+								.getFormsUpdatingMethod(Tester.this,
+										"stopRecording")
+								.invoke(Tester.this, new InvocationData());
 					}
 				});
 		root.add(stopRecordingItem);
@@ -478,15 +490,30 @@ public class Tester {
 
 	protected boolean onTestActionRecordingRequest(final TestAction testAction,
 			final Component c, boolean execute) {
-		if (TesterUI.INSTANCE.openSettings(testAction, c)) {
-			TesterUI.INSTANCE.setLastExecutedTestAction(testAction);
-			IFieldInfo testActionListField = TesterUI.INSTANCE
-					.getSwingRenderer().getFormsUpdatingField(Tester.this, "testActions");
+		if (TesterUI.INSTANCE.openSettings(testAction, c, this)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					testActions);
-			newTestActionListValue.add(testAction);
+			if (recordingInsertedBeforeSelection) {
+				int index = TesterUI.INSTANCE.getSelectedActionIndex(Tester.this);
+				if (index != -1) {
+					newTestActionListValue.add(index, testAction);
+				}else{
+					newTestActionListValue.add(testAction);
+				}
+			} else {
+				newTestActionListValue.add(testAction);
+			}
+			IFieldInfo testActionListField = TesterUI.INSTANCE
+					.getSwingRenderer().getFormsUpdatingField(Tester.this,
+							"testActions");
 			testActionListField.setValue(Tester.this, newTestActionListValue
 					.toArray(new TestAction[newTestActionListValue.size()]));
+			SwingUtilities.invokeLater(new Runnable() {				
+				@Override
+				public void run() {
+					TesterUI.INSTANCE.selectTestAction(testAction, Tester.this);			
+				}
+			});
 			handleCurrentComponentChange(null);
 			if (execute) {
 				testAction.execute(c);
