@@ -69,7 +69,6 @@ public class Tester {
 	protected MouseListener[] currentComponentMouseListeners;
 	protected boolean recording = false;
 	protected Border currentComponentBorder;
-	protected transient boolean recordingInsertedBeforeSelection = false;
 
 	public Tester() {
 		recordingListener = new AWTEventListener() {
@@ -217,15 +216,6 @@ public class Tester {
 		return recording;
 	}
 
-	public boolean isRecordingInsertedBeforeSelection() {
-		return recordingInsertedBeforeSelection;
-	}
-
-	public void setRecordingInsertedBeforeSelection(
-			boolean recordingInsertedBeforeSelection) {
-		this.recordingInsertedBeforeSelection = recordingInsertedBeforeSelection;
-	}
-
 	protected void awtEventDispatched(AWTEvent event) {
 		if (!recording) {
 			return;
@@ -258,7 +248,7 @@ public class Tester {
 			Window window = windowEvent.getWindow();
 			stopRecording();
 			ImageIcon icon = new ImageIcon(
-					TesterUI.INSTANCE.getObjectIconImage(Tester.this));
+					TesterUI.INSTANCE.getIconImage(Tester.this));
 			String message = "Do you want to record this window closing event?";
 			String title = TesterUI.INSTANCE.getObjectKind(Tester.this);
 			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(window,
@@ -277,7 +267,7 @@ public class Tester {
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
 			testACtion.initializeFrom(menuItem, event);
 			ImageIcon icon = new ImageIcon(
-					TesterUI.INSTANCE.getObjectIconImage(Tester.this));
+					TesterUI.INSTANCE.getIconImage(Tester.this));
 			String message = "Do you want to record this menu item activation event?";
 			String title = TesterUI.INSTANCE.getObjectKind(Tester.this);
 			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(
@@ -465,7 +455,7 @@ public class Tester {
 						public Object getValue(String key) {
 							if (key == AbstractAction.SMALL_ICON) {
 								Image image = TesterUI.INSTANCE
-										.getObjectIconImage(testAction);
+										.getIconImage(testAction);
 								return new ImageIcon(image);
 							} else {
 								return super.getValue(key);
@@ -493,11 +483,12 @@ public class Tester {
 		if (TesterUI.INSTANCE.openSettings(testAction, c, this)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					testActions);
-			if (recordingInsertedBeforeSelection) {
-				int index = TesterUI.INSTANCE.getSelectedActionIndex(Tester.this);
+			if (TesterUI.INSTANCE.isRecordingInsertedBeforeSelection()) {
+				int index = TesterUI.INSTANCE
+						.getSelectedActionIndex(Tester.this);
 				if (index != -1) {
 					newTestActionListValue.add(index, testAction);
-				}else{
+				} else {
 					newTestActionListValue.add(testAction);
 				}
 			} else {
@@ -508,10 +499,10 @@ public class Tester {
 							"testActions");
 			testActionListField.setValue(Tester.this, newTestActionListValue
 					.toArray(new TestAction[newTestActionListValue.size()]));
-			SwingUtilities.invokeLater(new Runnable() {				
+			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					TesterUI.INSTANCE.selectTestAction(testAction, Tester.this);			
+					TesterUI.INSTANCE.selectTestAction(testAction, Tester.this);
 				}
 			});
 			handleCurrentComponentChange(null);

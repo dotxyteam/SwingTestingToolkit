@@ -8,6 +8,7 @@
 - rename actions: checkXXX => assertXXX ???
 - add action: check visible strings inside component (not whole window)
 - wait action
+- comment action ???
 - mouse down or up, mouse motion events
 - jlist, jtree, jtable,  ... specific actions
 - extensibility

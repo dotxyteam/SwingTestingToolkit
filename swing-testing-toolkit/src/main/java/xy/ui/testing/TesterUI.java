@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
+import xy.reflect.ui.SwingRenderer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.ListControl.AutoUpdatingFieldItemPosition;
 import xy.reflect.ui.control.swing.NullableControl;
@@ -43,7 +44,6 @@ import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyConfigurati
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
-import xy.reflect.ui.renderer.SwingRenderer;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIError;
@@ -103,9 +103,12 @@ public class TesterUI extends ReflectionUI {
 	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
 			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
 			CtrlV.class, CtrlX.class };
+	private static final Image NULL_IMAGE = new BufferedImage(1, 1,
+			BufferedImage.TYPE_INT_ARGB);
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
+	protected boolean recordingInsertedBeforeSelection = false;
 
 	public static void main(String[] args) {
 		try {
@@ -127,8 +130,15 @@ public class TesterUI extends ReflectionUI {
 
 	protected TesterUI() {
 	}
-	
-	
+
+	public boolean isRecordingInsertedBeforeSelection() {
+		return recordingInsertedBeforeSelection;
+	}
+
+	public void setRecordingInsertedBeforeSelection(
+			boolean recordingInsertedBeforeSelection) {
+		this.recordingInsertedBeforeSelection = recordingInsertedBeforeSelection;
+	}
 
 	@Override
 	public SwingRenderer createSwingRenderer() {
@@ -158,6 +168,31 @@ public class TesterUI extends ReflectionUI {
 					}
 				}
 				return result;
+			}
+
+			@Override
+			public boolean onMethodInvocationRequest(
+					Component activatorComponent, Object object,
+					IMethodInfo method, Object[] returnValueArray) {
+				if ((object instanceof Tester)
+						&& method.getName().equals("startRecording")) {
+					ListControl testActionsControl = getTestActionsControl((Tester) object);
+					if (testActionsControl.getSelection().size() == 1) {
+						int status = JOptionPane
+								.showConfirmDialog(
+										testActionsControl,
+										prepareUIString("Insert Recordings At The Current Selection?"));
+						if (status == JOptionPane.YES_OPTION) {
+							recordingInsertedBeforeSelection = true;
+						} else if (status == JOptionPane.NO_OPTION) {
+							recordingInsertedBeforeSelection = false;
+						} else {
+							return false;
+						}
+					}
+				}
+				return super.onMethodInvocationRequest(activatorComponent,
+						object, method, returnValueArray);
 			}
 
 			@Override
@@ -259,6 +294,53 @@ public class TesterUI extends ReflectionUI {
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
 		return new HiddenNullableFacetsTypeInfoProxyConfiguration(TesterUI.this) {
+
+			@Override
+			protected String toString(ITypeInfo type) {
+				if (type.getName().equals(CtrlA.class.getName())) {
+					return "CtrlA (Select All)";
+				} else if (type.getName().equals(CtrlC.class.getName())) {
+					return "CtrlC (Copy)";
+				} else if (type.getName().equals(CtrlV.class.getName())) {
+					return "CtrlV (Paste)";
+				} else if (type.getName().equals(CtrlX.class.getName())) {
+					return "CtrlX (Cut)";
+				} else {
+					return super.toString(type);
+				}
+			}
+
+			@Override
+			protected Image getIconImage(ITypeInfo type, Object object) {
+				if (object == null) {
+					return null;
+				}
+				String imageResourceName = type.getName();
+				int lastDotIndex = imageResourceName.lastIndexOf(".");
+				if (lastDotIndex != -1) {
+					imageResourceName = imageResourceName
+							.substring(lastDotIndex+1);
+				}
+				imageResourceName += ".png";
+				Image result = imageCache.get(imageResourceName);
+				if (result == null) {
+					if (TesterUI.class.getResource(imageResourceName) == null) {
+						result = NULL_IMAGE;
+					} else {
+						try {
+							result = ImageIO.read(TesterUI.class
+									.getResourceAsStream(imageResourceName));
+						} catch (IOException e) {
+							throw new AssertionError(e);
+						}
+					}
+					imageCache.put(imageResourceName, result);
+				}
+				if (result == NULL_IMAGE) {
+					return super.getIconImage(type, object);
+				}
+				return result;
+			}
 
 			@Override
 			protected IListStructuralInfo getStructuralInfo(IListTypeInfo type) {
@@ -510,7 +592,7 @@ public class TesterUI extends ReflectionUI {
 		}
 		return result.get(0);
 	}
-	
+
 	protected ListControl getTestActionsControl(Tester tester) {
 		final JPanel form = getTesterForm(tester);
 		if (form == null) {
@@ -529,9 +611,8 @@ public class TesterUI extends ReflectionUI {
 		return (ListControl) c;
 	}
 
-
-
-	public boolean openSettings(TestAction testAction, Component c, Tester tester) {
+	public boolean openSettings(TestAction testAction, Component c,
+			Tester tester) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
 		TesterUI.INSTANCE.getSwingRenderer().openObjectDialog(c, testAction,
@@ -539,30 +620,6 @@ public class TesterUI extends ReflectionUI {
 				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
-	}
-
-	@Override
-	public Image getObjectIconImage(Object object) {
-		if (object == null) {
-			return null;
-		}
-		String imageResourceName = object.getClass().getSimpleName() + ".png";
-		if (TesterUI.class.getResource(imageResourceName) != null) {
-			Image result = imageCache.get(imageResourceName);
-			if (result == null) {
-				try {
-					result = ImageIO.read(TesterUI.class
-							.getResourceAsStream(imageResourceName));
-				} catch (IOException e) {
-					throw new AssertionError(e);
-				}
-				imageCache.put(imageResourceName, result);
-			}
-			return result;
-
-		} else {
-			return super.getObjectIconImage(object);
-		}
 	}
 
 	public void selectTestAction(TestAction testAction, Tester tester) {
@@ -573,7 +630,8 @@ public class TesterUI extends ReflectionUI {
 
 	public int getSelectedActionIndex(Tester tester) {
 		ListControl testActionsControl = getTestActionsControl(tester);
-		AutoUpdatingFieldItemPosition result = testActionsControl.getSingleSelection();
+		AutoUpdatingFieldItemPosition result = testActionsControl
+				.getSingleSelection();
 		if (result == null) {
 			return -1;
 		}
