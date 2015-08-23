@@ -1,3 +1,6 @@
+- add 
+	. current file path to the title bar
+	. save/save as buttons
 - allow to view screenshots ???
 - enhance tree selection dialog:
 	. groups should not be selectable

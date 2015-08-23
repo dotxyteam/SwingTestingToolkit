@@ -21,7 +21,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class TestMenus extends JFrame {
+public class MenusWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JTextArea output;
 	JScrollPane scrollPane;
@@ -31,7 +31,7 @@ public class TestMenus extends JFrame {
 	JRadioButtonMenuItem radioButtonMenuItem;
 	JCheckBoxMenuItem checkBoxMenuItem;
 
-	public TestMenus() throws HeadlessException {
+	public MenusWindow() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setJMenuBar(createMenuBar());
 		setContentPane(createContentPane());
@@ -116,7 +116,7 @@ public class TestMenus extends JFrame {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				TestMenus frame = new TestMenus();
+				MenusWindow frame = new MenusWindow();
 				frame.setVisible(true);
 			}
 		});

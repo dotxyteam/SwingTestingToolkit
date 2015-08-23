@@ -85,8 +85,8 @@ public class MenuItemComponentFinder extends ComponentFinder {
 
 	protected PropertyBasedComponentFinder createMenuItemFinder(
 			JMenuItem menuItem) {
-		PropertyBasedComponentFinder result = new PropertyBasedComponentFinder(
-				"Text");
+		PropertyBasedComponentFinder result = new PropertyBasedComponentFinder();
+		result.setPropertyNames("Text");
 		result.initializeFrom(menuItem);
 		return result;
 	}

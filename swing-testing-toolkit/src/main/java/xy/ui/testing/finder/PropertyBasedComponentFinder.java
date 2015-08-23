@@ -17,7 +17,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	protected List<PropertyCriteria> propertyCriterias = new ArrayList<PropertyBasedComponentFinder.PropertyCriteria>();
 
-	public PropertyBasedComponentFinder(String... propertynames) {
+	public void setPropertyNames(String... propertynames) {
 		for (int i = 0; i < propertynames.length; i++) {
 			String propertyName = propertynames[i];
 			PropertyCriteria propertyCriteria = createPropertyCriteria();
@@ -25,12 +25,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			addPropertyCriteria(i, propertyCriteria);
 		}
 	}
-
-	public PropertyBasedComponentFinder() {
-		this(new String[0]);
-	}
-	
-	
 
 	public List<PropertyCriteria> getPropertyCriteriaList() {
 		return propertyCriterias;
@@ -75,8 +69,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		}
 		criteria.setPropertyValueExpected(propertyValueExpected);
 	}
-	
-
 
 	public String getPropertyCriteria(String propertyName) {
 		PropertyCriteria criteria = findPropertyCriteria(propertyName);
@@ -140,7 +132,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	public class PropertyCriteria implements Serializable {
 
 		private static final long serialVersionUID = 1L;
-		
+
 		protected String propertyName;
 		protected String propertyValueExpected;
 

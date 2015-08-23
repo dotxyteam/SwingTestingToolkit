@@ -29,7 +29,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
@@ -247,13 +246,9 @@ public class Tester {
 			WindowEvent windowEvent = (WindowEvent) event;
 			Window window = windowEvent.getWindow();
 			stopRecording();
-			ImageIcon icon = new ImageIcon(
-					TesterUI.INSTANCE.getIconImage(Tester.this));
-			String message = "Do you want to record this window closing event?";
 			String title = TesterUI.INSTANCE.getObjectKind(Tester.this);
-			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(window,
-					message, title, JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, icon)) {
+			if (TesterUI.INSTANCE.getSwingRenderer().openQuestionDialog(window,
+					"Do you want to record this window closing event?", title)) {
 				startRecording();
 				CloseWindowAction closeAction = new CloseWindowAction();
 				closeAction.initializeFrom(window, event);
@@ -266,14 +261,9 @@ public class Tester {
 			stopRecording();
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
 			testACtion.initializeFrom(menuItem, event);
-			ImageIcon icon = new ImageIcon(
-					TesterUI.INSTANCE.getIconImage(Tester.this));
-			String message = "Do you want to record this menu item activation event?";
 			String title = TesterUI.INSTANCE.getObjectKind(Tester.this);
-			if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(
-					getTesterWindow(), message, title,
-					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
-					icon)) {
+			if (TesterUI.INSTANCE.getSwingRenderer().openQuestionDialog(getTesterWindow(),
+					"Do you want to record this menu item activation event?", title)) {
 				startRecording();
 				onTestActionRecordingRequest(testACtion, menuItem, true);
 			} else {
@@ -422,7 +412,7 @@ public class Tester {
 					public void actionPerformed(ActionEvent e) {
 						TesterUI.INSTANCE
 								.getSwingRenderer()
-								.getFormsUpdatingMethod(Tester.this,
+								.getFormUpdatingMethod(Tester.this,
 										"stopRecording")
 								.invoke(Tester.this, new InvocationData());
 					}
@@ -483,11 +473,11 @@ public class Tester {
 		if (TesterUI.INSTANCE.openSettings(testAction, c, this)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					testActions);
-			if (TesterUI.INSTANCE.isRecordingInsertedBeforeSelection()) {
+			if (TesterUI.INSTANCE.isRecordingInsertedAfterSelection()) {
 				int index = TesterUI.INSTANCE
 						.getSelectedActionIndex(Tester.this);
 				if (index != -1) {
-					newTestActionListValue.add(index, testAction);
+					newTestActionListValue.add(index + 1, testAction);
 				} else {
 					newTestActionListValue.add(testAction);
 				}
@@ -495,7 +485,7 @@ public class Tester {
 				newTestActionListValue.add(testAction);
 			}
 			IFieldInfo testActionListField = TesterUI.INSTANCE
-					.getSwingRenderer().getFormsUpdatingField(Tester.this,
+					.getSwingRenderer().getFormUpdatingField(Tester.this,
 							"testActions");
 			testActionListField.setValue(Tester.this, newTestActionListValue
 					.toArray(new TestAction[newTestActionListValue.size()]));

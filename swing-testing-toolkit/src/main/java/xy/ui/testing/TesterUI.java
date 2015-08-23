@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,6 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -108,7 +108,7 @@ public class TesterUI extends ReflectionUI {
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
-	protected boolean recordingInsertedBeforeSelection = false;
+	protected boolean recordingInsertedAfterSelection = false;
 
 	public static void main(String[] args) {
 		try {
@@ -122,22 +122,20 @@ public class TesterUI extends ReflectionUI {
 			}
 			INSTANCE.getSwingRenderer().openObjectFrame(tester);
 		} catch (Throwable t) {
-			t.printStackTrace();
-			JOptionPane.showMessageDialog(null, t.toString(), null,
-					JOptionPane.ERROR_MESSAGE);
+			INSTANCE.getSwingRenderer()
+					.handleExceptionsFromDisplayedUI(null, t);
 		}
 	}
 
 	protected TesterUI() {
 	}
 
-	public boolean isRecordingInsertedBeforeSelection() {
-		return recordingInsertedBeforeSelection;
+	public boolean isRecordingInsertedAfterSelection() {
+		return recordingInsertedAfterSelection;
 	}
 
-	public void setRecordingInsertedBeforeSelection(
-			boolean recordingInsertedBeforeSelection) {
-		this.recordingInsertedBeforeSelection = recordingInsertedBeforeSelection;
+	public void setRecordingInsertedAfterSelection(boolean b) {
+		this.recordingInsertedAfterSelection = b;
 	}
 
 	@Override
@@ -176,16 +174,21 @@ public class TesterUI extends ReflectionUI {
 					IMethodInfo method, Object[] returnValueArray) {
 				if ((object instanceof Tester)
 						&& method.getName().equals("startRecording")) {
-					ListControl testActionsControl = getTestActionsControl((Tester) object);
+					Tester tester = (Tester) object;
+					ListControl testActionsControl = getTestActionsControl(tester);
 					if (testActionsControl.getSelection().size() == 1) {
-						int status = JOptionPane
-								.showConfirmDialog(
+						String insertMessage = "Insert Recordings After The Current Selection Row";
+						String doNotInsertMessage = "Insert Recordings At The End";
+						String answer = getSwingRenderer()
+								.openSelectionDialog(
 										testActionsControl,
-										prepareUIString("Insert Recordings At The Current Selection?"));
-						if (status == JOptionPane.YES_OPTION) {
-							recordingInsertedBeforeSelection = true;
-						} else if (status == JOptionPane.NO_OPTION) {
-							recordingInsertedBeforeSelection = false;
+										Arrays.asList(insertMessage,
+												doNotInsertMessage),
+										insertMessage, "Choose", null);
+						if (insertMessage.equals(answer)) {
+							recordingInsertedAfterSelection = true;
+						} else if (doNotInsertMessage.equals(answer)) {
+							recordingInsertedAfterSelection = false;
 						} else {
 							return false;
 						}
@@ -264,6 +267,9 @@ public class TesterUI extends ReflectionUI {
 						if (method.getName().equals("macthesComponent")) {
 							return true;
 						}
+						if (method.getName().equals("setPropertyNames")) {
+							return true;
+						}
 						return super.excludeMethod(method);
 					}
 
@@ -312,14 +318,11 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected Image getIconImage(ITypeInfo type, Object object) {
-				if (object == null) {
-					return null;
-				}
 				String imageResourceName = type.getName();
 				int lastDotIndex = imageResourceName.lastIndexOf(".");
 				if (lastDotIndex != -1) {
 					imageResourceName = imageResourceName
-							.substring(lastDotIndex+1);
+							.substring(lastDotIndex + 1);
 				}
 				imageResourceName += ".png";
 				Image result = imageCache.get(imageResourceName);
@@ -460,16 +463,22 @@ public class TesterUI extends ReflectionUI {
 				}
 				return super.getPolymorphicInstanceSubTypes(type);
 			}
+			
+			
 
+			
 			@Override
 			protected IModification getUndoModification(IMethodInfo method,
 					ITypeInfo containingType, Object object,
 					InvocationData invocationData) {
+				if (method.getName().equals("playAll")) {
+					return ModificationStack.EMPTY_MODIFICATION;
+				}
 				if (method.getName().equals("startRecording")) {
-					return ModificationStack.NULL_MODIFICATION;
+					return ModificationStack.EMPTY_MODIFICATION;
 				}
 				if (method.getName().equals("stopRecording")) {
-					return ModificationStack.NULL_MODIFICATION;
+					return ModificationStack.EMPTY_MODIFICATION;
 				}
 				return super.getUndoModification(method, containingType,
 						object, invocationData);
@@ -659,7 +668,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void onSuccessfulPlay(Tester tester, Component activatorComponent) {
-		getSwingRenderer().showMessageDialog(activatorComponent,
+		getSwingRenderer().openMessageDialog(activatorComponent,
 				"The test action(s) completed successfully!",
 				getObjectKind(tester));
 
