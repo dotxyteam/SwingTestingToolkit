@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.ClassUtils;
 
+import xy.reflect.ui.control.swing.PrimitiveValueControl;
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -95,7 +96,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 	}
 
-	protected String filedValueToPropertyValue(Object fieldValue) {
+	protected String fieldValueToPropertyValue(Object fieldValue) {
 		if (fieldValue == null) {
 			return null;
 		}
@@ -104,7 +105,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 			return null;
 		}
 		if (TextualTypeInfo.isCompatibleWith(fieldValue.getClass())) {
-			return TextualTypeInfo.toText(fieldValue);
+			return PrimitiveValueControl.toText(fieldValue);
 		} else if (BooleanTypeInfo.isCompatibleWith(fieldValue.getClass())) {
 			return fieldValue.toString();
 		} else {
@@ -122,7 +123,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 		Class<?> javaType = getFieldJavaType(field);
 		if (TextualTypeInfo.isCompatibleWith(javaType)) {
-			return TextualTypeInfo.fromText(propertyValue, javaType);
+			return PrimitiveValueControl.fromText(propertyValue, javaType);
 		} else if (BooleanTypeInfo.isCompatibleWith(javaType)) {
 			return Boolean.valueOf(propertyValue);
 		} else {

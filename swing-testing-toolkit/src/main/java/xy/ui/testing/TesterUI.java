@@ -24,9 +24,9 @@ import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.SwingRenderer;
+import xy.reflect.ui.SwingRenderer.NullableControl;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.ListControl.AutoUpdatingFieldItemPosition;
-import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;

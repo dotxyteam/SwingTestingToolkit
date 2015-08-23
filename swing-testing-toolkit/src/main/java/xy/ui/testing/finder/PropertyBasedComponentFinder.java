@@ -162,7 +162,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 					IFieldInfo field = super.getPropertyFieldInfo();
 					if (field != null) {
 						Object fieldValue = field.getValue(c);
-						PropertyCriteria.this.propertyValueExpected = filedValueToPropertyValue(fieldValue);
+						PropertyCriteria.this.propertyValueExpected = fieldValueToPropertyValue(fieldValue);
 						ok[0] = true;
 					}
 				}
