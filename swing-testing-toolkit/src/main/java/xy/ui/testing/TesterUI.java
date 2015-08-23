@@ -138,6 +138,22 @@ public class TesterUI extends ReflectionUI {
 		this.recordingInsertedAfterSelection = b;
 	}
 
+	protected void playActionsAndUpdateUI(Tester tester,
+			List<TestAction> selectedActions) {
+		String methodSignature;
+		try {
+			methodSignature = ReflectionUIUtils
+					.getJavaMethodInfoSignature(Tester.class.getMethod("play",
+							List.class, Runnable.class));
+		} catch (Exception e) {
+			throw new AssertionError(e);
+		}
+		IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(
+				tester, methodSignature);
+		playMethod.invoke(tester, new InvocationData(selectedActions));
+		tester.play(selectedActions, null);
+	}
+
 	@Override
 	public SwingRenderer createSwingRenderer() {
 		return new SwingRenderer(TesterUI.this) {
@@ -463,15 +479,12 @@ public class TesterUI extends ReflectionUI {
 				}
 				return super.getPolymorphicInstanceSubTypes(type);
 			}
-			
-			
 
-			
 			@Override
 			protected IModification getUndoModification(IMethodInfo method,
 					ITypeInfo containingType, Object object,
 					InvocationData invocationData) {
-				if (method.getName().equals("playAll")) {
+				if (method.getName().startsWith("play")) {
 					return ModificationStack.EMPTY_MODIFICATION;
 				}
 				if (method.getName().equals("startRecording")) {
@@ -504,7 +517,8 @@ public class TesterUI extends ReflectionUI {
 										selectedActions.add(testAction);
 									}
 									Tester tester = (Tester) object;
-									tester.play(selectedActions, null);
+									playActionsAndUpdateUI(tester,
+											selectedActions);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -531,7 +545,8 @@ public class TesterUI extends ReflectionUI {
 											actionsToPlay.add(testAction);
 										}
 										Tester tester = (Tester) object;
-										tester.play(actionsToPlay, null);
+										playActionsAndUpdateUI(tester,
+												actionsToPlay);
 									} catch (Exception e) {
 										throw new ReflectionUIError(e);
 									}
@@ -571,15 +586,6 @@ public class TesterUI extends ReflectionUI {
 					Object result = super.invoke(object, invocationData,
 							method, containingType);
 
-					if (method.getName().startsWith("play")) {
-						final JPanel form = getTesterForm((Tester) object);
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								onSuccessfulPlay((Tester) object, form);
-							}
-						});
-					}
 					return result;
 				} else {
 					return super.invoke(object, invocationData, method,
@@ -633,6 +639,9 @@ public class TesterUI extends ReflectionUI {
 
 	public void selectTestAction(TestAction testAction, Tester tester) {
 		ListControl testActionsControl = getTestActionsControl(tester);
+		if(testActionsControl == null){
+			return;
+		}
 		testActionsControl.setSingleSelection(testActionsControl
 				.findItemPosition(testAction));
 	}
@@ -665,13 +674,6 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		};
-	}
-
-	protected void onSuccessfulPlay(Tester tester, Component activatorComponent) {
-		getSwingRenderer().openMessageDialog(activatorComponent,
-				"The test action(s) completed successfully!",
-				getObjectKind(tester));
-
 	}
 
 }

@@ -115,7 +115,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 			throw new TestFailure(
 					"Visible strings checking failed: "
 							+ e.toString()
-							+ ":\nThese are the original and the current visible strings:\n"
+							+ ".\nThese are the original and the current visible strings:\n"
 							+ TestingUtils.formatVisibleStrings(visibleStrings)
 							+ "\n"
 							+ TestingUtils
