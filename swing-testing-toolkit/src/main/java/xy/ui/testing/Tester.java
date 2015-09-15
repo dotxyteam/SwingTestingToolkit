@@ -54,8 +54,8 @@ import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
 public class Tester {
 
-	public static final Color HIGHLIGHT_FOREGROUND = new Color(255, 0, 0);
-	public static final Color HIGHLIGHT_BACKGROUND = new Color(255, 220, 220);
+	public static final Color HIGHLIGHT_FOREGROUND = new Color(205, 68, 61);
+	public static final Color HIGHLIGHT_BACKGROUND = new Color(245, 216, 214);
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
 	protected int minimumSecondsToWaitBetwneenActions = 1;

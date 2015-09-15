@@ -12,13 +12,14 @@ public class CallMainMethodAction extends TestAction {
 
 	protected String className = "";
 	protected String[] arguments;
-	protected Integer checkThrownExceptionAFterSeconds = 2;
+	protected Integer checkThrownExceptionAfterSeconds = 2;
 
 	public String getClassName() {
 		return className;
 	}
 
-	public void setClassName(String mainClassName) {
+	public void setClassName(String mainClassName) throws ClassNotFoundException{
+		Class.forName(mainClassName);
 		this.className = mainClassName;
 	}
 
@@ -29,21 +30,22 @@ public class CallMainMethodAction extends TestAction {
 	public void setArguments(String[] arguments) {
 		this.arguments = arguments;
 	}
-	
-	
 
-	public Integer getCheckThrownExceptionAFterSeconds() {
-		return checkThrownExceptionAFterSeconds;
+	public Integer getCheckThrownExceptionAfterSeconds() {
+		return checkThrownExceptionAfterSeconds;
 	}
 
-	public void setCheckThrownExceptionAFterSeconds(
-			Integer checkThrownExceptionAFterSeconds) {
-		this.checkThrownExceptionAFterSeconds = checkThrownExceptionAFterSeconds;
+	public void setCheckThrownExceptionAfterSeconds(Integer checkThrownExceptionAfterSeconds) {
+		if(checkThrownExceptionAfterSeconds != null){
+			if(checkThrownExceptionAfterSeconds < 0){
+				throw new NumberFormatException("Negative number forbidden");
+			}
+		}
+		this.checkThrownExceptionAfterSeconds = checkThrownExceptionAfterSeconds;
 	}
 
 	@Override
-	public boolean initializeFrom(Component c,
-			AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
 		return false;
 	}
 
@@ -56,19 +58,18 @@ public class CallMainMethodAction extends TestAction {
 				try {
 					TestingUtils.launchClassMainMethod(className);
 				} catch (Exception e) {
-					error[0] = new TestFailure(
-							"Failed to run the main method of '" + className
-									+ "': " + e.toString(), e);
+					error[0] = new TestFailure("Failed to run the main method of '" + className + "': " + e.toString(),
+							e);
 				}
 			}
 		}.start();
-		if(checkThrownExceptionAFterSeconds != null){
+		if (checkThrownExceptionAfterSeconds != null) {
 			try {
-				Thread.sleep(checkThrownExceptionAFterSeconds*1000);
+				Thread.sleep(checkThrownExceptionAfterSeconds * 1000);
 			} catch (InterruptedException e) {
 				throw new TestFailure(e);
 			}
-			if(error[0] != null){
+			if (error[0] != null) {
 				throw error[0];
 			}
 		}

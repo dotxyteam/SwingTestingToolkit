@@ -1,3 +1,10 @@
+- validation
+	. problem with validation in setters:
+		* cannot load invalid tester file
+		* validation is only triggered on validation
+		* fields other than the current is not validated
+- feedback tools
+- menus ???
 - add 
 	. current file path to the title bar
 	. save/save as buttons

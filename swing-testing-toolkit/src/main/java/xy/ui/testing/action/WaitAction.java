@@ -16,6 +16,9 @@ public class WaitAction extends TestAction {
 	}
 
 	public void setSecondsToWait(int secondsToWait) {
+		if (secondsToWait <= 0) {
+			throw new NumberFormatException("the number must be >= 0");
+		}
 		this.secondsToWait = secondsToWait;
 	}
 

@@ -18,12 +18,14 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	}
 
 	public void setCount(int count) {
+		if (count < 0) {
+			throw new NumberFormatException("Negative number forbidden");
+		}
 		this.count = count;
 	}
 
 	@Override
-	public boolean initializeFrom(Component c,
-			AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
 		return false;
 	}
 
@@ -31,8 +33,8 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	public void execute(Component c) {
 		int n = countWindows();
 		if (count != n) {
-			throw new TestFailure("The number of currently open windows (" + n
-					+ ") does not match the declared number: " + count,
+			throw new TestFailure(
+					"The number of currently open windows (" + n + ") does not match the declared number: " + count,
 					"Found window(s)", TestingUtils.saveAllTestableWindows());
 		}
 	}

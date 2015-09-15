@@ -32,7 +32,7 @@ public class TestFailure extends RuntimeException {
 	}
 
 	public TestFailure(Throwable cause) {
-		this(null, null, null, null);
+		this(null, null, null, cause);
 	}
 
 	public String getImageDescription() {

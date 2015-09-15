@@ -5,36 +5,62 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
 
+import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.util.TestFailure;
 
 public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
-	protected int optionToSelect = 0;
-	protected String knownOptions;
 
-	public int getOptionToSelect() {
+	protected String optionToSelect = "";
+	protected SelectionMode selectionMode = SelectionMode.BY_LABEL_TEXT;
+	protected List<String> knownOptions;
+
+	public SelectionMode getSelectionMode() {
+		return selectionMode;
+	}
+
+	public void setSelectionMode(SelectionMode selectionMode) {
+		if (selectionMode == null) {
+			throw new NullPointerException();
+		}
+		this.selectionMode = selectionMode;
+	}
+
+	public String getOptionToSelect() {
 		return optionToSelect;
 	}
 
-	public void setOptionToSelect(int optionToSelect) {
+	public void setOptionToSelect(String optionToSelect) {
+		if (optionToSelect == null) {
+			throw new NullPointerException();
+		}
+		if (selectionMode == SelectionMode.BY_POSITION) {
+			try {
+				if (Integer.valueOf(optionToSelect) < 0) {
+					throw new NumberFormatException("Negative number forbidden");
+				}
+			} catch (NumberFormatException e) {
+				throw new NumberFormatException(e.getMessage() + ". Positive number expected when selection mode is "
+						+ SelectionMode.BY_POSITION);
+			}
+		}
 		this.optionToSelect = optionToSelect;
 	}
 
-	public String getKnownOptions() {
+	@ValueOptionsForField("optionToSelect")
+	public List<String> getKnownOptions() {
 		return knownOptions;
 	}
 
-	public void setKnownOptions(String knownOptions) {
-		this.knownOptions = knownOptions;
-	}
-
+	
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		if (!(c instanceof JComboBox)) {
@@ -44,36 +70,86 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		if (comboBox.getItemCount() == 0) {
 			return false;
 		}
-		knownOptions = StringUtils.join(collectOptions(comboBox), "\n");
-		optionToSelect = 0;
+		String labelText = getLabelText(comboBox, 0);
+		if (labelText != null) {
+			selectionMode = SelectionMode.BY_LABEL_TEXT;
+			optionToSelect = labelText;
+		} else {
+			selectionMode = SelectionMode.BY_POSITION;
+			optionToSelect = "0";
+		}
+		knownOptions = getAllOptions(comboBox);
 		return true;
 	}
 
-	protected List<String> collectOptions(JComboBox comboBox) {
+	protected String getOption(JComboBox comboBox, int i) {
+		if (selectionMode == SelectionMode.BY_POSITION) {
+			return Integer.toString(i);
+		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
+			return getLabelText(comboBox, i);
+		} else if (selectionMode == SelectionMode.BY_STRING_VALUE) {
+			return comboBox.getModel().getElementAt(i).toString();
+		} else {
+			throw new AssertionError();
+		}
+
+	}
+
+	protected List<String> getAllOptions(JComboBox comboBox) {
 		List<String> result = new ArrayList<String>();
-		ComboBoxModel model = comboBox.getModel();
-		for (int i = 0; i < model.getSize(); i++) {
-			result.add(StringEscapeUtils.escapeJava(i + " - "
-					+ model.getElementAt(i)));
+		for (int i = 0; i < comboBox.getItemCount(); i++) {
+			result.add(getOption(comboBox, i));
 		}
 		return result;
+	}
+
+	protected String getLabelText(JComboBox comboBox, int i) {
+		Object item = comboBox.getModel().getElementAt(i);
+		Component cellRenderer = comboBox.getRenderer().getListCellRendererComponent(new JList(), item, 0, false,
+				false);
+		if (!(cellRenderer instanceof JLabel)) {
+			return null;
+		}
+		return ((JLabel) cellRenderer).getText();
 	}
 
 	@Override
 	public void execute(Component c) {
 		JComboBox comboBox = (JComboBox) c;
-		comboBox.setSelectedIndex(optionToSelect);
+		boolean found = false;
+		int i = 0;
+		for (String option : getAllOptions(comboBox)) {
+			if (option.equals(optionToSelect)) {
+				comboBox.setSelectedIndex(i);
+				found = true;
+				break;
+			}
+			i++;
+		}
+		if (!found) {
+			throw new TestFailure("Could not select the combo box item '" + optionToSelect
+					+ "': Item not found (selectionMode=" + selectionMode + ")");
+		}
+
 	}
 
 	@Override
 	public String getValueDescription() {
-		if (knownOptions != null) {
-			String[] array = knownOptions.split("\n");
-			if (array.length > optionToSelect) {
-				return array[optionToSelect];
-			}
+		if (selectionMode == SelectionMode.BY_POSITION) {
+			return "Item n°" + (Integer.valueOf(optionToSelect) + 1);
+		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
+			return StringEscapeUtils.escapeJava(optionToSelect);
+		} else if (selectionMode == SelectionMode.BY_STRING_VALUE) {
+			return StringEscapeUtils.escapeJava(optionToSelect);
+		} else {
+			throw new AssertionError();
 		}
-		return "Item n°" + (optionToSelect + 1);
+
+	}
+
+	public enum SelectionMode {
+		BY_LABEL_TEXT, BY_POSITION, BY_STRING_VALUE
+
 	}
 
 }

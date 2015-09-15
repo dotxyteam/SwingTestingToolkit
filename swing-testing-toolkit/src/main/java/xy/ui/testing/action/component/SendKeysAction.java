@@ -94,6 +94,12 @@ public class SendKeysAction extends TargetComponentTestAction {
 		}
 
 		public void setText(String text) {
+			if(text == null){
+				throw new NullPointerException();
+			}
+			if(text.length() == 0){
+				throw new IllegalStateException("0-length string forbidden");
+			}
 			this.text = text;
 		}
 

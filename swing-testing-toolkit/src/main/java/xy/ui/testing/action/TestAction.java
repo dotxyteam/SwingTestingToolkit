@@ -11,7 +11,7 @@ public abstract class TestAction implements Serializable {
 	public abstract boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent);
 	public abstract Component findComponent();
 	public abstract void execute(Component c);
-
+	
 	public abstract String getValueDescription();
 	public abstract String getComponentInformation();
 

@@ -86,25 +86,16 @@ import xy.reflect.ui.info.method.InvocationData;
 public class TesterUI extends ReflectionUI {
 
 	public final static TesterUI INSTANCE = new TesterUI();
-	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] {
-			CallMainMethodAction.class, WaitAction.class,
-			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
-			SelectTableRowAction.class, ClickOnTableCellAction.class,
-			ClickOnMenuItemAction.class, ClickAction.class,
-			SendKeysAction.class, CloseWindowAction.class,
-			ChangeComponentPropertyAction.class,
-			CheckComponentPropertyAction.class,
-			CheckWindowVisibleStringsAction.class,
-			CheckNumberOfOpenWindowsAction.class };
-	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] {
-			VisibleStringComponentFinder.class,
-			ClassBasedComponentFinder.class,
-			PropertyBasedComponentFinder.class, MenuItemComponentFinder.class };
-	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] {
-			WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class,
-			CtrlV.class, CtrlX.class };
-	private static final Image NULL_IMAGE = new BufferedImage(1, 1,
-			BufferedImage.TYPE_INT_ARGB);
+	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] { CallMainMethodAction.class, WaitAction.class,
+			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class, SelectTableRowAction.class,
+			ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class,
+			CloseWindowAction.class, ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
+			CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
+	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] { VisibleStringComponentFinder.class,
+			ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class, MenuItemComponentFinder.class };
+	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] { WriteText.class, SpecialKey.class,
+			CtrlA.class, CtrlC.class, CtrlV.class, CtrlX.class };
+	private static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
@@ -114,16 +105,14 @@ public class TesterUI extends ReflectionUI {
 		try {
 			Tester tester = new Tester();
 			if (args.length > 1) {
-				throw new Exception(
-						"Invalid command line arguments. Expected: [<fileName>]");
+				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
 			} else if (args.length == 1) {
 				String fileName = args[0];
 				tester.loadFromFile(new File(fileName));
 			}
 			INSTANCE.getSwingRenderer().openObjectFrame(tester);
 		} catch (Throwable t) {
-			INSTANCE.getSwingRenderer()
-					.handleExceptionsFromDisplayedUI(null, t);
+			INSTANCE.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
 		}
 	}
 
@@ -138,20 +127,16 @@ public class TesterUI extends ReflectionUI {
 		this.recordingInsertedAfterSelection = b;
 	}
 
-	protected void playActionsAndUpdateUI(Tester tester,
-			List<TestAction> selectedActions) {
+	protected void playActionsAndUpdateUI(Tester tester, List<TestAction> selectedActions) {
 		String methodSignature;
 		try {
 			methodSignature = ReflectionUIUtils
-					.getJavaMethodInfoSignature(Tester.class.getMethod("play",
-							List.class, Runnable.class));
+					.getJavaMethodInfoSignature(Tester.class.getMethod("play", List.class, Runnable.class));
 		} catch (Exception e) {
 			throw new AssertionError(e);
 		}
-		IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(
-				tester, methodSignature);
+		IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(tester, methodSignature);
 		playMethod.invoke(tester, new InvocationData(selectedActions));
-		tester.play(selectedActions, null);
 	}
 
 	@Override
@@ -159,10 +144,9 @@ public class TesterUI extends ReflectionUI {
 		return new SwingRenderer(TesterUI.this) {
 
 			@Override
-			public Container createWindowContentPane(Window window,
-					Component content, List<? extends Component> toolbarControls) {
-				Container result = super.createWindowContentPane(window,
-						content, toolbarControls);
+			public Container createWindowContentPane(Window window, Component content,
+					List<? extends Component> toolbarControls) {
+				Container result = super.createWindowContentPane(window, content, toolbarControls);
 				AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window);
 				decorationsPanel.configureWindow(window);
 				decorationsPanel.getContentPanel().add(result);
@@ -171,36 +155,27 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			public Object onTypeInstanciationRequest(
-					Component activatorComponent, ITypeInfo type, boolean silent) {
-				Object result = super.onTypeInstanciationRequest(
-						activatorComponent, type, silent);
+			public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type, boolean silent) {
+				Object result = super.onTypeInstanciationRequest(activatorComponent, type, silent);
 				if (result instanceof ComponentFinder) {
 					if (componentFinderInitializationSource != null) {
-						((ComponentFinder) result)
-								.initializeFrom(componentFinderInitializationSource);
+						((ComponentFinder) result).initializeFrom(componentFinderInitializationSource);
 					}
 				}
 				return result;
 			}
 
 			@Override
-			public boolean onMethodInvocationRequest(
-					Component activatorComponent, Object object,
-					IMethodInfo method, Object[] returnValueArray) {
-				if ((object instanceof Tester)
-						&& method.getName().equals("startRecording")) {
+			public boolean onMethodInvocationRequest(Component activatorComponent, Object object, IMethodInfo method,
+					Object[] returnValueArray) {
+				if ((object instanceof Tester) && method.getName().equals("startRecording")) {
 					Tester tester = (Tester) object;
 					ListControl testActionsControl = getTestActionsControl(tester);
 					if (testActionsControl.getSelection().size() == 1) {
 						String insertMessage = "Insert Recordings After The Current Selection Row";
 						String doNotInsertMessage = "Insert Recordings At The End";
-						String answer = getSwingRenderer()
-								.openSelectionDialog(
-										testActionsControl,
-										Arrays.asList(insertMessage,
-												doNotInsertMessage),
-										insertMessage, "Choose", null);
+						String answer = getSwingRenderer().openSelectionDialog(testActionsControl,
+								Arrays.asList(insertMessage, doNotInsertMessage), insertMessage, "Choose", null);
 						if (insertMessage.equals(answer)) {
 							recordingInsertedAfterSelection = true;
 						} else if (doNotInsertMessage.equals(answer)) {
@@ -210,19 +185,15 @@ public class TesterUI extends ReflectionUI {
 						}
 					}
 				}
-				return super.onMethodInvocationRequest(activatorComponent,
-						object, method, returnValueArray);
+				return super.onMethodInvocationRequest(activatorComponent, object, method, returnValueArray);
 			}
 
 			@Override
-			public JFrame createFrame(Component content, String title,
-					Image iconImage, List<? extends Component> toolbarControls) {
-				JFrame result = super.createFrame(content, title, iconImage,
-						toolbarControls);
-				for (JPanel form : SwingRendererUtils.findDescendantForms(
-						result, TesterUI.INSTANCE)) {
-					if (TesterUI.INSTANCE.getSwingRenderer().getObjectByForm()
-							.get(form) instanceof Tester) {
+			public JFrame createFrame(Component content, String title, Image iconImage,
+					List<? extends Component> toolbarControls) {
+				JFrame result = super.createFrame(content, title, iconImage, toolbarControls);
+				for (JPanel form : SwingRendererUtils.findDescendantForms(result, TesterUI.INSTANCE)) {
+					if (TesterUI.INSTANCE.getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
 						result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 					}
@@ -231,8 +202,7 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			public JPanel createObjectForm(Object object,
-					IInfoCollectionSettings settings) {
+			public JPanel createObjectForm(Object object, IInfoCollectionSettings settings) {
 				settings = new InfoCollectionSettingsProxy(settings) {
 
 					@Override
@@ -276,8 +246,7 @@ public class TesterUI extends ReflectionUI {
 						if (method.getName().equals("matches")) {
 							return true;
 						}
-						if (method.getName().equals(
-								"matchIntrospectionRequestEvent")) {
+						if (method.getName().equals("matchIntrospectionRequestEvent")) {
 							return true;
 						}
 						if (method.getName().equals("macthesComponent")) {
@@ -318,6 +287,17 @@ public class TesterUI extends ReflectionUI {
 		return new HiddenNullableFacetsTypeInfoProxyConfiguration(TesterUI.this) {
 
 			@Override
+			protected boolean isNullable(IFieldInfo field, ITypeInfo containingType) {
+				if (field.getName().equals("checkThrownExceptionAfterSeconds")) {
+					return true;
+				} else if (field.getName().equals("knownOptions")) {
+					return true;
+				} else {
+					return super.isNullable(field, containingType);
+				}
+			}
+
+			@Override
 			protected String toString(ITypeInfo type) {
 				if (type.getName().equals(CtrlA.class.getName())) {
 					return "CtrlA (Select All)";
@@ -337,8 +317,7 @@ public class TesterUI extends ReflectionUI {
 				String imageResourceName = type.getName();
 				int lastDotIndex = imageResourceName.lastIndexOf(".");
 				if (lastDotIndex != -1) {
-					imageResourceName = imageResourceName
-							.substring(lastDotIndex + 1);
+					imageResourceName = imageResourceName.substring(lastDotIndex + 1);
 				}
 				imageResourceName += ".png";
 				Image result = imageCache.get(imageResourceName);
@@ -347,8 +326,7 @@ public class TesterUI extends ReflectionUI {
 						result = NULL_IMAGE;
 					} else {
 						try {
-							result = ImageIO.read(TesterUI.class
-									.getResourceAsStream(imageResourceName));
+							result = ImageIO.read(TesterUI.class.getResourceAsStream(imageResourceName));
 						} catch (IOException e) {
 							throw new AssertionError(e);
 						}
@@ -365,25 +343,20 @@ public class TesterUI extends ReflectionUI {
 			protected IListStructuralInfo getStructuralInfo(IListTypeInfo type) {
 				ITypeInfo itemtype = type.getItemType();
 				if (itemtype.getName().equals(TestAction.class.getName())) {
-					return new ListStructuralInfoProxy(
-							super.getStructuralInfo(type)) {
+					return new ListStructuralInfoProxy(super.getStructuralInfo(type)) {
 
 						@Override
-						public String getCellValue(ItemPosition itemPosition,
-								int columnIndex) {
+						public String getCellValue(ItemPosition itemPosition, int columnIndex) {
 							if (columnIndex == 0) {
-								return Integer
-										.toString(itemPosition.getIndex() + 1);
+								return Integer.toString(itemPosition.getIndex() + 1);
 							} else {
 								columnIndex--;
-								return super.getCellValue(itemPosition,
-										columnIndex);
+								return super.getCellValue(itemPosition, columnIndex);
 							}
 						}
 
 						@Override
-						public Image getCellIconImage(
-								ItemPosition itemPosition, int columnIndex) {
+						public Image getCellIconImage(ItemPosition itemPosition, int columnIndex) {
 							if (columnIndex == 1) {
 								return super.getCellIconImage(itemPosition, 0);
 							} else {
@@ -415,14 +388,10 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if ((type instanceof DefaultTypeInfo)
-						&& type.getName().equals(
-								PropertyBasedComponentFinder.class.getName())) {
-					List<IFieldInfo> result = new ArrayList<IFieldInfo>(
-							super.getFields(type));
-					result.add(new ImplicitListField(INSTANCE,
-							"propertyCriterias", type,
-							"createPropertyCriteria", "getPropertyCriteria",
-							"addPropertyCriteria", "removePropertyCriteria",
+						&& type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
+					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
+					result.add(new ImplicitListField(INSTANCE, "propertyCriterias", type, "createPropertyCriteria",
+							"getPropertyCriteria", "addPropertyCriteria", "removePropertyCriteria",
 							"propertyCriteriaCount"));
 					return result;
 				} else {
@@ -431,14 +400,12 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(
-					ITypeInfo type) {
+			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(ITypeInfo type) {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : TEST_ACTION_CLASSESS) {
 						try {
-							result.add(getTypeInfo(getTypeInfoSource(clazz
-									.newInstance())));
+							result.add(getTypeInfo(getTypeInfoSource(clazz.newInstance())));
 						} catch (Exception e) {
 							throw new ReflectionUIError(e);
 						}
@@ -449,11 +416,9 @@ public class TesterUI extends ReflectionUI {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : COMPONENT_FINDER_CLASSESS) {
 						try {
-							ComponentFinder newInstance = (ComponentFinder) clazz
-									.newInstance();
+							ComponentFinder newInstance = (ComponentFinder) clazz.newInstance();
 							if (componentFinderInitializationSource != null) {
-								if (newInstance
-										.initializeFrom(componentFinderInitializationSource)) {
+								if (newInstance.initializeFrom(componentFinderInitializationSource)) {
 									result.add(getTypeInfo(getTypeInfoSource(newInstance)));
 								}
 							} else {
@@ -469,8 +434,7 @@ public class TesterUI extends ReflectionUI {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : KEYBOARD_INTERACTION_CLASSESS) {
 						try {
-							result.add(getTypeInfo(getTypeInfoSource(clazz
-									.newInstance())));
+							result.add(getTypeInfo(getTypeInfoSource(clazz.newInstance())));
 						} catch (Exception e) {
 							throw new ReflectionUIError(e);
 						}
@@ -481,8 +445,7 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected IModification getUndoModification(IMethodInfo method,
-					ITypeInfo containingType, Object object,
+			protected IModification getUndoModification(IMethodInfo method, ITypeInfo containingType, Object object,
 					InvocationData invocationData) {
 				if (method.getName().startsWith("play")) {
 					return ModificationStack.EMPTY_MODIFICATION;
@@ -493,16 +456,13 @@ public class TesterUI extends ReflectionUI {
 				if (method.getName().equals("stopRecording")) {
 					return ModificationStack.EMPTY_MODIFICATION;
 				}
-				return super.getUndoModification(method, containingType,
-						object, invocationData);
+				return super.getUndoModification(method, containingType, object, invocationData);
 			}
 
 			@Override
-			protected List<IListAction> getSpecificListActions(
-					IListTypeInfo type, final Object object, IFieldInfo field,
-					final List<? extends ItemPosition> selection) {
-				if ((object instanceof Tester)
-						&& (field.getName().equals("testActions"))) {
+			protected List<IListAction> getSpecificListActions(IListTypeInfo type, final Object object,
+					IFieldInfo field, final List<? extends ItemPosition> selection) {
+				if ((object instanceof Tester) && (field.getName().equals("testActions"))) {
 					if (selection.size() > 0) {
 						List<IListAction> result = new ArrayList<IListAction>();
 						result.add(new IListAction() {
@@ -512,13 +472,11 @@ public class TesterUI extends ReflectionUI {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
 									for (ItemPosition itemPosition : selection) {
-										TestAction testAction = (TestAction) itemPosition
-												.getItem();
+										TestAction testAction = (TestAction) itemPosition.getItem();
 										selectedActions.add(testAction);
 									}
 									Tester tester = (Tester) object;
-									playActionsAndUpdateUI(tester,
-											selectedActions);
+									playActionsAndUpdateUI(tester, selectedActions);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -536,17 +494,15 @@ public class TesterUI extends ReflectionUI {
 								public void perform(final Component listControl) {
 									try {
 										List<TestAction> actionsToPlay = new ArrayList<TestAction>();
-										ItemPosition singleSelection = selection
-												.get(0);
+										ItemPosition singleSelection = selection.get(0);
 										for (int i = singleSelection.getIndex(); i < singleSelection
 												.getContainingListValue().length; i++) {
-											TestAction testAction = (TestAction) singleSelection
-													.getSibling(i).getItem();
+											TestAction testAction = (TestAction) singleSelection.getSibling(i)
+													.getItem();
 											actionsToPlay.add(testAction);
 										}
 										Tester tester = (Tester) object;
-										playActionsAndUpdateUI(tester,
-												actionsToPlay);
+										playActionsAndUpdateUI(tester, actionsToPlay);
 									} catch (Exception e) {
 										throw new ReflectionUIError(e);
 									}
@@ -561,35 +517,29 @@ public class TesterUI extends ReflectionUI {
 						return result;
 					}
 				}
-				return super.getSpecificListActions(type, object, field,
-						selection);
+				return super.getSpecificListActions(type, object, field, selection);
 			}
 
 			@Override
-			protected Object invoke(final Object object,
-					final InvocationData invocationData,
-					final IMethodInfo method, final ITypeInfo containingType) {
+			protected Object invoke(final Object object, final InvocationData invocationData, final IMethodInfo method,
+					final ITypeInfo containingType) {
 				if (containingType.getName().equals(Tester.class.getName())) {
 
-					if (method.getName().startsWith("play")
-							|| method.getName().equals("startRecording")) {
+					if (method.getName().equals("startRecording")) {
 						final JPanel form = getTesterForm((Tester) object);
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								// SwingUtilities.getWindowAncestor(form)
-								// .toBack();
+								SwingUtilities.getWindowAncestor(form).toBack();
 							}
 						});
 					}
 
-					Object result = super.invoke(object, invocationData,
-							method, containingType);
+					Object result = super.invoke(object, invocationData, method, containingType);
 
 					return result;
 				} else {
-					return super.invoke(object, invocationData, method,
-							containingType);
+					return super.invoke(object, invocationData, method, containingType);
 				}
 			}
 
@@ -602,8 +552,7 @@ public class TesterUI extends ReflectionUI {
 			return null;
 		}
 		if (result.size() > 1) {
-			throw new AssertionError("More than 1 form was found for: "
-					+ tester);
+			throw new AssertionError("More than 1 form was found for: " + tester);
 		}
 		return result.get(0);
 	}
@@ -613,11 +562,9 @@ public class TesterUI extends ReflectionUI {
 		if (form == null) {
 			return null;
 		}
-		List<Component> result = getSwingRenderer().getFieldControlsByName(
-				form, "testActions");
+		List<Component> result = getSwingRenderer().getFieldControlsByName(form, "testActions");
 		if (result.size() != 1) {
-			throw new AssertionError("'testActions' control not found for: "
-					+ tester);
+			throw new AssertionError("'testActions' control not found for: " + tester);
 		}
 		Component c = result.get(0);
 		if (c instanceof NullableControl) {
@@ -626,40 +573,35 @@ public class TesterUI extends ReflectionUI {
 		return (ListControl) c;
 	}
 
-	public boolean openSettings(TestAction testAction, Component c,
-			Tester tester) {
+	public boolean openSettings(TestAction testAction, Component c, Tester tester) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
 		TesterUI.INSTANCE.getSwingRenderer().openObjectDialog(c, testAction,
-				TesterUI.INSTANCE.getObjectKind(testAction), null, true, null,
-				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
+				TesterUI.INSTANCE.getObjectKind(testAction), null, true, null, okPressedArray, null, null,
+				IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
 
 	public void selectTestAction(TestAction testAction, Tester tester) {
 		ListControl testActionsControl = getTestActionsControl(tester);
-		if(testActionsControl == null){
+		if (testActionsControl == null) {
 			return;
 		}
-		testActionsControl.setSingleSelection(testActionsControl
-				.findItemPosition(testAction));
+		testActionsControl.setSingleSelection(testActionsControl.findItemPosition(testAction));
 	}
 
 	public int getSelectedActionIndex(Tester tester) {
 		ListControl testActionsControl = getTestActionsControl(tester);
-		AutoUpdatingFieldItemPosition result = testActionsControl
-				.getSingleSelection();
+		AutoUpdatingFieldItemPosition result = testActionsControl.getSingleSelection();
 		if (result == null) {
 			return -1;
 		}
 		return result.getIndex();
 	}
 
-	public static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(
-			Window window) {
-		return new AlternateWindowDecorationsPanel(
-				SwingRendererUtils.getWindowTitle(window)) {
+	public static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(Window window) {
+		return new AlternateWindowDecorationsPanel(SwingRendererUtils.getWindowTitle(window)) {
 
 			private static final long serialVersionUID = 1L;
 
