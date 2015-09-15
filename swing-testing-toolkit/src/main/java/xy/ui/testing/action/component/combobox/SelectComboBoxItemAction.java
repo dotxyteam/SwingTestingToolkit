@@ -11,7 +11,6 @@ import javax.swing.JList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
 
@@ -21,8 +20,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	protected String optionToSelect = "";
 	protected SelectionMode selectionMode = SelectionMode.BY_LABEL_TEXT;
-	protected List<String> knownOptions;
-
+	
 	public SelectionMode getSelectionMode() {
 		return selectionMode;
 	}
@@ -55,10 +53,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		this.optionToSelect = optionToSelect;
 	}
 
-	@ValueOptionsForField("optionToSelect")
-	public List<String> getKnownOptions() {
-		return knownOptions;
-	}
 
 	
 	@Override
@@ -73,12 +67,18 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		String labelText = getLabelText(comboBox, 0);
 		if (labelText != null) {
 			selectionMode = SelectionMode.BY_LABEL_TEXT;
-			optionToSelect = labelText;
 		} else {
 			selectionMode = SelectionMode.BY_POSITION;
-			optionToSelect = "0";
 		}
-		knownOptions = getAllOptions(comboBox);
+		optionToSelect = "<Choose 1 of these options>";
+		boolean first = true;
+		for(String option: getAllOptions(comboBox)){
+			if(!first){
+				optionToSelect += ",";
+			}
+			optionToSelect += " " + option;
+			first = false;
+		}
 		return true;
 	}
 
