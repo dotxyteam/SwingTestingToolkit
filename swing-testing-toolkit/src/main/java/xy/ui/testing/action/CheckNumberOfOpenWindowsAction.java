@@ -4,8 +4,10 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Window;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class CheckNumberOfOpenWindowsAction extends TestAction {
 
@@ -18,9 +20,6 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	}
 
 	public void setCount(int count) {
-		if (count < 0) {
-			throw new NumberFormatException("Negative number forbidden");
-		}
 		this.count = count;
 	}
 
@@ -67,6 +66,15 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	@Override
 	public String toString() {
 		return "Check that " + count + " windows are open";
+	}
+
+	@Validating
+	@Override
+	public void validate() throws ValidationError {
+		if (count < 0) {
+			throw new ValidationError("Negative count forbidden");
+		}
+		
 	}
 
 }

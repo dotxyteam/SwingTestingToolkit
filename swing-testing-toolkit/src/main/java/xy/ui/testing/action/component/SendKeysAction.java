@@ -14,8 +14,10 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.StandardKey;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.ValidationError;
 
 public class SendKeysAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
@@ -27,18 +29,15 @@ public class SendKeysAction extends TargetComponentTestAction {
 		return requestToFocusOnTheComponent;
 	}
 
-	public void setRequestToFocusOnTheComponent(
-			boolean requestToFocusOnTheComponent) {
+	public void setRequestToFocusOnTheComponent(boolean requestToFocusOnTheComponent) {
 		this.requestToFocusOnTheComponent = requestToFocusOnTheComponent;
 	}
 
 	public KeyboardInteraction[] getKeyboardInteractions() {
-		return keyboardInteractions
-				.toArray(new KeyboardInteraction[keyboardInteractions.size()]);
+		return keyboardInteractions.toArray(new KeyboardInteraction[keyboardInteractions.size()]);
 	}
 
-	public void setKeyboardInteractions(
-			KeyboardInteraction[] keyboardInteractions) {
+	public void setKeyboardInteractions(KeyboardInteraction[] keyboardInteractions) {
 		this.keyboardInteractions.clear();
 		this.keyboardInteractions.addAll(Arrays.asList(keyboardInteractions));
 	}
@@ -73,9 +72,15 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Send " + getValueDescription() + " event(s) to the "
-				+ getComponentFinder();
+		return "Send " + getValueDescription() + " event(s) to the " + getComponentFinder();
 	}
+
+	@Override
+	public void validate() throws ValidationError {
+		if (keyboardInteractions.size() == 0) {
+			throw new ValidationError("Missing keyboard interactions");
+		}
+	};
 
 	public static abstract class KeyboardInteraction implements Serializable {
 
@@ -94,12 +99,6 @@ public class SendKeysAction extends TargetComponentTestAction {
 		}
 
 		public void setText(String text) {
-			if(text == null){
-				throw new NullPointerException();
-			}
-			if(text.length() == 0){
-				throw new IllegalStateException("0-length string forbidden");
-			}
 			this.text = text;
 		}
 
@@ -113,8 +112,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 					int modifiers = 0;
 					int keyCode = KeyEvent.VK_UNDEFINED;
 					char keyChar = ch;
-					result.add(new KeyEvent(c, id, when, modifiers, keyCode,
-							keyChar));
+					result.add(new KeyEvent(c, id, when, modifiers, keyCode, keyChar));
 				}
 			}
 			return result;
@@ -124,6 +122,14 @@ public class SendKeysAction extends TargetComponentTestAction {
 		public String toString() {
 			return "\"" + StringEscapeUtils.escapeJava(text) + "\"";
 		}
+		
+		@Validating
+		public void validate() throws ValidationError {
+			if( (text == null) || (text.length()==0)){
+				throw new ValidationError("Missing text");
+			}
+		};
+
 
 	}
 
@@ -203,17 +209,14 @@ public class SendKeysAction extends TargetComponentTestAction {
 			int modifiers = getModifiers();
 			int keyCode = getKeyCode(keyName);
 			char keyChar = KeyEvent.CHAR_UNDEFINED;
-			KeyEvent keyEvent = new KeyEvent(c, id, when, modifiers, keyCode,
-					keyChar);
+			KeyEvent keyEvent = new KeyEvent(c, id, when, modifiers, keyCode, keyChar);
 			result.add(keyEvent);
-			StandardKey typedKey = StandardKey.getKeyByKeyCode(keyCode,
-					keyEvent.isShiftDown(), keyEvent.isAltDown());
+			StandardKey typedKey = StandardKey.getKeyByKeyCode(keyCode, keyEvent.isShiftDown(), keyEvent.isAltDown());
 			if (typedKey != null) {
-				result.add(new KeyEvent(c, KeyEvent.KEY_TYPED, when, modifiers,
-						KeyEvent.VK_UNDEFINED, typedKey.getCharacter()));
+				result.add(new KeyEvent(c, KeyEvent.KEY_TYPED, when, modifiers, KeyEvent.VK_UNDEFINED,
+						typedKey.getCharacter()));
 			}
-			result.add(new KeyEvent(c, KeyEvent.KEY_RELEASED, when, modifiers,
-					keyCode, KeyEvent.CHAR_UNDEFINED));
+			result.add(new KeyEvent(c, KeyEvent.KEY_RELEASED, when, modifiers, keyCode, KeyEvent.CHAR_UNDEFINED));
 			return result;
 		}
 
@@ -238,8 +241,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 		}
 
 		protected static int getKeyCode(KeyName keyName) {
-			String codeFieldName = "VK_"
-					+ keyName.name().substring("KEY_".length());
+			String codeFieldName = "VK_" + keyName.name().substring("KEY_".length());
 			try {
 				Field codeField = KeyEvent.class.getField(codeFieldName);
 				return codeField.getInt(null);
@@ -268,6 +270,14 @@ public class SendKeysAction extends TargetComponentTestAction {
 			}
 			return result;
 		}
+		
+		@Validating
+		public void validate() throws ValidationError {
+			if (keyName == null) {
+				throw new ValidationError("Missing key name");
+			}
+		};
+
 
 		public static class CtrlC extends SpecialKey {
 			private static final long serialVersionUID = 1L;

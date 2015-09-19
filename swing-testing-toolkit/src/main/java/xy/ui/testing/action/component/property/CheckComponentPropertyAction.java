@@ -4,10 +4,12 @@ import java.awt.Component;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class CheckComponentPropertyAction extends ComponentPropertyAction {
 	private static final long serialVersionUID = 1L;
@@ -61,6 +63,12 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 	public String toString() {
 		return "Check that \"" + getValueDescription() + "\" for the "
 				+ getComponentFinder();
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		super.validate();
 	}
 
 }

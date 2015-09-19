@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.commons.lang3.ClassUtils;
 
 import xy.reflect.ui.control.swing.PrimitiveValueControl;
+import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -18,6 +19,7 @@ import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.util.ValidationError;
 
 public abstract class ComponentPropertyAction extends TargetComponentTestAction {
 
@@ -53,21 +55,20 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 		List<String> result = new ArrayList<String>();
 		for (IFieldInfo field : componentType.getFields()) {
-			if(isSupportedPropertyField(field)){
+			if (isSupportedPropertyField(field)) {
 				result.add(field.getCaption());
-			}			
+			}
 		}
 		Collections.sort(result);
 		return result;
 	}
 
-
 	protected boolean isSupportedPropertyField(IFieldInfo field) {
 		Class<?> javaType = getFieldJavaType(field);
-		if(TextualTypeInfo.isCompatibleWith(javaType)){
+		if (TextualTypeInfo.isCompatibleWith(javaType)) {
 			return true;
 		}
-		if(BooleanTypeInfo.isCompatibleWith(javaType)){
+		if (BooleanTypeInfo.isCompatibleWith(javaType)) {
 			return true;
 		}
 		return false;
@@ -89,8 +90,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 			return null;
 		}
 		try {
-			return TesterUI.INSTANCE.getTypeInfo(new JavaTypeInfoSource(Class
-					.forName(componentClassName)));
+			return TesterUI.INSTANCE.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
@@ -136,8 +136,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		if (componentType == null) {
 			return null;
 		}
-		return ReflectionUIUtils.findInfoByCaption(componentType.getFields(),
-				propertyName);
+		return ReflectionUIUtils.findInfoByCaption(componentType.getFields(), propertyName);
 	}
 
 	@Override
@@ -149,6 +148,27 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 		propertyName = propertyNameOptions.get(0);
 		return true;
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if (componentClassName == null) {
+			throw new ValidationError("Missing component class name");
+		}
+		try {
+			Class<?> clazz = Class.forName(componentClassName);
+			if (!Component.class.isAssignableFrom(clazz)) {
+				throw new ValidationError(
+						"The component class is not a sub-type of '" + Component.class.getName() + "'");
+			}
+		} catch (ClassNotFoundException e) {
+			throw new ValidationError("Invalid class name: Class not found");
+		}
+
+		if (componentFinder == null) {
+			throw new ValidationError("Missing component finding information");
+		}
 	}
 
 }

@@ -6,6 +6,9 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 
+import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.util.ValidationError;
+
 public class CloseWindowAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -40,5 +43,10 @@ public class CloseWindowAction extends TargetWindowTestAction {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
 	}
 }

@@ -292,6 +292,10 @@ public class TesterUI extends ReflectionUI {
 					return true;
 				} else if (field.getName().equals("knownOptions")) {
 					return true;
+				} else if (field.getName().equals("newPropertyValue")) {
+					return true;
+				} else if (field.getName().equals("propertyValueExpected")) {
+					return true;
 				} else {
 					return super.isNullable(field, containingType);
 				}

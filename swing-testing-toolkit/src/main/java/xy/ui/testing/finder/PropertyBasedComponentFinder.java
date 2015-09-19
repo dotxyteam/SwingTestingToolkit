@@ -7,10 +7,12 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.ValidationError;
 
 public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
@@ -129,6 +131,19 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		return super.toString() + criteriasDescription;
 	}
 
+	
+	
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		super.validate();
+		if(propertyCriterias.size() == 0){
+			throw new ValidationError("Missing property criterias");
+		}
+	}
+
+
+
 	public class PropertyCriteria implements Serializable {
 
 		private static final long serialVersionUID = 1L;
@@ -195,6 +210,13 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		@Override
 		public String toString() {
 			return getSubCheckPropertyAction().getValueDescription();
+		}
+		
+		@Validating
+		public void validate() throws ValidationError {
+			if(propertyName == null){
+				throw new ValidationError("Missing property name");
+			}
 		}
 
 	}

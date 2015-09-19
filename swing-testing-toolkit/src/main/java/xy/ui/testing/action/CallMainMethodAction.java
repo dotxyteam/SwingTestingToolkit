@@ -3,8 +3,10 @@ package xy.ui.testing.action;
 import java.awt.AWTEvent;
 import java.awt.Component;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class CallMainMethodAction extends TestAction {
 
@@ -18,8 +20,7 @@ public class CallMainMethodAction extends TestAction {
 		return className;
 	}
 
-	public void setClassName(String mainClassName) throws ClassNotFoundException{
-		Class.forName(mainClassName);
+	public void setClassName(String mainClassName) throws ClassNotFoundException {
 		this.className = mainClassName;
 	}
 
@@ -36,11 +37,6 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	public void setCheckThrownExceptionAfterSeconds(Integer checkThrownExceptionAfterSeconds) {
-		if(checkThrownExceptionAfterSeconds != null){
-			if(checkThrownExceptionAfterSeconds < 0){
-				throw new NumberFormatException("Negative number forbidden");
-			}
-		}
 		this.checkThrownExceptionAfterSeconds = checkThrownExceptionAfterSeconds;
 	}
 
@@ -93,6 +89,27 @@ public class CallMainMethodAction extends TestAction {
 	@Override
 	public String toString() {
 		return "Call main method of <" + className + ">";
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if (checkThrownExceptionAfterSeconds != null) {
+			if (checkThrownExceptionAfterSeconds < 0) {
+				throw new ValidationError("'Check Thrown Exception After Seconds': Negative number forbidden");
+			}
+		}
+
+		if(className == null){
+			throw new ValidationError("Missing class name");
+		}
+		
+		try {
+			Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			throw new ValidationError("Invalid class name: Class not found");
+		}
+
 	}
 
 }

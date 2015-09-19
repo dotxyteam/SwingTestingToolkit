@@ -6,7 +6,9 @@ import java.text.MessageFormat;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
@@ -41,4 +43,15 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 				StringEscapeUtils.escapeJava(visibleString),
 				(occurrencesToSkip + 1), (windowIndex + 1));
 	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		super.validate();
+		if(visibleString == null){
+			throw new ValidationError("The visible string to find has not been defined");
+		}
+	}
+	
+	
 }

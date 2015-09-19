@@ -11,9 +11,11 @@ import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 
@@ -99,6 +101,14 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	@Override
 	public String getValueDescription() {
 		return "Path = " + itemPath;
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if(itemPath.size() == 0){
+			throw new ValidationError("Item path not defined");
+		}
 	}
 
 }

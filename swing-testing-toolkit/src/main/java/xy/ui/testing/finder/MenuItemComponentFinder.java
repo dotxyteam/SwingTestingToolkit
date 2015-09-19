@@ -12,8 +12,10 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class MenuItemComponentFinder extends ComponentFinder {
 
@@ -112,6 +114,14 @@ public class MenuItemComponentFinder extends ComponentFinder {
 							.getPropertyCriteria("Text")) + "\">");
 		}
 		return result.toString();
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if(menuItemPath.size() == 0){
+			throw new ValidationError("Missing menu item path");
+		}
 	}
 
 }

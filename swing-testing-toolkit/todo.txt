@@ -1,4 +1,8 @@
+- criterion: singular, criteria: plural
+- selectComboBoxitemAction:
+	. add item selection enumeration???
 - validation
+	. stopped at selectComboBoxitemAction
 	. problem with validation in setters:
 		* cannot load invalid tester file
 		* validation is only triggered on validation

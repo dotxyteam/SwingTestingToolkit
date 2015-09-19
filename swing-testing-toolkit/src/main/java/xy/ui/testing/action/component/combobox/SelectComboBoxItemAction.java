@@ -11,8 +11,10 @@ import javax.swing.JList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.ValidationError;
 
 public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
@@ -26,9 +28,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	public void setSelectionMode(SelectionMode selectionMode) {
-		if (selectionMode == null) {
-			throw new NullPointerException();
-		}
 		this.selectionMode = selectionMode;
 	}
 
@@ -37,19 +36,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	public void setOptionToSelect(String optionToSelect) {
-		if (optionToSelect == null) {
-			throw new NullPointerException();
-		}
-		if (selectionMode == SelectionMode.BY_POSITION) {
-			try {
-				if (Integer.valueOf(optionToSelect) < 0) {
-					throw new NumberFormatException("Negative number forbidden");
-				}
-			} catch (NumberFormatException e) {
-				throw new NumberFormatException(e.getMessage() + ". Positive number expected when selection mode is "
-						+ SelectionMode.BY_POSITION);
-			}
-		}
 		this.optionToSelect = optionToSelect;
 	}
 
@@ -150,6 +136,29 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	public enum SelectionMode {
 		BY_LABEL_TEXT, BY_POSITION, BY_STRING_VALUE
 
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if (optionToSelect == null) {
+			throw new ValidationError("Missing option to select");
+		}
+		if (selectionMode == SelectionMode.BY_POSITION) {
+			try {
+				if (Integer.valueOf(optionToSelect) < 0) {
+					throw new ValidationError("Negative number forbidden");
+				}
+			} catch (NumberFormatException e) {
+				throw new ValidationError("'Option to select': " + e.toString() + ". Positive number expected when selection mode is "
+						+ SelectionMode.BY_POSITION, e);
+			}
+		}
+		
+		if (selectionMode == null) {
+			throw new ValidationError("Missing selection mode");
+		}
+		
 	}
 
 }

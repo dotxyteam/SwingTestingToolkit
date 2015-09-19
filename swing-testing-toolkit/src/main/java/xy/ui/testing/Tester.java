@@ -614,15 +614,14 @@ public class Tester {
 	}
 
 	public void loadFromStream(InputStream input) {
-		XStream xstream = new XStream();
-		xstream.registerConverter(new JavaBeanConverter(xstream.getMapper()),
-				-20);
+		XStream xstream = getXStream();
 		Tester loaded = (Tester) xstream.fromXML(input);
 		testActions = loaded.testActions;
 		minimumSecondsToWaitBetwneenActions = loaded.minimumSecondsToWaitBetwneenActions;
 		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
 	}
 
+	
 	public void saveToFile(File output) throws IOException {
 		FileOutputStream stream = new FileOutputStream(output);
 		try {
@@ -636,10 +635,16 @@ public class Tester {
 	}
 
 	public void saveToStream(OutputStream output) throws IOException {
-		XStream xstream = new XStream();
-		xstream.registerConverter(new JavaBeanConverter(xstream.getMapper()),
-				-20);
+		XStream xstream = getXStream();
 		xstream.toXML(this, output);
 	}
+	
+	protected XStream getXStream() {
+		XStream result = new XStream();
+		result.registerConverter(new JavaBeanConverter(result.getMapper()),
+				-20);
+		return result;
+	}
+
 
 }

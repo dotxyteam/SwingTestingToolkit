@@ -7,7 +7,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.SwingUtilities;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.ValidationError;
 
 public class ClickAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
@@ -119,6 +121,14 @@ public class ClickAction extends TargetComponentTestAction {
 
 	public enum ButtonId {
 		LEFT_BUTTON, MIDDLE_BUTTON, RIGHT_BUTTON
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if(button == null){
+			throw new ValidationError("Missing button identifier");
+		}
 	};
 
 }

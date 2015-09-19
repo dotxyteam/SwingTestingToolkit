@@ -9,7 +9,9 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.action.component.ClickAction;
+import xy.ui.testing.util.ValidationError;
 
 public class ClickOnTableCellAction extends ClickAction {
 
@@ -35,7 +37,7 @@ public class ClickOnTableCellAction extends ClickAction {
 
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
-		if(!super.initializeSpecificProperties(c, event)){
+		if (!super.initializeSpecificProperties(c, event)) {
 			return false;
 		}
 		if (!(c instanceof JTable)) {
@@ -59,11 +61,9 @@ public class ClickOnTableCellAction extends ClickAction {
 		JTable table = (JTable) c;
 		Rectangle cellBounds = table.getCellRect(rowIndex, columnIndex, false);
 		int clickCount = isDoubleClick() ? 2 : 1;
-		Point clickPoint = new Point(cellBounds.x + cellBounds.width / 2,
-				cellBounds.y + cellBounds.height / 2);
-		MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED,
-				System.currentTimeMillis(), 0, clickPoint.x, clickPoint.y,
-				clickCount, false, getButtonMask());
+		Point clickPoint = new Point(cellBounds.x + cellBounds.width / 2, cellBounds.y + cellBounds.height / 2);
+		MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
+				clickPoint.x, clickPoint.y, clickCount, false, getButtonMask());
 		for (MouseListener l : table.getMouseListeners()) {
 			l.mouseClicked(clickEvent);
 		}
@@ -71,8 +71,19 @@ public class ClickOnTableCellAction extends ClickAction {
 
 	@Override
 	public String getValueDescription() {
-		return super.getValueDescription() + " at the cell(" + (rowIndex + 1)
-				+ ", " + (columnIndex + 1) + ")";
+		return super.getValueDescription() + " at the cell(" + (rowIndex + 1) + ", " + (columnIndex + 1) + ")";
+	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		super.validate();
+		if (rowIndex < 0) {
+			throw new ValidationError("Invalid row index: Cannot be < 0");
+		}
+		if (columnIndex < 0) {
+			throw new ValidationError("Invalid column index: Cannot be < 0");
+		}
 	}
 
 }

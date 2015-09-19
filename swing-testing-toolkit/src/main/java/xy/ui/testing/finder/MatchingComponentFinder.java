@@ -3,9 +3,11 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import java.awt.Window;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public abstract class MatchingComponentFinder extends ComponentFinder {
 	private static final long serialVersionUID = 1L;
@@ -124,5 +126,18 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 		}
 		return false;
 	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if(occurrencesToSkip < 0){
+			throw new ValidationError("The number of occurences to skip is invalid. Must be >= 0");
+		}
+		if(windowIndex < 0){
+			throw new ValidationError("The window index is invalid. Must be >= 0");
+		}
+	}
+	
+	
 
 }

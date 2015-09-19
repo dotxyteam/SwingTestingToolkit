@@ -6,10 +6,12 @@ import java.awt.Component;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 public class ClickOnMenuItemAction extends TestAction {
 	private static final long serialVersionUID = 1L;
@@ -93,5 +95,13 @@ public class ClickOnMenuItemAction extends TestAction {
 		}
 		return true;
 	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if(componentFinder == null){
+			throw new ValidationError("Missing component finding information");
+		}
+	};
 
 }

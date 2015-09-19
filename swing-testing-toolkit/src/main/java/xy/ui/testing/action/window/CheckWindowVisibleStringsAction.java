@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.finder.MatchingComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.ValidationError;
 
 @SuppressWarnings("unused")
 public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
@@ -127,4 +129,13 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	@Override
 	public void execute(Component c) {
 	}
+
+	@Override
+	@Validating
+	public void validate() throws ValidationError {
+		if(visibleStrings.size() == 0){
+			throw new ValidationError("The visible strings to check have not been defined");
+		}
+	}
+
 }
