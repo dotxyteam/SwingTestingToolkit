@@ -8,7 +8,7 @@ import xy.ui.testing.util.ValidationError;
 
 public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected String componentClassName = "";
 
 	public String getComponentClassName() {
@@ -25,16 +25,19 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificCriterias(Component c) {
+	protected boolean initializeSpecificValues(Component c) {
 		componentClassName = c.getClass().getName();
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return MessageFormat.format(
-				"<{0}> component n°{1} in the window n°{2}",
-				componentClassName, (occurrencesToSkip + 1), (windowIndex+1));
+		String componentClassString = componentClassName;
+		if ((componentClassName == null) || (componentClassName.length() == 0)) {
+			componentClassString = "Unspecified type";
+		}
+		return MessageFormat.format("<{0}> component n°{1} in the window n°{2}", componentClassString,
+				(occurrencesToSkip + 1), (windowIndex + 1));
 	}
 
 	@Override

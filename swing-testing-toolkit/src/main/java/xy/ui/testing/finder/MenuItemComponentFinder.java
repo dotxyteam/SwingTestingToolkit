@@ -111,7 +111,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 			}
 			result.append("<\""
 					+ StringEscapeUtils.escapeJava(pathElt
-							.getPropertyCriteria("Text")) + "\">");
+							.getPropertyValue("Text")) + "\">");
 		}
 		return result.toString();
 	}

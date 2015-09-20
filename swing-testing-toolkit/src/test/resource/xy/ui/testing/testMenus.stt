@@ -22,25 +22,25 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder>
             <componentClassName>javax.swing.JMenu</componentClassName>
             <occurrencesToSkip>0</occurrencesToSkip>
-            <propertyCriteriaList>
-              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
+            <propertyValueList>
+              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>A submenu</propertyValueExpected>
                 <outer-class reference="../../.."/>
-              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
-            </propertyCriteriaList>
+              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            </propertyValueList>
             <windowIndex>0</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
           <xy.ui.testing.finder.PropertyBasedComponentFinder>
             <componentClassName>javax.swing.JMenuItem</componentClassName>
             <occurrencesToSkip>0</occurrencesToSkip>
-            <propertyCriteriaList>
-              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
+            <propertyValueList>
+              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>An item in the submenu</propertyValueExpected>
                 <outer-class reference="../../.."/>
-              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
-            </propertyCriteriaList>
+              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            </propertyValueList>
             <windowIndex>0</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
@@ -70,25 +70,25 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder>
             <componentClassName>javax.swing.JMenu</componentClassName>
             <occurrencesToSkip>0</occurrencesToSkip>
-            <propertyCriteriaList>
-              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
+            <propertyValueList>
+              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>A submenu</propertyValueExpected>
                 <outer-class reference="../../.."/>
-              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
-            </propertyCriteriaList>
+              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            </propertyValueList>
             <windowIndex>1</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
           <xy.ui.testing.finder.PropertyBasedComponentFinder>
             <componentClassName>javax.swing.JMenuItem</componentClassName>
             <occurrencesToSkip>0</occurrencesToSkip>
-            <propertyCriteriaList>
-              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
+            <propertyValueList>
+              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>Another item</propertyValueExpected>
                 <outer-class reference="../../.."/>
-              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
-            </propertyCriteriaList>
+              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            </propertyValueList>
             <windowIndex>2</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
@@ -118,13 +118,13 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder>
             <componentClassName>javax.swing.JCheckBoxMenuItem</componentClassName>
             <occurrencesToSkip>0</occurrencesToSkip>
-            <propertyCriteriaList>
-              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
+            <propertyValueList>
+              <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>A check box menu item</propertyValueExpected>
                 <outer-class reference="../../.."/>
-              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyCriteria>
-            </propertyCriteriaList>
+              </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            </propertyValueList>
             <windowIndex>0</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>

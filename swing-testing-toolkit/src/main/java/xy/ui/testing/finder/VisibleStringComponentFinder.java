@@ -24,7 +24,7 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificCriterias(Component c) {
+	protected boolean initializeSpecificValues(Component c) {
 		visibleString = StringUtils.join(TestingUtils.extractVisibleStrings(c),
 				", ");
 		return visibleString.length() > 0;

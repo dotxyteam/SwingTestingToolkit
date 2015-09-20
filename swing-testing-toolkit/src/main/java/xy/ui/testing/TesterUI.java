@@ -76,7 +76,7 @@ import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
-import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyCriteria;
+import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
 import xy.ui.testing.util.TestingUtils;
 import xy.reflect.ui.info.method.InvocationData;
@@ -216,6 +216,9 @@ public class TesterUI extends ReflectionUI {
 						if (method.getName().equals("find")) {
 							return true;
 						}
+						if (method.getName().equals("initialize")) {
+							return true;
+						}
 						if (method.getName().equals("initializeFrom")) {
 							return true;
 						}
@@ -255,6 +258,24 @@ public class TesterUI extends ReflectionUI {
 						if (method.getName().equals("setPropertyNames")) {
 							return true;
 						}
+						if (method.getName().equals("removePropertyValue")) {
+							return true;
+						}
+						if (method.getName().equals("addPropertyValue")) {
+							return true;
+						}
+						if (method.getName().equals("getPropertyValue")) {
+							return true;
+						}
+						if (method.getName().equals("createPropertyValue")) {
+							return true;
+						}
+						if (method.getName().equals("setPropertyValue")) {
+							return true;
+						}
+						if (method.getName().equals("findPropertyValue")) {
+							return true;
+						}
 						return super.excludeMethod(method);
 					}
 
@@ -269,7 +290,10 @@ public class TesterUI extends ReflectionUI {
 						if (field.getName().equals("componentInformation")) {
 							return true;
 						}
-						if (field.getName().equals("propertyCriteriaList")) {
+						if (field.getName().equals("propertyValueList")) {
+							return true;
+						}
+						if (field.getName().equals("propertyValueCount")) {
 							return true;
 						}
 						return super.excludeField(field);
@@ -394,9 +418,9 @@ public class TesterUI extends ReflectionUI {
 				if ((type instanceof DefaultTypeInfo)
 						&& type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					result.add(new ImplicitListField(INSTANCE, "propertyCriterias", type, "createPropertyCriteria",
-							"getPropertyCriteria", "addPropertyCriteria", "removePropertyCriteria",
-							"propertyCriteriaCount"));
+					result.add(new ImplicitListField(INSTANCE, "propertyValues", type, "createPropertyValue",
+							"getPropertyValue", "addPropertyValue", "removePropertyValue",
+							"propertyValueCount"));
 					return result;
 				} else {
 					return super.getFields(type);

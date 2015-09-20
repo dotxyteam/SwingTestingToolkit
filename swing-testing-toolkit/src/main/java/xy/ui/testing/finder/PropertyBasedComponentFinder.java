@@ -17,85 +17,85 @@ import xy.ui.testing.util.ValidationError;
 public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
 
-	protected List<PropertyCriteria> propertyCriterias = new ArrayList<PropertyBasedComponentFinder.PropertyCriteria>();
+	protected List<PropertyValue> propertyValues = new ArrayList<PropertyBasedComponentFinder.PropertyValue>();
 
 	public void setPropertyNames(String... propertynames) {
 		for (int i = 0; i < propertynames.length; i++) {
 			String propertyName = propertynames[i];
-			PropertyCriteria propertyCriteria = createPropertyCriteria();
-			propertyCriteria.setPropertyName(propertyName);
-			addPropertyCriteria(i, propertyCriteria);
+			PropertyValue propertyValue = createPropertyValue();
+			propertyValue.setPropertyName(propertyName);
+			addPropertyValue(i, propertyValue);
 		}
 	}
 
-	public List<PropertyCriteria> getPropertyCriteriaList() {
-		return propertyCriterias;
+	public List<PropertyValue> getPropertyValueList() {
+		return propertyValues;
 	}
 
-	public void setPropertyCriteriaList(List<PropertyCriteria> propertyCriterias) {
-		this.propertyCriterias = propertyCriterias;
+	public void setPropertyValueList(List<PropertyValue> propertyValues) {
+		this.propertyValues = propertyValues;
 	}
 
-	public PropertyCriteria createPropertyCriteria() {
-		return new PropertyCriteria();
+	public PropertyValue createPropertyValue() {
+		return new PropertyValue();
 	}
 
-	public PropertyCriteria getPropertyCriteria(int index) {
-		return propertyCriterias.get(index);
+	public PropertyValue getPropertyValue(int index) {
+		return propertyValues.get(index);
 	}
 
-	public void addPropertyCriteria(int index, PropertyCriteria c) {
-		if (findPropertyCriteria(c.getPropertyName()) != null) {
+	public void addPropertyValue(int index, PropertyValue c) {
+		if (findPropertyValue(c.getPropertyName()) != null) {
 			throw new AssertionError(
-					"Cannot have duplicate property criterias: '"
+					"Cannot have duplicate property values: '"
 							+ c.getPropertyName() + "'");
 		}
-		propertyCriterias.add(index, c);
+		propertyValues.add(index, c);
 	}
 
-	public void removePropertyCriteria(int index) {
-		propertyCriterias.remove(index);
+	public void removePropertyValue(int index) {
+		propertyValues.remove(index);
 	}
 
-	public int getPropertyCriteriaCount() {
-		return propertyCriterias.size();
+	public int getPropertyValueCount() {
+		return propertyValues.size();
 	}
 
-	public void setPropertyCriteria(String propertyName,
+	public void setPropertyValue(String propertyName,
 			String propertyValueExpected) {
-		PropertyCriteria criteria = findPropertyCriteria(propertyName);
-		if (criteria == null) {
-			criteria = createPropertyCriteria();
-			criteria.setPropertyName(propertyName);
-			addPropertyCriteria(getPropertyCriteriaCount(), criteria);
+		PropertyValue value = findPropertyValue(propertyName);
+		if (value == null) {
+			value = createPropertyValue();
+			value.setPropertyName(propertyName);
+			addPropertyValue(getPropertyValueCount(), value);
 		}
-		criteria.setPropertyValueExpected(propertyValueExpected);
+		value.setPropertyValueExpected(propertyValueExpected);
 	}
 
-	public String getPropertyCriteria(String propertyName) {
-		PropertyCriteria criteria = findPropertyCriteria(propertyName);
-		if (criteria == null) {
+	public String getPropertyValue(String propertyName) {
+		PropertyValue value = findPropertyValue(propertyName);
+		if (value == null) {
 			return null;
 		}
-		return criteria.getPropertyValueExpected();
+		return value.getPropertyValueExpected();
 	}
 
-	public PropertyCriteria findPropertyCriteria(String propertyName) {
-		for (PropertyCriteria criteria : propertyCriterias) {
-			if (propertyName.equals(criteria.getPropertyName())) {
-				return criteria;
+	public PropertyValue findPropertyValue(String propertyName) {
+		for (PropertyValue value : propertyValues) {
+			if (propertyName.equals(value.getPropertyName())) {
+				return value;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	protected boolean initializeSpecificCriterias(Component c) {
-		if (!super.initializeSpecificCriterias(c)) {
+	protected boolean initializeSpecificValues(Component c) {
+		if (!super.initializeSpecificValues(c)) {
 			return false;
 		}
-		for (PropertyCriteria propertyCriteria : propertyCriterias) {
-			if (!propertyCriteria.initialize(c)) {
+		for (PropertyValue propertyValue : propertyValues) {
+			if (!propertyValue.initialize(c)) {
 				return false;
 			}
 		}
@@ -107,8 +107,8 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		if (!super.matchesInContainingWindow(c)) {
 			return false;
 		}
-		for (PropertyCriteria propertyCriteria : propertyCriterias) {
-			if (!propertyCriteria.matches(c)) {
+		for (PropertyValue propertyValue : propertyValues) {
+			if (!propertyValue.matches(c)) {
 				return false;
 			}
 		}
@@ -117,18 +117,18 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	@Override
 	public String toString() {
-		String criteriasDescription;
-		if (propertyCriterias.size() == 0) {
-			criteriasDescription = "";
+		String valuesDescription;
+		if (propertyValues.size() == 0) {
+			valuesDescription = "";
 		} else {
-			List<String> criteriaStrings = new ArrayList<String>();
-			for (PropertyCriteria criteria : propertyCriterias) {
-				criteriaStrings.add(criteria.toString());
+			List<String> valueStrings = new ArrayList<String>();
+			for (PropertyValue value : propertyValues) {
+				valueStrings.add(value.toString());
 			}
-			criteriasDescription = ", having the following properties:\n"
-					+ StringUtils.join(criteriaStrings, "\n");
+			valuesDescription = ", having the following properties:\n"
+					+ StringUtils.join(valueStrings, "\n");
 		}
-		return super.toString() + criteriasDescription;
+		return super.toString() + valuesDescription;
 	}
 
 	
@@ -137,14 +137,14 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	@Validating
 	public void validate() throws ValidationError {
 		super.validate();
-		if(propertyCriterias.size() == 0){
-			throw new ValidationError("Missing property criterias");
+		if(propertyValues.size() == 0){
+			throw new ValidationError("Missing property values");
 		}
 	}
 
 
 
-	public class PropertyCriteria implements Serializable {
+	public class PropertyValue implements Serializable {
 
 		private static final long serialVersionUID = 1L;
 
@@ -173,11 +173,11 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 				private static final long serialVersionUID = 1L;
 				{
 					setComponentClassName(PropertyBasedComponentFinder.this.componentClassName);
-					setPropertyName(PropertyCriteria.this.propertyName);
+					setPropertyName(PropertyValue.this.propertyName);
 					IFieldInfo field = super.getPropertyFieldInfo();
 					if (field != null) {
 						Object fieldValue = field.getValue(c);
-						PropertyCriteria.this.propertyValueExpected = fieldValueToPropertyValue(fieldValue);
+						PropertyValue.this.propertyValueExpected = fieldValueToPropertyValue(fieldValue);
 						ok[0] = true;
 					}
 				}

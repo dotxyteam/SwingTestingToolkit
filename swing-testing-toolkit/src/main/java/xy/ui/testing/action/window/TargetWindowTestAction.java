@@ -25,7 +25,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 		}
 
 		@Override
-		protected boolean initializeSpecificCriterias(Component c) {
+		protected boolean initializeSpecificValues(Component c) {
 			return true;
 		}
 	};

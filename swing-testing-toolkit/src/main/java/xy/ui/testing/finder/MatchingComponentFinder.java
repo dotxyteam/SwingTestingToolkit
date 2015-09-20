@@ -17,7 +17,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 
 	protected abstract boolean matchesInContainingWindow(Component c);
 
-	protected abstract boolean initializeSpecificCriterias(Component c);
+	protected abstract boolean initializeSpecificValues(Component c);
 
 	public int getWindowIndex() {
 		return windowIndex;
@@ -78,7 +78,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 
 	@Override
 	public boolean initializeFrom(final Component c) {
-		if (!initializeSpecificCriterias(c)) {
+		if (!initializeSpecificValues(c)) {
 			return false;
 		}
 		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
