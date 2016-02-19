@@ -90,7 +90,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 			return null;
 		}
 		try {
-			return TesterUI.INSTANCE.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
+			return TesterUI.DEFAULT.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}

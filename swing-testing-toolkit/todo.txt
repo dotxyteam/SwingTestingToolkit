@@ -1,12 +1,6 @@
-- criterion: singular, criteria: plural
+- extensibility: add documentation
 - selectComboBoxitemAction:
 	. add item selection enumeration???
-- validation
-	. stopped at selectComboBoxitemAction
-	. problem with validation in setters:
-		* cannot load invalid tester file
-		* validation is only triggered on validation
-		* fields other than the current is not validated
 - feedback tools
 - menus ???
 - add 
@@ -25,5 +19,4 @@
 - comment action ???
 - mouse down or up, mouse motion events
 - jlist, jtree, jtable,  ... specific actions
-- extensibility
 - generate testing code???

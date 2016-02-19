@@ -19,7 +19,7 @@ public class TestTesterUI {
 
 	@Test
 	public void testComponentFinderOnlyOneEmptyContructor() throws IOException {
-		for(Class<?> cls: TesterUI.COMPONENT_FINDER_CLASSESS){
+		for(Class<?> cls: TesterUI.DEFAULT.getComponentFinderClasses()){
 			Assert.assertTrue(cls.getConstructors().length == 1);
 			Assert.assertTrue(cls.getConstructors()[0].getParameterTypes().length == 0);			
 		}

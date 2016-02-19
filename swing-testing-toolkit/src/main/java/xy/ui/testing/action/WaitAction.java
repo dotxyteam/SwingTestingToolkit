@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -22,7 +23,7 @@ public class WaitAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterUI testerUI) {
 		return false;
 	}
 
@@ -60,7 +61,7 @@ public class WaitAction extends TestAction {
 	public void validate() throws ValidationError {
 		if (secondsToWait <= 0) {
 			throw new ValidationError("The number of seconds to wait must be > 0");
-		}		
+		}
 	}
 
 }

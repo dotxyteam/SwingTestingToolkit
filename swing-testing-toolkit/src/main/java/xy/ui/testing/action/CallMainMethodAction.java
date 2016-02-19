@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -41,7 +42,7 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterUI testerUI) {
 		return false;
 	}
 

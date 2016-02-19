@@ -7,6 +7,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestFailure;
@@ -28,7 +29,7 @@ public class ClickOnMenuItemAction extends TestAction {
 
 	@Override
 	public boolean initializeFrom(Component c,
-			AWTEvent introspectionRequestEvent) {
+			AWTEvent introspectionRequestEvent, TesterUI testerUI) {
 		if (!macthesComponent(c)) {
 			return false;
 		}

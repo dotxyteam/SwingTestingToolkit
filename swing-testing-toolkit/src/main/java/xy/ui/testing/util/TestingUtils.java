@@ -24,7 +24,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.JTree;
@@ -46,14 +45,12 @@ import xy.ui.testing.TesterUI;
 
 public class TestingUtils {
 
-	public static boolean visitComponentTree(Component treeRoot,
-			IComponentTreeVisitor visitor) {
+	public static boolean visitComponentTree(Component treeRoot, IComponentTreeVisitor visitor) {
 		if (!visitor.visit(treeRoot)) {
 			return false;
 		}
 		if (treeRoot instanceof Container) {
-			for (Component childComponent : ((Container) treeRoot)
-					.getComponents()) {
+			for (Component childComponent : ((Container) treeRoot).getComponents()) {
 				if (!visitComponentTree(childComponent, visitor)) {
 					return false;
 				}
@@ -64,8 +61,7 @@ public class TestingUtils {
 
 	public static int removeAWTEventListener(AWTEventListener listener) {
 		final List<AWTEventListener> listenersToRemove = new ArrayList<AWTEventListener>();
-		for (AWTEventListener l : Toolkit.getDefaultToolkit()
-				.getAWTEventListeners()) {
+		for (AWTEventListener l : Toolkit.getDefaultToolkit().getAWTEventListeners()) {
 			if (l == listener) {
 				listenersToRemove.add(l);
 			} else if (l instanceof AWTEventListenerProxy) {
@@ -81,8 +77,7 @@ public class TestingUtils {
 		return listenersToRemove.size();
 	}
 
-	public static Color shiftColor(Color color, int redOffset, int greenOffset,
-			int blueOffset) {
+	public static Color shiftColor(Color color, int redOffset, int greenOffset, int blueOffset) {
 		int red = (color.getRed() + redOffset) % 256;
 		int green = (color.getGreen() + greenOffset) % 256;
 		int blue = (color.getBlue() + blueOffset) % 256;
@@ -103,24 +98,11 @@ public class TestingUtils {
 	}
 
 	public static boolean isTesterUIComponent(Component c) {
-		for (JPanel testerForm : TesterUI.INSTANCE.getSwingRenderer()
-				.getObjectByForm().keySet()) {
-			Window testerWindow = SwingUtilities.getWindowAncestor(testerForm);
-			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-			if (componentWindow != null) {
-				if (testerWindow == componentWindow) {
-					return true;
-				}
-				if (isDIrectOrIndirectOwner(testerWindow, componentWindow)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
+		return TesterUI.ALL_WINDOWS.contains(componentWindow);
 	}
 
-	public static boolean isDIrectOrIndirectOwner(Window ownerWindow,
-			Window window) {
+	public static boolean isDIrectOrIndirectOwner(Window ownerWindow, Window window) {
 		while ((window = window.getOwner()) != null) {
 			if (ownerWindow == window) {
 				return true;
@@ -129,8 +111,7 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static void insertMouseListener(Component c, int position,
-			MouseListener listenerToInsert) {
+	public static void insertMouseListener(Component c, int position, MouseListener listenerToInsert) {
 		MouseListener[] currentListeners = c.getMouseListeners();
 		while (c.getMouseListeners().length > 0) {
 			c.removeMouseListener(c.getMouseListeners()[0]);
@@ -148,11 +129,9 @@ public class TestingUtils {
 		}
 	}
 
-	public static void launchClassMainMethod(String mainClassName)
-			throws Exception {
-		Class.forName(mainClassName)
-				.getMethod("main", new Class[] { String[].class })
-				.invoke(null, new Object[] { new String[0] });
+	public static void launchClassMainMethod(String mainClassName) throws Exception {
+		Class.forName(mainClassName).getMethod("main", new Class[] { String[].class }).invoke(null,
+				new Object[] { new String[0] });
 	}
 
 	public static <T> List<T> getReversed(List<T> list) {
@@ -213,9 +192,7 @@ public class TestingUtils {
 		for (int i = 0; i < model.getSize(); i++) {
 			try {
 				Object item = model.getElementAt(i);
-				Component cellComponent = cellRenderer
-						.getListCellRendererComponent(list, item, i, false,
-								false);
+				Component cellComponent = cellRenderer.getListCellRendererComponent(list, item, i, false, false);
 				result.addAll(extractVisibleStrings(cellComponent));
 			} catch (Exception ignore) {
 			}
@@ -237,11 +214,9 @@ public class TestingUtils {
 			for (int iCol = 0; iCol < model.getColumnCount(); iCol++) {
 				try {
 					Object cellValue = model.getValueAt(iRow, iCol);
-					TableCellRenderer cellRenderer = table.getCellRenderer(
+					TableCellRenderer cellRenderer = table.getCellRenderer(iRow, iCol);
+					Component cellComponent = cellRenderer.getTableCellRendererComponent(table, cellValue, false, false,
 							iRow, iCol);
-					Component cellComponent = cellRenderer
-							.getTableCellRendererComponent(table, cellValue,
-									false, false, iRow, iCol);
 					List<String> cellVisibleStrings = extractVisibleStrings(cellComponent);
 					result.addAll(cellVisibleStrings);
 				} catch (Exception ignore) {
@@ -251,21 +226,17 @@ public class TestingUtils {
 		return result;
 	}
 
-	public static Collection<? extends String> extractVisibleStringsFromTree(
-			JTree tree) {
+	public static Collection<? extends String> extractVisibleStringsFromTree(JTree tree) {
 		List<String> result = new ArrayList<String>();
-		result.addAll(extractVisibleStringsFromTree(0, tree.getModel()
-				.getRoot(), tree));
+		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
 		return result;
 	}
 
-	public static List<String> extractVisibleStringsFromTree(int currentRow,
-			Object currentNode, JTree tree) {
+	public static List<String> extractVisibleStringsFromTree(int currentRow, Object currentNode, JTree tree) {
 		List<String> result = new ArrayList<String>();
 		TreeModel model = tree.getModel();
 		try {
-			String s = tree.convertValueToText(currentNode, false, true,
-					model.isLeaf(currentNode), currentRow, false);
+			String s = tree.convertValueToText(currentNode, false, true, model.isLeaf(currentNode), currentRow, false);
 			if ((s != null) && (s.trim().length() > 0)) {
 				result.add(s);
 			}
@@ -273,14 +244,12 @@ public class TestingUtils {
 		}
 		for (int i = 0; i < model.getChildCount(currentNode); i++) {
 			Object childNode = model.getChild(currentNode, i);
-			result.addAll(extractVisibleStringsFromTree(currentRow + 1,
-					childNode, tree));
+			result.addAll(extractVisibleStringsFromTree(currentRow + 1, childNode, tree));
 		}
 		return result;
 	}
 
-	public static String extractVisibleStringThroughMethod(Component c,
-			String methodName) {
+	public static String extractVisibleStringThroughMethod(Component c, String methodName) {
 		try {
 			Method method = c.getClass().getMethod(methodName);
 			String result = (String) method.invoke(c);
@@ -322,8 +291,7 @@ public class TestingUtils {
 		return result.toString();
 	}
 
-	public static List<String> parseVisibleStrings(
-			String formattedVisibleStrings) {
+	public static List<String> parseVisibleStrings(String formattedVisibleStrings) {
 		List<String> result = new ArrayList<String>();
 		Pattern p = Pattern.compile("\".*?(?<!\\\\)\"");
 		Matcher m = p.matcher(formattedVisibleStrings);
@@ -416,8 +384,7 @@ public class TestingUtils {
 				return true;
 			}
 			JMenuItem menuItem = (JMenuItem) c;
-			for (JMenuItem ancestorMenuItem : TestingUtils
-					.getAncestorMenuItems(menuItem)) {
+			for (JMenuItem ancestorMenuItem : TestingUtils.getAncestorMenuItems(menuItem)) {
 				if (ancestorMenuItem.getParent() == popupMenu) {
 					return true;
 				}
@@ -437,7 +404,7 @@ public class TestingUtils {
 			BufferedImage windowImage = getScreenShot(w);
 			images.add(windowImage);
 		}
-		if(images.size()==0){
+		if (images.size() == 0) {
 			return null;
 		}
 		return saveImage(joinImages(images));
@@ -445,16 +412,15 @@ public class TestingUtils {
 
 	public static BufferedImage joinImages(List<BufferedImage> images) {
 		int width = 0;
-		int height =0;
-		for(BufferedImage image: images){
+		int height = 0;
+		for (BufferedImage image : images) {
 			width += image.getWidth();
 			height = Math.max(height, image.getHeight());
 		}
-		BufferedImage result = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_ARGB);
+		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = result.createGraphics();
-		int x=0;
-		for(BufferedImage image: images){
+		int x = 0;
+		for (BufferedImage image : images) {
 			g.drawImage(image, null, x, 0);
 			x += image.getWidth();
 		}
@@ -466,37 +432,32 @@ public class TestingUtils {
 		File dir = getSavedImagesDirectory();
 		if (!dir.exists()) {
 			if (!dir.mkdir()) {
-				throw new AssertionError("Failed to create the directory: '"
-						+ dir.getAbsolutePath() + "'");
+				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
 			}
 		}
 		String fileExtension = "png";
 		File outputfile;
 		try {
-			outputfile = File
-					.createTempFile("image-", "." + fileExtension, dir);
+			outputfile = File.createTempFile("image-", "." + fileExtension, dir);
 		} catch (IOException e1) {
 			throw new AssertionError(
-					"Failed to save image file in the directory: '"
-							+ dir.getAbsolutePath() + "': " + e1);
+					"Failed to save image file in the directory: '" + dir.getAbsolutePath() + "': " + e1);
 		}
 		try {
 			ImageIO.write(image, fileExtension, outputfile);
 		} catch (IOException e) {
-			throw new AssertionError("Failed to save the image file: '"
-					+ outputfile.getAbsolutePath() + "': " + e);
+			throw new AssertionError("Failed to save the image file: '" + outputfile.getAbsolutePath() + "': " + e);
 		}
 		return outputfile;
 	}
 
 	public static File getSavedImagesDirectory() {
-		return new File(Tester.class.getSimpleName().toLowerCase()
-				+ "-saved-images");
+		return new File(Tester.class.getSimpleName().toLowerCase() + "-saved-images");
 	}
 
 	public static BufferedImage getScreenShot(Component component) {
-		BufferedImage image = new BufferedImage(component.getWidth(),
-				component.getHeight(), BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(),
+				BufferedImage.TYPE_INT_RGB);
 		component.paint(image.getGraphics());
 		return image;
 	}
@@ -514,8 +475,7 @@ public class TestingUtils {
 		try {
 			FileUtils.deleteDirectory(dir);
 		} catch (IOException e) {
-			throw new AssertionError("Failed to delete the directory: '"
-					+ dir.getAbsolutePath() + "': " + e);
+			throw new AssertionError("Failed to delete the directory: '" + dir.getAbsolutePath() + "': " + e);
 		}
 	}
 

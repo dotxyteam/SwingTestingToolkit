@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Window;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -24,7 +25,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterUI testerUI) {
 		return false;
 	}
 
@@ -74,7 +75,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 		if (count < 0) {
 			throw new ValidationError("Negative count forbidden");
 		}
-		
+
 	}
 
 }

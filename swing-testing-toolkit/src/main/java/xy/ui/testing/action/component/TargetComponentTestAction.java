@@ -29,8 +29,8 @@ public abstract class TargetComponentTestAction extends TestAction {
 
 	@Override
 	public boolean initializeFrom(Component c,
-			AWTEvent introspectionRequestEvent) {
-		for (Class<?> componentFinderClass : TesterUI.COMPONENT_FINDER_CLASSESS) {
+			AWTEvent introspectionRequestEvent, TesterUI testerUI) {
+		for (Class<?> componentFinderClass : testerUI.getComponentFinderClasses()) {
 			ComponentFinder componentFinderCandidate;
 			try {
 				componentFinderCandidate = (ComponentFinder) componentFinderClass

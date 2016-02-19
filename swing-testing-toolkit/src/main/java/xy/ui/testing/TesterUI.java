@@ -1,11 +1,18 @@
 package xy.ui.testing;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.AWTEventListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,11 +23,20 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.SwingRenderer;
@@ -31,6 +47,7 @@ import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
 import xy.reflect.ui.info.field.ImplicitListField;
+import xy.reflect.ui.info.field.FieldInfoProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
@@ -44,6 +61,7 @@ import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyConfigurati
 import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
+import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ReflectionUIError;
@@ -61,6 +79,7 @@ import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlC;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlV;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlX;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
+import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
 import xy.ui.testing.action.component.combobox.SelectComboBoxItemAction;
 import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
@@ -78,53 +97,272 @@ import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
+import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.TreeSelectionDialog;
+import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
 import xy.reflect.ui.info.method.InvocationData;
+import xy.reflect.ui.info.method.MethodInfoProxy;
+import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.method.InvocationData;
 
 @SuppressWarnings("unused")
 public class TesterUI extends ReflectionUI {
 
-	public final static TesterUI INSTANCE = new TesterUI();
-	public static final Class<?>[] TEST_ACTION_CLASSESS = new Class[] { CallMainMethodAction.class, WaitAction.class,
-			ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class, SelectTableRowAction.class,
-			ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class,
-			CloseWindowAction.class, ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
-			CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
-	public static final Class<?>[] COMPONENT_FINDER_CLASSESS = new Class[] { VisibleStringComponentFinder.class,
-			ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class, MenuItemComponentFinder.class };
-	public static final Class<?>[] KEYBOARD_INTERACTION_CLASSESS = new Class[] { WriteText.class, SpecialKey.class,
-			CtrlA.class, CtrlC.class, CtrlV.class, CtrlX.class };
-	private static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+	public static final TesterUI DEFAULT = new TesterUI(Tester.DEFAULT);
+
+	protected static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+
+	public static final Set<Object> ALL_WINDOWS = Collections.newSetFromMap(new WeakHashMap<Object, Boolean>());
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
 	protected boolean recordingInsertedAfterSelection = false;
+	protected Tester tester;
+	protected AWTEventListener recordingListener;
+	protected boolean recording = false;
+
+	public TesterUI(Tester tester) {
+		this.tester = tester;
+		recordingListener = new AWTEventListener() {
+			@Override
+			public void eventDispatched(AWTEvent event) {
+				awtEventDispatched(event);
+			}
+		};
+		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
+				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
+
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		TestingUtils.removeAWTEventListener(recordingListener);
+	}
 
 	public static void main(String[] args) {
 		try {
-			Tester tester = new Tester();
 			if (args.length > 1) {
 				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
 			} else if (args.length == 1) {
 				String fileName = args[0];
-				tester.loadFromFile(new File(fileName));
+				DEFAULT.tester.loadFromFile(new File(fileName));
 			}
-			INSTANCE.getSwingRenderer().openObjectFrame(tester);
+			DEFAULT.getSwingRenderer().openObjectFrame(DEFAULT.tester);
 		} catch (Throwable t) {
-			INSTANCE.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
+			DEFAULT.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
 		}
 	}
 
-	protected TesterUI() {
+	public Tester getTester() {
+		return tester;
 	}
 
-	public boolean isRecordingInsertedAfterSelection() {
-		return recordingInsertedAfterSelection;
+	public Class<?>[] getTestActionClasses() {
+		return new Class[] { CallMainMethodAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
+				SelectComboBoxItemAction.class, SelectTableRowAction.class, ClickOnTableCellAction.class,
+				ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
+				ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
+				CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
 	}
 
-	public void setRecordingInsertedAfterSelection(boolean b) {
-		this.recordingInsertedAfterSelection = b;
+	public Class<?>[] getComponentFinderClasses() {
+		return new Class[] { VisibleStringComponentFinder.class, ClassBasedComponentFinder.class,
+				PropertyBasedComponentFinder.class, MenuItemComponentFinder.class };
+	}
+
+	public Class<?>[] getKeyboardInteractionClasses() {
+		return new Class[] { WriteText.class, SpecialKey.class, CtrlA.class, CtrlC.class, CtrlV.class, CtrlX.class };
+	}
+
+	protected void awtEventDispatched(AWTEvent event) {
+		if (!recording) {
+			return;
+		}
+		if (event == null) {
+			tester.handleCurrentComponentChange(null);
+			return;
+		}
+		if (!(event.getSource() instanceof Component)) {
+			return;
+		}
+		Component c = (Component) event.getSource();
+		if (!c.isShowing()) {
+			return;
+		}
+		if (TestingUtils.isTesterUIComponent(c)) {
+			return;
+		}
+		if (isCurrentComponentChangeEvent(event)) {
+			tester.handleCurrentComponentChange(c);
+		}
+		if (isComponentIntrospectionRequestEvent(event)) {
+			handleComponentIntrospectionRequest(event);
+		}
+	}
+
+	protected void handleComponentIntrospectionRequest(final AWTEvent event) {
+		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
+			WindowEvent windowEvent = (WindowEvent) event;
+			Window window = windowEvent.getWindow();
+			stopRecording();
+			String title = getObjectKind(tester);
+			if (getSwingRenderer().openQuestionDialog(window, "Do you want to record this window closing event?",
+					title)) {
+				startRecording();
+				CloseWindowAction closeAction = new CloseWindowAction();
+				closeAction.initializeFrom(window, event, this);
+				onTestActionRecordingRequest(closeAction, window, false);
+			} else {
+				startRecording();
+			}
+		} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
+			final JMenuItem menuItem = (JMenuItem) event.getSource();
+			stopRecording();
+			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
+			testACtion.initializeFrom(menuItem, event, this);
+			String title = getObjectKind(tester);
+			if (getSwingRenderer().openQuestionDialog(getTesterWindow(),
+					"Do you want to record this menu item activation event?", title)) {
+				startRecording();
+				onTestActionRecordingRequest(testACtion, menuItem, true);
+			} else {
+				startRecording();
+			}
+			return;
+		} else {
+			DefaultMutableTreeNode menuRoot = new DefaultMutableTreeNode();
+			final Component c = (Component) event.getSource();
+			createReleaseComponentMenuItem(menuRoot, c);
+			createStopRecordingMenuItem(menuRoot, c);
+			createTestActionMenuItems(menuRoot, c, event);
+			AbstractAction todo = openTestActionMenu(menuRoot);
+			if (todo == null) {
+				return;
+			}
+			todo.actionPerformed(null);
+		}
+	}
+
+	protected AbstractAction openTestActionMenu(DefaultMutableTreeNode menuRoot) {
+		String title = getObjectKind(tester);
+		DefaultTreeModel treeModel = new DefaultTreeModel(menuRoot);
+		final TreeSelectionDialog dialog = new TreeSelectionDialog(getTesterWindow(), title, null, treeModel,
+				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
+				getTestActionMenuItemSelectableAccessor(), true, ModalityType.DOCUMENT_MODAL) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected Container createContentPane(String message) {
+				Container result = super.createContentPane(message);
+				AlternateWindowDecorationsPanel decorationsPanel = TesterUI.getAlternateWindowDecorationsPanel(this);
+				decorationsPanel.configureWindow(this);
+				decorationsPanel.getContentPanel().add(result);
+				result = decorationsPanel;
+				return result;
+			}
+
+		};
+		dialog.setVisible(true);
+		DefaultMutableTreeNode selected = (DefaultMutableTreeNode) dialog.getSelection();
+		if (selected == null) {
+			return null;
+		}
+		return (AbstractAction) selected.getUserObject();
+	}
+
+	protected Window getTesterWindow() {
+		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(getSwingRenderer().getObjectByForm(), this).get(0);
+		if (testerForm == null) {
+			return null;
+		}
+		return SwingUtilities.getWindowAncestor(testerForm);
+	}
+
+	protected void createStopRecordingMenuItem(DefaultMutableTreeNode root, Component c) {
+		DefaultMutableTreeNode stopRecordingItem = new DefaultMutableTreeNode(new AbstractAction("Stop Recording") {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getSwingRenderer().getFormUpdatingMethod(tester, "stopRecording").invoke(tester, new InvocationData());
+			}
+		});
+		root.add(stopRecordingItem);
+	}
+
+	protected void createTestActionMenuItems(DefaultMutableTreeNode root, final Component c, AWTEvent event) {
+		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode("Execute And Record");
+		root.add(recordGroup);
+		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("Actions");
+		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode("Assertion");
+		for (final TestAction testAction : getPossibleTestActions(c, event)) {
+			String testActionTypeName = getObjectKind(testAction).replaceAll(" Action$", "");
+			DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction(testActionTypeName) {
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					onTestActionRecordingRequest(testAction, c, true);
+				}
+
+				@Override
+				public Object getValue(String key) {
+					if (key == AbstractAction.SMALL_ICON) {
+						Image image = getIconImage(testAction);
+						return new ImageIcon(image);
+					} else {
+						return super.getValue(key);
+					}
+				}
+
+			});
+			if (testActionTypeName.startsWith("Check")) {
+				assertionssGroup.add(item);
+			} else {
+				actionsGroup.add(item);
+			}
+			if (actionsGroup.getChildCount() > 0) {
+				recordGroup.add(actionsGroup);
+			}
+			if (assertionssGroup.getChildCount() > 0) {
+				recordGroup.add(assertionssGroup);
+			}
+
+		}
+	}
+
+	protected boolean onTestActionRecordingRequest(final TestAction testAction, final Component c, boolean execute) {
+		if (openSettings(testAction, c, tester)) {
+			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
+					Arrays.asList(tester.getTestActions()));
+			if (recordingInsertedAfterSelection) {
+				int index = getSelectedActionIndex(tester);
+				if (index != -1) {
+					newTestActionListValue.add(index + 1, testAction);
+				} else {
+					newTestActionListValue.add(testAction);
+				}
+			} else {
+				newTestActionListValue.add(testAction);
+			}
+			IFieldInfo testActionListField = getSwingRenderer().getFormUpdatingField(tester, "testActions");
+			testActionListField.setValue(tester,
+					newTestActionListValue.toArray(new TestAction[newTestActionListValue.size()]));
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					selectTestAction(testAction, tester);
+				}
+			});
+			tester.handleCurrentComponentChange(null);
+			if (execute) {
+				testAction.execute(c);
+			}
+			return true;
+		}
+		return false;
 	}
 
 	protected void playActionsAndUpdateUI(Tester tester, List<TestAction> selectedActions) {
@@ -192,8 +430,8 @@ public class TesterUI extends ReflectionUI {
 			public JFrame createFrame(Component content, String title, Image iconImage,
 					List<? extends Component> toolbarControls) {
 				JFrame result = super.createFrame(content, title, iconImage, toolbarControls);
-				for (JPanel form : SwingRendererUtils.findDescendantForms(result, TesterUI.INSTANCE)) {
-					if (TesterUI.INSTANCE.getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
+				for (JPanel form : SwingRendererUtils.findDescendantForms(result, TesterUI.this)) {
+					if (getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
 						result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 					}
@@ -415,12 +653,55 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
-				if ((type instanceof DefaultTypeInfo)
+				if ((type instanceof DefaultTypeInfo) && type.getName().equals(Tester.class.getName())) {
+					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
+					result.add(new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
+
+						@Override
+						public Object getValue(Object object) {
+							return recording;
+						}
+
+						@Override
+						public String getCaption() {
+							return "Is Recording";
+						}
+
+					});
+					result.add(new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
+
+						@Override
+						public Object getValue(Object object) {
+							return recordingInsertedAfterSelection;
+						}
+
+						@Override
+						public void setValue(Object object, Object value) {
+							recordingInsertedAfterSelection = (Boolean) value;
+						}
+
+						@Override
+						public boolean isReadOnly() {
+							return false;
+						}
+
+						@Override
+						public boolean isNullable() {
+							return false;
+						}
+
+						@Override
+						public String getCaption() {
+							return "Insert Recording(s) After Selection";
+						}
+
+					});
+					return result;
+				} else if ((type instanceof DefaultTypeInfo)
 						&& type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					result.add(new ImplicitListField(INSTANCE, "propertyValues", type, "createPropertyValue",
-							"getPropertyValue", "addPropertyValue", "removePropertyValue",
-							"propertyValueCount"));
+					result.add(new ImplicitListField(TesterUI.this, "propertyValues", type, "createPropertyValue",
+							"getPropertyValue", "addPropertyValue", "removePropertyValue", "propertyValueCount"));
 					return result;
 				} else {
 					return super.getFields(type);
@@ -428,10 +709,72 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
+			protected List<IMethodInfo> getMethods(ITypeInfo type) {
+				if ((type instanceof DefaultTypeInfo) && type.getName().equals(Tester.class.getName())) {
+					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
+					IMethodInfo playAllMethod;
+					while ((playAllMethod = ReflectionUIUtils.findInfoByName(result, "playAll")) != null) {
+						result.remove(playAllMethod);
+					}
+					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
+
+						@Override
+						public String getCaption() {
+							return "Start Recording";
+						}
+
+						@Override
+						public Object invoke(Object object, InvocationData invocationData) {
+							startRecording();
+							return null;
+						}
+
+					});
+					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
+
+						@Override
+						public String getCaption() {
+							return "Stop Recording";
+						}
+
+						@Override
+						public Object invoke(Object object, InvocationData invocationData) {
+							stopRecording();
+							return null;
+						}
+
+					});
+					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
+
+						@Override
+						public String getCaption() {
+							return "Play All";
+						}
+
+						@Override
+						public Object invoke(Object object, InvocationData invocationData) {
+							tester.playAll(new Listener<TestAction>() {
+
+								@Override
+								public void handle(TestAction event) {
+									TesterUI.this.beforeEachAction(event, tester);
+								}
+							});
+							return null;
+						}
+
+					});
+					return result;
+				} else {
+					return super.getMethods(type);
+				}
+			}
+
+			@Override
 			protected List<ITypeInfo> getPolymorphicInstanceSubTypes(ITypeInfo type) {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
-					for (Class<?> clazz : TEST_ACTION_CLASSESS) {
+					for (Class<?> clazz : getTestActionClasses()) {
 						try {
 							result.add(getTypeInfo(getTypeInfoSource(clazz.newInstance())));
 						} catch (Exception e) {
@@ -442,7 +785,7 @@ public class TesterUI extends ReflectionUI {
 				}
 				if (type.getName().equals(ComponentFinder.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
-					for (Class<?> clazz : COMPONENT_FINDER_CLASSESS) {
+					for (Class<?> clazz : getComponentFinderClasses()) {
 						try {
 							ComponentFinder newInstance = (ComponentFinder) clazz.newInstance();
 							if (componentFinderInitializationSource != null) {
@@ -460,7 +803,7 @@ public class TesterUI extends ReflectionUI {
 				}
 				if (type.getName().equals(KeyboardInteraction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
-					for (Class<?> clazz : KEYBOARD_INTERACTION_CLASSESS) {
+					for (Class<?> clazz : getKeyboardInteractionClasses()) {
 						try {
 							result.add(getTypeInfo(getTypeInfoSource(clazz.newInstance())));
 						} catch (Exception e) {
@@ -563,6 +906,12 @@ public class TesterUI extends ReflectionUI {
 						});
 					}
 
+					if (method.getName().startsWith("play")) {
+						if (isRecording()) {
+							stopRecording();
+						}
+					}
+
 					Object result = super.invoke(object, invocationData, method, containingType);
 
 					return result;
@@ -572,6 +921,10 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		}.get(super.getTypeInfo(typeSource));
+	}
+
+	protected void beforeEachAction(TestAction testAction, Tester tester) {
+		selectTestAction(testAction, tester);
 	}
 
 	protected JPanel getTesterForm(Tester tester) {
@@ -601,17 +954,16 @@ public class TesterUI extends ReflectionUI {
 		return (ListControl) c;
 	}
 
-	public boolean openSettings(TestAction testAction, Component c, Tester tester) {
+	protected boolean openSettings(TestAction testAction, Component c, Tester tester) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		TesterUI.INSTANCE.getSwingRenderer().openObjectDialog(c, testAction,
-				TesterUI.INSTANCE.getObjectKind(testAction), null, true, null, okPressedArray, null, null,
-				IInfoCollectionSettings.DEFAULT);
+		getSwingRenderer().openObjectDialog(c, testAction, getObjectKind(testAction), null, true, null, okPressedArray,
+				null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
 
-	public void selectTestAction(TestAction testAction, Tester tester) {
+	protected void selectTestAction(TestAction testAction, Tester tester) {
 		ListControl testActionsControl = getTestActionsControl(tester);
 		if (testActionsControl == null) {
 			return;
@@ -628,7 +980,139 @@ public class TesterUI extends ReflectionUI {
 		return result.getIndex();
 	}
 
-	public static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(Window window) {
+	protected void createReleaseComponentMenuItem(DefaultMutableTreeNode root, Component c) {
+		DefaultMutableTreeNode pauseItem = new DefaultMutableTreeNode(
+				new AbstractAction("Pause Recording (5 seconds)") {
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						tester.handleCurrentComponentChange(null);
+						stopRecording();
+						new Thread(Tester.class.getSimpleName() + " Restarter") {
+							@Override
+							public void run() {
+								try {
+									sleep(5000);
+								} catch (InterruptedException e) {
+									throw new AssertionError(e);
+								}
+								startRecording();
+							}
+						}.start();
+					}
+				});
+		root.add(pauseItem);
+	}
+
+	protected INodePropertyAccessor<Icon> getTestActionMenuItemIconAccessor() {
+		return new INodePropertyAccessor<Icon>() {
+
+			DefaultTreeCellRenderer treeCellRenderer = new DefaultTreeCellRenderer();
+
+			@Override
+			public Icon get(Object node) {
+				Object object = ((DefaultMutableTreeNode) node).getUserObject();
+				if (object instanceof AbstractAction) {
+					AbstractAction swingAction = (AbstractAction) object;
+					return (Icon) swingAction.getValue(AbstractAction.SMALL_ICON);
+				} else if (object instanceof String) {
+					return treeCellRenderer.getOpenIcon();
+				} else {
+					return null;
+				}
+			}
+		};
+	}
+
+	protected INodePropertyAccessor<Boolean> getTestActionMenuItemSelectableAccessor() {
+		return new INodePropertyAccessor<Boolean>() {
+
+			@Override
+			public Boolean get(Object node) {
+				Object object = ((DefaultMutableTreeNode) node).getUserObject();
+				return object instanceof AbstractAction;
+			}
+		};
+	}
+
+	protected INodePropertyAccessor<String> getTestActionMenuItemTextAccessor() {
+		return new INodePropertyAccessor<String>() {
+
+			@Override
+			public String get(Object node) {
+				Object object = ((DefaultMutableTreeNode) node).getUserObject();
+				if (object instanceof AbstractAction) {
+					AbstractAction swingAction = (AbstractAction) object;
+					return (String) swingAction.getValue(AbstractAction.NAME);
+				} else if (object instanceof String) {
+					return (String) object;
+				} else {
+					return null;
+				}
+			}
+		};
+	}
+
+	protected boolean isComponentIntrospectionRequestEvent(AWTEvent event) {
+		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
+			return true;
+		}
+		if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
+			return true;
+		}
+		if (TargetComponentTestAction.matchIntrospectionRequestEvent(event)) {
+			return true;
+		}
+		return false;
+	}
+
+	protected boolean isCurrentComponentChangeEvent(AWTEvent event) {
+		if (event instanceof MouseEvent) {
+			MouseEvent mouseEvent = (MouseEvent) event;
+			if (mouseEvent.getID() == MouseEvent.MOUSE_MOVED) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isRecording() {
+		return recording;
+	}
+
+	public void startRecording() {
+		if (isRecording()) {
+			return;
+		}
+		recording = true;
+	}
+
+	public void stopRecording() {
+		if (!isRecording()) {
+			return;
+		}
+		tester.handleCurrentComponentChange(null);
+		recording = false;
+	}
+
+	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
+		try {
+			List<TestAction> result = new ArrayList<TestAction>();
+			for (Class<?> testActionClass : getTestActionClasses()) {
+				TestAction testAction = (TestAction) testActionClass.newInstance();
+				if (testAction.initializeFrom(c, event, this)) {
+					result.add(testAction);
+				}
+			}
+			return result;
+		} catch (Exception e) {
+			throw new AssertionError(e);
+		}
+
+	}
+
+	protected static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(Window window) {
 		return new AlternateWindowDecorationsPanel(SwingRendererUtils.getWindowTitle(window)) {
 
 			private static final long serialVersionUID = 1L;
@@ -641,6 +1125,12 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			public Color getDecorationsForegroundColor() {
 				return Tester.HIGHLIGHT_BACKGROUND;
+			}
+
+			@Override
+			public void configureWindow(Window window) {
+				super.configureWindow(window);
+				ALL_WINDOWS.add(window);
 			}
 
 		};
