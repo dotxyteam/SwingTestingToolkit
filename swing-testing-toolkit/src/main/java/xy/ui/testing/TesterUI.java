@@ -109,11 +109,11 @@ import xy.reflect.ui.info.method.InvocationData;
 @SuppressWarnings("unused")
 public class TesterUI extends ReflectionUI {
 
+	public static final WeakHashMap<Window, TesterUI> BY_WINDOW = new WeakHashMap<Window, TesterUI>();
+	public static final WeakHashMap<TesterUI, Tester> TESTERS = new WeakHashMap<TesterUI, Tester>();
 	public static final TesterUI DEFAULT = new TesterUI(Tester.DEFAULT);
 
 	protected static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-
-	public static final Set<Object> ALL_WINDOWS = Collections.newSetFromMap(new WeakHashMap<Object, Boolean>());
 
 	protected Component componentFinderInitializationSource;
 	protected Map<String, Image> imageCache = new HashMap<String, Image>();
@@ -124,6 +124,7 @@ public class TesterUI extends ReflectionUI {
 
 	public TesterUI(Tester tester) {
 		this.tester = tester;
+		TESTERS.put(this, tester);
 		recordingListener = new AWTEventListener() {
 			@Override
 			public void eventDispatched(AWTEvent event) {
@@ -191,7 +192,7 @@ public class TesterUI extends ReflectionUI {
 		if (!c.isShowing()) {
 			return;
 		}
-		if (TestingUtils.isTesterUIComponent(c)) {
+		if (TestingUtils.isTesterUIComponent(this, c)) {
 			return;
 		}
 		if (isCurrentComponentChangeEvent(event)) {
@@ -256,7 +257,8 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			protected Container createContentPane(String message) {
 				Container result = super.createContentPane(message);
-				AlternateWindowDecorationsPanel decorationsPanel = TesterUI.getAlternateWindowDecorationsPanel(this);
+				AlternateWindowDecorationsPanel decorationsPanel = TesterUI.getAlternateWindowDecorationsPanel(this,
+						TesterUI.this);
 				decorationsPanel.configureWindow(this);
 				decorationsPanel.getContentPanel().add(result);
 				result = decorationsPanel;
@@ -358,23 +360,29 @@ public class TesterUI extends ReflectionUI {
 			});
 			tester.handleCurrentComponentChange(null);
 			if (execute) {
-				testAction.execute(c);
+				testAction.execute(c, tester);
 			}
 			return true;
 		}
 		return false;
 	}
 
-	protected void playActionsAndUpdateUI(Tester tester, List<TestAction> selectedActions) {
+	protected void playActionsAndUpdateUI(final Tester tester, List<TestAction> selectedActions) {
 		String methodSignature;
 		try {
 			methodSignature = ReflectionUIUtils
-					.getJavaMethodInfoSignature(Tester.class.getMethod("play", List.class, Runnable.class));
+					.getJavaMethodInfoSignature(Tester.class.getMethod("play", List.class, Listener.class));
 		} catch (Exception e) {
 			throw new AssertionError(e);
 		}
 		IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(tester, methodSignature);
-		playMethod.invoke(tester, new InvocationData(selectedActions));
+		Listener<TestAction> selectingListener = new Listener<TestAction>() {
+			@Override
+			public void handle(TestAction event) {
+				TesterUI.this.beforeEachAction(event, tester);
+			}
+		};
+		playMethod.invoke(tester, new InvocationData(selectedActions, selectingListener));
 	}
 
 	@Override
@@ -385,7 +393,8 @@ public class TesterUI extends ReflectionUI {
 			public Container createWindowContentPane(Window window, Component content,
 					List<? extends Component> toolbarControls) {
 				Container result = super.createWindowContentPane(window, content, toolbarControls);
-				AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window);
+				AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window,
+						TesterUI.this);
 				decorationsPanel.configureWindow(window);
 				decorationsPanel.getContentPanel().add(result);
 				result = decorationsPanel;
@@ -397,7 +406,7 @@ public class TesterUI extends ReflectionUI {
 				Object result = super.onTypeInstanciationRequest(activatorComponent, type, silent);
 				if (result instanceof ComponentFinder) {
 					if (componentFinderInitializationSource != null) {
-						((ComponentFinder) result).initializeFrom(componentFinderInitializationSource);
+						((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TesterUI.this);
 					}
 				}
 				return result;
@@ -753,13 +762,7 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							tester.playAll(new Listener<TestAction>() {
-
-								@Override
-								public void handle(TestAction event) {
-									TesterUI.this.beforeEachAction(event, tester);
-								}
-							});
+							playActionsAndUpdateUI(tester, Arrays.asList(tester.getTestActions()));
 							return null;
 						}
 
@@ -789,7 +792,7 @@ public class TesterUI extends ReflectionUI {
 						try {
 							ComponentFinder newInstance = (ComponentFinder) clazz.newInstance();
 							if (componentFinderInitializationSource != null) {
-								if (newInstance.initializeFrom(componentFinderInitializationSource)) {
+								if (newInstance.initializeFrom(componentFinderInitializationSource, TesterUI.this)) {
 									result.add(getTypeInfo(getTypeInfoSource(newInstance)));
 								}
 							} else {
@@ -1112,7 +1115,8 @@ public class TesterUI extends ReflectionUI {
 
 	}
 
-	protected static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(Window window) {
+	protected static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(Window window,
+			final TesterUI testerUI) {
 		return new AlternateWindowDecorationsPanel(SwingRendererUtils.getWindowTitle(window)) {
 
 			private static final long serialVersionUID = 1L;
@@ -1130,7 +1134,7 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			public void configureWindow(Window window) {
 				super.configureWindow(window);
-				ALL_WINDOWS.add(window);
+				BY_WINDOW.put(window, testerUI);
 			}
 
 		};

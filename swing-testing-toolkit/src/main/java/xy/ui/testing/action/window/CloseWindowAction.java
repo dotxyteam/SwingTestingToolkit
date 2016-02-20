@@ -7,6 +7,7 @@ import java.awt.Window;
 import java.awt.event.WindowEvent;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.util.ValidationError;
 
 public class CloseWindowAction extends TargetWindowTestAction {
@@ -21,7 +22,7 @@ public class CloseWindowAction extends TargetWindowTestAction {
 
 
 	@Override
-	public void execute(Component c) {
+	public void execute(Component c, Tester tester) {
 		Window window = (Window) c;
 		WindowEvent closeEvent = new WindowEvent(window,
 				WindowEvent.WINDOW_CLOSING);

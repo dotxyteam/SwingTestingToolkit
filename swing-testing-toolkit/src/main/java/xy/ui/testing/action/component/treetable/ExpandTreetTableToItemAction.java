@@ -12,6 +12,7 @@ import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -85,7 +86,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public void execute(Component c) {
+	public void execute(Component c, Tester tester) {
 		JXTreeTable treeTable = (JXTreeTable) c;
 		treeTable.collapseAll();
 		TreePath treePath = fromIntPathToTreePath(itemPath, treeTable);

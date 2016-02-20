@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.text.MessageFormat;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.ValidationError;
 
 public class ClassBasedComponentFinder extends MatchingComponentFinder {
@@ -20,12 +22,12 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	protected boolean matchesInContainingWindow(Component c) {
+	protected boolean matchesInContainingWindow(Component c, Tester tester) {
 		return c.getClass().getName().equals(componentClassName);
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c) {
+	protected boolean initializeSpecificValues(Component c, TesterUI testerUI) {
 		componentClassName = c.getClass().getName();
 		return true;
 	}

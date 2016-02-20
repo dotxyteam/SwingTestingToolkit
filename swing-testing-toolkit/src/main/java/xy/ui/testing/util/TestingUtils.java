@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -97,9 +98,12 @@ public class TestingUtils {
 		return SwingUtilities.getWindowAncestor(c);
 	}
 
-	public static boolean isTesterUIComponent(Component c) {
+	public static boolean isTesterUIComponent(TesterUI testerUI, Component c) {
+		if (testerUI == null) {
+			return false;
+		}
 		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-		return TesterUI.ALL_WINDOWS.contains(componentWindow);
+		return testerUI == TesterUI.BY_WINDOW.get(componentWindow);
 	}
 
 	public static boolean isDIrectOrIndirectOwner(Window ownerWindow, Window window) {
@@ -304,9 +308,11 @@ public class TestingUtils {
 		return result;
 	}
 
-	public static boolean isTestableWindow(Window window) {
-		if (isTesterUIComponent(window)) {
-			return false;
+	public static boolean isTestableWindow(Window window, TesterUI... testerUIs) {
+		for (TesterUI testerUI : testerUIs) {
+			if (isTesterUIComponent(testerUI, window)) {
+				return false;
+			}
 		}
 		if (!window.isVisible()) {
 			return false;
@@ -314,16 +320,16 @@ public class TestingUtils {
 		return true;
 	}
 
-	public static void closeAllTestableWindows() {
-		for (Window w : getAllTestableWindows()) {
+	public static void closeAllTestableWindows(TesterUI... testerUIs) {
+		for (Window w : getAllTestableWindows(testerUIs)) {
 			w.dispose();
 		}
 	}
 
-	public static List<Window> getAllTestableWindows() {
+	public static List<Window> getAllTestableWindows(TesterUI... testerUIs) {
 		List<Window> result = new ArrayList<Window>();
 		for (Window w : Window.getWindows()) {
-			if (isTestableWindow(w)) {
+			if (isTestableWindow(w, testerUIs)) {
 				result.add(w);
 			}
 		}
@@ -398,11 +404,13 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static File saveAllTestableWindows() {
+	public static File saveAllTestableWindowImages(TesterUI... testerUIs) {
 		List<BufferedImage> images = new ArrayList<BufferedImage>();
-		for (Window w : getAllTestableWindows()) {
-			BufferedImage windowImage = getScreenShot(w);
-			images.add(windowImage);
+		for (TesterUI testerUI : testerUIs) {
+			for (Window w : getAllTestableWindows(testerUI)) {
+				BufferedImage windowImage = getScreenShot(w);
+				images.add(windowImage);
+			}
 		}
 		if (images.size() == 0) {
 			return null;
@@ -462,8 +470,8 @@ public class TestingUtils {
 		return image;
 	}
 
-	public static File saveWindowImage(int windowIndex) {
-		return saveImage(getScreenShot(getAllTestableWindows().get(windowIndex)));
+	public static File saveTestableWindowImage(int windowIndex, TesterUI... testerUIs) {
+		return saveImage(getScreenShot(getAllTestableWindows(testerUIs).get(windowIndex)));
 	}
 
 	public static File saveImage(Component c) {
@@ -479,4 +487,26 @@ public class TestingUtils {
 		}
 	}
 
+	public static TesterUI[] getTesterUIs(Tester tester) {
+		List<TesterUI> result = getKeysFromValue(TesterUI.TESTERS, tester);
+		return result.toArray(new TesterUI[result.size()]);
+	}
+
+	public static <K, V> List<K> getKeysFromValue(Map<K, V> map, Object value) {
+		List<K> result = new ArrayList<K>();
+		for (Map.Entry<K, V> entry : map.entrySet()) {
+			if (equalsOrBothNull(entry.getValue(), value)) {
+				result.add(entry.getKey());
+			}
+		}
+		return result;
+	}
+
+	public static boolean equalsOrBothNull(Object o1, Object o2) {
+		if (o1 == null) {
+			return o2 == null;
+		} else {
+			return o1.equals(o2);
+		}
+	}
 }

@@ -9,6 +9,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.finder.MatchingComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -68,8 +69,8 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	}
 
 	@Override
-	public Window findComponent() {
-		Window window = super.findComponent();
+	public Window findComponent(Tester tester) {
+		Window window = super.findComponent(tester);
 		List<String> currentVisibleStrings = TestingUtils
 				.collectVisibleStrings(window);
 		check(currentVisibleStrings, window);
@@ -127,7 +128,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	}
 
 	@Override
-	public void execute(Component c) {
+	public void execute(Component c, Tester tester) {
 	}
 
 	@Override

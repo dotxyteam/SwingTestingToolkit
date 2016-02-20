@@ -7,6 +7,8 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
@@ -24,14 +26,14 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c) {
+	protected boolean initializeSpecificValues(Component c, TesterUI testerUI) {
 		visibleString = StringUtils.join(TestingUtils.extractVisibleStrings(c),
 				", ");
 		return visibleString.length() > 0;
 	}
 
 	@Override
-	protected boolean matchesInContainingWindow(Component c) {
+	protected boolean matchesInContainingWindow(Component c, Tester tester) {
 		return visibleString.equals(StringUtils.join(
 				TestingUtils.extractVisibleStrings(c), ", "));
 	}

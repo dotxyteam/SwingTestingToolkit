@@ -108,7 +108,7 @@ public class Tester {
 					unhighlightCurrentComponent();
 					currentComponent = null;
 				}
-				testAction.execute(c);
+				testAction.execute(c, this);
 			} catch (Throwable t) {
 				if (t instanceof InterruptedException) {
 					if (currentComponent != null) {
@@ -128,7 +128,7 @@ public class Tester {
 		int remainingSeconds = maximumSecondsToWaitBetwneenActions - minimumSecondsToWaitBetwneenActions;
 		while (true) {
 			try {
-				result = testAction.findComponent();
+				result = testAction.findComponent(this);
 				break;
 			} catch (TestFailure e) {
 				try {

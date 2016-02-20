@@ -15,6 +15,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.util.StandardKey;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
@@ -48,7 +49,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public void execute(final Component c) {
+	public void execute(final Component c, Tester tester) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

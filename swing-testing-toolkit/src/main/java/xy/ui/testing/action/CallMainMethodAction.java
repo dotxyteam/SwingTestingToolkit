@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -47,7 +48,7 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
-	public void execute(Component c) {
+	public void execute(Component c, Tester tester) {
 		final TestFailure[] error = new TestFailure[1];
 		new Thread(CallMainMethodAction.class.getName()) {
 			@Override
@@ -78,7 +79,7 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
-	public Component findComponent() {
+	public Component findComponent(Tester tester) {
 		return null;
 	}
 

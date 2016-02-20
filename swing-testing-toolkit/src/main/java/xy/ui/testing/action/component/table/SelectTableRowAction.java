@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JTable;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.ValidationError;
 
@@ -60,7 +61,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public void execute(Component c) {
+	public void execute(Component c, Tester tester) {
 		JTable table = (JTable) c;
 		if (addedToExistingSelection) {
 			table.getSelectionModel().addSelectionInterval(firstItemToSelect,

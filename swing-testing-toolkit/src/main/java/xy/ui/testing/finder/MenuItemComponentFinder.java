@@ -13,6 +13,8 @@ import javax.swing.JPopupMenu;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -32,18 +34,16 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	public Component find() {
+	public Component find(Tester tester) {
 		if (menuItemPath.size() == 0) {
 			throw new TestFailure("Cannot find menu item: menu path not set");
 		}
 		for (int i = 0; i < menuItemPath.size(); i++) {
 			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
-			JMenuItem menuItem = (JMenuItem) menuItemFinder.find();
+			JMenuItem menuItem = (JMenuItem) menuItemFinder.find(tester);
 			if (menuItem == null) {
-				throw new TestFailure("Unable to find "
-						+ menuItemFinder.toString(), "Window",
-						TestingUtils.saveWindowImage(menuItemFinder
-								.getWindowIndex()));
+				throw new TestFailure("Unable to find " + menuItemFinder.toString(), "Window", TestingUtils
+						.saveTestableWindowImage(menuItemFinder.getWindowIndex(), TestingUtils.getTesterUIs(tester)));
 			}
 			boolean lastMenuItem = i == (menuItemPath.size() - 1);
 			if (lastMenuItem) {
@@ -56,9 +56,8 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	}
 
 	protected void openMenu(JMenu menu) {
-		MouseEvent mouseEvent = new MouseEvent(menu, MouseEvent.MOUSE_ENTERED,
-				System.currentTimeMillis(), 0, menu.getWidth() / 2,
-				menu.getHeight() / 2, 1, false, 0);
+		MouseEvent mouseEvent = new MouseEvent(menu, MouseEvent.MOUSE_ENTERED, System.currentTimeMillis(), 0,
+				menu.getWidth() / 2, menu.getHeight() / 2, 1, false, 0);
 		for (MouseListener l : menu.getMouseListeners()) {
 			if (mouseEvent.isConsumed()) {
 				break;
@@ -68,28 +67,27 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c) {
+	public boolean initializeFrom(Component c, TesterUI testerUI) {
 		if (!(c instanceof JMenuItem)) {
 			return false;
 		}
 		JMenuItem menuItem = (JMenuItem) c;
 		menuItemPath.clear();
-		menuItemPath.add(createMenuItemFinder(menuItem));
+		menuItemPath.add(createMenuItemFinder(menuItem, testerUI));
 		List<JMenuItem> ancestors = TestingUtils.getAncestorMenuItems(menuItem);
 		for (JMenuItem ancestor : ancestors) {
 			if (!(ancestor.getParent() instanceof JPopupMenu)) {
 				break;
 			}
-			menuItemPath.add(0, createMenuItemFinder(ancestor));
+			menuItemPath.add(0, createMenuItemFinder(ancestor, testerUI));
 		}
 		return true;
 	}
 
-	protected PropertyBasedComponentFinder createMenuItemFinder(
-			JMenuItem menuItem) {
+	protected PropertyBasedComponentFinder createMenuItemFinder(JMenuItem menuItem, TesterUI testerUI) {
 		PropertyBasedComponentFinder result = new PropertyBasedComponentFinder();
 		result.setPropertyNames("Text");
-		result.initializeFrom(menuItem);
+		result.initializeFrom(menuItem, testerUI);
 		return result;
 	}
 
@@ -109,9 +107,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 			if (i > 0) {
 				result.append(" -> ");
 			}
-			result.append("<\""
-					+ StringEscapeUtils.escapeJava(pathElt
-							.getPropertyValue("Text")) + "\">");
+			result.append("<\"" + StringEscapeUtils.escapeJava(pathElt.getPropertyValue("Text")) + "\">");
 		}
 		return result.toString();
 	}
@@ -119,7 +115,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	@Override
 	@Validating
 	public void validate() throws ValidationError {
-		if(menuItemPath.size() == 0){
+		if (menuItemPath.size() == 0) {
 			throw new ValidationError("Missing menu item path");
 		}
 	}

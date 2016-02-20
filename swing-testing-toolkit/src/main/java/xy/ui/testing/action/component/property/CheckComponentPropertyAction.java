@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -25,7 +26,7 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 	}
 
 	@Override
-	public void execute(final Component c) {
+	public void execute(final Component c, Tester tester) {
 		IFieldInfo field = getPropertyFieldInfo();
 		Object currentFieldValue = field.getValue(c);
 		Object expectedFieldValue = propertyValueToFieldValue(propertyValueExpected);

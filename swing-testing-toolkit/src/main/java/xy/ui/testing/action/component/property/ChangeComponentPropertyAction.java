@@ -4,6 +4,7 @@ import java.awt.Component;
 
 import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.field.IFieldInfo;
+import xy.ui.testing.Tester;
 import xy.ui.testing.util.ValidationError;
 
 public class ChangeComponentPropertyAction extends ComponentPropertyAction {
@@ -28,7 +29,7 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 	}
 
 	@Override
-	public void execute(final Component c) {
+	public void execute(final Component c, Tester tester) {
 		IFieldInfo field = getPropertyFieldInfo();
 		Object newFieldValue = propertyValueToFieldValue(newPropertyValue);
 		field.setValue(c, newFieldValue);

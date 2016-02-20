@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
+import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ComponentFinder;
@@ -38,7 +39,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 			} catch (Exception e) {
 				throw new AssertionError(e);
 			}
-			if (componentFinderCandidate.initializeFrom(c)) {
+			if (componentFinderCandidate.initializeFrom(c, testerUI)) {
 				setComponentFinder(componentFinderCandidate);
 				break;
 			}
@@ -53,17 +54,17 @@ public abstract class TargetComponentTestAction extends TestAction {
 	}
 
 	@Override
-	public Component findComponent() {
+	public Component findComponent(Tester tester) {
 		if (getComponentFinder() == null) {
 			return null;
 		} else {
-			Component c = getComponentFinder().find();
+			Component c = getComponentFinder().find(tester);
 			if (c == null) {
 				throw new TestFailure("Unable to find "
 						+ getComponentFinder().toString(),
 						"Window",
-						TestingUtils.saveWindowImage(getComponentFinder()
-								.getWindowIndex()));
+						TestingUtils.saveTestableWindowImage(getComponentFinder()
+								.getWindowIndex(), TestingUtils.getTesterUIs(tester)));
 			}
 			return c;
 		}

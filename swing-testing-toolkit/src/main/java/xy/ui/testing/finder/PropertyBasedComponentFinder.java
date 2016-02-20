@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
+import xy.ui.testing.Tester;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
@@ -90,8 +92,8 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c) {
-		if (!super.initializeSpecificValues(c)) {
+	protected boolean initializeSpecificValues(Component c, TesterUI testerUI) {
+		if (!super.initializeSpecificValues(c, testerUI)) {
 			return false;
 		}
 		for (PropertyValue propertyValue : propertyValues) {
@@ -103,12 +105,12 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
-	protected boolean matchesInContainingWindow(Component c) {
-		if (!super.matchesInContainingWindow(c)) {
+	protected boolean matchesInContainingWindow(Component c, Tester tester) {
+		if (!super.matchesInContainingWindow(c, tester)) {
 			return false;
 		}
 		for (PropertyValue propertyValue : propertyValues) {
-			if (!propertyValue.matches(c)) {
+			if (!propertyValue.matches(c, tester)) {
 				return false;
 			}
 		}
@@ -185,9 +187,9 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			return ok[0];
 		}
 
-		public boolean matches(Component c) {
+		public boolean matches(Component c, Tester tester) {
 			try {
-				getSubCheckPropertyAction().execute(c);
+				getSubCheckPropertyAction().execute(c, tester);
 				return true;
 			} catch (TestFailure e) {
 				return false;

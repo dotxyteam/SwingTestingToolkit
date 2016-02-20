@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Window;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -30,19 +31,19 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	}
 
 	@Override
-	public void execute(Component c) {
-		int n = countWindows();
+	public void execute(Component c, Tester tester) {
+		int n = countWindows(tester);
 		if (count != n) {
 			throw new TestFailure(
 					"The number of currently open windows (" + n + ") does not match the declared number: " + count,
-					"Found window(s)", TestingUtils.saveAllTestableWindows());
+					"Found window(s)", TestingUtils.saveAllTestableWindowImages(TestingUtils.getTesterUIs(tester)));
 		}
 	}
 
-	protected int countWindows() {
+	protected int countWindows(Tester tester) {
 		int n = 0;
 		for (Window window : Window.getWindows()) {
-			if (TestingUtils.isTestableWindow(window)) {
+			if (TestingUtils.isTestableWindow(window, TestingUtils.getTesterUIs(tester))) {
 				n++;
 			}
 		}
@@ -55,7 +56,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	}
 
 	@Override
-	public Component findComponent() {
+	public Component findComponent(Tester tester) {
 		return null;
 	}
 
@@ -75,7 +76,6 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 		if (count < 0) {
 			throw new ValidationError("Negative count forbidden");
 		}
-
 	}
 
 }

@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Window;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -15,9 +17,9 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	protected int windowIndex;
 	protected int occurrencesToSkip;
 
-	protected abstract boolean matchesInContainingWindow(Component c);
+	protected abstract boolean matchesInContainingWindow(Component c, Tester tester);
 
-	protected abstract boolean initializeSpecificValues(Component c);
+	protected abstract boolean initializeSpecificValues(Component c, TesterUI testerUI);
 
 	public int getWindowIndex() {
 		return windowIndex;
@@ -36,87 +38,83 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	public Component find() {
+	public Component find(Tester tester) {
 		int windowCount = 0;
 		for (Window window : Window.getWindows()) {
-			if (!TestingUtils.isTestableWindow(window)) {
+			if (!TestingUtils.isTestableWindow(window, TestingUtils.getTesterUIs(tester))) {
 				continue;
 			}
 			if (windowCount == windowIndex) {
-				return find(window);
+				return find(window, tester);
 			}
 			windowCount++;
 		}
 		throw new TestFailure(
-				"Component not found: Containing window index is out of bounds: "
-						+ windowIndex + ": Only " + windowCount
-						+ " window(s) found", "Found window(s)",
-				TestingUtils.saveAllTestableWindows());
+				"Component not found: Containing window index is out of bounds: " + windowIndex + ": Only "
+						+ windowCount + " window(s) found",
+				"Found window(s)", TestingUtils.saveAllTestableWindowImages(TestingUtils.getTesterUIs(tester)));
 	}
 
-	protected Component find(Window containingWindow) {
+	protected Component find(Window containingWindow, final Tester tester) {
 		final Component[] result = new Component[1];
-		TestingUtils.visitComponentTree(containingWindow,
-				new IComponentTreeVisitor() {
-					int occurrences = 0;
+		TestingUtils.visitComponentTree(containingWindow, new IComponentTreeVisitor() {
+			int occurrences = 0;
 
-					@Override
-					public boolean visit(Component c) {
-						if (matchesInContainingWindow(c)) {
-							if (occurrences == occurrencesToSkip) {
-								result[0] = c;
-								return false;
-							} else {
-								occurrences++;
-							}
-						}
-						return true;
+			@Override
+			public boolean visit(Component c) {
+				if (matchesInContainingWindow(c, tester)) {
+					if (occurrences == occurrencesToSkip) {
+						result[0] = c;
+						return false;
+					} else {
+						occurrences++;
 					}
-				});
+				}
+				return true;
+			}
+		});
 		return result[0];
 	}
 
 	@Override
-	public boolean initializeFrom(final Component c) {
-		if (!initializeSpecificValues(c)) {
+	public boolean initializeFrom(final Component c, TesterUI testerUI) {
+		if (!initializeSpecificValues(c, testerUI)) {
 			return false;
 		}
 		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-		if (!initializeWindowIndex(componentWindow)) {
+		if (!initializeWindowIndex(componentWindow, testerUI)) {
 			return false;
 		}
-		if (!initializeOccurrencesToSkip(componentWindow, c)) {
+		if (!initializeOccurrencesToSkip(componentWindow, c, testerUI)) {
 			return false;
 		}
 		return true;
 	}
 
-	protected boolean initializeOccurrencesToSkip(Window componentWindow,
-			final Component c) {
+	protected boolean initializeOccurrencesToSkip(Window componentWindow, final Component c, final TesterUI testerUI) {
 		occurrencesToSkip = 0;
 		final boolean[] ok = new boolean[] { false };
-		TestingUtils.visitComponentTree(componentWindow,
-				new IComponentTreeVisitor() {
-					@Override
-					public boolean visit(Component otherComponent) {
-						if (otherComponent == c) {
-							ok[0] = true;
-							return false;
-						}
-						if (matchesInContainingWindow(otherComponent)) {
-							occurrencesToSkip++;
-						}
-						return true;
-					}
-				});
+		TestingUtils.visitComponentTree(componentWindow, new IComponentTreeVisitor() {
+			@Override
+			public boolean visit(Component otherComponent) {
+				if (otherComponent == c) {
+					ok[0] = true;
+					return false;
+				}
+				if (matchesInContainingWindow(otherComponent, testerUI.getTester())) {
+					occurrencesToSkip++;
+				}
+				return true;
+			}
+		});
 		return ok[0];
 
 	}
 
-	protected boolean initializeWindowIndex(Window componentWindow) {
+	protected boolean initializeWindowIndex(Window componentWindow, TesterUI testerUI) {
 		windowIndex = 0;
 		for (Window window : Window.getWindows()) {
-			if (!TestingUtils.isTestableWindow(window)) {
+			if (!TestingUtils.isTestableWindow(window, testerUI)) {
 				continue;
 			}
 			if (window == componentWindow) {
@@ -130,14 +128,12 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	@Override
 	@Validating
 	public void validate() throws ValidationError {
-		if(occurrencesToSkip < 0){
+		if (occurrencesToSkip < 0) {
 			throw new ValidationError("The number of occurences to skip is invalid. Must be >= 0");
 		}
-		if(windowIndex < 0){
+		if (windowIndex < 0) {
 			throw new ValidationError("The window index is invalid. Must be >= 0");
 		}
 	}
-	
-	
 
 }

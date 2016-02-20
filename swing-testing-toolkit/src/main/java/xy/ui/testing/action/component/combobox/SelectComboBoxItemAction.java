@@ -12,6 +12,7 @@ import javax.swing.JList;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
@@ -100,7 +101,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public void execute(Component c) {
+	public void execute(Component c, Tester tester) {
 		JComboBox comboBox = (JComboBox) c;
 		boolean found = false;
 		int i = 0;

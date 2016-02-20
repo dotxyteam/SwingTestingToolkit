@@ -7,6 +7,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import xy.reflect.ui.info.annotation.Validating;
+import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MenuItemComponentFinder;
@@ -33,28 +34,28 @@ public class ClickOnMenuItemAction extends TestAction {
 		if (!macthesComponent(c)) {
 			return false;
 		}
-		if (!componentFinder.initializeFrom(c)) {
+		if (!componentFinder.initializeFrom(c, testerUI)) {
 			return false;
 		}
 		return true;
 	}
 
 	@Override
-	public Component findComponent() {
-		Component c = componentFinder.find();
+	public Component findComponent(Tester tester) {
+		Component c = componentFinder.find(tester);
 		if (c == null) {
 			throw new TestFailure("Unable to find "
 					+ componentFinder.toString(), "Window",
-					TestingUtils.saveWindowImage(componentFinder
-							.getWindowIndex()));
+					TestingUtils.saveTestableWindowImage(componentFinder
+							.getWindowIndex(), TestingUtils.getTesterUIs(tester)));
 		}
 		return c;
 	}
 
 	@Override
-	public void execute(final Component c) {
+	public void execute(final Component c, Tester tester) {
 		JMenuItem menuItem = (JMenuItem) c;
-		new ClickAction().execute(menuItem);
+		new ClickAction().execute(menuItem, tester);
 	}
 
 	@Override

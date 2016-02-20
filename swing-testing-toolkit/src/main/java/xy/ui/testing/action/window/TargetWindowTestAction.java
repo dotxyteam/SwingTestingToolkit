@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Window;
 
+import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.MatchingComponentFinder;
@@ -20,12 +21,12 @@ public abstract class TargetWindowTestAction extends TestAction {
 		private static final long serialVersionUID = 1L;
 
 		@Override
-		protected boolean matchesInContainingWindow(Component c) {
+		protected boolean matchesInContainingWindow(Component c, Tester tester) {
 			return c instanceof Window;
 		}
 
 		@Override
-		protected boolean initializeSpecificValues(Component c) {
+		protected boolean initializeSpecificValues(Component c, TesterUI testerUI) {
 			return true;
 		}
 	};
@@ -41,7 +42,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 	@Override
 	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterUI testerUI) {
 		Window window = TestingUtils.getWindowAncestorOrSelf(c);
-		if (!windowFinder.initializeFrom(window)) {
+		if (!windowFinder.initializeFrom(window, testerUI)) {
 			return false;
 		}
 		initializeSpecificProperties(window);
@@ -49,8 +50,8 @@ public abstract class TargetWindowTestAction extends TestAction {
 	}
 
 	@Override
-	public Window findComponent() {
-		Window window = (Window) windowFinder.find();
+	public Window findComponent(Tester tester) {
+		Window window = (Window) windowFinder.find(tester);
 		return window;
 	}
 
