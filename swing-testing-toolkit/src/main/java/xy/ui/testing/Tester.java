@@ -23,13 +23,16 @@ import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.TestingUtils;
 
 public class Tester {
 
 	public static final Tester DEFAULT = new Tester();
 
-	public static final Color HIGHLIGHT_FOREGROUND = new Color(205, 68, 61);
-	public static final Color HIGHLIGHT_BACKGROUND = new Color(245, 216, 214);
+	public static final Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
+			System.getProperty(Tester.class.getPackage().getName() + ".highlightForeground", "235,48,33"));
+	public static final Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
+			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
 	protected int minimumSecondsToWaitBetwneenActions = 1;

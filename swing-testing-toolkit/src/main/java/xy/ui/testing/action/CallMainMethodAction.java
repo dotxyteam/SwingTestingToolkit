@@ -102,14 +102,14 @@ public class CallMainMethodAction extends TestAction {
 			}
 		}
 
-		if(className == null){
+		if ((className == null) || (className.length() == 0)) {
 			throw new ValidationError("Missing class name");
 		}
-		
+
 		try {
 			Class.forName(className);
 		} catch (ClassNotFoundException e) {
-			throw new ValidationError("Invalid class name: Class not found");
+			throw new ValidationError("Invalid class name: '" + className + "': Class not found");
 		}
 
 	}

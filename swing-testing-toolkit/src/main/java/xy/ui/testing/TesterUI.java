@@ -121,6 +121,8 @@ public class TesterUI extends ReflectionUI {
 	protected Tester tester;
 	protected AWTEventListener recordingListener;
 	protected boolean recording = false;
+	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
+	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
 
 	public TesterUI(Tester tester) {
 		this.tester = tester;
@@ -143,21 +145,42 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	public static void main(String[] args) {
+		TesterUI testerUI = new TesterUI(new Tester());
 		try {
 			if (args.length > 1) {
 				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
 			} else if (args.length == 1) {
 				String fileName = args[0];
-				DEFAULT.tester.loadFromFile(new File(fileName));
+				testerUI.getTester().loadFromFile(new File(fileName));
 			}
-			DEFAULT.getSwingRenderer().openObjectFrame(DEFAULT.tester);
+			testerUI.open();
 		} catch (Throwable t) {
-			DEFAULT.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
+			testerUI.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
 		}
 	}
 
 	public Tester getTester() {
 		return tester;
+	}
+
+	public Color getDecorationsForegroundColor() {
+		return decorationsForegroundColor;
+	}
+
+	public void setDecorationsForegroundColor(Color decorationsForegroundColor) {
+		this.decorationsForegroundColor = decorationsForegroundColor;
+	}
+
+	public Color getDecorationsBackgroundColor() {
+		return decorationsBackgroundColor;
+	}
+
+	public void setDecorationsBackgroundColor(Color decorationsBackgroundColor) {
+		this.decorationsBackgroundColor = decorationsBackgroundColor;
+	}
+
+	public void open() {
+		getSwingRenderer().openObjectFrame(tester);
 	}
 
 	public Class<?>[] getTestActionClasses() {
@@ -275,7 +298,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected Window getTesterWindow() {
-		final JPanel testerForm = ReflectionUIUtils.getKeysFromValue(getSwingRenderer().getObjectByForm(), this).get(0);
+		final JPanel testerForm = getTesterForm();
 		if (testerForm == null) {
 			return null;
 		}
@@ -286,6 +309,27 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode stopRecordingItem = new DefaultMutableTreeNode(new AbstractAction("Stop Recording") {
 			private static final long serialVersionUID = 1L;
 
+			Icon ICON;
+
+			{
+				try {
+					Image image = ImageIO.read(TesterUI.class.getResource("Tester.png"));
+					image = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+					ICON = new ImageIcon(image);
+				} catch (Exception e) {
+					throw new AssertionError(e);
+				}
+			}
+
+			@Override
+			public Object getValue(String key) {
+				if (key == AbstractAction.SMALL_ICON) {
+					return ICON;
+				} else {
+					return super.getValue(key);
+				}
+			}
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				getSwingRenderer().getFormUpdatingMethod(tester, "stopRecording").invoke(tester, new InvocationData());
@@ -295,10 +339,10 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void createTestActionMenuItems(DefaultMutableTreeNode root, final Component c, AWTEvent event) {
-		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode("Execute And Record");
+		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode("(Execute And Record)");
 		root.add(recordGroup);
-		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("Actions");
-		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode("Assertion");
+		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("(Actions)");
+		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode("(Assertion)");
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
 			String testActionTypeName = getObjectKind(testAction).replaceAll(" Action$", "");
 			DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction(testActionTypeName) {
@@ -336,11 +380,11 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected boolean onTestActionRecordingRequest(final TestAction testAction, final Component c, boolean execute) {
-		if (openSettings(testAction, c, tester)) {
+		if (openSettings(testAction, c)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					Arrays.asList(tester.getTestActions()));
 			if (recordingInsertedAfterSelection) {
-				int index = getSelectedActionIndex(tester);
+				int index = getSelectedActionIndex();
 				if (index != -1) {
 					newTestActionListValue.add(index + 1, testAction);
 				} else {
@@ -355,7 +399,7 @@ public class TesterUI extends ReflectionUI {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					selectTestAction(testAction, tester);
+					selectTestAction(testAction);
 				}
 			});
 			tester.handleCurrentComponentChange(null);
@@ -367,7 +411,10 @@ public class TesterUI extends ReflectionUI {
 		return false;
 	}
 
-	protected void playActionsAndUpdateUI(final Tester tester, List<TestAction> selectedActions) {
+	protected void playActionsAndUpdateUI(List<TestAction> selectedActions) {
+		if (isRecording()) {
+			stopRecording();
+		}
 		String methodSignature;
 		try {
 			methodSignature = ReflectionUIUtils
@@ -379,7 +426,7 @@ public class TesterUI extends ReflectionUI {
 		Listener<TestAction> selectingListener = new Listener<TestAction>() {
 			@Override
 			public void handle(TestAction event) {
-				TesterUI.this.beforeEachAction(event, tester);
+				TesterUI.this.beforeEachAction(event);
 			}
 		};
 		playMethod.invoke(tester, new InvocationData(selectedActions, selectingListener));
@@ -416,8 +463,7 @@ public class TesterUI extends ReflectionUI {
 			public boolean onMethodInvocationRequest(Component activatorComponent, Object object, IMethodInfo method,
 					Object[] returnValueArray) {
 				if ((object instanceof Tester) && method.getName().equals("startRecording")) {
-					Tester tester = (Tester) object;
-					ListControl testActionsControl = getTestActionsControl(tester);
+					ListControl testActionsControl = getTestActionsControl();
 					if (testActionsControl.getSelection().size() == 1) {
 						String insertMessage = "Insert Recordings After The Current Selection Row";
 						String doNotInsertMessage = "Insert Recordings At The End";
@@ -735,6 +781,13 @@ public class TesterUI extends ReflectionUI {
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
 							startRecording();
+							final JPanel form = getTesterForm();
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									SwingUtilities.getWindowAncestor(form).toBack();
+								}
+							});
 							return null;
 						}
 
@@ -762,7 +815,7 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							playActionsAndUpdateUI(tester, Arrays.asList(tester.getTestActions()));
+							playActionsAndUpdateUI(Arrays.asList(tester.getTestActions()));
 							return null;
 						}
 
@@ -849,8 +902,7 @@ public class TesterUI extends ReflectionUI {
 										TestAction testAction = (TestAction) itemPosition.getItem();
 										selectedActions.add(testAction);
 									}
-									Tester tester = (Tester) object;
-									playActionsAndUpdateUI(tester, selectedActions);
+									playActionsAndUpdateUI(selectedActions);
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
@@ -875,8 +927,7 @@ public class TesterUI extends ReflectionUI {
 													.getItem();
 											actionsToPlay.add(testAction);
 										}
-										Tester tester = (Tester) object;
-										playActionsAndUpdateUI(tester, actionsToPlay);
+										playActionsAndUpdateUI(actionsToPlay);
 									} catch (Exception e) {
 										throw new ReflectionUIError(e);
 									}
@@ -894,55 +945,23 @@ public class TesterUI extends ReflectionUI {
 				return super.getSpecificListActions(type, object, field, selection);
 			}
 
-			@Override
-			protected Object invoke(final Object object, final InvocationData invocationData, final IMethodInfo method,
-					final ITypeInfo containingType) {
-				if (containingType.getName().equals(Tester.class.getName())) {
-
-					if (method.getName().equals("startRecording")) {
-						final JPanel form = getTesterForm((Tester) object);
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								SwingUtilities.getWindowAncestor(form).toBack();
-							}
-						});
-					}
-
-					if (method.getName().startsWith("play")) {
-						if (isRecording()) {
-							stopRecording();
-						}
-					}
-
-					Object result = super.invoke(object, invocationData, method, containingType);
-
-					return result;
-				} else {
-					return super.invoke(object, invocationData, method, containingType);
-				}
-			}
-
 		}.get(super.getTypeInfo(typeSource));
 	}
 
-	protected void beforeEachAction(TestAction testAction, Tester tester) {
-		selectTestAction(testAction, tester);
+	protected void beforeEachAction(TestAction testAction) {
+		selectTestAction(testAction);
 	}
 
-	protected JPanel getTesterForm(Tester tester) {
+	protected JPanel getTesterForm() {
 		List<JPanel> result = getSwingRenderer().getForms(tester);
 		if (result.size() == 0) {
 			return null;
 		}
-		if (result.size() > 1) {
-			throw new AssertionError("More than 1 form was found for: " + tester);
-		}
 		return result.get(0);
 	}
 
-	protected ListControl getTestActionsControl(Tester tester) {
-		final JPanel form = getTesterForm(tester);
+	protected ListControl getTestActionsControl() {
+		final JPanel form = getTesterForm();
 		if (form == null) {
 			return null;
 		}
@@ -957,7 +976,7 @@ public class TesterUI extends ReflectionUI {
 		return (ListControl) c;
 	}
 
-	protected boolean openSettings(TestAction testAction, Component c, Tester tester) {
+	protected boolean openSettings(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
 		getSwingRenderer().openObjectDialog(c, testAction, getObjectKind(testAction), null, true, null, okPressedArray,
@@ -966,16 +985,16 @@ public class TesterUI extends ReflectionUI {
 		return okPressedArray[0];
 	}
 
-	protected void selectTestAction(TestAction testAction, Tester tester) {
-		ListControl testActionsControl = getTestActionsControl(tester);
+	protected void selectTestAction(TestAction testAction) {
+		ListControl testActionsControl = getTestActionsControl();
 		if (testActionsControl == null) {
 			return;
 		}
 		testActionsControl.setSingleSelection(testActionsControl.findItemPosition(testAction));
 	}
 
-	public int getSelectedActionIndex(Tester tester) {
-		ListControl testActionsControl = getTestActionsControl(tester);
+	public int getSelectedActionIndex() {
+		ListControl testActionsControl = getTestActionsControl();
 		AutoUpdatingFieldItemPosition result = testActionsControl.getSingleSelection();
 		if (result == null) {
 			return -1;
@@ -987,6 +1006,27 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode pauseItem = new DefaultMutableTreeNode(
 				new AbstractAction("Pause Recording (5 seconds)") {
 					private static final long serialVersionUID = 1L;
+
+					Icon ICON;
+
+					{
+						try {
+							Image image = ImageIO.read(TesterUI.class.getResource("Tester.png"));
+							image = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+							ICON = new ImageIcon(image);
+						} catch (Exception e) {
+							throw new AssertionError(e);
+						}
+					}
+
+					@Override
+					public Object getValue(String key) {
+						if (key == AbstractAction.SMALL_ICON) {
+							return ICON;
+						} else {
+							return super.getValue(key);
+						}
+					}
 
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -1020,7 +1060,7 @@ public class TesterUI extends ReflectionUI {
 					AbstractAction swingAction = (AbstractAction) object;
 					return (Icon) swingAction.getValue(AbstractAction.SMALL_ICON);
 				} else if (object instanceof String) {
-					return treeCellRenderer.getOpenIcon();
+					return null;
 				} else {
 					return null;
 				}
@@ -1123,12 +1163,12 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public Color getDecorationsBackgroundColor() {
-				return Tester.HIGHLIGHT_FOREGROUND;
+				return testerUI.getDecorationsBackgroundColor();
 			}
 
 			@Override
 			public Color getDecorationsForegroundColor() {
-				return Tester.HIGHLIGHT_BACKGROUND;
+				return testerUI.getDecorationsForegroundColor();
 			}
 
 			@Override

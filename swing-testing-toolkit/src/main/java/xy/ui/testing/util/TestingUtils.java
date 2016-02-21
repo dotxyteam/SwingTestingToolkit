@@ -509,4 +509,13 @@ public class TestingUtils {
 			return o1.equals(o2);
 		}
 	}
+
+	public static Color stringToColor(String s) {
+		try {
+			String[] rgb = s.split(",");
+			return new Color(Integer.valueOf(rgb[0]), Integer.valueOf(rgb[1]), Integer.valueOf(rgb[2]));
+		} catch (Exception e) {
+			return Color.decode("0x" + s);
+		}
+	}
 }

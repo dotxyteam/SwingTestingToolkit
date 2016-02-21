@@ -54,16 +54,18 @@ public class TreeSelectionDialog extends JDialog {
 		child2.add(child3);
 		DefaultMutableTreeNode child4 = new DefaultMutableTreeNode("child4");
 		child3.add(child4);
-		open(null, null, null, new DefaultTreeModel(root), null, null, null,
-				true);
+		INodePropertyAccessor<Boolean> selectable = new INodePropertyAccessor<Boolean>() {
+			@Override
+			public Boolean get(Object node) {
+				return ((DefaultMutableTreeNode) node).getChildCount() == 0;
+			}
+		};
+		open(null, null, null, new DefaultTreeModel(root), null, null, selectable, true);
 	}
 
-	public static Object open(Component parent, String title, String message,
-			TreeModel treeModel,
-			final INodePropertyAccessor<String> textAccessor,
-			final INodePropertyAccessor<Icon> iconAccessor,
-			final INodePropertyAccessor<Boolean> selectableAccessor,
-			boolean expandAll) {
+	public static Object open(Component parent, String title, String message, TreeModel treeModel,
+			final INodePropertyAccessor<String> textAccessor, final INodePropertyAccessor<Icon> iconAccessor,
+			final INodePropertyAccessor<Boolean> selectableAccessor, boolean expandAll) {
 		Window parentWindow = null;
 		{
 			if (parent != null) {
@@ -74,9 +76,8 @@ public class TreeSelectionDialog extends JDialog {
 				}
 			}
 		}
-		TreeSelectionDialog dialog = new TreeSelectionDialog(parentWindow,
-				title, message, treeModel, textAccessor, iconAccessor,
-				selectableAccessor, expandAll, ModalityType.APPLICATION_MODAL);
+		TreeSelectionDialog dialog = new TreeSelectionDialog(parentWindow, title, message, treeModel, textAccessor,
+				iconAccessor, selectableAccessor, expandAll, ModalityType.APPLICATION_MODAL);
 
 		dialog.setVisible(true);
 
@@ -87,20 +88,16 @@ public class TreeSelectionDialog extends JDialog {
 		}
 	}
 
-	public TreeSelectionDialog(Window parent, String title, String message,
-			TreeModel treeModel,
-			final INodePropertyAccessor<String> textAccessor,
-			final INodePropertyAccessor<Icon> iconAccessor,
-			final INodePropertyAccessor<Boolean> selectableAccessor,
-			boolean expandAll, ModalityType modalityType) {
+	public TreeSelectionDialog(Window parent, String title, String message, TreeModel treeModel,
+			final INodePropertyAccessor<String> textAccessor, final INodePropertyAccessor<Icon> iconAccessor,
+			final INodePropertyAccessor<Boolean> selectableAccessor, boolean expandAll, ModalityType modalityType) {
 		super(parent);
 		if (title != null) {
 			setTitle(title);
 		}
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(modalityType);
-		initializeTree(treeModel, textAccessor, iconAccessor,
-				selectableAccessor, expandAll);
+		initializeTree(treeModel, textAccessor, iconAccessor, selectableAccessor, expandAll);
 		setContentPane(createContentPane(message));
 		setPreferredSize(new Dimension(300, 300));
 		pack();
@@ -126,8 +123,7 @@ public class TreeSelectionDialog extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new BevelBorder(BevelBorder.RAISED, null,
-					null, null, null));
+			buttonPane.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			contentPane.add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -145,9 +141,11 @@ public class TreeSelectionDialog extends JDialog {
 			{
 				cancelButton = new JButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
+
 					public void actionPerformed(ActionEvent e) {
 						onCancel();
 					}
+
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
@@ -156,10 +154,8 @@ public class TreeSelectionDialog extends JDialog {
 		return contentPane;
 	}
 
-	protected void initializeTree(TreeModel treeModel,
-			final INodePropertyAccessor<String> textAccessor,
-			final INodePropertyAccessor<Icon> iconAccessor,
-			final INodePropertyAccessor<Boolean> selectableAccessor,
+	protected void initializeTree(TreeModel treeModel, final INodePropertyAccessor<String> textAccessor,
+			final INodePropertyAccessor<Icon> iconAccessor, final INodePropertyAccessor<Boolean> selectableAccessor,
 			boolean expandAll) {
 		tree = new JTree();
 		tree.setVisibleRowCount(10);
@@ -173,8 +169,7 @@ public class TreeSelectionDialog extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent me) {
 				if (me.getClickCount() == 2) {
-					TreePath treePath = tree.getPathForLocation(me.getX(),
-							me.getY());
+					TreePath treePath = tree.getPathForLocation(me.getX(), me.getY());
 					if (treePath != null) {
 						onTreeItemDoubleClick(treePath, selectableAccessor);
 					}
@@ -186,11 +181,10 @@ public class TreeSelectionDialog extends JDialog {
 			protected static final long serialVersionUID = 1L;
 
 			@Override
-			public Component getTreeCellRendererComponent(JTree tree,
-					Object value, boolean selected, boolean expanded,
+			public Component getTreeCellRendererComponent(JTree tree, Object value, boolean selected, boolean expanded,
 					boolean isLeaf, int row, boolean focused) {
-				JLabel label = (JLabel) super.getTreeCellRendererComponent(
-						tree, value, selected, expanded, isLeaf, row, focused);
+				JLabel label = (JLabel) super.getTreeCellRendererComponent(tree, value, selected, expanded, isLeaf, row,
+						focused);
 				if (textAccessor != null) {
 					label.setText(textAccessor.get(value));
 				}
@@ -203,13 +197,15 @@ public class TreeSelectionDialog extends JDialog {
 				return label;
 			}
 		});
-		if (expandAll) {
+		if (expandAll)
+
+		{
 			expandAll();
 		}
+
 	}
 
-	protected void onTreeItemDoubleClick(TreePath treePath,
-			INodePropertyAccessor<Boolean> selectableAccessor) {
+	protected void onTreeItemDoubleClick(TreePath treePath, INodePropertyAccessor<Boolean> selectableAccessor) {
 		if (treePath.equals(tree.getSelectionPath())) {
 			if (okButton.isEnabled()) {
 				okPressed = true;
@@ -229,12 +225,10 @@ public class TreeSelectionDialog extends JDialog {
 		return tree.getLastSelectedPathComponent();
 	}
 
-	protected void onTreeSelectionChange(
-			INodePropertyAccessor<Boolean> selectableAccessor) {
+	protected void onTreeSelectionChange(INodePropertyAccessor<Boolean> selectableAccessor) {
 		if (tree.getSelectionCount() == 1) {
 			if (selectableAccessor != null) {
-				if (Boolean.TRUE.equals(selectableAccessor.get(tree
-						.getLastSelectedPathComponent()))) {
+				if (Boolean.TRUE.equals(selectableAccessor.get(tree.getLastSelectedPathComponent()))) {
 					okButton.setEnabled(true);
 					return;
 				}
