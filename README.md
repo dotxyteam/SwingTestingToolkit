@@ -1,3 +1,4 @@
 # SwingTestingToolkit
 Java Swing UI testing toolkit
-![Alt text](swing-testing-toolkit/misc/screenshot.png?raw=true "Title")
+
+![screenshot link broken!](swing-testing-toolkit/misc/screenshot.png?raw=true "Title")
