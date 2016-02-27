@@ -404,7 +404,17 @@ public class TesterUI extends ReflectionUI {
 			});
 			tester.handleCurrentComponentChange(null);
 			if (execute) {
-				testAction.execute(c, tester);
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							throw new AssertionError(e);
+						}
+						testAction.execute(c, tester);
+					}
+				});
 			}
 			return true;
 		}
@@ -487,7 +497,7 @@ public class TesterUI extends ReflectionUI {
 				JFrame result = super.createFrame(content, title, iconImage, toolbarControls);
 				for (JPanel form : SwingRendererUtils.findDescendantForms(result, TesterUI.this)) {
 					if (getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
-						result.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						result.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 					}
 				}

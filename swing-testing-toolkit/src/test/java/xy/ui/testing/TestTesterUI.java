@@ -24,4 +24,13 @@ public class TestTesterUI {
 			Assert.assertTrue(cls.getConstructors()[0].getParameterTypes().length == 0);			
 		}
 	}
+	
+	
+	@Test
+	public void testTesterUI() throws IOException {
+		TestingUtils.purgeSavedImagesDirectory();
+		TestingUtils.closeAllTestableWindows();
+		Tester.assertSuccessfulReplay(TestTesterUI.class
+				.getResourceAsStream("testTesterUI.stt"));
+	}
 }
