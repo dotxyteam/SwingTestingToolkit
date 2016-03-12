@@ -22,7 +22,7 @@ public class ExtensibilityExample {
 		 * during the automatic replay. You first need to create your action
 		 * class by extending the 'TestAction' class. Most of the time it will
 		 * be enough to sub-class 'TargetComponentTestAction'. See the
-		 * 'TargetComponentTestAction' cub-class below for more information.
+		 * 'TargetComponentTestAction' sub-class below for more information.
 		 * 
 		 * Once your action class is done, you must register it with the
 		 * TesterUI instance that you will use.
