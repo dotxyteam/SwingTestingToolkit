@@ -41,9 +41,6 @@ public class TreeSelectionDialog extends JDialog {
 	protected JButton cancelButton;
 	protected JLabel messageControl;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("root");
 		DefaultMutableTreeNode child1 = new DefaultMutableTreeNode("child1");
