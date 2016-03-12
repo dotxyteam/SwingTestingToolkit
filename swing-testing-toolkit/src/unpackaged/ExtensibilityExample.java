@@ -15,15 +15,14 @@ public class ExtensibilityExample {
 	public static void main(String[] args) throws Exception {
 
 		/*
-		 * If you want a specific test action/assertion not available in the
-		 * framework, you can extend it. It is very very very ... easy.
+		 * If you want a specific test action/assertion that is not available in
+		 * the framework, you can extend it. It is very very very ... easy.
 		 * 
 		 * Suppose you have a custom component that you need to manipulate
 		 * during the automatic replay. You first need to create your action
-		 * class by extending the TestAction class. Most of the time it will be
-		 * enough to sub-class TargetComponentTestAction. See the
-		 * 'TargetComponentTestAction' implementation below for more
-		 * information.
+		 * class by extending the 'TestAction' class. Most of the time it will
+		 * be enough to sub-class 'TargetComponentTestAction'. See the
+		 * 'TargetComponentTestAction' cub-class below for more information.
 		 * 
 		 * Once your action class is done, you must register it with the
 		 * TesterUI instance that you will use.
@@ -34,7 +33,7 @@ public class ExtensibilityExample {
 			@Override
 			public Class<?>[] getTestActionClasses() {
 				List<Class<?>> result = new ArrayList<Class<?>>(Arrays.asList(super.getTestActionClasses()));
-				result.add(CustomComponentCheck.class);
+				result.add(CustomComponentAssertion.class);
 				return result.toArray(new Class<?>[result.size()]);
 			}
 
@@ -44,15 +43,18 @@ public class ExtensibilityExample {
 	}
 
 	/*
-	 * Custom test action class example.
+	 * This is the custom test action class. Usually you would use it either to
+	 * send events, change some properties of some target component (action) or
+	 * check that some stored property values do not change during the replay
+	 * (assertion).
 	 */
-	public static class CustomComponentCheck extends TargetComponentTestAction {
+	public static class CustomComponentAssertion extends TargetComponentTestAction {
 		private static final long serialVersionUID = 1L;
 
 		/*
-		 * Here are the action properties. IMPORTANT: you must provide getters
-		 * and setters for these properties in order to be able to edit them in
-		 * the TesterUI.
+		 * Here are your action settings/properties. IMPORTANT: you must provide
+		 * getters and setters for these properties in order to be able to edit
+		 * them in the TesterUI.
 		 */
 		private boolean property1;
 		private int property2;
@@ -76,10 +78,8 @@ public class ExtensibilityExample {
 		@Override
 		protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 			/*
-			 * Here you can initialize your action from the target component.
-			 * Usually you would either send events, change some properties of
-			 * the target component (action) or store them in order to check
-			 * that they do not change during the replay (assertion).
+			 * Here you can initialize your action from the state of the
+			 * component it is targeted to.
 			 * 
 			 * Note that the return value is used to indicate that the action
 			 * class can handle (return true) the component passed as argument.
@@ -109,7 +109,7 @@ public class ExtensibilityExample {
 		@Override
 		public void validate() throws ValidationError {
 			/*
-			 * Here you can optionally your action properties.
+			 * Here you can optionally verify your action properties.
 			 */
 			if (property2 < 0) {
 				throw new TestFailure("property2 is not ok");
@@ -127,13 +127,13 @@ public class ExtensibilityExample {
 	}
 
 	/*
-	 * Custom component class example.
+	 * the custom component class.
 	 */
 	public static class CustomComponent extends Component {
 		private static final long serialVersionUID = 1L;
 
-		boolean property1;
-		int property2;
+		public boolean property1;
+		public int property2;
 	}
 
 }
