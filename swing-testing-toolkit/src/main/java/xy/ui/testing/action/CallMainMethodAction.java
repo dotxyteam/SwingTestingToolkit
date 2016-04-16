@@ -22,7 +22,7 @@ public class CallMainMethodAction extends TestAction {
 		return className;
 	}
 
-	public void setClassName(String mainClassName) throws ClassNotFoundException {
+	public void setClassName(String mainClassName) {
 		this.className = mainClassName;
 	}
 

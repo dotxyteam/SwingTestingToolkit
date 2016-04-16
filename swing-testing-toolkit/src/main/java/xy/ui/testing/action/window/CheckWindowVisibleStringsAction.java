@@ -71,8 +71,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	@Override
 	public Window findComponent(Tester tester) {
 		Window window = super.findComponent(tester);
-		List<String> currentVisibleStrings = TestingUtils
-				.collectVisibleStrings(window);
+		List<String> currentVisibleStrings = TestingUtils.collectVisibleStrings(window);
 		check(currentVisibleStrings, window);
 		return window;
 	}
@@ -84,45 +83,42 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 					throw new TestFailure("The visible string(s) have changed");
 				}
 			} else if (completenessChecked && !orderChecked) {
-				currentVisibleStrings = new ArrayList<String>(
-						currentVisibleStrings);
-				currentVisibleStrings.removeAll(visibleStrings);
-				if (currentVisibleStrings.size() > 0) {
-					throw new TestFailure(
-							"The following visible string(s) were not declared: "
-									+ TestingUtils
-											.formatVisibleStrings(new ArrayList<String>(
-													currentVisibleStrings)));
+				{
+					List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
+					currentVisibleStrings2.removeAll(visibleStrings);
+					if (currentVisibleStrings.size() > 0) {
+						throw new TestFailure("The following visible string(s) were not declared: "
+								+ TestingUtils.formatVisibleStrings(new ArrayList<String>(currentVisibleStrings2)));
+					}
+				}
+				{
+					List<String> visibleStrings2 = new ArrayList<String>(visibleStrings);
+					visibleStrings2.removeAll(currentVisibleStrings);
+					if (visibleStrings2.size() > 0) {
+						throw new TestFailure("The following declared string(s) are not visible: "
+								+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStrings2)));
+					}
 				}
 			} else if (!completenessChecked && orderChecked) {
-				currentVisibleStrings = new ArrayList<String>(
-						currentVisibleStrings);
-				currentVisibleStrings.retainAll(visibleStrings);
-				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TestFailure(
-							"The visible strings order have changed");
+				List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
+				currentVisibleStrings2.retainAll(visibleStrings);
+				if (!visibleStrings.equals(currentVisibleStrings2)) {
+					throw new TestFailure("The visible strings order or occurences have changed");
 				}
 			} else if (!completenessChecked && !orderChecked) {
-				SortedSet<String> visibleStringSortedSet = new TreeSet<String>(
-						visibleStrings);
+				SortedSet<String> visibleStringSortedSet = new TreeSet<String>(visibleStrings);
 				visibleStringSortedSet.removeAll(currentVisibleStrings);
 				if (visibleStringSortedSet.size() > 0) {
-					throw new TestFailure(
-							"The following declared visible string(s) were not found: "
-									+ TestingUtils
-											.formatVisibleStrings(new ArrayList<String>(
-													visibleStringSortedSet)));
+					throw new TestFailure("The following declared visible string(s) were not found: "
+							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStringSortedSet)));
 				}
 			}
 		} catch (Exception e) {
 			throw new TestFailure(
-					"Visible strings checking failed: "
-							+ e.toString()
+					"Visible strings checking failed: " + e.toString()
 							+ ".\nThese are the original and the current visible strings:\n"
-							+ TestingUtils.formatVisibleStrings(visibleStrings)
-							+ "\n"
-							+ TestingUtils
-									.formatVisibleStrings(currentVisibleStrings),
+							+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
+							+ TestingUtils.formatVisibleStrings(currentVisibleStrings),
 					"Window image", TestingUtils.saveImage(window), e);
 		}
 	}
@@ -134,7 +130,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	@Override
 	@Validating
 	public void validate() throws ValidationError {
-		if(visibleStrings.size() == 0){
+		if (visibleStrings.size() == 0) {
 			throw new ValidationError("The visible strings to check have not been defined");
 		}
 	}

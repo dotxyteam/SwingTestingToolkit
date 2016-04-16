@@ -36,7 +36,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	public String toString() {
 		String componentClassString = componentClassName;
 		if ((componentClassName == null) || (componentClassName.length() == 0)) {
-			componentClassString = "Unspecified type";
+			componentClassString = "?";
 		}
 		return MessageFormat.format("<{0}> component n°{1} in the window n°{2}", componentClassString,
 				(occurrencesToSkip + 1), (windowIndex + 1));

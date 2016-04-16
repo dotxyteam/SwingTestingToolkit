@@ -23,7 +23,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	protected String optionToSelect = "";
 	protected SelectionMode selectionMode = SelectionMode.BY_LABEL_TEXT;
-	
+
 	public SelectionMode getSelectionMode() {
 		return selectionMode;
 	}
@@ -40,8 +40,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		this.optionToSelect = optionToSelect;
 	}
 
-
-	
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		if (!(c instanceof JComboBox)) {
@@ -59,8 +57,8 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		}
 		optionToSelect = "<Choose 1 of these options>";
 		boolean first = true;
-		for(String option: getAllOptions(comboBox)){
-			if(!first){
+		for (String option : getAllOptions(comboBox)) {
+			if (!first) {
 				optionToSelect += ",";
 			}
 			optionToSelect += " " + option;
@@ -103,9 +101,10 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	@Override
 	public void execute(Component c, Tester tester) {
 		JComboBox comboBox = (JComboBox) c;
+		List<String> options = getAllOptions(comboBox);
 		boolean found = false;
 		int i = 0;
-		for (String option : getAllOptions(comboBox)) {
+		for (String option : options) {
 			if (option.equals(optionToSelect)) {
 				comboBox.setSelectedIndex(i);
 				found = true;
@@ -114,8 +113,8 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			i++;
 		}
 		if (!found) {
-			throw new TestFailure("Could not select the combo box item '" + optionToSelect
-					+ "': Item not found (selectionMode=" + selectionMode + ")");
+			throw new TestFailure("Could not select the combo box item '" + optionToSelect + "': Item not found." + "\n"
+					+ "Selection Mode=" + selectionMode + "\n" + "Found items: " + options);
 		}
 
 	}
@@ -151,15 +150,15 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 					throw new ValidationError("Negative number forbidden");
 				}
 			} catch (NumberFormatException e) {
-				throw new ValidationError("'Option to select': " + e.toString() + ". Positive number expected when selection mode is "
-						+ SelectionMode.BY_POSITION, e);
+				throw new ValidationError("'Option to select': " + e.toString()
+						+ ". Positive number expected when selection mode is " + SelectionMode.BY_POSITION, e);
 			}
 		}
-		
+
 		if (selectionMode == null) {
 			throw new ValidationError("Missing selection mode");
 		}
-		
+
 	}
 
 }

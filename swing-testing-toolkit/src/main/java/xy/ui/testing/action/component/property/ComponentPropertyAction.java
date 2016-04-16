@@ -86,7 +86,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		if (componentClassName == null) {
 			return null;
 		}
-		if (componentClassName.trim().length() == 0) {
+		if (componentClassName.length() == 0) {
 			return null;
 		}
 		try {

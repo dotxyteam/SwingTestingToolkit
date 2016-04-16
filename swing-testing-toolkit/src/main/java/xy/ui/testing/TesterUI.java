@@ -40,9 +40,9 @@ import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.SwingRenderer;
-import xy.reflect.ui.SwingRenderer.NullableControl;
 import xy.reflect.ui.control.swing.ListControl;
-import xy.reflect.ui.control.swing.ListControl.AutoUpdatingFieldItemPosition;
+import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
@@ -443,7 +443,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	@Override
-	public SwingRenderer createSwingRenderer() {
+	protected SwingRenderer createSwingRenderer() {
 		return new SwingRenderer(TesterUI.this) {
 
 			@Override
@@ -472,7 +472,7 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			public boolean onMethodInvocationRequest(Component activatorComponent, Object object, IMethodInfo method,
 					Object[] returnValueArray) {
-				if ((object instanceof Tester) && method.getName().equals("startRecording")) {
+				if ((object instanceof Tester) && method.getCaption().equals("Start Recording")) {
 					ListControl testActionsControl = getTestActionsControl();
 					if (testActionsControl.getSelection().size() == 1) {
 						String insertMessage = "Insert Recordings After The Current Selection Row";
@@ -732,32 +732,9 @@ public class TesterUI extends ReflectionUI {
 							return "Is Recording";
 						}
 
-					});
-					result.add(new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
-
 						@Override
-						public Object getValue(Object object) {
-							return recordingInsertedAfterSelection;
-						}
-
-						@Override
-						public void setValue(Object object, Object value) {
-							recordingInsertedAfterSelection = (Boolean) value;
-						}
-
-						@Override
-						public boolean isReadOnly() {
-							return false;
-						}
-
-						@Override
-						public boolean isNullable() {
-							return false;
-						}
-
-						@Override
-						public String getCaption() {
-							return "Insert Recording(s) After Selection";
+						public ITypeInfo getType() {
+							return new BooleanTypeInfo(TesterUI.this, boolean.class);
 						}
 
 					});
@@ -833,6 +810,22 @@ public class TesterUI extends ReflectionUI {
 					return result;
 				} else {
 					return super.getMethods(type);
+				}
+			}
+
+			@Override
+			protected List<IMethodInfo> getConstructors(ITypeInfo type) {
+				if (type.getName().equals(PropertyValue.class.getName())) {
+					List<IMethodInfo> result = new ArrayList<IMethodInfo>();
+					for (IMethodInfo ctor : super.getConstructors(type)) {
+						if (ctor.getParameters().size() > 0) {
+							continue;
+						}
+						result.add(ctor);
+					}
+					return result;
+				} else {
+					return super.getConstructors(type);
 				}
 			}
 
@@ -1005,7 +998,7 @@ public class TesterUI extends ReflectionUI {
 
 	public int getSelectedActionIndex() {
 		ListControl testActionsControl = getTestActionsControl();
-		AutoUpdatingFieldItemPosition result = testActionsControl.getSingleSelection();
+		AutoFieldValueUpdatingItemPosition result = testActionsControl.getSingleSelection();
 		if (result == null) {
 			return -1;
 		}

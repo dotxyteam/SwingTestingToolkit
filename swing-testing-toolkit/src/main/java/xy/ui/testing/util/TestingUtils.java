@@ -297,7 +297,13 @@ public class TestingUtils {
 
 	public static List<String> parseVisibleStrings(String formattedVisibleStrings) {
 		List<String> result = new ArrayList<String>();
-		Pattern p = Pattern.compile("\".*?(?<!\\\\)\"");
+		String QUOTED_STRING = "\".*?(?<!\\\\)\"";
+		String MULTIPLE_QUOTED_STRINGS = "((" + QUOTED_STRING + "\\s*,\\s*)*" + QUOTED_STRING + ")?";
+		if (!formattedVisibleStrings.matches(MULTIPLE_QUOTED_STRINGS)) {
+			throw new AssertionError("Invalid string list:\n" + formattedVisibleStrings
+					+ "\nExpected string list formatted as: \"string 1\", \"string 2\", ... \"string n\"");
+		}
+		Pattern p = Pattern.compile(QUOTED_STRING);
 		Matcher m = p.matcher(formattedVisibleStrings);
 		while (m.find()) {
 			String s = m.group();
@@ -464,10 +470,15 @@ public class TestingUtils {
 	}
 
 	public static BufferedImage getScreenShot(Component component) {
-		BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(),
-				BufferedImage.TYPE_INT_RGB);
-		component.paint(image.getGraphics());
-		return image;
+		if ((component.getWidth() == 0) || (component.getHeight() == 0)) {
+			return new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+		} else {
+			BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(),
+					BufferedImage.TYPE_INT_RGB);
+			component.paint(image.getGraphics());
+			return image;
+		}
+
 	}
 
 	public static File saveTestableWindowImage(int windowIndex, TesterUI... testerUIs) {

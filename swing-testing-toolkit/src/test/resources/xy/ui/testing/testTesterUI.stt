@@ -21,7 +21,6 @@
         <string>Component Information</string>
         <string>Value Description</string>
         <string>Is Recording</string>
-        <string>Insert Recording(s) After Selection</string>
         <string>Load From File...</string>
         <string>Save To File...</string>
         <string>Start Recording</string>
@@ -35,9 +34,16 @@
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+      <componentFinder class="xy.ui.testing.finder.PropertyBasedComponentFinder">
         <componentClassName>javax.swing.JButton</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <propertyValueList>
+          <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            <propertyName>Tool Tip Text</propertyName>
+            <propertyValueExpected>&lt;HTML&gt;Add Test Action...&lt;/HTML&gt;</propertyValueExpected>
+            <outer-class reference="../../.."/>
+          </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+        </propertyValueList>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <doubleClick>false</doubleClick>
@@ -70,14 +76,13 @@
       <completenessChecked>false</completenessChecked>
       <orderChecked>false</orderChecked>
       <visibleStrings>
-        <string>Tester - Test Actions Item - Call Main Method Action</string>
-        <string>Tester - Test Actions Item - Call Main Method Action</string>
+        <string>Test Actions Item</string>
         <string>Missing class name</string>
         <string>Check Thrown Exception After Seconds: </string>
         <string>2</string>
         <string>Class Name: </string>
         <string>xy.ui.testing.TesterUIInit</string>
-        <string>Arguments</string>
+        <string>Arguments: </string>
         <string>Undo</string>
         <string>Redo</string>
         <string>Reset</string>
@@ -96,5 +101,72 @@
       <doubleClick>false</doubleClick>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
+    <xy.ui.testing.action.component.ClickAction>
+      <button>LEFT_BUTTON</button>
+      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <visibleString>Save To File...</visibleString>
+        <windowIndex>0</windowIndex>
+      </componentFinder>
+      <doubleClick>false</doubleClick>
+      <poupTrigger>false</poupTrigger>
+    </xy.ui.testing.action.component.ClickAction>
+    <xy.ui.testing.action.component.ClickAction>
+      <button>LEFT_BUTTON</button>
+      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <visibleString>Save To File</visibleString>
+        <windowIndex>1</windowIndex>
+      </componentFinder>
+      <doubleClick>false</doubleClick>
+      <poupTrigger>false</poupTrigger>
+    </xy.ui.testing.action.component.ClickAction>
+    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+      <completenessChecked>false</completenessChecked>
+      <orderChecked>false</orderChecked>
+      <visibleStrings>
+        <string>An Error Occured</string>
+        <string>Missing Value Error</string>
+      </visibleStrings>
+      <windowIndex>3</windowIndex>
+    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+    <xy.ui.testing.action.window.CloseWindowAction>
+      <windowIndex>3</windowIndex>
+    </xy.ui.testing.action.window.CloseWindowAction>
+    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+      <completenessChecked>false</completenessChecked>
+      <orderChecked>false</orderChecked>
+      <visibleStrings>
+        <string>Tester</string>
+        <string>Tester</string>
+        <string>Maximum Seconds To Wait Betwneen Actions: </string>
+        <string>15</string>
+        <string>Minimum Seconds To Wait Betwneen Actions: </string>
+        <string>1</string>
+        <string>Test Actions</string>
+        <string>N°</string>
+        <string>Type</string>
+        <string>Component Information</string>
+        <string>Value Description</string>
+        <string>Item(depth=0, position=0, value=Call main method of &lt;xy.ui.testing.TesterUIInit&gt;)</string>
+        <string>Call Main Method Action</string>
+        <string>xy.ui.testing.TesterUIInit</string>
+        <string>Play Selected Action(s)</string>
+        <string>Play From Selection To End</string>
+        <string>Is Recording</string>
+        <string>Load From File...</string>
+        <string>Save To File...</string>
+        <string>Start Recording</string>
+        <string>Stop Recording</string>
+        <string>Play All</string>
+        <string>Undo</string>
+        <string>Redo</string>
+        <string>Reset</string>
+      </visibleStrings>
+      <windowIndex>0</windowIndex>
+    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+    <xy.ui.testing.action.window.CloseWindowAction>
+      <windowIndex>0</windowIndex>
+    </xy.ui.testing.action.window.CloseWindowAction>
   </testActions>
 </xy.ui.testing.Tester>

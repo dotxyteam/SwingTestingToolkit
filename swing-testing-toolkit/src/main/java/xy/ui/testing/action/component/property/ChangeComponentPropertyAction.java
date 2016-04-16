@@ -22,7 +22,7 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 
 	@Override
 	protected boolean isSupportedPropertyField(IFieldInfo field) {
-		if (field.isReadOnly()) {
+		if (field.isGetOnly()) {
 			return false;
 		}
 		return super.isSupportedPropertyField(field);
