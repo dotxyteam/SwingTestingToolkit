@@ -124,6 +124,10 @@ public class Tester {
 						t);
 			}
 		}
+		try {
+			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+		} catch (InterruptedException ignore) {
+		}		
 	}
 
 	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {

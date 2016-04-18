@@ -3,8 +3,11 @@
   <minimumSecondsToWaitBetwneenActions>1</minimumSecondsToWaitBetwneenActions>
   <testActions>
     <xy.ui.testing.action.CallMainMethodAction>
+      <arguments>
+        <string>TesterUI frame</string>
+      </arguments>
       <checkThrownExceptionAfterSeconds>2</checkThrownExceptionAfterSeconds>
-      <className>xy.ui.testing.TesterUIInit</className>
+      <className>xy.ui.testing.TestTesterUI</className>
     </xy.ui.testing.action.CallMainMethodAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
@@ -67,11 +70,51 @@
       </componentFinder>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
-          <text>xy.ui.testing.TesterUIInit</text>
+          <text>xy.ui.testing.TestTesterUI</text>
         </xy.ui.testing.action.component.SendKeysAction_-WriteText>
       </keyboardInteractions>
       <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
     </xy.ui.testing.action.component.SendKeysAction>
+    <xy.ui.testing.action.component.ClickAction>
+      <button>LEFT_BUTTON</button>
+      <componentFinder class="xy.ui.testing.finder.PropertyBasedComponentFinder">
+        <componentClassName>javax.swing.JButton</componentClassName>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <propertyValueList>
+          <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+            <propertyName>Tool Tip Text</propertyName>
+            <propertyValueExpected>&lt;HTML&gt;Add String...&lt;/HTML&gt;</propertyValueExpected>
+            <outer-class reference="../../.."/>
+          </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
+        </propertyValueList>
+        <windowIndex>1</windowIndex>
+      </componentFinder>
+      <doubleClick>false</doubleClick>
+      <poupTrigger>false</poupTrigger>
+    </xy.ui.testing.action.component.ClickAction>
+    <xy.ui.testing.action.component.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <componentClassName>javax.swing.JTextArea</componentClassName>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <windowIndex>2</windowIndex>
+      </componentFinder>
+      <keyboardInteractions>
+        <xy.ui.testing.action.component.SendKeysAction_-WriteText>
+          <text>TestTesterUI dialog</text>
+        </xy.ui.testing.action.component.SendKeysAction_-WriteText>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.component.SendKeysAction>
+    <xy.ui.testing.action.component.ClickAction>
+      <button>LEFT_BUTTON</button>
+      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <visibleString>OK</visibleString>
+        <windowIndex>2</windowIndex>
+      </componentFinder>
+      <doubleClick>false</doubleClick>
+      <poupTrigger>false</poupTrigger>
+    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
       <orderChecked>false</orderChecked>
@@ -81,8 +124,9 @@
         <string>Check Thrown Exception After Seconds: </string>
         <string>2</string>
         <string>Class Name: </string>
-        <string>xy.ui.testing.TesterUIInit</string>
-        <string>Arguments: </string>
+        <string>xy.ui.testing.TestTesterUI</string>
+        <string>Arguments</string>
+        <string>Item(depth=0, position=0, value=TestTesterUI dialog)</string>
         <string>Undo</string>
         <string>Redo</string>
         <string>Reset</string>
@@ -126,7 +170,7 @@
       <orderChecked>false</orderChecked>
       <visibleStrings>
         <string>An Error Occured</string>
-        <string>Missing Value Error</string>
+        <string>File Not Found Error: </string>
       </visibleStrings>
       <windowIndex>3</windowIndex>
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
@@ -144,13 +188,12 @@
         <string>Minimum Seconds To Wait Betwneen Actions: </string>
         <string>1</string>
         <string>Test Actions</string>
-        <string>N°</string>
         <string>Type</string>
         <string>Component Information</string>
         <string>Value Description</string>
-        <string>Item(depth=0, position=0, value=Call main method of &lt;xy.ui.testing.TesterUIInit&gt;)</string>
+        <string>Item(depth=0, position=0, value=Call main method of &lt;xy.ui.testing.TestTesterUI&gt;)</string>
         <string>Call Main Method Action</string>
-        <string>xy.ui.testing.TesterUIInit</string>
+        <string>xy.ui.testing.TestTesterUI</string>
         <string>Play Selected Action(s)</string>
         <string>Play From Selection To End</string>
         <string>Is Recording</string>

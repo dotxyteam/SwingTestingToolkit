@@ -15,7 +15,7 @@ public class CallMainMethodAction extends TestAction {
 	private static final long serialVersionUID = 1L;
 
 	protected String className = "";
-	protected String[] arguments;
+	protected String[] arguments = new String[0];
 	protected Integer checkThrownExceptionAfterSeconds = 2;
 
 	public String getClassName() {
@@ -54,7 +54,7 @@ public class CallMainMethodAction extends TestAction {
 			@Override
 			public void run() {
 				try {
-					TestingUtils.launchClassMainMethod(className);
+					TestingUtils.launchClassMainMethod(className, arguments);
 				} catch (Exception e) {
 					error[0] = new TestFailure("Failed to run the main method of '" + className + "': " + e.toString(),
 							e);

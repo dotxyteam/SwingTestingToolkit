@@ -231,7 +231,7 @@ public class TesterUI extends ReflectionUI {
 			WindowEvent windowEvent = (WindowEvent) event;
 			Window window = windowEvent.getWindow();
 			stopRecording();
-			String title = getObjectKind(tester);
+			String title = getObjectTitle(tester);
 			if (getSwingRenderer().openQuestionDialog(window, "Do you want to record this window closing event?",
 					title)) {
 				startRecording();
@@ -246,7 +246,7 @@ public class TesterUI extends ReflectionUI {
 			stopRecording();
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
 			testACtion.initializeFrom(menuItem, event, this);
-			String title = getObjectKind(tester);
+			String title = getObjectTitle(tester);
 			if (getSwingRenderer().openQuestionDialog(getTesterWindow(),
 					"Do you want to record this menu item activation event?", title)) {
 				startRecording();
@@ -270,7 +270,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected AbstractAction openTestActionMenu(DefaultMutableTreeNode menuRoot) {
-		String title = getObjectKind(tester);
+		String title = getObjectTitle(tester);
 		DefaultTreeModel treeModel = new DefaultTreeModel(menuRoot);
 		final TreeSelectionDialog dialog = new TreeSelectionDialog(getTesterWindow(), title, null, treeModel,
 				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
@@ -344,7 +344,7 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("(Actions)");
 		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode("(Assertion)");
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
-			String testActionTypeName = getObjectKind(testAction).replaceAll(" Action$", "");
+			String testActionTypeName = getObjectTitle(testAction).replaceAll(" Action$", "");
 			DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction(testActionTypeName) {
 				private static final long serialVersionUID = 1L;
 
@@ -440,6 +440,7 @@ public class TesterUI extends ReflectionUI {
 			}
 		};
 		playMethod.invoke(tester, new InvocationData(selectedActions, selectingListener));
+		getSwingRenderer().openMessageDialog(getTesterForm(), "Action(s) played successfully", getObjectTitle(tester));
 	}
 
 	@Override
@@ -982,7 +983,7 @@ public class TesterUI extends ReflectionUI {
 	protected boolean openSettings(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(c, testAction, getObjectKind(testAction), null, true, null, okPressedArray,
+		getSwingRenderer().openObjectDialog(c, testAction, getObjectTitle(testAction), null, true, null, okPressedArray,
 				null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];

@@ -133,9 +133,9 @@ public class TestingUtils {
 		}
 	}
 
-	public static void launchClassMainMethod(String mainClassName) throws Exception {
+	public static void launchClassMainMethod(String mainClassName, String[] arguments) throws Exception {
 		Class.forName(mainClassName).getMethod("main", new Class[] { String[].class }).invoke(null,
-				new Object[] { new String[0] });
+				new Object[] { arguments });
 	}
 
 	public static <T> List<T> getReversed(List<T> list) {

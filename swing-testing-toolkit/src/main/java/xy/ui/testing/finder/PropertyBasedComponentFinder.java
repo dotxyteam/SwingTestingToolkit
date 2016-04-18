@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
@@ -127,8 +125,10 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			for (PropertyValue value : propertyValues) {
 				valueStrings.add(value.toString());
 			}
-			valuesDescription = ", having the following properties:\n"
-					+ StringUtils.join(valueStrings, "\n");
+			valuesDescription = ", having:";
+			for(String s: valueStrings){
+				valuesDescription += "\n- " + s;
+			}
 		}
 		return super.toString() + valuesDescription;
 	}

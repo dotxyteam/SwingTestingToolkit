@@ -38,7 +38,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 		if ((componentClassName == null) || (componentClassName.length() == 0)) {
 			componentClassString = "?";
 		}
-		return MessageFormat.format("<{0}> component n°{1} in the window n°{2}", componentClassString,
+		return MessageFormat.format("<{0}> n°{1} in the window n°{2}", componentClassString,
 				(occurrencesToSkip + 1), (windowIndex + 1));
 	}
 
