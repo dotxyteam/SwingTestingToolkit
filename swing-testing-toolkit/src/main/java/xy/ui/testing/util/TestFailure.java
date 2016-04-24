@@ -8,8 +8,7 @@ public class TestFailure extends RuntimeException {
 	private String imageDescription;
 	private File imageFile;
 
-	public TestFailure(String message, String imageDescription, File imageFile,
-			Throwable cause) {
+	public TestFailure(String message, String imageDescription, File imageFile, Throwable cause) {
 		super(message, cause);
 		this.imageDescription = imageDescription;
 		this.imageFile = imageFile;
@@ -46,9 +45,16 @@ public class TestFailure extends RuntimeException {
 	@Override
 	public String getMessage() {
 		String result = super.getMessage();
+		if (result == null) {
+			if(getCause() != null){
+				result = getCause().toString();
+			}
+		}
+		if (result == null) {
+			result = "Test Failure";
+		}
 		if ((imageDescription != null) && (imageFile != null)) {
-			result += "\n\n- " + imageDescription + " image:\n"
-					+ imageFile.getAbsolutePath();
+			result += "\n\n- " + imageDescription + " image:\n" + imageFile.getAbsolutePath();
 		}
 		return result;
 	}

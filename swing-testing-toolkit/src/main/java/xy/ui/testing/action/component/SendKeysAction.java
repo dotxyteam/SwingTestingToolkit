@@ -77,6 +77,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
+	@Validating
 	public void validate() throws ValidationError {
 		if (keyboardInteractions.size() == 0) {
 			throw new ValidationError("Missing keyboard interactions");

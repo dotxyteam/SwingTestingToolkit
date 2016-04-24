@@ -46,9 +46,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	public void addPropertyValue(int index, PropertyValue c) {
 		if (findPropertyValue(c.getPropertyName()) != null) {
-			throw new AssertionError(
-					"Cannot have duplicate property values: '"
-							+ c.getPropertyName() + "'");
+			throw new AssertionError("Cannot have duplicate property values: '" + c.getPropertyName() + "'");
 		}
 		propertyValues.add(index, c);
 	}
@@ -61,8 +59,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		return propertyValues.size();
 	}
 
-	public void setPropertyValue(String propertyName,
-			String propertyValueExpected) {
+	public void setPropertyValue(String propertyName, String propertyValueExpected) {
 		PropertyValue value = findPropertyValue(propertyName);
 		if (value == null) {
 			value = createPropertyValue();
@@ -94,12 +91,28 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		if (!super.initializeSpecificValues(c, testerUI)) {
 			return false;
 		}
-		for (PropertyValue propertyValue : propertyValues) {
-			if (!propertyValue.initialize(c)) {
-				return false;
+		ComponentPropertyUtil propertyUtil = createPropertyUtil();
+		if (propertyValues.size() == 0) {
+			for (String propertyName : propertyUtil.getPropertyNameOptions()) {
+				PropertyValue propertyValue = new PropertyValue();
+				propertyValue.setPropertyName(propertyName);
+				propertyValue.initialize(c);
+				propertyValues.add(propertyValue);
 			}
+		} else {
+			for (PropertyValue propertyValue : propertyValues) {
+				if (!propertyValue.initialize(c)) {
+					return false;
+				}
+			}			
 		}
 		return true;
+	}
+
+	protected ComponentPropertyUtil createPropertyUtil() {
+		ComponentPropertyUtil result = new ComponentPropertyUtil();
+		result.setComponentClassName(getComponentClassName());
+		return result;
 	}
 
 	@Override
@@ -126,25 +139,21 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 				valueStrings.add(value.toString());
 			}
 			valuesDescription = ", having:";
-			for(String s: valueStrings){
+			for (String s : valueStrings) {
 				valuesDescription += "\n- " + s;
 			}
 		}
 		return super.toString() + valuesDescription;
 	}
 
-	
-	
 	@Override
 	@Validating
 	public void validate() throws ValidationError {
 		super.validate();
-		if(propertyValues.size() == 0){
+		if (propertyValues.size() == 0) {
 			throw new ValidationError("Missing property values");
 		}
 	}
-
-
 
 	public class PropertyValue implements Serializable {
 
@@ -170,35 +179,28 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		}
 
 		public boolean initialize(final Component c) {
-			final boolean[] ok = new boolean[] { false };
-			new CheckComponentPropertyAction() {
-				private static final long serialVersionUID = 1L;
-				{
-					setComponentClassName(PropertyBasedComponentFinder.this.componentClassName);
-					setPropertyName(PropertyValue.this.propertyName);
-					IFieldInfo field = super.getPropertyFieldInfo();
-					if (field != null) {
-						Object fieldValue = field.getValue(c);
-						PropertyValue.this.propertyValueExpected = fieldValueToPropertyValue(fieldValue);
-						ok[0] = true;
-					}
-				}
-			};
-			return ok[0];
+			ComponentPropertyUtil propertyUtil = getPropertyUtil();
+			IFieldInfo field = propertyUtil.getPropertyFieldInfo();
+			if (field != null) {
+				Object fieldValue = field.getValue(c);
+				propertyValueExpected = propertyUtil.fieldValueToPropertyValue(fieldValue);
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public boolean matches(Component c, Tester tester) {
 			try {
-				getSubCheckPropertyAction().execute(c, tester);
+				getPropertyUtil().execute(c, tester);
 				return true;
 			} catch (TestFailure e) {
 				return false;
 			}
 		}
 
-		protected CheckComponentPropertyAction getSubCheckPropertyAction() {
-			CheckComponentPropertyAction result = new CheckComponentPropertyAction();
-			result.setComponentClassName(getComponentClassName());
+		protected ComponentPropertyUtil getPropertyUtil() {
+			ComponentPropertyUtil result = createPropertyUtil();
 			result.setPropertyName(propertyName);
 			result.setPropertyValueExpected(propertyValueExpected);
 			return result;
@@ -206,19 +208,40 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 		@ValueOptionsForField("propertyName")
 		public List<String> getPropertyNameOptions() {
-			return getSubCheckPropertyAction().getPropertyNameOptions();
+			return createPropertyUtil().getPropertyNameOptions();
 		}
 
 		@Override
 		public String toString() {
-			return getSubCheckPropertyAction().getValueDescription();
+			return getPropertyUtil().getValueDescription();
 		}
-		
+
 		@Validating
 		public void validate() throws ValidationError {
-			if(propertyName == null){
+			if (propertyName == null) {
 				throw new ValidationError("Missing property name");
 			}
+		}
+
+	}
+
+	protected class ComponentPropertyUtil extends CheckComponentPropertyAction {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public String fieldValueToPropertyValue(Object fieldValue) {
+			return super.fieldValueToPropertyValue(fieldValue);
+		}
+
+		@Override
+		public Object propertyValueToFieldValue(String propertyValue) {
+			return super.propertyValueToFieldValue(propertyValue);
+		}
+
+		@Override
+		public IFieldInfo getPropertyFieldInfo() {
+			return super.getPropertyFieldInfo();
 		}
 
 	}

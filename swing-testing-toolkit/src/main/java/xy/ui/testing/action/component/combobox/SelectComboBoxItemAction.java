@@ -23,6 +23,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	protected String optionToSelect = "";
 	protected SelectionMode selectionMode = SelectionMode.BY_LABEL_TEXT;
+	protected Option[] knownOptions;
 
 	public SelectionMode getSelectionMode() {
 		return selectionMode;
@@ -40,6 +41,10 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		this.optionToSelect = optionToSelect;
 	}
 
+	public Option[] getKnownOptions() {
+		return knownOptions;
+	}
+
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		if (!(c instanceof JComboBox)) {
@@ -49,20 +54,22 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		if (comboBox.getItemCount() == 0) {
 			return false;
 		}
+		List<String> allOptions = getAllOptions(comboBox);
+		knownOptions = new Option[allOptions.size()];
+		for (int i = 0; i < allOptions.size(); i++) {
+			knownOptions[i] = new Option(i, allOptions.get(i));
+		}
 		String labelText = getLabelText(comboBox, 0);
 		if (labelText != null) {
 			selectionMode = SelectionMode.BY_LABEL_TEXT;
+			if (allOptions.size() > 0) {
+				optionToSelect = allOptions.get(0);
+			}
 		} else {
 			selectionMode = SelectionMode.BY_POSITION;
-		}
-		optionToSelect = "<Choose 1 of these options>";
-		boolean first = true;
-		for (String option : getAllOptions(comboBox)) {
-			if (!first) {
-				optionToSelect += ",";
+			if (allOptions.size() > 0) {
+				optionToSelect = "0";
 			}
-			optionToSelect += " " + option;
-			first = false;
 		}
 		return true;
 	}
@@ -72,8 +79,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			return Integer.toString(i);
 		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
 			return getLabelText(comboBox, i);
-		} else if (selectionMode == SelectionMode.BY_STRING_VALUE) {
-			return comboBox.getModel().getElementAt(i).toString();
 		} else {
 			throw new AssertionError();
 		}
@@ -125,8 +130,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			return "Item n°" + (Integer.valueOf(optionToSelect) + 1);
 		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
 			return StringEscapeUtils.escapeJava(optionToSelect);
-		} else if (selectionMode == SelectionMode.BY_STRING_VALUE) {
-			return StringEscapeUtils.escapeJava(optionToSelect);
 		} else {
 			throw new AssertionError();
 		}
@@ -134,7 +137,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	public enum SelectionMode {
-		BY_LABEL_TEXT, BY_POSITION, BY_STRING_VALUE
+		BY_LABEL_TEXT, BY_POSITION
 
 	}
 
@@ -157,6 +160,41 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 		if (selectionMode == null) {
 			throw new ValidationError("Missing selection mode");
+		}
+
+	}
+
+	public class Option {
+		private int position;
+		private String label;
+
+		protected Option(int position, String label) {
+			super();
+			this.position = position;
+			this.label = label;
+		}
+
+		public int getPosition() {
+			return position;
+		}
+
+		public String getLabel() {
+			return label;
+		}
+
+		public void selectThisOptionByLabel() {
+			selectionMode = SelectionMode.BY_LABEL_TEXT;
+			optionToSelect = label;
+		}
+
+		public void selectThisOptionByPosition() {
+			selectionMode = SelectionMode.BY_POSITION;
+			optionToSelect = Integer.toString(position);
+		}
+
+		@Override
+		public String toString() {
+			return "" + position + " - " + label;
 		}
 
 	}

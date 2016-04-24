@@ -97,6 +97,7 @@ import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.AlternateWindowDecorationsPanel;
+import xy.ui.testing.util.ComponentInspector;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
@@ -258,8 +259,9 @@ public class TesterUI extends ReflectionUI {
 		} else {
 			DefaultMutableTreeNode menuRoot = new DefaultMutableTreeNode();
 			final Component c = (Component) event.getSource();
-			createReleaseComponentMenuItem(menuRoot, c);
+			createPauseRecordingMenuItem(menuRoot, c);
 			createStopRecordingMenuItem(menuRoot, c);
+			createInspectComponentMenuItem(menuRoot, c);
 			createTestActionMenuItems(menuRoot, c, event);
 			AbstractAction todo = openTestActionMenu(menuRoot);
 			if (todo == null) {
@@ -422,25 +424,38 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void playActionsAndUpdateUI(List<TestAction> selectedActions) {
-		if (isRecording()) {
+		boolean wasRecording = isRecording();
+		if (wasRecording) {
 			stopRecording();
 		}
-		String methodSignature;
 		try {
-			methodSignature = ReflectionUIUtils
-					.getJavaMethodInfoSignature(Tester.class.getMethod("play", List.class, Listener.class));
-		} catch (Exception e) {
-			throw new AssertionError(e);
-		}
-		IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(tester, methodSignature);
-		Listener<TestAction> selectingListener = new Listener<TestAction>() {
-			@Override
-			public void handle(TestAction event) {
-				TesterUI.this.beforeEachAction(event);
+			String methodSignature;
+			try {
+				methodSignature = ReflectionUIUtils
+						.getJavaMethodInfoSignature(Tester.class.getMethod("play", List.class, Listener.class));
+			} catch (Exception e) {
+				throw new AssertionError(e);
 			}
-		};
-		playMethod.invoke(tester, new InvocationData(selectedActions, selectingListener));
-		getSwingRenderer().openMessageDialog(getTesterForm(), "Action(s) played successfully", getObjectTitle(tester));
+			IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(tester, methodSignature);
+			Listener<TestAction> selectingListener = new Listener<TestAction>() {
+				@Override
+				public void handle(TestAction event) {
+					TesterUI.this.beforeEachAction(event);
+				}
+			};
+			playMethod.invoke(tester, new InvocationData(selectedActions, selectingListener));
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					getSwingRenderer().openMessageDialog(getTesterForm(), "Action(s) played successfully",
+							getObjectTitle(tester));
+				}
+			});
+		} finally {
+			if (wasRecording) {
+				startRecording();
+			}
+		}
 	}
 
 	@Override
@@ -980,11 +995,17 @@ public class TesterUI extends ReflectionUI {
 		return (ListControl) c;
 	}
 
+	protected void openComponentInspector(Component c) {
+		ComponentInspector inspector = new ComponentInspector(c, this);
+		getSwingRenderer().openObjectDialog(getTesterForm(), inspector, getObjectTitle(inspector), null, true, null,
+				null, null, null, IInfoCollectionSettings.DEFAULT);
+	}
+
 	protected boolean openSettings(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(c, testAction, getObjectTitle(testAction), null, true, null, okPressedArray,
-				null, null, IInfoCollectionSettings.DEFAULT);
+		getSwingRenderer().openObjectDialog(getTesterForm(), testAction, getObjectTitle(testAction), null, true, null,
+				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
@@ -1006,9 +1027,42 @@ public class TesterUI extends ReflectionUI {
 		return result.getIndex();
 	}
 
-	protected void createReleaseComponentMenuItem(DefaultMutableTreeNode root, Component c) {
+	protected void createInspectComponentMenuItem(DefaultMutableTreeNode root, final Component c) {
+		DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction("Inspect Component") {
+			private static final long serialVersionUID = 1L;
+
+			Icon ICON;
+
+			{
+				try {
+					Image image = ImageIO.read(TesterUI.class.getResource("Tester.png"));
+					image = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+					ICON = new ImageIcon(image);
+				} catch (Exception e) {
+					throw new AssertionError(e);
+				}
+			}
+
+			@Override
+			public Object getValue(String key) {
+				if (key == AbstractAction.SMALL_ICON) {
+					return ICON;
+				} else {
+					return super.getValue(key);
+				}
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				openComponentInspector(c);
+			}
+		});
+		root.add(item);
+	}
+
+	protected void createPauseRecordingMenuItem(DefaultMutableTreeNode root, Component c) {
 		DefaultMutableTreeNode pauseItem = new DefaultMutableTreeNode(
-				new AbstractAction("Pause Recording (5 seconds)") {
+				new AbstractAction("Skip (Pause Recording for 5 seconds)") {
 					private static final long serialVersionUID = 1L;
 
 					Icon ICON;

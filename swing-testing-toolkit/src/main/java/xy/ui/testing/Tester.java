@@ -35,7 +35,7 @@ public class Tester {
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
-	protected int minimumSecondsToWaitBetwneenActions = 1;
+	protected int minimumSecondsToWaitBetwneenActions = 2;
 	protected int maximumSecondsToWaitBetwneenActions = 15;
 
 	protected Component currentComponent;
@@ -111,6 +111,7 @@ public class Tester {
 					unhighlightCurrentComponent();
 					currentComponent = null;
 				}
+				testAction.validate();
 				testAction.execute(c, this);
 			} catch (Throwable t) {
 				if (t instanceof InterruptedException) {
