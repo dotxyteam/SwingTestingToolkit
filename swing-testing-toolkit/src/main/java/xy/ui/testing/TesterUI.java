@@ -30,6 +30,7 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -37,6 +38,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
+
+import com.sun.awt.AWTUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.SwingRenderer;
@@ -124,6 +127,7 @@ public class TesterUI extends ReflectionUI {
 	protected boolean recording = false;
 	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
 	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
+	private float windowOpacity = 1f;
 
 	public TesterUI(Tester tester) {
 		this.tester = tester;
@@ -458,6 +462,15 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
+	protected void setWindowOpacity(float opacity) {
+		this.windowOpacity = opacity;
+		for (Window w : Window.getWindows()) {
+			if (TestingUtils.isTesterUIComponent(this, w)) {
+				AWTUtilities.setWindowOpacity(w, opacity);
+			}
+		}
+	}
+
 	@Override
 	protected SwingRenderer createSwingRenderer() {
 		return new SwingRenderer(TesterUI.this) {
@@ -505,19 +518,6 @@ public class TesterUI extends ReflectionUI {
 					}
 				}
 				return super.onMethodInvocationRequest(activatorComponent, object, method, returnValueArray);
-			}
-
-			@Override
-			public JFrame createFrame(Component content, String title, Image iconImage,
-					List<? extends Component> toolbarControls) {
-				JFrame result = super.createFrame(content, title, iconImage, toolbarControls);
-				for (JPanel form : SwingRendererUtils.findDescendantForms(result, TesterUI.this)) {
-					if (getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
-						result.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-						result.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-					}
-				}
-				return result;
 			}
 
 			@Override
@@ -623,6 +623,15 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		};
+	}
+
+	protected boolean isTesterWindow(Window window) {
+		for (JPanel form : SwingRendererUtils.findDescendantForms(window, TesterUI.this)) {
+			if (getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -1187,6 +1196,7 @@ public class TesterUI extends ReflectionUI {
 			return;
 		}
 		recording = true;
+		setWindowOpacity(0.75f);
 	}
 
 	public void stopRecording() {
@@ -1195,6 +1205,7 @@ public class TesterUI extends ReflectionUI {
 		}
 		tester.handleCurrentComponentChange(null);
 		recording = false;
+		setWindowOpacity(1f);
 	}
 
 	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
@@ -1232,10 +1243,19 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			public void configureWindow(Window window) {
 				super.configureWindow(window);
-				BY_WINDOW.put(window, testerUI);
+				testerUI.onTesterWindowCreation(window);
 			}
 
 		};
+	}
+
+	protected void onTesterWindowCreation(Window window) {
+		BY_WINDOW.put(window, this);
+		if (isTesterWindow(window)) {
+			((JFrame) window).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			((JFrame) window).setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		}
+		AWTUtilities.setWindowOpacity(window, windowOpacity);
 	}
 
 }
