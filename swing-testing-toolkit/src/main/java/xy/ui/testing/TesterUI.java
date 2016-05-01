@@ -99,7 +99,7 @@ import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
-import xy.ui.testing.util.AlternateWindowDecorationsPanel;
+import xy.ui.testing.util.AlternateWindowDecorationsContentPane;
 import xy.ui.testing.util.ComponentInspector;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestingUtils;
@@ -124,11 +124,12 @@ public class TesterUI extends ReflectionUI {
 	protected boolean recordingInsertedAfterSelection = false;
 	protected Tester tester;
 	protected AWTEventListener recordingListener;
-	protected boolean recording = false;
 	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
 	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
-	private float windowOpacity = 1f;
-
+	protected RecordingControl recordingControl = new RecordingControl();
+	protected JFrame recordingControlWindow;
+	protected JPanel testerForm;
+	
 	public TesterUI(Tester tester) {
 		this.tester = tester;
 		TESTERS.put(this, tester);
@@ -140,7 +141,6 @@ public class TesterUI extends ReflectionUI {
 		};
 		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
 				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
-
 	}
 
 	@Override
@@ -206,7 +206,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void awtEventDispatched(AWTEvent event) {
-		if (!recording) {
+		if (!isRecording() || recordingControl.isRecordingPaused()) {
 			return;
 		}
 		if (event == null) {
@@ -235,39 +235,33 @@ public class TesterUI extends ReflectionUI {
 		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
 			WindowEvent windowEvent = (WindowEvent) event;
 			Window window = windowEvent.getWindow();
-			stopRecording();
+			setRecordingPausedAndUpdateUI(true);
 			String title = getObjectTitle(tester);
-			if (getSwingRenderer().openQuestionDialog(window, "Do you want to record this window closing event?",
-					title)) {
-				startRecording();
+			if (getSwingRenderer().openQuestionDialog(recordingControlWindow,
+					"Do you want to record this window closing event?", title)) {
+				setRecordingPausedAndUpdateUI(false);
 				CloseWindowAction closeAction = new CloseWindowAction();
 				closeAction.initializeFrom(window, event, this);
 				onTestActionRecordingRequest(closeAction, window, false);
 			} else {
-				startRecording();
+				setRecordingPausedAndUpdateUI(false);
 			}
 		} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
 			final JMenuItem menuItem = (JMenuItem) event.getSource();
-			stopRecording();
+			setRecordingPausedAndUpdateUI(true);
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
 			testACtion.initializeFrom(menuItem, event, this);
 			String title = getObjectTitle(tester);
-			if (getSwingRenderer().openQuestionDialog(getTesterWindow(),
+			if (getSwingRenderer().openQuestionDialog(recordingControlWindow,
 					"Do you want to record this menu item activation event?", title)) {
-				startRecording();
+				setRecordingPausedAndUpdateUI(false);
 				onTestActionRecordingRequest(testACtion, menuItem, true);
 			} else {
-				startRecording();
+				setRecordingPausedAndUpdateUI(false);
 			}
 			return;
 		} else {
-			DefaultMutableTreeNode menuRoot = new DefaultMutableTreeNode();
-			final Component c = (Component) event.getSource();
-			createPauseRecordingMenuItem(menuRoot, c);
-			createStopRecordingMenuItem(menuRoot, c);
-			createInspectComponentMenuItem(menuRoot, c);
-			createTestActionMenuItems(menuRoot, c, event);
-			AbstractAction todo = openTestActionMenu(menuRoot);
+			AbstractAction todo = openTestActionSelectionWindow(event, recordingControlWindow);
 			if (todo == null) {
 				return;
 			}
@@ -275,23 +269,29 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected AbstractAction openTestActionMenu(DefaultMutableTreeNode menuRoot) {
+	protected void setRecordingPausedAndUpdateUI(boolean b) {
+		IFieldInfo recordingPausedField = getSwingRenderer().getFormUpdatingField(recordingControl, "recordingPaused");
+		recordingPausedField.setValue(recordingControl, b);
+	}
+
+	protected AbstractAction openTestActionSelectionWindow(AWTEvent event, Window parent) {
+		final Component c = (Component) event.getSource();
+		DefaultMutableTreeNode options = new DefaultMutableTreeNode();
+		addPauseRecordingOption(options, c);
+		addStopRecordingOption(options, c);
+		addInspectComponentOption(options, c);
+		addTestActionOptions(options, c, event);
 		String title = getObjectTitle(tester);
-		DefaultTreeModel treeModel = new DefaultTreeModel(menuRoot);
-		final TreeSelectionDialog dialog = new TreeSelectionDialog(getTesterWindow(), title, null, treeModel,
+		DefaultTreeModel treeModel = new DefaultTreeModel(options);
+		final TreeSelectionDialog dialog = new TreeSelectionDialog(parent, title, null, treeModel,
 				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
 				getTestActionMenuItemSelectableAccessor(), true, ModalityType.DOCUMENT_MODAL) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected Container createContentPane(String message) {
-				Container result = super.createContentPane(message);
-				AlternateWindowDecorationsPanel decorationsPanel = TesterUI.getAlternateWindowDecorationsPanel(this,
+				return TesterUI.getAlternateWindowDecorationsContentPane(this, super.createContentPane(message),
 						TesterUI.this);
-				decorationsPanel.configureWindow(this);
-				decorationsPanel.getContentPanel().add(result);
-				result = decorationsPanel;
-				return result;
 			}
 
 		};
@@ -303,15 +303,14 @@ public class TesterUI extends ReflectionUI {
 		return (AbstractAction) selected.getUserObject();
 	}
 
-	protected Window getTesterWindow() {
-		final JPanel testerForm = getTesterForm();
+	protected JFrame getTesterWindow() {
 		if (testerForm == null) {
 			return null;
 		}
-		return SwingUtilities.getWindowAncestor(testerForm);
+		return (JFrame)SwingUtilities.getWindowAncestor(testerForm);
 	}
 
-	protected void createStopRecordingMenuItem(DefaultMutableTreeNode root, Component c) {
+	protected void addStopRecordingOption(DefaultMutableTreeNode options, Component c) {
 		DefaultMutableTreeNode stopRecordingItem = new DefaultMutableTreeNode(new AbstractAction("Stop Recording") {
 			private static final long serialVersionUID = 1L;
 
@@ -338,15 +337,15 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getSwingRenderer().getFormUpdatingMethod(tester, "stopRecording").invoke(tester, new InvocationData());
+				stopRecording();
 			}
 		});
-		root.add(stopRecordingItem);
+		options.add(stopRecordingItem);
 	}
 
-	protected void createTestActionMenuItems(DefaultMutableTreeNode root, final Component c, AWTEvent event) {
+	protected void addTestActionOptions(DefaultMutableTreeNode options, final Component c, AWTEvent event) {
 		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode("(Execute And Record)");
-		root.add(recordGroup);
+		options.add(recordGroup);
 		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("(Actions)");
 		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode("(Assertion)");
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
@@ -386,7 +385,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected boolean onTestActionRecordingRequest(final TestAction testAction, final Component c, boolean execute) {
-		if (openSettings(testAction, c)) {
+		if (openRecordingSettingsWindow(testAction, c)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					Arrays.asList(tester.getTestActions()));
 			if (recordingInsertedAfterSelection) {
@@ -428,10 +427,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void playActionsAndUpdateUI(List<TestAction> selectedActions) {
-		boolean wasRecording = isRecording();
-		if (wasRecording) {
-			stopRecording();
-		}
+		setRecordingPausedAndUpdateUI(true);
 		try {
 			String methodSignature;
 			try {
@@ -451,23 +447,12 @@ public class TesterUI extends ReflectionUI {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					getSwingRenderer().openMessageDialog(getTesterForm(), "Action(s) played successfully",
+					getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
 							getObjectTitle(tester));
 				}
 			});
 		} finally {
-			if (wasRecording) {
-				startRecording();
-			}
-		}
-	}
-
-	protected void setWindowOpacity(float opacity) {
-		this.windowOpacity = opacity;
-		for (Window w : Window.getWindows()) {
-			if (TestingUtils.isTesterUIComponent(this, w)) {
-				AWTUtilities.setWindowOpacity(w, opacity);
-			}
+			setRecordingPausedAndUpdateUI(false);
 		}
 	}
 
@@ -479,12 +464,7 @@ public class TesterUI extends ReflectionUI {
 			public Container createWindowContentPane(Window window, Component content,
 					List<? extends Component> toolbarControls) {
 				Container result = super.createWindowContentPane(window, content, toolbarControls);
-				AlternateWindowDecorationsPanel decorationsPanel = getAlternateWindowDecorationsPanel(window,
-						TesterUI.this);
-				decorationsPanel.configureWindow(window);
-				decorationsPanel.getContentPanel().add(result);
-				result = decorationsPanel;
-				return result;
+				return TesterUI.getAlternateWindowDecorationsContentPane(window, result, TesterUI.this);
 			}
 
 			@Override
@@ -619,7 +599,14 @@ public class TesterUI extends ReflectionUI {
 					}
 
 				};
-				return super.createObjectForm(object, settings);
+				JPanel result = super.createObjectForm(object, settings);
+				if (object == tester) {
+					if (testerForm != null) {
+						throw new AssertionError("Tester form cannot be created more than 1 time");
+					}
+					testerForm = result;
+				}
+				return result;
 			}
 
 		};
@@ -743,28 +730,7 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
-				if ((type instanceof DefaultTypeInfo) && type.getName().equals(Tester.class.getName())) {
-					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					result.add(new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
-
-						@Override
-						public Object getValue(Object object) {
-							return recording;
-						}
-
-						@Override
-						public String getCaption() {
-							return "Is Recording";
-						}
-
-						@Override
-						public ITypeInfo getType() {
-							return new BooleanTypeInfo(TesterUI.this, boolean.class);
-						}
-
-					});
-					return result;
-				} else if ((type instanceof DefaultTypeInfo)
+				if ((type instanceof DefaultTypeInfo)
 						&& type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
 					result.add(new ImplicitListField(TesterUI.this, "propertyValues", type, "createPropertyValue",
@@ -793,27 +759,6 @@ public class TesterUI extends ReflectionUI {
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
 							startRecording();
-							final JPanel form = getTesterForm();
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									SwingUtilities.getWindowAncestor(form).toBack();
-								}
-							});
-							return null;
-						}
-
-					});
-					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
-
-						@Override
-						public String getCaption() {
-							return "Stop Recording";
-						}
-
-						@Override
-						public Object invoke(Object object, InvocationData invocationData) {
-							stopRecording();
 							return null;
 						}
 
@@ -980,20 +925,11 @@ public class TesterUI extends ReflectionUI {
 		selectTestAction(testAction);
 	}
 
-	protected JPanel getTesterForm() {
-		List<JPanel> result = getSwingRenderer().getForms(tester);
-		if (result.size() == 0) {
-			return null;
-		}
-		return result.get(0);
-	}
-
 	protected ListControl getTestActionsControl() {
-		final JPanel form = getTesterForm();
-		if (form == null) {
+		if (testerForm == null) {
 			return null;
 		}
-		List<Component> result = getSwingRenderer().getFieldControlsByName(form, "testActions");
+		List<Component> result = getSwingRenderer().getFieldControlsByName(testerForm, "testActions");
 		if (result.size() != 1) {
 			throw new AssertionError("'testActions' control not found for: " + tester);
 		}
@@ -1006,15 +942,15 @@ public class TesterUI extends ReflectionUI {
 
 	protected void openComponentInspector(Component c) {
 		ComponentInspector inspector = new ComponentInspector(c, this);
-		getSwingRenderer().openObjectDialog(getTesterForm(), inspector, getObjectTitle(inspector), null, true, null,
-				null, null, null, IInfoCollectionSettings.DEFAULT);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector, getObjectTitle(inspector), null, true,
+				null, null, null, null, IInfoCollectionSettings.DEFAULT);
 	}
 
-	protected boolean openSettings(TestAction testAction, Component c) {
+	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(getTesterForm(), testAction, getObjectTitle(testAction), null, true, null,
-				okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, testAction, getObjectTitle(testAction), null, true,
+				null, okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
@@ -1036,7 +972,7 @@ public class TesterUI extends ReflectionUI {
 		return result.getIndex();
 	}
 
-	protected void createInspectComponentMenuItem(DefaultMutableTreeNode root, final Component c) {
+	protected void addInspectComponentOption(DefaultMutableTreeNode options, final Component c) {
 		DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction("Inspect Component") {
 			private static final long serialVersionUID = 1L;
 
@@ -1066,10 +1002,10 @@ public class TesterUI extends ReflectionUI {
 				openComponentInspector(c);
 			}
 		});
-		root.add(item);
+		options.add(item);
 	}
 
-	protected void createPauseRecordingMenuItem(DefaultMutableTreeNode root, Component c) {
+	protected void addPauseRecordingOption(DefaultMutableTreeNode options, Component c) {
 		DefaultMutableTreeNode pauseItem = new DefaultMutableTreeNode(
 				new AbstractAction("Skip (Pause Recording for 5 seconds)") {
 					private static final long serialVersionUID = 1L;
@@ -1098,7 +1034,7 @@ public class TesterUI extends ReflectionUI {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						tester.handleCurrentComponentChange(null);
-						stopRecording();
+						setRecordingPausedAndUpdateUI(true);
 						new Thread(Tester.class.getSimpleName() + " Restarter") {
 							@Override
 							public void run() {
@@ -1107,12 +1043,12 @@ public class TesterUI extends ReflectionUI {
 								} catch (InterruptedException e) {
 									throw new AssertionError(e);
 								}
-								startRecording();
+								setRecordingPausedAndUpdateUI(false);
 							}
 						}.start();
 					}
 				});
-		root.add(pauseItem);
+		options.add(pauseItem);
 	}
 
 	protected INodePropertyAccessor<Icon> getTestActionMenuItemIconAccessor() {
@@ -1187,25 +1123,28 @@ public class TesterUI extends ReflectionUI {
 		return false;
 	}
 
-	public boolean isRecording() {
-		return recording;
+	protected boolean isRecording() {
+		return recordingControlWindow != null;
 	}
 
-	public void startRecording() {
+	protected void startRecording() {
 		if (isRecording()) {
 			return;
 		}
-		recording = true;
-		setWindowOpacity(0.75f);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				switchToRecordingControlWindow();
+			}
+
+		});
 	}
 
-	public void stopRecording() {
+	protected void stopRecording() {
 		if (!isRecording()) {
 			return;
 		}
-		tester.handleCurrentComponentChange(null);
-		recording = false;
-		setWindowOpacity(1f);
+		recordingControlWindow.dispose();
 	}
 
 	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
@@ -1224,9 +1163,10 @@ public class TesterUI extends ReflectionUI {
 
 	}
 
-	protected static AlternateWindowDecorationsPanel getAlternateWindowDecorationsPanel(Window window,
-			final TesterUI testerUI) {
-		return new AlternateWindowDecorationsPanel(SwingRendererUtils.getWindowTitle(window)) {
+	protected static AlternateWindowDecorationsContentPane getAlternateWindowDecorationsContentPane(Window window,
+			Component initialContentPane, final TesterUI testerUI) {
+		AlternateWindowDecorationsContentPane result = new AlternateWindowDecorationsContentPane(
+				SwingRendererUtils.getWindowTitle(window), window, initialContentPane) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -1247,6 +1187,7 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		};
+		return result;
 	}
 
 	protected void onTesterWindowCreation(Window window) {
@@ -1255,7 +1196,61 @@ public class TesterUI extends ReflectionUI {
 			((JFrame) window).setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			((JFrame) window).setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		}
-		AWTUtilities.setWindowOpacity(window, windowOpacity);
+	}
+
+	protected void switchToRecordingControlWindow() {
+		final JFrame testerWindow = getTesterWindow();
+		recordingControlWindow = new JFrame() {
+
+			private static final long serialVersionUID = -3759019748336439188L;
+
+			{
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				setTitle(getObjectTitle(recordingControl));
+				setIconImage(testerWindow.getIconImage());
+				JPanel form = getSwingRenderer().createObjectForm(recordingControl);
+				setContentPane(
+						getAlternateWindowDecorationsContentPane(this, form, TesterUI.this));
+				pack();			
+			}
+
+			@Override
+			public void dispose() {
+				tester.handleCurrentComponentChange(null);
+				testerWindow.setLocation(recordingControlWindow.getLocation());
+				testerWindow.setVisible(true);
+				super.dispose();
+				recordingControlWindow = null;				
+			}
+
+		};
+		testerWindow.setVisible(false);
+		recordingControlWindow.setLocation(testerWindow.getLocation());
+		recordingControlWindow.setVisible(true);
+	}
+
+	public class RecordingControl {
+		
+		private boolean recordingPaused = false;
+
+		public void stopRecording() {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					TesterUI.this.stopRecording();
+				}
+			});
+		}
+
+		public boolean isRecordingPaused(){
+			return recordingPaused;
+		}
+		
+		public void setRecordingPaused(boolean b){
+			tester.handleCurrentComponentChange(null);			
+			this.recordingPaused = b;
+		}
+		
 	}
 
 }

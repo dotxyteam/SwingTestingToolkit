@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-public class AlternateWindowDecorationsPanel extends JPanel {
+public class AlternateWindowDecorationsContentPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static final int W = 4;
@@ -21,7 +21,7 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 	private final SideLabel topright = new SideLabel(Side.NE);
 	private final SideLabel bottomleft = new SideLabel(Side.SW);
 	private final SideLabel bottomright = new SideLabel(Side.SE);
-	private final JPanel contentPanel = new JPanel(new BorderLayout());
+	private final JPanel contentPane = new JPanel(new BorderLayout());
 	private final JPanel resizePanel = new JPanel(new BorderLayout()) {
 
 		private static final long serialVersionUID = 1L;
@@ -48,10 +48,16 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 		}
 	};
 
-	public AlternateWindowDecorationsPanel(String titleText) {
+	public AlternateWindowDecorationsContentPane(String windowTitle) {
 		super(new BorderLayout());
 		add(resizePanel, BorderLayout.CENTER);
-		init(titleText);
+		init(windowTitle);
+	}
+
+	public AlternateWindowDecorationsContentPane(String windowTitle, Window window, Component initialContentPane) {
+		this(windowTitle);
+		configureWindow(window);
+		contentPane.add(initialContentPane);
 	}
 
 	public Color getDecorationsBackgroundColor() {
@@ -95,18 +101,18 @@ public class AlternateWindowDecorationsPanel extends JPanel {
 		resizePanel.add(right, BorderLayout.EAST);
 		resizePanel.add(northPanel, BorderLayout.NORTH);
 		resizePanel.add(southPanel, BorderLayout.SOUTH);
-		resizePanel.add(contentPanel, BorderLayout.CENTER);
+		resizePanel.add(contentPane, BorderLayout.CENTER);
 
 		titlePanelContainer.setOpaque(false);
 		northPanel.setOpaque(false);
 		southPanel.setOpaque(false);
 
-		contentPanel.setOpaque(false);
+		contentPane.setOpaque(false);
 		resizePanel.setOpaque(false);
 	}
 
-	public JPanel getContentPanel() {
-		return contentPanel;
+	public JPanel getContentPane() {
+		return contentPane;
 	}
 
 	private JPanel makeButtons() {
