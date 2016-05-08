@@ -129,7 +129,7 @@ public class TesterUI extends ReflectionUI {
 	protected RecordingControl recordingControl = new RecordingControl();
 	protected JFrame recordingControlWindow;
 	protected JPanel testerForm;
-	
+
 	public TesterUI(Tester tester) {
 		this.tester = tester;
 		TESTERS.put(this, tester);
@@ -307,7 +307,7 @@ public class TesterUI extends ReflectionUI {
 		if (testerForm == null) {
 			return null;
 		}
-		return (JFrame)SwingUtilities.getWindowAncestor(testerForm);
+		return (JFrame) SwingUtilities.getWindowAncestor(testerForm);
 	}
 
 	protected void addStopRecordingOption(DefaultMutableTreeNode options, Component c) {
@@ -361,7 +361,7 @@ public class TesterUI extends ReflectionUI {
 				@Override
 				public Object getValue(String key) {
 					if (key == AbstractAction.SMALL_ICON) {
-						Image image = getIconImage(testAction);
+						Image image = getSwingRenderer().getIconImage(testAction);
 						return new ImageIcon(image);
 					} else {
 						return super.getValue(key);
@@ -459,6 +459,57 @@ public class TesterUI extends ReflectionUI {
 	@Override
 	protected SwingRenderer createSwingRenderer() {
 		return new SwingRenderer(TesterUI.this) {
+
+			@Override
+			protected Component createFieldControl(Object object, IFieldInfo field) {
+				if ("testActions".equals(field.getName())) {
+					return new ListControl(TesterUI.this, object, field){
+
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						protected Image getCellIconImage(ItemNode node, int columnIndex) {
+							if (columnIndex == 1) {
+								return super.getCellIconImage(node, 0);
+							} else {
+								return null;
+							}
+						}
+						
+
+						
+					};
+				} else {
+					return super.createFieldControl(object, field);
+				}
+			}
+
+			@Override
+			public Image getIconImage(Object object) {
+				String imageResourceName = object.getClass().getName();
+				int lastDotIndex = imageResourceName.lastIndexOf(".");
+				if (lastDotIndex != -1) {
+					imageResourceName = imageResourceName.substring(lastDotIndex + 1);
+				}
+				imageResourceName += ".png";
+				Image result = imageCache.get(imageResourceName);
+				if (result == null) {
+					if (TesterUI.class.getResource(imageResourceName) == null) {
+						result = NULL_IMAGE;
+					} else {
+						try {
+							result = ImageIO.read(TesterUI.class.getResourceAsStream(imageResourceName));
+						} catch (IOException e) {
+							throw new AssertionError(e);
+						}
+					}
+					imageCache.put(imageResourceName, result);
+				}
+				if (result == NULL_IMAGE) {
+					return null;
+				}
+				return result;
+			}
 
 			@Override
 			public Container createWindowContentPane(Window window, Component content,
@@ -656,33 +707,6 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected Image getIconImage(ITypeInfo type, Object object) {
-				String imageResourceName = type.getName();
-				int lastDotIndex = imageResourceName.lastIndexOf(".");
-				if (lastDotIndex != -1) {
-					imageResourceName = imageResourceName.substring(lastDotIndex + 1);
-				}
-				imageResourceName += ".png";
-				Image result = imageCache.get(imageResourceName);
-				if (result == null) {
-					if (TesterUI.class.getResource(imageResourceName) == null) {
-						result = NULL_IMAGE;
-					} else {
-						try {
-							result = ImageIO.read(TesterUI.class.getResourceAsStream(imageResourceName));
-						} catch (IOException e) {
-							throw new AssertionError(e);
-						}
-					}
-					imageCache.put(imageResourceName, result);
-				}
-				if (result == NULL_IMAGE) {
-					return super.getIconImage(type, object);
-				}
-				return result;
-			}
-
-			@Override
 			protected IListStructuralInfo getStructuralInfo(IListTypeInfo type) {
 				ITypeInfo itemtype = type.getItemType();
 				if (itemtype.getName().equals(TestAction.class.getName())) {
@@ -698,15 +722,7 @@ public class TesterUI extends ReflectionUI {
 							}
 						}
 
-						@Override
-						public Image getCellIconImage(ItemPosition itemPosition, int columnIndex) {
-							if (columnIndex == 1) {
-								return super.getCellIconImage(itemPosition, 0);
-							} else {
-								return null;
-							}
-						}
-
+						
 						@Override
 						public String getColumnCaption(int columnIndex) {
 							if (columnIndex == 0) {
@@ -1209,9 +1225,8 @@ public class TesterUI extends ReflectionUI {
 				setTitle(getObjectTitle(recordingControl));
 				setIconImage(testerWindow.getIconImage());
 				JPanel form = getSwingRenderer().createObjectForm(recordingControl);
-				setContentPane(
-						getAlternateWindowDecorationsContentPane(this, form, TesterUI.this));
-				pack();			
+				setContentPane(getAlternateWindowDecorationsContentPane(this, form, TesterUI.this));
+				pack();
 			}
 
 			@Override
@@ -1220,7 +1235,7 @@ public class TesterUI extends ReflectionUI {
 				testerWindow.setLocation(recordingControlWindow.getLocation());
 				testerWindow.setVisible(true);
 				super.dispose();
-				recordingControlWindow = null;				
+				recordingControlWindow = null;
 			}
 
 		};
@@ -1230,7 +1245,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	public class RecordingControl {
-		
+
 		private boolean recordingPaused = false;
 
 		public void stopRecording() {
@@ -1242,15 +1257,15 @@ public class TesterUI extends ReflectionUI {
 			});
 		}
 
-		public boolean isRecordingPaused(){
+		public boolean isRecordingPaused() {
 			return recordingPaused;
 		}
-		
-		public void setRecordingPaused(boolean b){
-			tester.handleCurrentComponentChange(null);			
+
+		public void setRecordingPaused(boolean b) {
+			tester.handleCurrentComponentChange(null);
 			this.recordingPaused = b;
 		}
-		
+
 	}
 
 }

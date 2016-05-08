@@ -23,11 +23,9 @@
         <string>Type</string>
         <string>Component Information</string>
         <string>Value Description</string>
-        <string>Is Recording</string>
         <string>Load From File...</string>
         <string>Save To File...</string>
         <string>Start Recording</string>
-        <string>Stop Recording</string>
         <string>Play All</string>
         <string>Undo</string>
         <string>Redo</string>
@@ -610,11 +608,9 @@
         <string>xy.ui.testing.TestTesterUI</string>
         <string>Play Selected Action(s)</string>
         <string>Play From Selection To End</string>
-        <string>Is Recording</string>
         <string>Load From File...</string>
         <string>Save To File...</string>
         <string>Start Recording</string>
-        <string>Stop Recording</string>
         <string>Play All</string>
         <string>Undo</string>
         <string>Redo</string>
