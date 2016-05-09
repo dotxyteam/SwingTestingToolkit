@@ -283,16 +283,6 @@
       <doubleClick>false</doubleClick>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JCheckBox</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
@@ -306,16 +296,6 @@
       </keyboardInteractions>
       <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
     </xy.ui.testing.action.component.SendKeysAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JCheckBox</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.combobox.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
@@ -329,7 +309,7 @@
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JCheckBox</componentClassName>
-        <occurrencesToSkip>2</occurrencesToSkip>
+        <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <doubleClick>false</doubleClick>
@@ -397,16 +377,6 @@
       <doubleClick>false</doubleClick>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JCheckBox</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>3</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.combobox.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
@@ -420,7 +390,7 @@
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JCheckBox</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
+        <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>3</windowIndex>
       </componentFinder>
       <doubleClick>false</doubleClick>
