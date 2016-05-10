@@ -461,7 +461,7 @@ public class TesterUI extends ReflectionUI {
 		return new SwingRenderer(TesterUI.this) {
 
 			@Override
-			protected Component createFieldControl(Object object, IFieldInfo field) {
+			public Component createFieldControl(Object object, IFieldInfo field) {
 				if ("testActions".equals(field.getName())) {
 					return new ListControl(TesterUI.this, object, field){
 
