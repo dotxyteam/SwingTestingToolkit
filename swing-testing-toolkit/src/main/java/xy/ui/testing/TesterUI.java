@@ -39,7 +39,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
-import com.sun.awt.AWTUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.SwingRenderer;
@@ -60,13 +59,14 @@ import xy.reflect.ui.info.type.iterable.util.structure.IListStructuralInfo;
 import xy.reflect.ui.info.type.iterable.util.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
-import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyConfiguration;
-import xy.reflect.ui.info.type.util.TypeInfoProxyConfiguration;
+import xy.reflect.ui.info.type.util.HiddenNullableFacetsInfoProxyGenerator;
+import xy.reflect.ui.info.type.util.InfoProxyGenerator;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ModificationStack;
+import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
@@ -674,7 +674,7 @@ public class TesterUI extends ReflectionUI {
 
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
-		return new HiddenNullableFacetsTypeInfoProxyConfiguration(TesterUI.this) {
+		return new HiddenNullableFacetsInfoProxyGenerator(TesterUI.this) {
 
 			@Override
 			protected boolean isNullable(IFieldInfo field, ITypeInfo containingType) {
@@ -958,15 +958,13 @@ public class TesterUI extends ReflectionUI {
 
 	protected void openComponentInspector(Component c) {
 		ComponentInspector inspector = new ComponentInspector(c, this);
-		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector, getObjectTitle(inspector), null, true,
-				null, null, null, null, IInfoCollectionSettings.DEFAULT);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector, getObjectTitle(inspector), null, true);
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(recordingControlWindow, testAction, getObjectTitle(testAction), null, true,
-				null, okPressedArray, null, null, IInfoCollectionSettings.DEFAULT);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, Accessor.returning(testAction), getObjectTitle(testAction), null, true);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
