@@ -39,7 +39,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
-
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.SwingRenderer;
 import xy.reflect.ui.control.swing.ListControl;
@@ -60,6 +59,7 @@ import xy.reflect.ui.info.type.iterable.util.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.HiddenNullableFacetsInfoProxyGenerator;
+import xy.reflect.ui.info.type.util.InfoCustomizations;
 import xy.reflect.ui.info.type.util.InfoProxyGenerator;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -70,6 +70,7 @@ import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
+import xy.reflect.ui.util.SystemProperties;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.WaitAction;
@@ -117,10 +118,7 @@ public class TesterUI extends ReflectionUI {
 	public static final WeakHashMap<TesterUI, Tester> TESTERS = new WeakHashMap<TesterUI, Tester>();
 	public static final TesterUI DEFAULT = new TesterUI(Tester.DEFAULT);
 
-	protected static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-
 	protected Component componentFinderInitializationSource;
-	protected Map<String, Image> imageCache = new HashMap<String, Image>();
 	protected boolean recordingInsertedAfterSelection = false;
 	protected Tester tester;
 	protected AWTEventListener recordingListener;
@@ -141,6 +139,10 @@ public class TesterUI extends ReflectionUI {
 		};
 		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
 				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
+		if (SystemProperties.getInfoCustomizationsFilePath() == null) {
+			infoCustomizations = new InfoCustomizations(this);
+			infoCustomizations.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
+		}
 	}
 
 	@Override
@@ -314,22 +316,10 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode stopRecordingItem = new DefaultMutableTreeNode(new AbstractAction("Stop Recording") {
 			private static final long serialVersionUID = 1L;
 
-			Icon ICON;
-
-			{
-				try {
-					Image image = ImageIO.read(TesterUI.class.getResource("Tester.png"));
-					image = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-					ICON = new ImageIcon(image);
-				} catch (Exception e) {
-					throw new AssertionError(e);
-				}
-			}
-
 			@Override
 			public Object getValue(String key) {
 				if (key == AbstractAction.SMALL_ICON) {
-					return ICON;
+					return TestingUtils.TESTER_ICON;
 				} else {
 					return super.getValue(key);
 				}
@@ -463,7 +453,7 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			public Component createFieldControl(Object object, IFieldInfo field) {
 				if ("testActions".equals(field.getName())) {
-					return new ListControl(TesterUI.this, object, field){
+					return new ListControl(TesterUI.this, object, field) {
 
 						private static final long serialVersionUID = 1L;
 
@@ -475,40 +465,11 @@ public class TesterUI extends ReflectionUI {
 								return null;
 							}
 						}
-						
 
-						
 					};
 				} else {
 					return super.createFieldControl(object, field);
 				}
-			}
-
-			@Override
-			public Image getIconImage(Object object) {
-				String imageResourceName = object.getClass().getName();
-				int lastDotIndex = imageResourceName.lastIndexOf(".");
-				if (lastDotIndex != -1) {
-					imageResourceName = imageResourceName.substring(lastDotIndex + 1);
-				}
-				imageResourceName += ".png";
-				Image result = imageCache.get(imageResourceName);
-				if (result == null) {
-					if (TesterUI.class.getResource(imageResourceName) == null) {
-						result = NULL_IMAGE;
-					} else {
-						try {
-							result = ImageIO.read(TesterUI.class.getResourceAsStream(imageResourceName));
-						} catch (IOException e) {
-							throw new AssertionError(e);
-						}
-					}
-					imageCache.put(imageResourceName, result);
-				}
-				if (result == NULL_IMAGE) {
-					return null;
-				}
-				return result;
 			}
 
 			@Override
@@ -674,22 +635,7 @@ public class TesterUI extends ReflectionUI {
 
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
-		return new HiddenNullableFacetsInfoProxyGenerator(TesterUI.this) {
-
-			@Override
-			protected boolean isNullable(IFieldInfo field, ITypeInfo containingType) {
-				if (field.getName().equals("checkThrownExceptionAfterSeconds")) {
-					return true;
-				} else if (field.getName().equals("knownOptions")) {
-					return true;
-				} else if (field.getName().equals("newPropertyValue")) {
-					return true;
-				} else if (field.getName().equals("propertyValueExpected")) {
-					return true;
-				} else {
-					return super.isNullable(field, containingType);
-				}
-			}
+		return new InfoProxyGenerator() {
 
 			@Override
 			protected String toString(ITypeInfo type) {
@@ -722,7 +668,6 @@ public class TesterUI extends ReflectionUI {
 							}
 						}
 
-						
 						@Override
 						public String getColumnCaption(int columnIndex) {
 							if (columnIndex == 0) {
@@ -964,7 +909,8 @@ public class TesterUI extends ReflectionUI {
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(recordingControlWindow, Accessor.returning(testAction), getObjectTitle(testAction), null, true);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, Accessor.returning(testAction),
+				getObjectTitle(testAction), null, true);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
@@ -990,22 +936,10 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction("Inspect Component") {
 			private static final long serialVersionUID = 1L;
 
-			Icon ICON;
-
-			{
-				try {
-					Image image = ImageIO.read(TesterUI.class.getResource("Tester.png"));
-					image = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-					ICON = new ImageIcon(image);
-				} catch (Exception e) {
-					throw new AssertionError(e);
-				}
-			}
-
 			@Override
 			public Object getValue(String key) {
 				if (key == AbstractAction.SMALL_ICON) {
-					return ICON;
+					return TestingUtils.TESTER_ICON;
 				} else {
 					return super.getValue(key);
 				}
@@ -1024,22 +958,10 @@ public class TesterUI extends ReflectionUI {
 				new AbstractAction("Skip (Pause Recording for 5 seconds)") {
 					private static final long serialVersionUID = 1L;
 
-					Icon ICON;
-
-					{
-						try {
-							Image image = ImageIO.read(TesterUI.class.getResource("Tester.png"));
-							image = image.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-							ICON = new ImageIcon(image);
-						} catch (Exception e) {
-							throw new AssertionError(e);
-						}
-					}
-
 					@Override
 					public Object getValue(String key) {
 						if (key == AbstractAction.SMALL_ICON) {
-							return ICON;
+							return TestingUtils.TESTER_ICON;
 						} else {
 							return super.getValue(key);
 						}

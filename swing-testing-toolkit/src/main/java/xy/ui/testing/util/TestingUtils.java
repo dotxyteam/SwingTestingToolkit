@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.AWTEventListener;
@@ -16,12 +17,14 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -45,6 +48,13 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 
 public class TestingUtils {
+
+	private static Map<String, Image> IMAGE_CACHE = new HashMap<String, Image>();
+	
+	public static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+	public static final Image TESTER_IMAGE = loadImageResource("Tester.png");
+	public static final ImageIcon TESTER_ICON = new ImageIcon(
+			TESTER_IMAGE.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
 
 	public static boolean visitComponentTree(Component treeRoot, IComponentTreeVisitor visitor) {
 		if (!visitor.visit(treeRoot)) {
@@ -528,5 +538,33 @@ public class TestingUtils {
 		} catch (Exception e) {
 			return Color.decode("0x" + s);
 		}
+	}
+
+	public static Image loadImage(File file) {
+		try {
+			return ImageIO.read(file);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static Image loadImageResource(String imageResourceName) {
+		Image result = IMAGE_CACHE.get(imageResourceName);
+		if (result == null) {
+			if (TesterUI.class.getResource(imageResourceName) == null) {
+				result = NULL_IMAGE;
+			} else {
+				try {
+					result = ImageIO.read(TesterUI.class.getResourceAsStream(imageResourceName));
+				} catch (IOException e) {
+					throw new AssertionError(e);
+				}
+			}
+			IMAGE_CACHE.put(imageResourceName, result);
+		}
+		if (result == NULL_IMAGE) {
+			return null;
+		}
+		return result;
 	}
 }
