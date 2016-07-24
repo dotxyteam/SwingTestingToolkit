@@ -514,103 +514,6 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public JPanel createObjectForm(Object object, IInfoCollectionSettings settings) {
-				settings = new InfoCollectionSettingsProxy(settings) {
-
-					@Override
-					public boolean excludeMethod(IMethodInfo method) {
-						if (method.getName().equals("execute")) {
-							return true;
-						}
-						if (method.getName().equals("findComponent")) {
-							return true;
-						}
-						if (method.getName().equals("find")) {
-							return true;
-						}
-						if (method.getName().equals("initialize")) {
-							return true;
-						}
-						if (method.getName().equals("initializeFrom")) {
-							return true;
-						}
-						if (method.getName().equals("extractVisibleString")) {
-							return true;
-						}
-						if (method.getName().equals("getKeyEvents")) {
-							return true;
-						}
-						if (method.getName().equals("play")) {
-							return true;
-						}
-						if (method.getName().equals("collectVisibleStrings")) {
-							return true;
-						}
-						if (method.getName().equals("loadFromStream")) {
-							return true;
-						}
-						if (method.getName().equals("saveToStream")) {
-							return true;
-						}
-						if (method.getName().equals("assertSuccessfulReplay")) {
-							return true;
-						}
-						if (method.getName().equals("matches")) {
-							return true;
-						}
-						if (method.getName().equals("matches")) {
-							return true;
-						}
-						if (method.getName().equals("matchIntrospectionRequestEvent")) {
-							return true;
-						}
-						if (method.getName().equals("macthesComponent")) {
-							return true;
-						}
-						if (method.getName().equals("setPropertyNames")) {
-							return true;
-						}
-						if (method.getName().equals("removePropertyValue")) {
-							return true;
-						}
-						if (method.getName().equals("addPropertyValue")) {
-							return true;
-						}
-						if (method.getName().equals("getPropertyValue")) {
-							return true;
-						}
-						if (method.getName().equals("createPropertyValue")) {
-							return true;
-						}
-						if (method.getName().equals("setPropertyValue")) {
-							return true;
-						}
-						if (method.getName().equals("findPropertyValue")) {
-							return true;
-						}
-						return super.excludeMethod(method);
-					}
-
-					@Override
-					public boolean excludeField(IFieldInfo field) {
-						if (field.getName().equals("keyStrokes")) {
-							return true;
-						}
-						if (field.getName().equals("valueDescription")) {
-							return true;
-						}
-						if (field.getName().equals("componentInformation")) {
-							return true;
-						}
-						if (field.getName().equals("propertyValueList")) {
-							return true;
-						}
-						if (field.getName().equals("propertyValueCount")) {
-							return true;
-						}
-						return super.excludeField(field);
-					}
-
-				};
 				JPanel result = super.createObjectForm(object, settings);
 				if (object == tester) {
 					if (testerForm != null) {
@@ -704,7 +607,7 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected List<IMethodInfo> getMethods(ITypeInfo type) {
-				if ((type instanceof DefaultTypeInfo) && type.getName().equals(Tester.class.getName())) {
+				if (type.getName().equals(Tester.class.getName())) {
 					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
 					IMethodInfo playAllMethod;
 					while ((playAllMethod = ReflectionUIUtils.findInfoByName(result, "playAll")) != null) {

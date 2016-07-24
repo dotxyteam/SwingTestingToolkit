@@ -17,7 +17,69 @@
       </specificProperties>
       <typeName>xy.ui.testing.Tester</typeName>
       <fieldsCustomizations/>
-      <methodsCustomizations/>
+      <methodsCustomizations>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization">
+            <typeCustomizations reference="../../../../.."/>
+          </outer-class>
+          <hidden>true</hidden>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../outer-class"/>
+          <methodSignature>void saveToStream(java.io.OutputStream)</methodSignature>
+          <readOnlyForced>false</readOnlyForced>
+          <parametersCustomizations/>
+          <outer-class reference="../outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <hidden>true</hidden>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <methodSignature>void loadFromStream(java.io.InputStream)</methodSignature>
+          <readOnlyForced>false</readOnlyForced>
+          <parametersCustomizations/>
+          <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <hidden>true</hidden>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <methodSignature>void play(java.util.List, xy.ui.testing.util.Listener)</methodSignature>
+          <readOnlyForced>false</readOnlyForced>
+          <parametersCustomizations/>
+          <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <hidden>true</hidden>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <methodSignature>void assertSuccessfulReplay(java.io.File)</methodSignature>
+          <readOnlyForced>false</readOnlyForced>
+          <parametersCustomizations/>
+          <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <hidden>true</hidden>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <methodSignature>void assertSuccessfulReplay(java.io.InputStream)</methodSignature>
+          <readOnlyForced>false</readOnlyForced>
+          <parametersCustomizations/>
+          <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <hidden>true</hidden>
+          <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+          <methodSignature>void playAll(xy.ui.testing.util.Listener)</methodSignature>
+          <readOnlyForced>false</readOnlyForced>
+          <parametersCustomizations/>
+          <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+      </methodsCustomizations>
+      <customMethodsOrder>
+        <string>loadFromFile</string>
+        <string>saveToFile</string>
+        <string>playAll</string>
+      </customMethodsOrder>
       <memberCategories/>
       <outer-class>
         <typeCustomizations reference="../../.."/>
