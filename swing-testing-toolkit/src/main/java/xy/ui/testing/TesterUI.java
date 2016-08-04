@@ -40,9 +40,10 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.SwingRenderer;
+import xy.reflect.ui.control.swing.CustomizedSwingRenderer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
@@ -127,10 +128,15 @@ public class TesterUI extends ReflectionUI {
 	protected RecordingControl recordingControl = new RecordingControl();
 	protected JFrame recordingControlWindow;
 	protected JPanel testerForm;
+	protected SwingRenderer swingRenderer;
+	protected InfoCustomizations infoCustomizations;
 
 	public TesterUI(Tester tester) {
 		this.tester = tester;
 		TESTERS.put(this, tester);
+		infoCustomizations = new InfoCustomizations();
+		infoCustomizations.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
+		swingRenderer = createSwingRenderer();
 		recordingListener = new AWTEventListener() {
 			@Override
 			public void eventDispatched(AWTEvent event) {
@@ -139,10 +145,6 @@ public class TesterUI extends ReflectionUI {
 		};
 		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
 				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
-		if (SystemProperties.getInfoCustomizationsFilePath() == null) {
-			infoCustomizations = new InfoCustomizations(this);
-			infoCustomizations.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
-		}
 	}
 
 	@Override
@@ -168,6 +170,10 @@ public class TesterUI extends ReflectionUI {
 
 	public Tester getTester() {
 		return tester;
+	}
+
+	public SwingRenderer getSwingRenderer() {
+		return swingRenderer;
 	}
 
 	public Color getDecorationsForegroundColor() {
@@ -446,14 +452,16 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	@Override
 	protected SwingRenderer createSwingRenderer() {
-		return new SwingRenderer(TesterUI.this) {
+		String infoCustomizationsOutputFilePath = "src/main/resources/"
+				+ TesterUI.class.getPackage().getName().replace('.', '/') + "/infoCustomizations.icu";
+		CustomizedSwingRenderer result = new CustomizedSwingRenderer(this, infoCustomizations,
+				infoCustomizationsOutputFilePath) {
 
 			@Override
 			public Component createFieldControl(Object object, IFieldInfo field) {
 				if ("testActions".equals(field.getName())) {
-					return new ListControl(TesterUI.this, object, field) {
+					return new ListControl(this, object, field) {
 
 						private static final long serialVersionUID = 1L;
 
@@ -525,10 +533,11 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		};
+		return result;
 	}
 
 	protected boolean isTesterWindow(Window window) {
-		for (JPanel form : SwingRendererUtils.findDescendantForms(window, TesterUI.this)) {
+		for (JPanel form : SwingRendererUtils.findDescendantForms(window, getSwingRenderer())) {
 			if (getSwingRenderer().getObjectByForm().get(form) instanceof Tester) {
 				return true;
 			}
@@ -538,7 +547,8 @@ public class TesterUI extends ReflectionUI {
 
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
-		return new InfoProxyGenerator() {
+		ITypeInfo result = super.getTypeInfo(typeSource);
+		result = new InfoProxyGenerator() {
 
 			@Override
 			protected String toString(ITypeInfo type) {
@@ -616,6 +626,11 @@ public class TesterUI extends ReflectionUI {
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
 
 						@Override
+						public String getName() {
+							return "startRecording";
+						}
+
+						@Override
 						public String getCaption() {
 							return "Start Recording";
 						}
@@ -628,6 +643,11 @@ public class TesterUI extends ReflectionUI {
 
 					});
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
+
+						@Override
+						public String getName() {
+							return "playAll";
+						}
 
 						@Override
 						public String getCaption() {
@@ -782,7 +802,8 @@ public class TesterUI extends ReflectionUI {
 				return super.getSpecificListActions(type, object, field, selection);
 			}
 
-		}.get(super.getTypeInfo(typeSource));
+		}.get(result);
+		return infoCustomizations.get(this, result);
 	}
 
 	protected void beforeEachAction(TestAction testAction) {

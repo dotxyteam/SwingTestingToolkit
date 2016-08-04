@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import xy.reflect.ui.ReflectionUI;
+import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.ui.testing.util.TestingUtils;
 
 public class TestTesterUI {
@@ -22,7 +23,7 @@ public class TestTesterUI {
 			testerUI.setDecorationsForegroundColor(new Color(216, 214, 245));
 			testerUI.open();
 		} else if ((args.length == 1) && args[0].equals("TestTesterUI dialog")) {
-			new ReflectionUI().getSwingRenderer().openObjectDialog(null, new TestTesterUI(), false);
+			new SwingRenderer(new ReflectionUI()).openObjectDialog(null, new TestTesterUI(), false);
 		}
 	}
 

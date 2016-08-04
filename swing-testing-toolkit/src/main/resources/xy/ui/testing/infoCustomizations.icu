@@ -78,6 +78,7 @@
       <customMethodsOrder>
         <string>loadFromFile</string>
         <string>saveToFile</string>
+        <string>startRecording</string>
         <string>playAll</string>
       </customMethodsOrder>
       <memberCategories/>
