@@ -130,12 +130,25 @@ public class TesterUI extends ReflectionUI {
 	protected JPanel testerForm;
 	protected SwingRenderer swingRenderer;
 	protected InfoCustomizations infoCustomizations;
+	protected String infoCustomizationsOutputFilePath;
 
 	public TesterUI(Tester tester) {
 		this.tester = tester;
 		TESTERS.put(this, tester);
 		infoCustomizations = new InfoCustomizations();
-		infoCustomizations.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
+		{
+			if (SystemProperties.areInfoCustomizationsControlsAuthorized()) {
+				infoCustomizationsOutputFilePath = "src/main/resources/"
+						+ TesterUI.class.getPackage().getName().replace('.', '/') + "/infoCustomizations.icu";
+				try {
+					infoCustomizations.loadFromFile(new File(infoCustomizationsOutputFilePath));
+				} catch (IOException e) {
+					throw new ReflectionUIError(e);
+				}
+			} else {
+				infoCustomizations.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
+			}
+		}
 		swingRenderer = createSwingRenderer();
 		recordingListener = new AWTEventListener() {
 			@Override
@@ -453,8 +466,6 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected SwingRenderer createSwingRenderer() {
-		String infoCustomizationsOutputFilePath = "src/main/resources/"
-				+ TesterUI.class.getPackage().getName().replace('.', '/') + "/infoCustomizations.icu";
 		CustomizedSwingRenderer result = new CustomizedSwingRenderer(this, infoCustomizations,
 				infoCustomizationsOutputFilePath) {
 
