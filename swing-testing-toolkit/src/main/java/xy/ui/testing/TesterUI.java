@@ -40,7 +40,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.CustomizedSwingRenderer;
+import xy.reflect.ui.control.swing.CustomizableSwingRenderer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
@@ -466,7 +466,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected SwingRenderer createSwingRenderer() {
-		CustomizedSwingRenderer result = new CustomizedSwingRenderer(this, infoCustomizations,
+		CustomizableSwingRenderer result = new CustomizableSwingRenderer(this, infoCustomizations,
 				infoCustomizationsOutputFilePath) {
 
 			@Override
@@ -675,22 +675,6 @@ public class TesterUI extends ReflectionUI {
 					return result;
 				} else {
 					return super.getMethods(type);
-				}
-			}
-
-			@Override
-			protected List<IMethodInfo> getConstructors(ITypeInfo type) {
-				if (type.getName().equals(PropertyValue.class.getName())) {
-					List<IMethodInfo> result = new ArrayList<IMethodInfo>();
-					for (IMethodInfo ctor : super.getConstructors(type)) {
-						if (ctor.getParameters().size() > 0) {
-							continue;
-						}
-						result.add(ctor);
-					}
-					return result;
-				} else {
-					return super.getConstructors(type);
 				}
 			}
 
