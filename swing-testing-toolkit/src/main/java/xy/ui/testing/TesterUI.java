@@ -40,7 +40,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.CustomizableSwingRenderer;
+import xy.reflect.ui.control.swing.CustomizingSwingRenderer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
@@ -53,7 +53,7 @@ import xy.reflect.ui.info.field.FieldInfoProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
-import xy.reflect.ui.info.type.iterable.util.IListAction;
+import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.structure.IListStructuralInfo;
 import xy.reflect.ui.info.type.iterable.util.structure.ListStructuralInfoProxy;
@@ -435,24 +435,16 @@ public class TesterUI extends ReflectionUI {
 		return false;
 	}
 
-	protected void playActionsAndUpdateUI(List<TestAction> selectedActions) {
+	protected void playActions(List<TestAction> selectedActions) {
 		setRecordingPausedAndUpdateUI(true);
 		try {
-			String methodSignature;
-			try {
-				methodSignature = ReflectionUIUtils
-						.getJavaMethodInfoSignature(Tester.class.getMethod("play", List.class, Listener.class));
-			} catch (Exception e) {
-				throw new AssertionError(e);
-			}
-			IMethodInfo playMethod = getSwingRenderer().getFormUpdatingMethod(tester, methodSignature);
 			Listener<TestAction> selectingListener = new Listener<TestAction>() {
 				@Override
 				public void handle(TestAction event) {
 					TesterUI.this.beforeEachAction(event);
 				}
 			};
-			playMethod.invoke(tester, new InvocationData(selectedActions, selectingListener));
+			tester.play(selectedActions, selectingListener);
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
@@ -466,7 +458,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected SwingRenderer createSwingRenderer() {
-		CustomizableSwingRenderer result = new CustomizableSwingRenderer(this, infoCustomizations,
+		CustomizingSwingRenderer result = new CustomizingSwingRenderer(this, infoCustomizations,
 				infoCustomizationsOutputFilePath) {
 
 			@Override
@@ -618,8 +610,10 @@ public class TesterUI extends ReflectionUI {
 				if ((type instanceof DefaultTypeInfo)
 						&& type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					result.add(new ImplicitListField(TesterUI.this, "propertyValues", type, "createPropertyValue",
-							"getPropertyValue", "addPropertyValue", "removePropertyValue", "propertyValueCount"));
+					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class));
+					result.add(new ImplicitListField(TesterUI.this, "propertyValues", type, propertyValueType,
+							"createPropertyValue", "getPropertyValue", "addPropertyValue", "removePropertyValue",
+							"propertyValueCount"));
 					return result;
 				} else {
 					return super.getFields(type);
@@ -667,7 +661,7 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							playActionsAndUpdateUI(Arrays.asList(tester.getTestActions()));
+							playActions(Arrays.asList(tester.getTestActions()));
 							return null;
 						}
 
@@ -739,37 +733,39 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected List<IListAction> getSpecificListActions(IListTypeInfo type, final Object object,
+			protected List<AbstractListAction> getSpecificListActions(IListTypeInfo type, final Object object,
 					IFieldInfo field, final List<? extends ItemPosition> selection) {
 				if ((object instanceof Tester) && (field.getName().equals("testActions"))) {
 					if (selection.size() > 0) {
-						List<IListAction> result = new ArrayList<IListAction>();
-						result.add(new IListAction() {
+						List<AbstractListAction> result = new ArrayList<AbstractListAction>();
+						result.add(new AbstractListAction() {
 
 							@Override
-							public void perform(final Component listControl) {
+							public String getCaption() {
+								return "Play Selected Action(s)";
+							}
+
+							@Override
+							public Object invoke(Object object, InvocationData invocationData) {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
 									for (ItemPosition itemPosition : selection) {
 										TestAction testAction = (TestAction) itemPosition.getItem();
 										selectedActions.add(testAction);
 									}
-									playActionsAndUpdateUI(selectedActions);
+									playActions(selectedActions);
+									return null;
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
 								}
 							}
 
-							@Override
-							public String getTitle() {
-								return "Play Selected Action(s)";
-							}
 						});
 						if (selection.size() == 1) {
-							result.add(new IListAction() {
+							result.add(new AbstractListAction() {
 
 								@Override
-								public void perform(final Component listControl) {
+								public Object invoke(Object object, InvocationData invocationData) {
 									try {
 										List<TestAction> actionsToPlay = new ArrayList<TestAction>();
 										ItemPosition singleSelection = selection.get(0);
@@ -779,14 +775,15 @@ public class TesterUI extends ReflectionUI {
 													.getItem();
 											actionsToPlay.add(testAction);
 										}
-										playActionsAndUpdateUI(actionsToPlay);
+										playActions(actionsToPlay);
+										return null;
 									} catch (Exception e) {
 										throw new ReflectionUIError(e);
 									}
 								}
 
 								@Override
-								public String getTitle() {
+								public String getCaption() {
 									return "Play From Selection To End";
 								}
 							});
