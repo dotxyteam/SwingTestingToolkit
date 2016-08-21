@@ -1,0 +1,416 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  Internal Error (oops/constantPoolOop.hpp:305), pid=4580, tid=5428
+#  guarantee(tag_at(which).is_klass()) failed: Corrupted constant pool
+#
+# JRE version: 6.0_45-b06
+# Java VM: Java HotSpot(TM) Client VM (20.45-b01 mixed mode windows-x86 )
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x193fc400):  JavaThread "AWT-EventQueue-0" [_thread_in_vm, id=5428, stack(0x19a80000,0x19ad0000)]
+
+Stack: [0x19a80000,0x19ad0000],  sp=0x19acbd14,  free space=303k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x13490a]
+V  [jvm.dll+0x12f35c]
+V  [jvm.dll+0x45fd]
+V  [jvm.dll+0x710c8]
+V  [jvm.dll+0x48cbf]
+V  [jvm.dll+0xbfe5a]
+J  java.lang.Class.getEnclosingMethod0()[Ljava/lang/Object;
+J  java.lang.Class.getEnclosingMethod()Ljava/lang/reflect/Method;
+j  xy.reflect.ui.control.swing.SwingRenderer.getIconImage(Ljava/lang/Object;)Ljava/awt/Image;+16
+j  xy.reflect.ui.control.swing.EnumerationControl$1.getListCellRendererComponent(Ljavax/swing/JList;Ljava/lang/Object;IZZ)Ljava/awt/Component;+100
+j  javax.swing.plaf.basic.BasicComboBoxUI.paintCurrentValue(Ljava/awt/Graphics;Ljava/awt/Rectangle;Z)V+40
+j  javax.swing.plaf.metal.MetalComboBoxUI.paintCurrentValue(Ljava/awt/Graphics;Ljava/awt/Rectangle;Z)V+103
+j  javax.swing.plaf.basic.BasicComboBoxUI.paint(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V+43
+j  javax.swing.plaf.metal.MetalComboBoxUI.paint(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V+9
+J  javax.swing.plaf.ComponentUI.update(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V
+j  javax.swing.BufferStrategyPaintManager.paint(Ljavax/swing/JComponent;Ljavax/swing/JComponent;Ljava/awt/Graphics;IIII)Z+157
+j  javax.swing.RepaintManager.paint(Ljavax/swing/JComponent;Ljavax/swing/JComponent;Ljava/awt/Graphics;IIII)V+52
+J  javax.swing.JComponent._paintImmediately(IIII)V
+j  javax.swing.RepaintManager$3.run()Ljava/lang/Void;+75
+j  javax.swing.RepaintManager$3.run()Ljava/lang/Object;+1
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfb88b]
+V  [jvm.dll+0x18d551]
+V  [jvm.dll+0xfb90d]
+V  [jvm.dll+0xbbf74]
+C  [java.dll+0x102f]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedAction_2Ljava_security_AccessControlContext_2+0x17
+J  javax.swing.RepaintManager.paintDirtyRegions(Ljava/util/Map;)V
+j  javax.swing.RepaintManager.prePaintDirtyRegions()V+73
+j  javax.swing.RepaintManager.access$1000(Ljavax/swing/RepaintManager;)V+1
+j  javax.swing.RepaintManager$ProcessingRunnable.run()V+37
+J  java.awt.event.InvocationEvent.dispatch()V
+V  [jvm.dll+0xfb88b]
+V  [jvm.dll+0x18d551]
+V  [jvm.dll+0xfb90d]
+V  [jvm.dll+0xbbf74]
+C  [java.dll+0x102f]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedAction_2Ljava_security_AccessControlContext_2+0x17
+J  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V
+j  java.awt.Dialog$1.run()V+23
+j  java.awt.Dialog$3.run()Ljava/lang/Object;+4
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfb88b]
+V  [jvm.dll+0x18d551]
+V  [jvm.dll+0xfb90d]
+V  [jvm.dll+0xbbf74]
+C  [java.dll+0x1015]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedAction_2+0x15
+j  java.awt.Dialog.show()V+240
+j  java.awt.Component.show(Z)V+5
+j  java.awt.Component.setVisible(Z)V+2
+j  java.awt.Window.setVisible(Z)V+2
+j  java.awt.Dialog.setVisible(Z)V+2
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;ZZ)V+30
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;Z)V+4
+j  xy.reflect.ui.control.swing.SwingRenderer.openObjectDialog(Ljava/awt/Component;Lxy/reflect/ui/util/Accessor;Ljava/lang/String;Ljava/awt/Image;ZLxy/reflect/ui/info/IInfoCollectionSettings;Lxy/reflect/ui/undo/ModificationStack;Z[Z[ZLjava/util/List;)V+28
+j  xy.reflect.ui.control.swing.SwingRenderer.openSelectionDialog(Ljava/awt/Component;Lxy/reflect/ui/info/type/enumeration/IEnumerationTypeInfo;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;+71
+j  xy.reflect.ui.control.swing.SwingRenderer.openSelectionDialog(Ljava/awt/Component;Ljava/util/List;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;+87
+j  xy.reflect.ui.control.swing.SwingRenderer.onTypeInstanciationRequest(Ljava/awt/Component;Lxy/reflect/ui/info/type/ITypeInfo;Z)Ljava/lang/Object;+604
+j  xy.ui.testing.TesterUI$9.onTypeInstanciationRequest(Ljava/awt/Component;Lxy/reflect/ui/info/type/ITypeInfo;Z)Ljava/lang/Object;+4
+j  xy.reflect.ui.control.swing.ListControl$10.perform([Ljava/util/List;)Z+39
+j  xy.reflect.ui.control.swing.ListControl$AbstractStandardListAction.actionPerformed(Ljava/awt/event/ActionEvent;)V+125
+j  xy.reflect.ui.control.swing.ListControl$2.actionPerformed(Ljava/awt/event/ActionEvent;)V+34
+j  javax.swing.AbstractButton.fireActionPerformed(Ljava/awt/event/ActionEvent;)V+84
+j  javax.swing.AbstractButton$Handler.actionPerformed(Ljava/awt/event/ActionEvent;)V+5
+j  javax.swing.DefaultButtonModel.fireActionPerformed(Ljava/awt/event/ActionEvent;)V+35
+j  javax.swing.DefaultButtonModel.setPressed(Z)V+117
+j  javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Ljava/awt/event/MouseEvent;)V+35
+j  java.awt.AWTEventMulticaster.mouseReleased(Ljava/awt/event/MouseEvent;)V+8
+j  java.awt.Component.processMouseEvent(Ljava/awt/event/MouseEvent;)V+64
+j  javax.swing.JComponent.processMouseEvent(Ljava/awt/event/MouseEvent;)V+23
+J  java.awt.Component.processEvent(Ljava/awt/AWTEvent;)V
+V  [jvm.dll+0xfb88b]
+V  [jvm.dll+0x18d551]
+V  [jvm.dll+0xfb90d]
+V  [jvm.dll+0xbbf74]
+C  [java.dll+0x102f]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedAction_2Ljava_security_AccessControlContext_2+0x17
+J  java.security.AccessControlContext$1.doIntersectionPrivilege(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+V  [jvm.dll+0xfb88b]
+V  [jvm.dll+0x18d551]
+V  [jvm.dll+0xfb90d]
+V  [jvm.dll+0xbbf74]
+C  [java.dll+0x102f]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedAction_2Ljava_security_AccessControlContext_2+0x17
+J  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V
+j  java.awt.Dialog$1.run()V+23
+j  java.awt.Dialog$3.run()Ljava/lang/Object;+4
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0xfb88b]
+V  [jvm.dll+0x18d551]
+V  [jvm.dll+0xfb90d]
+V  [jvm.dll+0xbbf74]
+C  [java.dll+0x1015]  Java_java_security_AccessController_doPrivileged__Ljava_security_PrivilegedAction_2+0x15
+j  java.awt.Dialog.show()V+240
+j  java.awt.Component.show(Z)V+5
+j  java.awt.Component.setVisible(Z)V+2
+j  java.awt.Window.setVisible(Z)V+2
+j  java.awt.Dialog.setVisible(Z)V+2
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;ZZ)V+30
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;Z)V+4
+j  xy.reflect.ui.control.swing.SwingRenderer.openObjectDialog(Ljava/awt/Component;Lxy/reflect/ui/util/Accessor;Ljava/lang/String;Ljava/awt/Image;ZLxy/reflect/ui/info/IInfoCollectionSettings;Lxy/reflect/ui/undo/ModificationStack;Z[Z[ZLjava/util/List;)V+28
+j  xy.reflect.ui.control.swing.ListControl.openDetailsDialog(Lxy/reflect/ui/control/swing/ListControl$AutoFieldValueUpdatingItemPosition;[ZLxy/reflect/ui/undo/ModificationStack;)Z+180
+j  xy.reflect.ui.control.swing.ListControl.onOpenDetaildsDialogRequest(Lxy/reflect/ui/control/swing/ListControl$AutoFieldValueUpdatingItemPosition;)Z+37
+j  xy.reflect.ui.control.swing.ListControl$17.perform([Ljava/util/List;)Z+13
+...<more frames>...
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J  java.lang.Class.getEnclosingMethod0()[Ljava/lang/Object;
+J  java.lang.Class.getEnclosingMethod()Ljava/lang/reflect/Method;
+J  xy.reflect.ui.info.type.util.InfoProxyGenerator.getSpecificProperties(Lxy/reflect/ui/info/type/ITypeInfo;)Ljava/util/Map;
+J  xy.reflect.ui.info.type.util.InfoProxyGenerator$GeneratedBasicTypeInfoProxy.<init>(Lxy/reflect/ui/info/type/util/InfoProxyGenerator;Lxy/reflect/ui/info/type/ITypeInfo;)V
+J  xy.reflect.ui.info.type.util.InfoProxyGenerator.get(Lxy/reflect/ui/info/type/ITypeInfo;)Lxy/reflect/ui/info/type/ITypeInfo;
+j  xy.ui.testing.TesterUI.getTypeInfo(Lxy/reflect/ui/info/type/source/ITypeInfoSource;)Lxy/reflect/ui/info/type/ITypeInfo;+15
+j  xy.reflect.ui.control.swing.SwingRenderer.getIconImage(Ljava/lang/Object;)Ljava/awt/Image;+16
+j  xy.reflect.ui.control.swing.EnumerationControl$1.getListCellRendererComponent(Ljavax/swing/JList;Ljava/lang/Object;IZZ)Ljava/awt/Component;+100
+j  javax.swing.plaf.basic.BasicComboBoxUI.paintCurrentValue(Ljava/awt/Graphics;Ljava/awt/Rectangle;Z)V+40
+j  javax.swing.plaf.metal.MetalComboBoxUI.paintCurrentValue(Ljava/awt/Graphics;Ljava/awt/Rectangle;Z)V+103
+j  javax.swing.plaf.basic.BasicComboBoxUI.paint(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V+43
+j  javax.swing.plaf.metal.MetalComboBoxUI.paint(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V+9
+J  javax.swing.plaf.ComponentUI.update(Ljava/awt/Graphics;Ljavax/swing/JComponent;)V
+J  javax.swing.JComponent.paintComponent(Ljava/awt/Graphics;)V
+J  javax.swing.JComponent.paint(Ljava/awt/Graphics;)V
+j  javax.swing.JComponent.paintToOffscreen(Ljava/awt/Graphics;IIIIII)V+41
+j  javax.swing.BufferStrategyPaintManager.paint(Ljavax/swing/JComponent;Ljavax/swing/JComponent;Ljava/awt/Graphics;IIII)Z+157
+j  javax.swing.RepaintManager.paint(Ljavax/swing/JComponent;Ljavax/swing/JComponent;Ljava/awt/Graphics;IIII)V+52
+J  javax.swing.JComponent._paintImmediately(IIII)V
+j  javax.swing.JComponent.paintImmediately(IIII)V+83
+j  javax.swing.RepaintManager$3.run()Ljava/lang/Void;+75
+j  javax.swing.RepaintManager$3.run()Ljava/lang/Object;+1
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  javax.swing.RepaintManager.paintDirtyRegions(Ljava/util/Map;)V
+j  javax.swing.RepaintManager.paintDirtyRegions()V+46
+j  javax.swing.RepaintManager.prePaintDirtyRegions()V+73
+j  javax.swing.RepaintManager.access$1000(Ljavax/swing/RepaintManager;)V+1
+j  javax.swing.RepaintManager$ProcessingRunnable.run()V+37
+J  java.awt.event.InvocationEvent.dispatch()V
+J  java.awt.EventQueue.dispatchEventImpl(Ljava/awt/AWTEvent;Ljava/lang/Object;)V
+J  java.awt.EventQueue$2.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z
+J  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V
+j  java.awt.EventDispatchThread.pumpEventsForFilter(Ljava/awt/Conditional;Ljava/awt/EventFilter;)V+4
+j  java.awt.Dialog$1.run()V+23
+j  java.awt.Dialog$3.run()Ljava/lang/Object;+4
+v  ~StubRoutines::call_stub
+j  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;)Ljava/lang/Object;+0
+j  java.awt.Dialog.show()V+240
+j  java.awt.Component.show(Z)V+5
+j  java.awt.Component.setVisible(Z)V+2
+j  java.awt.Window.setVisible(Z)V+2
+j  java.awt.Dialog.setVisible(Z)V+2
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;ZZ)V+30
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;Z)V+4
+j  xy.reflect.ui.control.swing.SwingRenderer.openObjectDialog(Ljava/awt/Component;Lxy/reflect/ui/util/Accessor;Ljava/lang/String;Ljava/awt/Image;ZLxy/reflect/ui/info/IInfoCollectionSettings;Lxy/reflect/ui/undo/ModificationStack;Z[Z[ZLjava/util/List;)V+28
+j  xy.reflect.ui.control.swing.SwingRenderer.openSelectionDialog(Ljava/awt/Component;Lxy/reflect/ui/info/type/enumeration/IEnumerationTypeInfo;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;+71
+j  xy.reflect.ui.control.swing.SwingRenderer.openSelectionDialog(Ljava/awt/Component;Ljava/util/List;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;+87
+j  xy.reflect.ui.control.swing.SwingRenderer.onTypeInstanciationRequest(Ljava/awt/Component;Lxy/reflect/ui/info/type/ITypeInfo;Z)Ljava/lang/Object;+604
+j  xy.ui.testing.TesterUI$9.onTypeInstanciationRequest(Ljava/awt/Component;Lxy/reflect/ui/info/type/ITypeInfo;Z)Ljava/lang/Object;+4
+j  xy.reflect.ui.control.swing.ListControl$10.perform([Ljava/util/List;)Z+39
+j  xy.reflect.ui.control.swing.ListControl$AbstractStandardListAction.actionPerformed(Ljava/awt/event/ActionEvent;)V+125
+j  xy.reflect.ui.control.swing.ListControl$2.actionPerformed(Ljava/awt/event/ActionEvent;)V+34
+j  javax.swing.AbstractButton.fireActionPerformed(Ljava/awt/event/ActionEvent;)V+84
+j  javax.swing.AbstractButton$Handler.actionPerformed(Ljava/awt/event/ActionEvent;)V+5
+j  javax.swing.DefaultButtonModel.fireActionPerformed(Ljava/awt/event/ActionEvent;)V+35
+j  javax.swing.DefaultButtonModel.setPressed(Z)V+117
+j  javax.swing.plaf.basic.BasicButtonListener.mouseReleased(Ljava/awt/event/MouseEvent;)V+35
+j  java.awt.AWTEventMulticaster.mouseReleased(Ljava/awt/event/MouseEvent;)V+8
+j  java.awt.Component.processMouseEvent(Ljava/awt/event/MouseEvent;)V+64
+j  javax.swing.JComponent.processMouseEvent(Ljava/awt/event/MouseEvent;)V+23
+J  java.awt.Component.processEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.Container.processEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.Component.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.LightweightDispatcher.retargetMouseEvent(Ljava/awt/Component;ILjava/awt/event/MouseEvent;)V
+J  java.awt.LightweightDispatcher.processMouseEvent(Ljava/awt/event/MouseEvent;)Z
+J  java.awt.LightweightDispatcher.dispatchEvent(Ljava/awt/AWTEvent;)Z
+J  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.Window.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.EventQueue.dispatchEventImpl(Ljava/awt/AWTEvent;Ljava/lang/Object;)V
+J  java.awt.EventQueue$2.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.security.AccessControlContext$1.doIntersectionPrivilege(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.awt.EventQueue$3.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z
+J  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V
+j  java.awt.EventDispatchThread.pumpEventsForFilter(Ljava/awt/Conditional;Ljava/awt/EventFilter;)V+4
+j  java.awt.Dialog$1.run()V+23
+j  java.awt.Dialog$3.run()Ljava/lang/Object;+4
+v  ~StubRoutines::call_stub
+j  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;)Ljava/lang/Object;+0
+j  java.awt.Dialog.show()V+240
+j  java.awt.Component.show(Z)V+5
+j  java.awt.Component.setVisible(Z)V+2
+j  java.awt.Window.setVisible(Z)V+2
+j  java.awt.Dialog.setVisible(Z)V+2
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;ZZ)V+30
+j  xy.reflect.ui.control.swing.SwingRenderer.showDialog(Ljavax/swing/JDialog;Z)V+4
+j  xy.reflect.ui.control.swing.SwingRenderer.openObjectDialog(Ljava/awt/Component;Lxy/reflect/ui/util/Accessor;Ljava/lang/String;Ljava/awt/Image;ZLxy/reflect/ui/info/IInfoCollectionSettings;Lxy/reflect/ui/undo/ModificationStack;Z[Z[ZLjava/util/List;)V+28
+j  xy.reflect.ui.control.swing.ListControl.openDetailsDialog(Lxy/reflect/ui/control/swing/ListControl$AutoFieldValueUpdatingItemPosition;[ZLxy/reflect/ui/undo/ModificationStack;)Z+180
+j  xy.reflect.ui.control.swing.ListControl.onOpenDetaildsDialogRequest(Lxy/reflect/ui/control/swing/ListControl$AutoFieldValueUpdatingItemPosition;)Z+37
+j  xy.reflect.ui.control.swing.ListControl$17.perform([Ljava/util/List;)Z+13
+j  xy.reflect.ui.control.swing.ListControl$AbstractStandardListAction.actionPerformed(Ljava/awt/event/ActionEvent;)V+26
+j  xy.reflect.ui.control.swing.ListControl$19.mouseClicked(Ljava/awt/event/MouseEvent;)V+17
+j  java.awt.AWTEventMulticaster.mouseClicked(Ljava/awt/event/MouseEvent;)V+21
+j  java.awt.AWTEventMulticaster.mouseClicked(Ljava/awt/event/MouseEvent;)V+8
+j  java.awt.Component.processMouseEvent(Ljava/awt/event/MouseEvent;)V+74
+j  javax.swing.JComponent.processMouseEvent(Ljava/awt/event/MouseEvent;)V+23
+j  org.jdesktop.swingx.JXTreeTable.processMouseEvent(Ljava/awt/event/MouseEvent;)V+55
+J  java.awt.Component.processEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.Container.processEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.Component.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.LightweightDispatcher.retargetMouseEvent(Ljava/awt/Component;ILjava/awt/event/MouseEvent;)V
+J  java.awt.LightweightDispatcher.processMouseEvent(Ljava/awt/event/MouseEvent;)Z
+J  java.awt.LightweightDispatcher.dispatchEvent(Ljava/awt/AWTEvent;)Z
+J  java.awt.Container.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.Window.dispatchEventImpl(Ljava/awt/AWTEvent;)V
+J  java.awt.EventQueue.dispatchEventImpl(Ljava/awt/AWTEvent;Ljava/lang/Object;)V
+J  java.awt.EventQueue$2.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.security.AccessControlContext$1.doIntersectionPrivilege(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.awt.EventQueue$3.run()Ljava/lang/Object;
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+J  java.awt.EventQueue.dispatchEvent(Ljava/awt/AWTEvent;)V
+J  java.awt.EventDispatchThread.pumpOneEventForFilters(I)Z
+j  java.awt.EventDispatchThread.pumpEventsForFilter(ILjava/awt/Conditional;Ljava/awt/EventFilter;)V+30
+j  java.awt.EventDispatchThread.pumpEventsForHierarchy(ILjava/awt/Conditional;Ljava/awt/Component;)V+11
+j  java.awt.EventDispatchThread.pumpEvents(ILjava/awt/Conditional;)V+4
+j  java.awt.EventDispatchThread.pumpEvents(Ljava/awt/Conditional;)V+3
+j  java.awt.EventDispatchThread.run()V+9
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x18f6d000 JavaThread "Swing-Shell" daemon [_thread_blocked, id=5748, stack(0x19720000,0x19770000)]
+  0x0268a400 JavaThread "DestroyJavaVM" [_thread_blocked, id=5612, stack(0x00380000,0x003d0000)]
+  0x1944e400 JavaThread "TimerQueue" daemon [_thread_blocked, id=4844, stack(0x19b10000,0x19b60000)]
+=>0x193fc400 JavaThread "AWT-EventQueue-0" [_thread_in_vm, id=5428, stack(0x19a80000,0x19ad0000)]
+  0x190e1c00 JavaThread "AWT-Windows" daemon [_thread_in_native, id=4104, stack(0x198d0000,0x19920000)]
+  0x190e1400 JavaThread "AWT-Shutdown" [_thread_blocked, id=5196, stack(0x19840000,0x19890000)]
+  0x190ce400 JavaThread "Java2D Disposer" daemon [_thread_blocked, id=4924, stack(0x197b0000,0x19800000)]
+  0x01d52800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=6100, stack(0x18ea0000,0x18ef0000)]
+  0x01d41800 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=5864, stack(0x18cc0000,0x18d10000)]
+  0x01d31c00 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=5604, stack(0x18c30000,0x18c80000)]
+  0x01d30c00 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=4160, stack(0x18b70000,0x18bc0000)]
+  0x01d2e800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=4132, stack(0x18a90000,0x18ae0000)]
+  0x01d24000 JavaThread "Attach Listener" daemon [_thread_blocked, id=6028, stack(0x18840000,0x18890000)]
+  0x01d21000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=4112, stack(0x187b0000,0x18800000)]
+  0x01cf1c00 JavaThread "Finalizer" daemon [_thread_blocked, id=2648, stack(0x18720000,0x18770000)]
+  0x01ced400 JavaThread "Reference Handler" daemon [_thread_blocked, id=3040, stack(0x18690000,0x186e0000)]
+
+Other Threads:
+  0x01ce8800 VMThread [stack: 0x025c0000,0x02610000] [id=2352]
+  0x18ef8800 WatcherThread [stack: 0x19130000,0x19180000] [id=3096]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 8704K, used 2175K [0x04690000, 0x05000000, 0x09be0000)
+  eden space 7744K,  21% used [0x04690000, 0x0482cba8, 0x04e20000)
+  from space 960K,  54% used [0x04f10000, 0x04f93110, 0x05000000)
+  to   space 960K,   0% used [0x04e20000, 0x04e20000, 0x04f10000)
+ tenured generation   total 19204K, used 16403K [0x09be0000, 0x0aea1000, 0x14690000)
+   the space 19204K,  85% used [0x09be0000, 0x0abe4fa0, 0x0abe5000, 0x0aea1000)
+ compacting perm gen  total 18432K, used 18350K [0x14690000, 0x15890000, 0x18690000)
+   the space 18432K,  99% used [0x14690000, 0x1587b8a0, 0x1587ba00, 0x15890000)
+No shared spaces configured.
+
+Code Cache  [0x02690000, 0x02a28000, 0x04690000)
+ total_blobs=2310 nmethods=2093 adapters=159 free_code_cache=29817600 largest_free_block=320
+
+Dynamic libraries:
+0x00400000 - 0x00425000 	C:\Program Files (x86)\Java\jdk1.6.0_45\bin\javaw.exe
+0x778c0000 - 0x77a40000 	C:\Windows\SysWOW64\ntdll.dll
+0x771c0000 - 0x772d0000 	C:\Windows\syswow64\kernel32.dll
+0x77130000 - 0x77177000 	C:\Windows\syswow64\KERNELBASE.dll
+0x76610000 - 0x766b1000 	C:\Windows\syswow64\ADVAPI32.dll
+0x76940000 - 0x769ec000 	C:\Windows\syswow64\msvcrt.dll
+0x76d20000 - 0x76d39000 	C:\Windows\SysWOW64\sechost.dll
+0x77330000 - 0x77420000 	C:\Windows\syswow64\RPCRT4.dll
+0x751d0000 - 0x75230000 	C:\Windows\syswow64\SspiCli.dll
+0x751c0000 - 0x751cc000 	C:\Windows\syswow64\CRYPTBASE.dll
+0x75e80000 - 0x75f80000 	C:\Windows\syswow64\USER32.dll
+0x75f80000 - 0x76010000 	C:\Windows\syswow64\GDI32.dll
+0x77190000 - 0x7719a000 	C:\Windows\syswow64\LPK.dll
+0x77420000 - 0x774bd000 	C:\Windows\syswow64\USP10.dll
+0x76fb0000 - 0x77010000 	C:\Windows\system32\IMM32.DLL
+0x76bc0000 - 0x76c8c000 	C:\Windows\syswow64\MSCTF.dll
+0x7c340000 - 0x7c396000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\msvcr71.dll
+0x6d8e0000 - 0x6db90000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\client\jvm.dll
+0x739e0000 - 0x73a12000 	C:\Windows\system32\WINMM.dll
+0x70da0000 - 0x70dec000 	C:\Windows\system32\apphelp.dll
+0x6d890000 - 0x6d89c000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\verify.dll
+0x6d3e0000 - 0x6d3ff000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\java.dll
+0x6d430000 - 0x6d459000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\jdwp.dll
+0x6d750000 - 0x6d756000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\npt.dll
+0x6d8d0000 - 0x6d8df000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\zip.dll
+0x6d2b0000 - 0x6d2b7000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\dt_socket.dll
+0x766c0000 - 0x766f5000 	C:\Windows\syswow64\WS2_32.dll
+0x76140000 - 0x76146000 	C:\Windows\syswow64\NSI.dll
+0x74510000 - 0x74520000 	C:\Windows\system32\NLAapi.dll
+0x74500000 - 0x74510000 	C:\Windows\system32\napinsp.dll
+0x744e0000 - 0x744f2000 	C:\Windows\system32\pnrpnsp.dll
+0x72480000 - 0x724bc000 	C:\Windows\System32\mswsock.dll
+0x75150000 - 0x75194000 	C:\Windows\system32\DNSAPI.dll
+0x744d0000 - 0x744d8000 	C:\Windows\System32\winrnr.dll
+0x744a0000 - 0x744c1000 	C:\Program Files (x86)\Bonjour\mdnsNSP.dll
+0x72100000 - 0x7211c000 	C:\Windows\system32\Iphlpapi.DLL
+0x720f0000 - 0x720f7000 	C:\Windows\system32\WINNSI.DLL
+0x74470000 - 0x74497000 	C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live\WLIDNSP.DLL
+0x77060000 - 0x77065000 	C:\Windows\syswow64\PSAPI.DLL
+0x76b60000 - 0x76bb7000 	C:\Windows\syswow64\SHLWAPI.dll
+0x74430000 - 0x74468000 	C:\Windows\System32\fwpuclnt.dll
+0x74420000 - 0x74426000 	C:\Windows\system32\rasadhlp.dll
+0x72470000 - 0x72475000 	C:\Windows\System32\wshtcpip.dll
+0x6d0b0000 - 0x6d1fc000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\awt.dll
+0x74a40000 - 0x74a91000 	C:\Windows\system32\WINSPOOL.DRV
+0x76180000 - 0x762dd000 	C:\Windows\syswow64\ole32.dll
+0x71b50000 - 0x71cee000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7601.18837_none_41e855142bd5705d\COMCTL32.dll
+0x71d60000 - 0x71d77000 	C:\Windows\system32\CRYPTSP.dll
+0x71cf0000 - 0x71d2b000 	C:\Windows\system32\rsaenh.dll
+0x76b40000 - 0x76b57000 	C:\Windows\syswow64\USERENV.dll
+0x76dd0000 - 0x76ddb000 	C:\Windows\syswow64\profapi.dll
+0x6d6c0000 - 0x6d6d3000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\net.dll
+0x6f660000 - 0x6f666000 	C:\Windows\System32\wship6.dll
+0x70d80000 - 0x70d93000 	C:\Windows\system32\DWMAPI.DLL
+0x6d2e0000 - 0x6d336000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\fontmanager.dll
+0x75230000 - 0x75e7b000 	C:\Windows\system32\shell32.dll
+0x6d6e0000 - 0x6d6e9000 	C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin\nio.dll
+0x76d40000 - 0x76dcf000 	C:\Windows\syswow64\OLEAUT32.DLL
+0x71830000 - 0x718b0000 	C:\Windows\system32\UxTheme.dll
+0x76de0000 - 0x76f7d000 	C:\Windows\syswow64\SETUPAPI.dll
+0x77010000 - 0x77037000 	C:\Windows\syswow64\CFGMGR32.dll
+0x76160000 - 0x76172000 	C:\Windows\syswow64\DEVOBJ.dll
+0x76c90000 - 0x76d13000 	C:\Windows\syswow64\CLBCatQ.DLL
+0x70090000 - 0x70185000 	C:\Windows\system32\propsys.dll
+0x717e0000 - 0x71801000 	C:\Windows\system32\ntmarta.dll
+0x765c0000 - 0x76605000 	C:\Windows\syswow64\WLDAP32.dll
+0x61880000 - 0x61a18000 	C:\Windows\system32\NetworkExplorer.dll
+0x61b90000 - 0x61bbf000 	C:\Windows\System32\shdocvw.dll
+0x6f3d0000 - 0x6f3da000 	C:\Windows\system32\slc.dll
+0x74aa0000 - 0x74ab2000 	C:\Windows\system32\MPR.dll
+0x67e80000 - 0x67e88000 	C:\Windows\System32\drprov.dll
+0x74520000 - 0x74549000 	C:\Windows\System32\WINSTA.dll
+0x67e60000 - 0x67e74000 	C:\Windows\System32\ntlanman.dll
+0x64360000 - 0x64377000 	C:\Windows\System32\davclnt.dll
+0x61b80000 - 0x61b88000 	C:\Windows\System32\DAVHLPR.dll
+0x71d30000 - 0x71d3f000 	C:\Windows\system32\wkscli.dll
+0x71810000 - 0x7181b000 	C:\Windows\system32\cscapi.dll
+0x71d80000 - 0x71d89000 	C:\Windows\system32\netutils.dll
+0x61400000 - 0x61638000 	C:\Windows\system32\wpdshext.dll
+0x6fcd0000 - 0x6fe61000 	C:\Windows\WinSxS\x86_microsoft.windows.gdiplus_6595b64144ccf1df_1.1.7601.23508_none_5c028c09a01213b0\gdiplus.dll
+0x61af0000 - 0x61b79000 	C:\Windows\system32\PortableDeviceApi.dll
+0x76f80000 - 0x76faf000 	C:\Windows\syswow64\WINTRUST.dll
+0x76010000 - 0x76131000 	C:\Windows\syswow64\CRYPT32.dll
+0x771a0000 - 0x771ac000 	C:\Windows\syswow64\MSASN1.dll
+0x61ab0000 - 0x61aef000 	C:\Windows\system32\audiodev.dll
+0x61190000 - 0x613f7000 	C:\Windows\system32\WMVCore.DLL
+0x61a70000 - 0x61aad000 	C:\Windows\system32\WMASF.DLL
+0x64380000 - 0x643b1000 	C:\Windows\system32\EhStorShell.dll
+0x61a40000 - 0x61a62000 	C:\Windows\system32\EhStorAPI.dll
+0x708c0000 - 0x708c9000 	C:\Windows\system32\LINKINFO.dll
+
+VM Arguments:
+jvm_args: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:49637 -Dxy.reflect.ui.infoCustomizationsControlsAuthorized=true -Dfile.encoding=Cp1252 
+java_command: xy.ui.testing.TesterUI D:\prog\git\SwingTestingToolkit\swing-testing-toolkit\tmp\test.stt
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.8.0_20
+PATH=C:\Program Files (x86)\Java\jdk1.6.0_45\jre\bin;D:/prog/eclipse/jre/bin/client;D:/prog/eclipse/jre/bin;D:/prog/eclipse/jre/lib/i386;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Program Files\Java\jdk1.8.0_20\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Jack\;Program Files (x86)\Windows Live\Shared;C:\Program Files\Microsoft Windows Performance Toolkit\;C:\Windows\system32\config\systemprofile\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files (x86)\GNU\GnuPG\pub;D:\prog\eclipse;
+USERNAME=olitank
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 60 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 , 64 bit Build 7601 Service Pack 1
+
+CPU:total 2 (2 cores per cpu, 1 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt
+
+Memory: 4k page, physical 4053068k(1820408k free), swap 8104276k(5097264k free)
+
+vm_info: Java HotSpot(TM) Client VM (20.45-b01) for windows-x86 JRE (1.6.0_45-b06), built on Mar 26 2013 13:40:03 by "java_re" with MS VC++ 7.1 (VS2003)
+
+time: Sat Aug 20 01:11:25 2016
+elapsed time: 1628 seconds
+

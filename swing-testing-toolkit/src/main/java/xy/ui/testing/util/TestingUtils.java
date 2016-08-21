@@ -50,7 +50,7 @@ import xy.ui.testing.TesterUI;
 public class TestingUtils {
 
 	private static Map<String, Image> IMAGE_CACHE = new HashMap<String, Image>();
-	
+
 	public static final Image NULL_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 	public static final Image TESTER_IMAGE = loadImageResource("Tester.png");
 	public static final ImageIcon TESTER_ICON = new ImageIcon(
@@ -109,11 +109,19 @@ public class TestingUtils {
 	}
 
 	public static boolean isTesterUIComponent(TesterUI testerUI, Component c) {
-		if (testerUI == null) {
-			return false;
+		if (testerUI != null) {
+			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
+			if (testerUI == TesterUI.BY_WINDOW.get(componentWindow)) {
+				return true;
+			}
+			while (componentWindow.getOwner() != null) {
+				if (isTesterUIComponent(testerUI, componentWindow.getOwner())) {
+					return true;
+				}
+				componentWindow = componentWindow.getOwner();
+			}
 		}
-		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-		return testerUI == TesterUI.BY_WINDOW.get(componentWindow);
+		return false;
 	}
 
 	public static boolean isDIrectOrIndirectOwner(Window ownerWindow, Window window) {

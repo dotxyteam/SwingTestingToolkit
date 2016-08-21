@@ -86,12 +86,13 @@ import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlX;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
-import xy.ui.testing.action.component.combobox.SelectComboBoxItemAction;
 import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
-import xy.ui.testing.action.component.table.ClickOnTableCellAction;
-import xy.ui.testing.action.component.table.SelectTableRowAction;
-import xy.ui.testing.action.component.treetable.ExpandTreetTableToItemAction;
+import xy.ui.testing.action.component.specific.ClickOnTableCellAction;
+import xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction;
+import xy.ui.testing.action.component.specific.SelectComboBoxItemAction;
+import xy.ui.testing.action.component.specific.SelectTabAction;
+import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.action.TestAction;
@@ -211,7 +212,7 @@ public class TesterUI extends ReflectionUI {
 
 	public Class<?>[] getTestActionClasses() {
 		return new Class[] { CallMainMethodAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
-				SelectComboBoxItemAction.class, SelectTableRowAction.class, ClickOnTableCellAction.class,
+				SelectComboBoxItemAction.class, SelectTableRowAction.class,SelectTabAction.class,  ClickOnTableCellAction.class,
 				ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
 				ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
 				CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
@@ -825,8 +826,8 @@ public class TesterUI extends ReflectionUI {
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
 		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(recordingControlWindow, Accessor.returning(testAction),
-				getObjectTitle(testAction), null, true);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, testAction, getObjectTitle(testAction), null, true,
+				true, okPressedArray);
 		componentFinderInitializationSource = null;
 		return okPressedArray[0];
 	}
