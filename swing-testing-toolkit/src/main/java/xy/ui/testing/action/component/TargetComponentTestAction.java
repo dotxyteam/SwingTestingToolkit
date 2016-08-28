@@ -73,7 +73,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 	@Override
 	public String getComponentInformation() {
 		if (getComponentFinder() == null) {
-			return null;
+			return "<unspecified component>";
 		}
 		return getComponentFinder().toString();
 	}

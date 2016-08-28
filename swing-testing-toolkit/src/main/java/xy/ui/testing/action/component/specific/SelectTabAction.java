@@ -76,5 +76,15 @@ public class SelectTabAction extends TargetComponentTestAction {
 			throw new ValidationError("Missing tab to select");
 		}
 	}
-
+	
+	@Override
+	public String getComponentInformation() {
+		return "tabbed-pane " + super.getComponentInformation();
+	}
+	
+	@Override
+	public String toString() {
+		String tabToSelectText = (tabToSelect==null) ? "<none>" : tabToSelect;
+		return "Select the tab <" + tabToSelectText + "> of the " + getComponentInformation();
+	}
 }

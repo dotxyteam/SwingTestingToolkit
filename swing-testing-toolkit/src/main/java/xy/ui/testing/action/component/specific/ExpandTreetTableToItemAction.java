@@ -38,8 +38,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		}
 		JXTreeTable treeTable = (JXTreeTable) c;
 		MouseEvent mouseEvt = (MouseEvent) event;
-		TreePath treePath = treeTable.getPathForLocation(mouseEvt.getX(),
-				mouseEvt.getY());
+		TreePath treePath = treeTable.getPathForLocation(mouseEvt.getX(), mouseEvt.getY());
 		if (treePath == null) {
 			return false;
 		}
@@ -50,15 +49,13 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		return true;
 	}
 
-	protected List<Integer> fromTreePathToIntPath(TreePath treePath,
-			JXTreeTable treeTable) {
+	protected List<Integer> fromTreePathToIntPath(TreePath treePath, JXTreeTable treeTable) {
 		List<Integer> result = new ArrayList<Integer>();
 		TreeTableModel model = treeTable.getTreeTableModel();
 		Object pathElementParent = null;
 		for (Object pathElement : treePath.getPath()) {
 			if (pathElementParent != null) {
-				int index = model.getIndexOfChild(pathElementParent,
-						pathElement);
+				int index = model.getIndexOfChild(pathElementParent, pathElement);
 				if (index == -1) {
 					return null;
 				}
@@ -69,8 +66,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		return result;
 	}
 
-	protected TreePath fromIntPathToTreePath(List<Integer> intPath,
-			JXTreeTable treeTable) {
+	protected TreePath fromIntPathToTreePath(List<Integer> intPath, JXTreeTable treeTable) {
 		TreeTableModel model = treeTable.getTreeTableModel();
 		TreePath result = new TreePath(model.getRoot());
 		Object pathElementParent = model.getRoot();
@@ -91,10 +87,8 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		treeTable.collapseAll();
 		TreePath treePath = fromIntPathToTreePath(itemPath, treeTable);
 		if (treePath == null) {
-			throw new TestFailure(
-					"Cannot expand to the specified item: The path is not valid: "
-							+ itemPath, "Component",
-					TestingUtils.saveImage(c));
+			throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath,
+					"Component", TestingUtils.saveImage(c));
 		}
 		treeTable.expandPath(treePath.getParentPath());
 	}
@@ -107,9 +101,19 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	@Override
 	@Validating
 	public void validate() throws ValidationError {
-		if(itemPath.size() == 0){
+		if (itemPath.size() == 0) {
 			throw new ValidationError("Item path not defined");
 		}
+	}
+
+	@Override
+	public String getComponentInformation() {
+		return "tree-table " + super.getComponentInformation();
+	}
+
+	@Override
+	public String toString() {
+		return "Expand the item " + itemPath + " of the " + getComponentInformation();
 	}
 
 }

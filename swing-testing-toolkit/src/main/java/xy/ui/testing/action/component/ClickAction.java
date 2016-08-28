@@ -34,8 +34,6 @@ public class ClickAction extends TargetComponentTestAction {
 	public void setDoubleClick(boolean doubleClick) {
 		this.doubleClick = doubleClick;
 	}
-	
-	
 
 	public boolean isPoupTrigger() {
 		return poupTrigger;
@@ -86,15 +84,13 @@ public class ClickAction extends TargetComponentTestAction {
 	}
 
 	protected MouseEvent createReleaseEvent(Component c) {
-		return new MouseEvent(c, MouseEvent.MOUSE_RELEASED,
-				System.currentTimeMillis(), 0, c.getWidth() / 2,
+		return new MouseEvent(c, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, c.getWidth() / 2,
 				c.getHeight() / 2, 1, false, getButtonMask());
 	}
 
 	protected MouseEvent createPressedEvent(Component c) {
-		return new MouseEvent(c, MouseEvent.MOUSE_PRESSED,
-				System.currentTimeMillis(), 0, c.getWidth() / 2,
-				c.getHeight() / 2, 1, poupTrigger , getButtonMask());
+		return new MouseEvent(c, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, c.getWidth() / 2,
+				c.getHeight() / 2, 1, poupTrigger, getButtonMask());
 	}
 
 	protected int getButtonMask() {
@@ -111,13 +107,12 @@ public class ClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return button.name() + " " + (doubleClick ? "Double-" : "")
-				+ " Click";
+		return (doubleClick ? "Double-" : "") + "Click with the " + button.name().toLowerCase().replace('_', ' ');
 	}
 
 	@Override
 	public String toString() {
-		return getValueDescription() + " on the " + getComponentFinder();
+		return getValueDescription() + " on the " + getComponentInformation();
 	}
 
 	public enum ButtonId {
@@ -127,7 +122,7 @@ public class ClickAction extends TargetComponentTestAction {
 	@Override
 	@Validating
 	public void validate() throws ValidationError {
-		if(button == null){
+		if (button == null) {
 			throw new ValidationError("Missing button identifier");
 		}
 	};

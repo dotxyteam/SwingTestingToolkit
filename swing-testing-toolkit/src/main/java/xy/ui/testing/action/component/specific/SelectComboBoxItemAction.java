@@ -198,5 +198,17 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		}
 
 	}
+	@Override
+	public String getComponentInformation() {
+		return "combo-box " + super.getComponentInformation();
+	}
+	@Override
+	public String toString() {
+		String optionToSelectText = (optionToSelect == null) ? "<none>" : optionToSelect;
+		String selectionModeText = (selectionMode == null) ? "<unspecified selection mode>"
+				: selectionMode.toString().toLowerCase().replace('_', ' ');
+		return "Select " + selectionModeText + " the item <" + optionToSelectText + "> of the "
+				+ getComponentInformation();
+	}
 
 }

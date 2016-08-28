@@ -87,4 +87,9 @@ public class ClickOnTableCellAction extends ClickAction {
 		}
 	}
 
+	@Override
+	public String getComponentInformation() {
+		return "table " + super.getComponentInformation();
+	}
+
 }

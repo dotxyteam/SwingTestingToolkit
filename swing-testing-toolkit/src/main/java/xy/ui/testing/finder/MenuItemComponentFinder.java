@@ -102,12 +102,16 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder("menu item");
-		for (int i = 0; i < menuItemPath.size(); i++) {
-			PropertyBasedComponentFinder pathElt = menuItemPath.get(i);
-			if (i > 0) {
-				result.append(" -> ");
+		if (menuItemPath.size() == 0) {
+			result.append(" <unspecified path> ");
+		} else {
+			for (int i = 0; i < menuItemPath.size(); i++) {
+				PropertyBasedComponentFinder pathElt = menuItemPath.get(i);
+				if (i > 0) {
+					result.append(" -> ");
+				}
+				result.append("<\"" + StringEscapeUtils.escapeJava(pathElt.getPropertyValue("Text")) + "\">");
 			}
-			result.append("<\"" + StringEscapeUtils.escapeJava(pathElt.getPropertyValue("Text")) + "\">");
 		}
 		return result.toString();
 	}

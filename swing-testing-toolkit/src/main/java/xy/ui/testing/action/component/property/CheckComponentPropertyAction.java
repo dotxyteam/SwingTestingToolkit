@@ -30,40 +30,32 @@ public class CheckComponentPropertyAction extends ComponentPropertyAction {
 		IFieldInfo field = getPropertyFieldInfo();
 		Object currentFieldValue = field.getValue(c);
 		Object expectedFieldValue = propertyValueToFieldValue(propertyValueExpected);
-		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue,
-				expectedFieldValue)) {
-			throw new TestFailure(
-					"Component property checking failed: Unexpected property value: '"
-							+ currentFieldValue + "'. Expected: '"
-							+ expectedFieldValue + "'",
-					"Component", TestingUtils.saveImage(c));
+		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue, expectedFieldValue)) {
+			throw new TestFailure("Component property checking failed: Unexpected property value: '" + currentFieldValue
+					+ "'. Expected: '" + expectedFieldValue + "'", "Component", TestingUtils.saveImage(c));
 		}
 	}
 
 	@Override
 	public String getValueDescription() {
+		String propertyNameText = (propertyName == null) ? "<unspecified-property>" : propertyName;
+		String propertyValueText;
 		if (propertyValueExpected == null) {
-			return propertyName + " = <null>";
+			propertyValueText = "<null>";
 		} else {
-			String propertyValueString;
 			IFieldInfo propertyFieldInfo = getPropertyFieldInfo();
-			if ((propertyFieldInfo != null)
-					&& String.class.getName().equals(
-							propertyFieldInfo.getType().getName())) {
-				propertyValueString = "\""
-						+ StringEscapeUtils.escapeJava(propertyValueExpected)
-						+ "\"";
+			if ((propertyFieldInfo != null) && String.class.getName().equals(propertyFieldInfo.getType().getName())) {
+				propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
 			} else {
-				propertyValueString = propertyValueExpected;
+				propertyValueText = propertyValueExpected;
 			}
-			return propertyName + " = " + propertyValueString;
 		}
+		return propertyNameText + " = " + propertyValueText;		
 	}
 
 	@Override
 	public String toString() {
-		return "Check that \"" + getValueDescription() + "\" for the "
-				+ getComponentFinder();
+		return "Check that " + getValueDescription() + " for the " + getComponentInformation();
 	}
 
 	@Override

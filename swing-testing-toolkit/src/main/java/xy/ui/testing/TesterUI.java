@@ -40,7 +40,7 @@ import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.CustomizingSwingRenderer;
+import xy.reflect.ui.control.swing.SwingCustomizer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
@@ -53,10 +53,10 @@ import xy.reflect.ui.info.field.FieldInfoProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
+import xy.reflect.ui.info.type.iterable.structure.IListStructuralInfo;
+import xy.reflect.ui.info.type.iterable.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.ItemPosition;
-import xy.reflect.ui.info.type.iterable.util.structure.IListStructuralInfo;
-import xy.reflect.ui.info.type.iterable.util.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.HiddenNullableFacetsInfoProxyGenerator;
@@ -212,9 +212,9 @@ public class TesterUI extends ReflectionUI {
 
 	public Class<?>[] getTestActionClasses() {
 		return new Class[] { CallMainMethodAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
-				SelectComboBoxItemAction.class, SelectTableRowAction.class,SelectTabAction.class,  ClickOnTableCellAction.class,
-				ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
-				ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
+				SelectComboBoxItemAction.class, SelectTableRowAction.class, SelectTabAction.class,
+				ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class,
+				CloseWindowAction.class, ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
 				CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
 	}
 
@@ -371,7 +371,7 @@ public class TesterUI extends ReflectionUI {
 				@Override
 				public Object getValue(String key) {
 					if (key == AbstractAction.SMALL_ICON) {
-						Image image = getSwingRenderer().getIconImage(testAction);
+						Image image = getSwingRenderer().getObjectIconImage(testAction);
 						return new ImageIcon(image);
 					} else {
 						return super.getValue(key);
@@ -459,30 +459,8 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected SwingRenderer createSwingRenderer() {
-		CustomizingSwingRenderer result = new CustomizingSwingRenderer(this, infoCustomizations,
+		SwingCustomizer result = new SwingCustomizer(this, infoCustomizations,
 				infoCustomizationsOutputFilePath) {
-
-			@Override
-			public Component createFieldControl(Object object, IFieldInfo field) {
-				if ("testActions".equals(field.getName())) {
-					return new ListControl(this, object, field) {
-
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						protected Image getCellIconImage(ItemNode node, int columnIndex) {
-							if (columnIndex == 1) {
-								return super.getCellIconImage(node, 0);
-							} else {
-								return null;
-							}
-						}
-
-					};
-				} else {
-					return super.createFieldControl(object, field);
-				}
-			}
 
 			@Override
 			public Container createWindowContentPane(Window window, Component content,
@@ -566,43 +544,6 @@ public class TesterUI extends ReflectionUI {
 					return "CtrlX (Cut)";
 				} else {
 					return super.toString(type);
-				}
-			}
-
-			@Override
-			protected IListStructuralInfo getStructuralInfo(IListTypeInfo type) {
-				ITypeInfo itemtype = type.getItemType();
-				if (itemtype.getName().equals(TestAction.class.getName())) {
-					return new ListStructuralInfoProxy(super.getStructuralInfo(type)) {
-
-						@Override
-						public String getCellValue(ItemPosition itemPosition, int columnIndex) {
-							if (columnIndex == 0) {
-								return Integer.toString(itemPosition.getIndex() + 1);
-							} else {
-								columnIndex--;
-								return super.getCellValue(itemPosition, columnIndex);
-							}
-						}
-
-						@Override
-						public String getColumnCaption(int columnIndex) {
-							if (columnIndex == 0) {
-								return "N°";
-							} else {
-								columnIndex--;
-								return super.getColumnCaption(columnIndex);
-							}
-						}
-
-						@Override
-						public int getColumnCount() {
-							return super.getColumnCount() + 1;
-						}
-
-					};
-				} else {
-					return super.getStructuralInfo(type);
 				}
 			}
 
@@ -771,7 +712,7 @@ public class TesterUI extends ReflectionUI {
 										List<TestAction> actionsToPlay = new ArrayList<TestAction>();
 										ItemPosition singleSelection = selection.get(0);
 										for (int i = singleSelection.getIndex(); i < singleSelection
-												.getContainingListValue().length; i++) {
+												.getContainingListRawValue().length; i++) {
 											TestAction testAction = (TestAction) singleSelection.getSibling(i)
 													.getItem();
 											actionsToPlay.add(testAction);

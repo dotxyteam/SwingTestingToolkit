@@ -37,12 +37,14 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 
 	@Override
 	public String getValueDescription() {
-		return propertyName + " = " + newPropertyValue;
+		String propertyNameText = (propertyName == null) ? "<unspecified-property>" : propertyName;
+		String newPropertyValueText = (newPropertyValue == null) ? "<null>" : newPropertyValue;
+		return propertyNameText + " = " + newPropertyValueText;
 	}
 
 	@Override
 	public String toString() {
-		return "Set \"" + getValueDescription() + "\" for the " + getComponentFinder();
+		return "Set " + getValueDescription() + " for the " + getComponentInformation();
 	}
 
 	@Override

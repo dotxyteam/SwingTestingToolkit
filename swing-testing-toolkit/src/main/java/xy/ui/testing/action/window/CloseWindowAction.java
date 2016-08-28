@@ -50,4 +50,12 @@ public class CloseWindowAction extends TargetWindowTestAction {
 	@Validating
 	public void validate() throws ValidationError {
 	}
+
+
+	@Override
+	public String toString() {
+		return "Close The " + getComponentInformation();
+	}
+	
+	
 }

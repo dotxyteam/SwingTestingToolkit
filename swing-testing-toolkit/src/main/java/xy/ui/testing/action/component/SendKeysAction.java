@@ -73,7 +73,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Send " + getValueDescription() + " event(s) to the " + getComponentFinder();
+		return "Send " + getValueDescription() + " event(s) to the " + getComponentInformation();
 	}
 
 	@Override

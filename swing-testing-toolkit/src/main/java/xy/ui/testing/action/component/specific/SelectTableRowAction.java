@@ -18,8 +18,6 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	protected int lastItemToSelect = 0;
 	protected boolean addedToExistingSelection = false;
 
-	
-	
 	public int getFirstItemToSelect() {
 		return firstItemToSelect;
 	}
@@ -64,11 +62,9 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	public void execute(Component c, Tester tester) {
 		JTable table = (JTable) c;
 		if (addedToExistingSelection) {
-			table.getSelectionModel().addSelectionInterval(firstItemToSelect,
-					lastItemToSelect);
+			table.getSelectionModel().addSelectionInterval(firstItemToSelect, lastItemToSelect);
 		} else {
-			table.getSelectionModel().setSelectionInterval(firstItemToSelect,
-					lastItemToSelect);
+			table.getSelectionModel().setSelectionInterval(firstItemToSelect, lastItemToSelect);
 		}
 	}
 
@@ -83,9 +79,8 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 		if (firstItemToSelect == lastItemToSelect) {
 			result += " of the item n°" + (firstItemToSelect + 1);
 		} else {
-			result += " from the item n°" + (firstItemToSelect + 1)
-					+ " to the item n°" + (lastItemToSelect + 1);
-		}		
+			result += " from the item n°" + (firstItemToSelect + 1) + " to the item n°" + (lastItemToSelect + 1);
+		}
 		return result;
 	}
 
@@ -97,8 +92,19 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 		}
 		if (lastItemToSelect < 0) {
 			throw new ValidationError("Invalid last selection index: Cannot be < 0");
-			}
+		}
 
+	}
+
+	@Override
+	public String getComponentInformation() {
+		return "table " + super.getComponentInformation();
+	}
+	
+	@Override
+	public String toString() {
+		return (addedToExistingSelection?"Add":"Set") + " selection from row " + firstItemToSelect
+				+ " to row " + lastItemToSelect + " on " + getComponentInformation();
 	}
 
 }
