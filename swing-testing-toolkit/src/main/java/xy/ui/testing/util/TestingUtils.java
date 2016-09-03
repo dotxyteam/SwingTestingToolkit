@@ -10,6 +10,7 @@ import java.awt.Window;
 import java.awt.event.AWTEventListener;
 import java.awt.event.AWTEventListenerProxy;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -47,6 +49,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 
+@SuppressWarnings("unused")
 public class TestingUtils {
 
 	private static Map<String, Image> IMAGE_CACHE = new HashMap<String, Image>();
@@ -574,5 +577,10 @@ public class TestingUtils {
 			return null;
 		}
 		return result;
+	}
+
+	public static void sendWindowClosingEvent(Window w) {
+		WindowEvent closeEvent = new WindowEvent(w, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
 	}
 }

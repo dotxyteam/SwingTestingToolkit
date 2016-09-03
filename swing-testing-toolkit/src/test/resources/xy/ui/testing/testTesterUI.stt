@@ -21,8 +21,8 @@
         <string>2</string>
         <string>Test Actions</string>
         <string>Type</string>
-        <string>Component Information</string>
-        <string>Value Description</string>
+        <string>Component</string>
+        <string>Value</string>
         <string>Load From File...</string>
         <string>Save To File...</string>
         <string>Start Recording</string>

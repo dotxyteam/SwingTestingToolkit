@@ -9,6 +9,7 @@ import java.awt.Dialog.ModalityType;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -127,45 +128,12 @@ public class TesterUI extends ReflectionUI {
 	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
 	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
 	protected RecordingControl recordingControl = new RecordingControl();
+	protected PlayingControl playingControl = new PlayingControl();
 	protected JFrame recordingControlWindow;
+	protected JFrame playingControlWindow;
 	protected JPanel testerForm;
 	protected SwingRenderer swingRenderer;
 	protected InfoCustomizations infoCustomizations;
-	protected String infoCustomizationsOutputFilePath;
-
-	public TesterUI(Tester tester) {
-		this.tester = tester;
-		TESTERS.put(this, tester);
-		infoCustomizations = new InfoCustomizations();
-		{
-			if (SystemProperties.areInfoCustomizationsControlsAuthorized()) {
-				infoCustomizationsOutputFilePath = "src/main/resources/"
-						+ TesterUI.class.getPackage().getName().replace('.', '/') + "/infoCustomizations.icu";
-				try {
-					infoCustomizations.loadFromFile(new File(infoCustomizationsOutputFilePath));
-				} catch (IOException e) {
-					throw new ReflectionUIError(e);
-				}
-			} else {
-				infoCustomizations.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
-			}
-		}
-		swingRenderer = createSwingRenderer();
-		recordingListener = new AWTEventListener() {
-			@Override
-			public void eventDispatched(AWTEvent event) {
-				awtEventDispatched(event);
-			}
-		};
-		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
-				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		TestingUtils.removeAWTEventListener(recordingListener);
-	}
 
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
@@ -180,6 +148,54 @@ public class TesterUI extends ReflectionUI {
 		} catch (Throwable t) {
 			testerUI.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
 		}
+	}
+
+	public TesterUI(Tester tester) {
+		this.tester = tester;
+		TESTERS.put(this, tester);
+		infoCustomizations = createInfoCustomizations();
+		swingRenderer = createSwingRenderer();
+		setupRecordingEventHandling();
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		cleanupRecordingEventHandling();
+	}
+
+	protected void setupRecordingEventHandling() {
+		recordingListener = new AWTEventListener() {
+			@Override
+			public void eventDispatched(AWTEvent event) {
+				awtEventDispatched(event);
+			}
+		};
+		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
+				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
+	}
+
+	protected void cleanupRecordingEventHandling() {
+		TestingUtils.removeAWTEventListener(recordingListener);
+	}
+
+	protected InfoCustomizations createInfoCustomizations() {
+		InfoCustomizations result = new InfoCustomizations();
+		String alternateCustomizationFilePath = getAlternateCustomizationsFilePath();
+		if (alternateCustomizationFilePath != null) {
+			try {
+				result.loadFromFile(new File(alternateCustomizationFilePath));
+			} catch (IOException e) {
+				throw new ReflectionUIError(e);
+			}
+		} else {
+			result.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
+		}
+		return result;
+	}
+
+	protected String getAlternateCustomizationsFilePath() {
+		return System.getProperty("xy.ui.testing.gui.customizationFile");
 	}
 
 	public Tester getTester() {
@@ -436,31 +452,13 @@ public class TesterUI extends ReflectionUI {
 		return false;
 	}
 
-	protected void playActions(List<TestAction> selectedActions) {
-		setRecordingPausedAndUpdateUI(true);
-		try {
-			Listener<TestAction> selectingListener = new Listener<TestAction>() {
-				@Override
-				public void handle(TestAction event) {
-					TesterUI.this.beforeEachAction(event);
-				}
-			};
-			tester.play(selectedActions, selectingListener);
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
-							getObjectTitle(tester));
-				}
-			});
-		} finally {
-			setRecordingPausedAndUpdateUI(false);
-		}
-	}
-
 	protected SwingRenderer createSwingRenderer() {
-		SwingCustomizer result = new SwingCustomizer(this, infoCustomizations,
-				infoCustomizationsOutputFilePath) {
+		SwingCustomizer result = new SwingCustomizer(this, infoCustomizations, getAlternateCustomizationsFilePath()) {
+
+			@Override
+			protected boolean areCustomizationsEditable() {
+				return getAlternateCustomizationsFilePath() != null;
+			}
 
 			@Override
 			public Container createWindowContentPane(Window window, Component content,
@@ -603,7 +601,7 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							playActions(Arrays.asList(tester.getTestActions()));
+							startPlaying(Arrays.asList(tester.getTestActions()));
 							return null;
 						}
 
@@ -695,7 +693,7 @@ public class TesterUI extends ReflectionUI {
 										TestAction testAction = (TestAction) itemPosition.getItem();
 										selectedActions.add(testAction);
 									}
-									playActions(selectedActions);
+									startPlaying(selectedActions);
 									return null;
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
@@ -717,7 +715,7 @@ public class TesterUI extends ReflectionUI {
 													.getItem();
 											actionsToPlay.add(testAction);
 										}
-										playActions(actionsToPlay);
+										startPlaying(actionsToPlay);
 										return null;
 									} catch (Exception e) {
 										throw new ReflectionUIError(e);
@@ -738,10 +736,6 @@ public class TesterUI extends ReflectionUI {
 
 		}.get(result);
 		return infoCustomizations.get(this, result);
-	}
-
-	protected void beforeEachAction(TestAction testAction) {
-		selectTestAction(testAction);
 	}
 
 	protected ListControl getTestActionsControl() {
@@ -766,11 +760,10 @@ public class TesterUI extends ReflectionUI {
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
-		boolean[] okPressedArray = new boolean[] { false };
-		getSwingRenderer().openObjectDialog(recordingControlWindow, testAction, getObjectTitle(testAction), null, true,
-				true, okPressedArray);
+		boolean okPressed = getSwingRenderer().openObjectDialogAndGetConfirmation(recordingControlWindow, testAction,
+				true);
 		componentFinderInitializationSource = null;
-		return okPressedArray[0];
+		return okPressed;
 	}
 
 	protected void selectTestAction(TestAction testAction) {
@@ -921,14 +914,26 @@ public class TesterUI extends ReflectionUI {
 		return recordingControlWindow != null;
 	}
 
+	protected boolean isPlaying() {
+		return playingControlWindow != null;
+	}
+
 	protected void startRecording() {
-		if (isRecording()) {
-			return;
-		}
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				switchToRecordingControlWindow();
+				switchToRecordingControlWindow(true);
+			}
+
+		});
+	}
+
+	protected void startPlaying(final List<TestAction> selectedActions) {
+		playingControl.setActionsToPlay(selectedActions);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				switchToPlayingControlWindow(true);
 			}
 
 		});
@@ -939,6 +944,13 @@ public class TesterUI extends ReflectionUI {
 			return;
 		}
 		recordingControlWindow.dispose();
+	}
+
+	protected void stopPlaying() {
+		if (!isPlaying()) {
+			return;
+		}
+		playingControlWindow.dispose();
 	}
 
 	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
@@ -992,34 +1004,94 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected void switchToRecordingControlWindow() {
+	protected void switchToRecordingControlWindow(boolean b) {
+		if (b == isRecording()) {
+			return;
+		}
 		final JFrame testerWindow = getTesterWindow();
-		recordingControlWindow = new JFrame() {
+		if (b) {
+			recordingControlWindow = new JFrame() {
+				private static final long serialVersionUID = 1L;
 
-			private static final long serialVersionUID = -3759019748336439188L;
+				{
+					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					JPanel form = getSwingRenderer().createObjectForm(recordingControl);
+					getSwingRenderer().applyCommonWindowConfiguration(this, form, null,
+							getObjectTitle(recordingControl), testerWindow.getIconImage());
+				}
 
-			{
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				setTitle(getObjectTitle(recordingControl));
-				setIconImage(testerWindow.getIconImage());
-				JPanel form = getSwingRenderer().createObjectForm(recordingControl);
-				setContentPane(getAlternateWindowDecorationsContentPane(this, form, TesterUI.this));
-				pack();
+				@Override
+				public void dispose() {
+					super.dispose();
+					tester.handleCurrentComponentChange(null);
+					testerWindow.setLocation(recordingControlWindow.getLocation());
+					recordingControlWindow = null;
+					testerWindow.setVisible(true);
+				}
+
+			};
+			testerWindow.setVisible(false);
+			recordingControlWindow.setLocation(testerWindow.getLocation());
+			recordingControlWindow.setVisible(true);
+		} else {
+			TestingUtils.sendWindowClosingEvent(recordingControlWindow);
+		}
+	}
+
+	protected void switchToPlayingControlWindow(boolean b) {
+		if (b == isPlaying()) {
+			return;
+		}
+		final JFrame testerWindow = getTesterWindow();
+		if (b) {
+			playingControlWindow = new JFrame() {
+				private static final long serialVersionUID = 1L;
+
+				{
+					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					JPanel form = getSwingRenderer().createObjectForm(playingControl);
+					getSwingRenderer().applyCommonWindowConfiguration(this, form, null, getObjectTitle(playingControl),
+							testerWindow.getIconImage());
+					addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowOpened(WindowEvent e) {
+							playingControl.startPlayingThread();
+						}
+
+						@Override
+						public void windowClosing(WindowEvent e) {
+							playingControl.stopPlayingThread();
+						}
+
+					});
+				}
+
+				@Override
+				public void dispose() {
+					super.dispose();
+					testerWindow.setLocation(playingControlWindow.getLocation());
+					playingControlWindow = null;
+					testerWindow.setVisible(true);
+				}
+			};
+			testerWindow.setVisible(false);
+			playingControlWindow.setLocation(testerWindow.getLocation());
+			playingControlWindow.setVisible(true);
+		} else {
+			TestingUtils.sendWindowClosingEvent(playingControlWindow);
+		}
+
+	}
+
+	protected int indexOfACtion(TestAction testAction) {
+		int i = 0;
+		for (TestAction a : tester.getTestActions()) {
+			if (a == testAction) {
+				return i;
 			}
-
-			@Override
-			public void dispose() {
-				tester.handleCurrentComponentChange(null);
-				testerWindow.setLocation(recordingControlWindow.getLocation());
-				testerWindow.setVisible(true);
-				super.dispose();
-				recordingControlWindow = null;
-			}
-
-		};
-		testerWindow.setVisible(false);
-		recordingControlWindow.setLocation(testerWindow.getLocation());
-		recordingControlWindow.setVisible(true);
+			i++;
+		}
+		return -1;
 	}
 
 	public class RecordingControl {
@@ -1030,7 +1102,7 @@ public class TesterUI extends ReflectionUI {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					TesterUI.this.stopRecording();
+					switchToRecordingControlWindow(false);
 				}
 			});
 		}
@@ -1042,6 +1114,79 @@ public class TesterUI extends ReflectionUI {
 		public void setRecordingPaused(boolean b) {
 			tester.handleCurrentComponentChange(null);
 			this.recordingPaused = b;
+		}
+
+	}
+
+	public class PlayingControl {
+
+		protected String currentActionDescription;
+		protected List<TestAction> actionsToPlay;
+		protected Thread playingThread;
+
+		public String getCurrentActionDescription() {
+			return currentActionDescription;
+		}
+
+		protected void setActionsToPlay(List<TestAction> actionsToPlay) {
+			this.actionsToPlay = actionsToPlay;
+		}
+
+		public void stop() {
+			switchToPlayingControlWindow(false);
+		}
+
+		protected void startPlayingThread() {
+			playingThread = new Thread(TesterUI.class.getName() + " Playing Thread") {
+				@Override
+				public void run() {
+					setRecordingPausedAndUpdateUI(true);
+					try {
+						Listener<TestAction> listener = new Listener<TestAction>() {
+							@Override
+							public void handle(TestAction testAction) {
+								currentActionDescription = testAction.toString();
+								int actionPosition = indexOfACtion(testAction) + 1;
+								currentActionDescription = actionPosition + " - " + currentActionDescription;
+								for (JPanel form : getSwingRenderer().getForms(playingControl)) {
+									getSwingRenderer().refreshAllFieldControls(form, false);
+								}
+								selectTestAction(testAction);								
+							}
+
+						};
+						tester.play(actionsToPlay, listener);
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
+										getObjectTitle(tester));
+							}
+						});
+					} catch (Throwable t) {
+						getSwingRenderer().handleExceptionsFromDisplayedUI(playingControlWindow, t);
+					} finally {
+						setRecordingPausedAndUpdateUI(false);
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								PlayingControl.this.stop();
+							}
+						});
+
+					}
+				}
+			};
+			playingThread.start();
+		}
+
+		protected void stopPlayingThread() {
+			playingThread.interrupt();
+			try {
+				playingThread.join();
+			} catch (InterruptedException e) {
+				throw new AssertionError(e);
+			}
 		}
 
 	}

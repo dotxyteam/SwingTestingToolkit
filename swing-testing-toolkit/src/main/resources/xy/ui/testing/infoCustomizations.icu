@@ -1834,6 +1834,7 @@
                     </category>
                     <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../../../xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[6]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
                     <fieldName>itemPath</fieldName>
+                    <customFieldCaption>Item Path (by index)</customFieldCaption>
                     <nullableFacetHidden>true</nullableFacetHidden>
                     <getOnlyForced>false</getOnlyForced>
                     <outer-class reference="../../../../xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[6]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
@@ -3843,7 +3844,20 @@
                 <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization/fieldsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-FieldCustomization/outer-class"/>
                 <typeName>java.lang.Integer</typeName>
                 <fieldsCustomizations/>
-                <methodsCustomizations/>
+                <methodsCustomizations>
+                  <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+                    <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization">
+                      <listStructures reference="../../../../../../../../../.."/>
+                      <typeCustomizations reference="../../../../.."/>
+                    </outer-class>
+                    <hidden>false</hidden>
+                    <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../outer-class"/>
+                    <methodSignature>java.lang.Integer ()</methodSignature>
+                    <readOnlyForced>false</readOnlyForced>
+                    <parametersCustomizations/>
+                    <outer-class reference="../outer-class"/>
+                  </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+                </methodsCustomizations>
                 <memberCategories/>
                 <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization/fieldsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-FieldCustomization/outer-class"/>
               </xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization>
@@ -4467,6 +4481,39 @@
                 </memberCategories>
                 <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[20]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization[3]/outer-class"/>
               </xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization>
+              <xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization>
+                <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization">
+                  <listStructures reference="../../../../../../../.."/>
+                  <typeCustomizations reference="../../.."/>
+                </outer-class>
+                <typeName>xy.ui.testing.TesterUI$PlayingControl</typeName>
+                <fieldsCustomizations>
+                  <xy.reflect.ui.info.type.util.InfoCustomizations_-FieldCustomization>
+                    <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../../outer-class"/>
+                    <hidden>false</hidden>
+                    <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../../outer-class"/>
+                    <fieldName>currentActionDescription</fieldName>
+                    <customFieldCaption>Currently</customFieldCaption>
+                    <nullableFacetHidden>false</nullableFacetHidden>
+                    <getOnlyForced>false</getOnlyForced>
+                    <outer-class reference="../../../outer-class"/>
+                  </xy.reflect.ui.info.type.util.InfoCustomizations_-FieldCustomization>
+                </fieldsCustomizations>
+                <methodsCustomizations>
+                  <xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+                    <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractInfoCustomization" reference="../../../outer-class"/>
+                    <hidden>false</hidden>
+                    <outer-class defined-in="xy.reflect.ui.info.type.util.InfoCustomizations$AbstractMemberCustomization" reference="../../../outer-class"/>
+                    <methodSignature>void stop()</methodSignature>
+                    <readOnlyForced>false</readOnlyForced>
+                    <parametersCustomizations/>
+                    <outer-class reference="../../../outer-class"/>
+                  </xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization>
+                </methodsCustomizations>
+                <memberCategories/>
+                <polymorphicSubTypeFinders/>
+                <outer-class reference="../outer-class"/>
+              </xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization>
             </typeCustomizations>
           </outer-class>
         </xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization>
@@ -4538,6 +4585,36 @@
         <string>valueDescription</string>
       </columnsCustomOrder>
       <outer-class reference="../columnsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization/outer-class"/>
+    </xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization>
+    <xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization>
+      <listTypeName>java.util.List</listTypeName>
+      <itemTypeName>java.lang.Integer</itemTypeName>
+      <itemTypeColumnAdded>false</itemTypeColumnAdded>
+      <positionColumnAdded>false</positionColumnAdded>
+      <fieldColumnsAdded>false</fieldColumnsAdded>
+      <columnsCustomizations>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization>
+          <columnName>toStringValue</columnName>
+          <hidden>false</hidden>
+          <outer-class reference="../../../../xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization/columnsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization/outer-class/typeCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[39]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization>
+      </columnsCustomizations>
+      <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization/columnsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization/outer-class/typeCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[39]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+    </xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization>
+    <xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization>
+      <listTypeName>java.util.List</listTypeName>
+      <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder</itemTypeName>
+      <itemTypeColumnAdded>false</itemTypeColumnAdded>
+      <positionColumnAdded>false</positionColumnAdded>
+      <fieldColumnsAdded>false</fieldColumnsAdded>
+      <columnsCustomizations>
+        <xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization>
+          <columnName>toStringValue</columnName>
+          <hidden>false</hidden>
+          <outer-class reference="../../../../xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization/columnsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization/outer-class/typeCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[39]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
+        </xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization>
+      </columnsCustomizations>
+      <outer-class reference="../../xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization/columnsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization/outer-class/typeCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-TypeCustomization[39]/methodsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-MethodCustomization/outer-class"/>
     </xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization>
   </listStructures>
   <typeCustomizations reference="../listStructures/xy.reflect.ui.info.type.util.InfoCustomizations_-ListStructureCustomization/columnsCustomizations/xy.reflect.ui.info.type.util.InfoCustomizations_-ColumnCustomization/outer-class/typeCustomizations"/>
