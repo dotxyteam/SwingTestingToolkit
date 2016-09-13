@@ -96,7 +96,12 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			for (String propertyName : propertyUtil.getPropertyNameOptions()) {
 				PropertyValue propertyValue = new PropertyValue();
 				propertyValue.setPropertyName(propertyName);
-				propertyValue.initialize(c);
+				try {
+					propertyValue.initialize(c);
+				} catch (Throwable t) {
+					t.printStackTrace();
+					continue;
+				}
 				propertyValues.add(propertyValue);
 			}
 		} else {
@@ -104,7 +109,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 				if (!propertyValue.initialize(c)) {
 					return false;
 				}
-			}			
+			}
 		}
 		return true;
 	}

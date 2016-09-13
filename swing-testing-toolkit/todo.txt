@@ -1,3 +1,4 @@
+- menu item finder: too much generic???
 - extensibility: add documentation
 - selectComboBoxitemAction:
 	. add item selection enumeration???

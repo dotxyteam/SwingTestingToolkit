@@ -61,7 +61,7 @@ import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.HiddenNullableFacetsInfoProxyGenerator;
-import xy.reflect.ui.info.type.util.InfoCustomizations;
+import xy.reflect.ui.info.type.util.InfoCustomizationsNew;
 import xy.reflect.ui.info.type.util.InfoProxyGenerator;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -133,7 +133,7 @@ public class TesterUI extends ReflectionUI {
 	protected JFrame playingControlWindow;
 	protected JPanel testerForm;
 	protected SwingRenderer swingRenderer;
-	protected InfoCustomizations infoCustomizations;
+	protected InfoCustomizationsNew infoCustomizations;
 
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
@@ -179,17 +179,17 @@ public class TesterUI extends ReflectionUI {
 		TestingUtils.removeAWTEventListener(recordingListener);
 	}
 
-	protected InfoCustomizations createInfoCustomizations() {
-		InfoCustomizations result = new InfoCustomizations();
+	protected InfoCustomizationsNew createInfoCustomizations() {
+		InfoCustomizationsNew result = new InfoCustomizationsNew();
 		String alternateCustomizationFilePath = getAlternateCustomizationsFilePath();
-		if (alternateCustomizationFilePath != null) {
-			try {
+		try {
+			if (alternateCustomizationFilePath != null) {
 				result.loadFromFile(new File(alternateCustomizationFilePath));
-			} catch (IOException e) {
-				throw new ReflectionUIError(e);
+			} else {
+				result.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
 			}
-		} else {
-			result.loadFromStream(TesterUI.class.getResourceAsStream("infoCustomizations.icu"));
+		} catch (IOException e) {
+			throw new ReflectionUIError(e);
 		}
 		return result;
 	}
@@ -1151,7 +1151,7 @@ public class TesterUI extends ReflectionUI {
 								for (JPanel form : getSwingRenderer().getForms(playingControl)) {
 									getSwingRenderer().refreshAllFieldControls(form, false);
 								}
-								selectTestAction(testAction);								
+								selectTestAction(testAction);
 							}
 
 						};
@@ -1163,8 +1163,13 @@ public class TesterUI extends ReflectionUI {
 										getObjectTitle(tester));
 							}
 						});
-					} catch (Throwable t) {
-						getSwingRenderer().handleExceptionsFromDisplayedUI(playingControlWindow, t);
+					} catch (final Throwable t) {
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								getSwingRenderer().handleExceptionsFromDisplayedUI(playingControlWindow, t);
+							}
+						});
 					} finally {
 						setRecordingPausedAndUpdateUI(false);
 						SwingUtilities.invokeLater(new Runnable() {

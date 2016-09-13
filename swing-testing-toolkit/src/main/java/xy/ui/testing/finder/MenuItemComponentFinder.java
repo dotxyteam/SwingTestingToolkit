@@ -36,7 +36,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	@Override
 	public Component find(Tester tester) {
 		if (menuItemPath.size() == 0) {
-			throw new TestFailure("Cannot find menu item: menu path not set");
+			throw new TestFailure("Cannot find menu item: path not set");
 		}
 		for (int i = 0; i < menuItemPath.size(); i++) {
 			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
