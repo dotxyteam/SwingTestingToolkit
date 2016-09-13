@@ -61,7 +61,7 @@ import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.HiddenNullableFacetsInfoProxyGenerator;
-import xy.reflect.ui.info.type.util.InfoCustomizationsNew;
+import xy.reflect.ui.info.type.util.InfoCustomizations;
 import xy.reflect.ui.info.type.util.InfoProxyGenerator;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -133,7 +133,7 @@ public class TesterUI extends ReflectionUI {
 	protected JFrame playingControlWindow;
 	protected JPanel testerForm;
 	protected SwingRenderer swingRenderer;
-	protected InfoCustomizationsNew infoCustomizations;
+	protected InfoCustomizations infoCustomizations;
 
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
@@ -179,8 +179,8 @@ public class TesterUI extends ReflectionUI {
 		TestingUtils.removeAWTEventListener(recordingListener);
 	}
 
-	protected InfoCustomizationsNew createInfoCustomizations() {
-		InfoCustomizationsNew result = new InfoCustomizationsNew();
+	protected InfoCustomizations createInfoCustomizations() {
+		InfoCustomizations result = new InfoCustomizations();
 		String alternateCustomizationFilePath = getAlternateCustomizationsFilePath();
 		try {
 			if (alternateCustomizationFilePath != null) {
