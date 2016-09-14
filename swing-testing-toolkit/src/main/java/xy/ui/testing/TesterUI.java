@@ -1161,6 +1161,7 @@ public class TesterUI extends ReflectionUI {
 							public void run() {
 								getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
 										getObjectTitle(tester));
+								PlayingControl.this.stop();
 							}
 						});
 					} catch (final Throwable t) {
@@ -1168,17 +1169,11 @@ public class TesterUI extends ReflectionUI {
 							@Override
 							public void run() {
 								getSwingRenderer().handleExceptionsFromDisplayedUI(playingControlWindow, t);
+								PlayingControl.this.stop();
 							}
 						});
 					} finally {
 						setRecordingPausedAndUpdateUI(false);
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								PlayingControl.this.stop();
-							}
-						});
-
 					}
 				}
 			};
