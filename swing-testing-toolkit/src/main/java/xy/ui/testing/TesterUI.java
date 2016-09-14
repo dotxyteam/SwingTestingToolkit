@@ -45,6 +45,7 @@ import xy.reflect.ui.control.swing.SwingCustomizer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
+import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
@@ -742,11 +743,11 @@ public class TesterUI extends ReflectionUI {
 		if (testerForm == null) {
 			return null;
 		}
-		List<Component> result = getSwingRenderer().getFieldControlsByName(testerForm, "testActions");
+		List<FieldControlPlaceHolder> result = getSwingRenderer().getFieldControlPlaceHoldersByName(testerForm, "testActions");
 		if (result.size() != 1) {
 			throw new AssertionError("'testActions' control not found for: " + tester);
 		}
-		Component c = result.get(0);
+		Component c = result.get(0).getFieldControl();
 		if (c instanceof NullableControl) {
 			c = ((NullableControl) c).getSubControl();
 		}
