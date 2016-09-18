@@ -12,6 +12,7 @@
         <itemTypeName>java.lang.String</itemTypeName>
         <listTypeName>[Ljava.lang.String;</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
     </listStructures>
     <listStructures>
         <columnsCustomOrder></columnsCustomOrder>
@@ -47,6 +48,7 @@
         <itemTypeName>xy.ui.testing.action.TestAction</itemTypeName>
         <listTypeName>[Lxy.ui.testing.action.TestAction;</listTypeName>
         <positionColumnAdded>true</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
     </listStructures>
     <listStructures>
         <columnsCustomizations>
@@ -60,6 +62,7 @@
         <itemTypeName>xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction</itemTypeName>
         <listTypeName>[Lxy.ui.testing.action.component.SendKeysAction$KeyboardInteraction;</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
     </listStructures>
     <listStructures>
         <columnsCustomizations>
@@ -73,6 +76,7 @@
         <itemTypeName>java.lang.Integer</itemTypeName>
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
     </listStructures>
     <typeCustomizations>
         <typeName></typeName>
@@ -2345,6 +2349,7 @@
         <customFieldsOrder></customFieldsOrder>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <customFieldCaption>Check Completeness</customFieldCaption>
             <fieldName>completenessChecked</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2357,6 +2362,7 @@
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <customFieldCaption>Check Order</customFieldCaption>
             <fieldName>orderChecked</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>

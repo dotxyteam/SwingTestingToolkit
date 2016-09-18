@@ -275,7 +275,7 @@ public class TesterUI extends ReflectionUI {
 			WindowEvent windowEvent = (WindowEvent) event;
 			Window window = windowEvent.getWindow();
 			setRecordingPausedAndUpdateUI(true);
-			String title = getObjectTitle(tester);
+			String title = getSwingRenderer().getObjectTitle(tester);
 			if (getSwingRenderer().openQuestionDialog(recordingControlWindow,
 					"Do you want to record this window closing event?", title)) {
 				setRecordingPausedAndUpdateUI(false);
@@ -290,7 +290,7 @@ public class TesterUI extends ReflectionUI {
 			setRecordingPausedAndUpdateUI(true);
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
 			testACtion.initializeFrom(menuItem, event, this);
-			String title = getObjectTitle(tester);
+			String title = getSwingRenderer().getObjectTitle(tester);
 			if (getSwingRenderer().openQuestionDialog(recordingControlWindow,
 					"Do you want to record this menu item activation event?", title)) {
 				setRecordingPausedAndUpdateUI(false);
@@ -320,7 +320,7 @@ public class TesterUI extends ReflectionUI {
 		addStopRecordingOption(options, c);
 		addInspectComponentOption(options, c);
 		addTestActionOptions(options, c, event);
-		String title = getObjectTitle(tester);
+		String title = getSwingRenderer().getObjectTitle(tester);
 		DefaultTreeModel treeModel = new DefaultTreeModel(options);
 		final TreeSelectionDialog dialog = new TreeSelectionDialog(parent, title, null, treeModel,
 				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
@@ -376,7 +376,7 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("(Actions)");
 		DefaultMutableTreeNode assertionssGroup = new DefaultMutableTreeNode("(Assertion)");
 		for (final TestAction testAction : getPossibleTestActions(c, event)) {
-			String testActionTypeName = getObjectTitle(testAction).replaceAll(" Action$", "");
+			String testActionTypeName = getSwingRenderer().getObjectTitle(testAction).replaceAll(" Action$", "");
 			DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction(testActionTypeName) {
 				private static final long serialVersionUID = 1L;
 
@@ -743,7 +743,8 @@ public class TesterUI extends ReflectionUI {
 		if (testerForm == null) {
 			return null;
 		}
-		List<FieldControlPlaceHolder> result = getSwingRenderer().getFieldControlPlaceHoldersByName(testerForm, "testActions");
+		List<FieldControlPlaceHolder> result = getSwingRenderer().getFieldControlPlaceHoldersByName(testerForm,
+				"testActions");
 		if (result.size() != 1) {
 			throw new AssertionError("'testActions' control not found for: " + tester);
 		}
@@ -756,7 +757,8 @@ public class TesterUI extends ReflectionUI {
 
 	protected void openComponentInspector(Component c) {
 		ComponentInspector inspector = new ComponentInspector(c, this);
-		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector, getObjectTitle(inspector), null, true);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector,
+				getSwingRenderer().getObjectTitle(inspector), null, true);
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
@@ -1018,7 +1020,7 @@ public class TesterUI extends ReflectionUI {
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					JPanel form = getSwingRenderer().createObjectForm(recordingControl);
 					getSwingRenderer().applyCommonWindowConfiguration(this, form, null,
-							getObjectTitle(recordingControl), testerWindow.getIconImage());
+							getSwingRenderer().getObjectTitle(recordingControl), testerWindow.getIconImage());
 				}
 
 				@Override
@@ -1051,8 +1053,8 @@ public class TesterUI extends ReflectionUI {
 				{
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					JPanel form = getSwingRenderer().createObjectForm(playingControl);
-					getSwingRenderer().applyCommonWindowConfiguration(this, form, null, getObjectTitle(playingControl),
-							testerWindow.getIconImage());
+					getSwingRenderer().applyCommonWindowConfiguration(this, form, null,
+							getSwingRenderer().getObjectTitle(playingControl), testerWindow.getIconImage());
 					addWindowListener(new WindowAdapter() {
 						@Override
 						public void windowOpened(WindowEvent e) {
@@ -1131,6 +1133,7 @@ public class TesterUI extends ReflectionUI {
 
 		protected void setActionsToPlay(List<TestAction> actionsToPlay) {
 			this.actionsToPlay = actionsToPlay;
+			currentActionDescription = "<initializing...>";
 		}
 
 		public void stop() {
@@ -1161,7 +1164,7 @@ public class TesterUI extends ReflectionUI {
 							@Override
 							public void run() {
 								getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
-										getObjectTitle(tester));
+										getSwingRenderer().getObjectTitle(tester));
 								PlayingControl.this.stop();
 							}
 						});

@@ -117,7 +117,6 @@
       <completenessChecked>false</completenessChecked>
       <orderChecked>false</orderChecked>
       <visibleStrings>
-        <string>Test Actions - Item</string>
         <string>Missing class name</string>
         <string>Check Exceptions After (seconds): </string>
         <string>2</string>
@@ -217,7 +216,7 @@
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
+        <occurrencesToSkip>2</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <keyboardInteractions>
@@ -356,7 +355,7 @@
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>3</occurrencesToSkip>
+        <occurrencesToSkip>4</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <keyboardInteractions>
@@ -557,9 +556,8 @@
         <string>2</string>
         <string>Test Actions</string>
         <string>Type</string>
-        <string>Component Information</string>
-        <string>Value Description</string>
-        <string>Item(depth=0, position=0, value=Call main method of &lt;xy.ui.testing.TestTesterUI&gt;)</string>
+        <string>Component</string>
+        <string>Value</string>
         <string>Call Main Method Action</string>
         <string>xy.ui.testing.TestTesterUI</string>
         <string>Play Selected Action(s)</string>
