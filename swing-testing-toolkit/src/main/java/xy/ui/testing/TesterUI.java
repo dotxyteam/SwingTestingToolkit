@@ -683,7 +683,7 @@ public class TesterUI extends ReflectionUI {
 
 							@Override
 							public String getCaption() {
-								return "Play Selected Action(s)";
+								return "Play";
 							}
 
 							@Override
@@ -725,7 +725,7 @@ public class TesterUI extends ReflectionUI {
 
 								@Override
 								public String getCaption() {
-									return "Play From Selection To End";
+									return "Resume";
 								}
 							});
 						}
