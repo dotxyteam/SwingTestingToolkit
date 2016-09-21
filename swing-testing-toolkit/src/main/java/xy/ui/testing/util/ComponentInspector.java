@@ -23,6 +23,10 @@ public class ComponentInspector {
 		return Collections.singletonList(root);
 	}
 
+	public int getWindowIndex() {
+		return root.createOrGetUtil().getWindowIndex();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -61,10 +65,6 @@ public class ComponentInspector {
 			this.testerUI = testerUI;
 		}
 
-		public int getWindowIndex() {
-			return createOrGetUtil().getWindowIndex();
-		}
-
 		protected PropertyBasedComponentFinder createOrGetUtil() {
 			if (util == null) {
 				util = new PropertyBasedComponentFinder() {
@@ -87,8 +87,9 @@ public class ComponentInspector {
 			return c.getClass().getName();
 		}
 
-		public List<PropertyValue> getPropertyValues() {
-			return createOrGetUtil().getPropertyValueList();
+		public PropertyValue[] getPropertyValues() {
+			List<PropertyValue> result = createOrGetUtil().getPropertyValueList();
+			return result.toArray(new PropertyValue[result.size()]);
 		}
 
 		public List<ComponentInspectorNode> getComponentTree() {

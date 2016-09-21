@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <infoCustomizations>
     <listStructures>
+        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <itemCreationDisabled>false</itemCreationDisabled>
+        <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
+        <itemTypeColumnAdded>false</itemTypeColumnAdded>
+        <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listTypeName>ImplicitListFieldType</listTypeName>
+        <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
+    </listStructures>
+    <listStructures>
         <columnsCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
@@ -8,6 +19,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>java.lang.String</itemTypeName>
         <listTypeName>[Ljava.lang.String;</listTypeName>
@@ -44,6 +56,7 @@
         <fieldColumnsAdded>true</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>true</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.action.TestAction</itemTypeName>
         <listTypeName>[Lxy.ui.testing.action.TestAction;</listTypeName>
@@ -58,6 +71,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction</itemTypeName>
         <listTypeName>[Lxy.ui.testing.action.component.SendKeysAction$KeyboardInteraction;</listTypeName>
@@ -72,9 +86,65 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>java.lang.Integer</itemTypeName>
         <listTypeName>java.util.List</listTypeName>
+        <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
+    </listStructures>
+    <listStructures>
+        <columnsCustomizations>
+            <columnName>toStringValue</columnName>
+            <hidden>false</hidden>
+        </columnsCustomizations>
+        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <itemCreationDisabled>false</itemCreationDisabled>
+        <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
+        <itemTypeColumnAdded>false</itemTypeColumnAdded>
+        <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listTypeName>java.util.List</listTypeName>
+        <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
+    </listStructures>
+    <listStructures>
+        <columnsCustomizations>
+            <columnName>toStringValue</columnName>
+            <hidden>false</hidden>
+        </columnsCustomizations>
+        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <itemCreationDisabled>true</itemCreationDisabled>
+        <itemDeletionDisabled>true</itemDeletionDisabled>
+        <itemMoveDisabled>true</itemMoveDisabled>
+        <itemTypeColumnAdded>false</itemTypeColumnAdded>
+        <itemTypeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</itemTypeName>
+        <listTypeName>java.util.List</listTypeName>
+        <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
+        <treeStructureDiscoverySettings>
+            <heterogeneousTree>false</heterogeneousTree>
+        </treeStructureDiscoverySettings>
+    </listStructures>
+    <listStructures>
+        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <itemCreationDisabled>false</itemCreationDisabled>
+        <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
+        <itemTypeColumnAdded>false</itemTypeColumnAdded>
+        <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listTypeName>propertyValuesType</listTypeName>
+        <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
+    </listStructures>
+    <listStructures>
+        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <itemCreationDisabled>false</itemCreationDisabled>
+        <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemMoveDisabled>false</itemMoveDisabled>
+        <itemTypeColumnAdded>false</itemTypeColumnAdded>
+        <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listTypeName>xy.reflect.ui.info.field.ImplicitListFieldType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listStructures>
@@ -107,6 +177,15 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo()</typeName>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName></fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>VirtualFieldWrapperTypeInfo(Choose a type:)</typeName>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -214,6 +293,16 @@
                 <nullableFacetHidden>false</nullableFacetHidden>
                 <parameterName>child</parameterName>
             </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter1</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter2</parameterName>
+            </parametersCustomizations>
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <methodsCustomizations>
@@ -223,6 +312,11 @@
                 <hidden>false</hidden>
                 <nullableFacetHidden>false</nullableFacetHidden>
                 <parameterName>pathname</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter1</parameterName>
             </parametersCustomizations>
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
@@ -239,6 +333,16 @@
                 <nullableFacetHidden>false</nullableFacetHidden>
                 <parameterName>child</parameterName>
             </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter1</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter2</parameterName>
+            </parametersCustomizations>
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <methodsCustomizations>
@@ -248,6 +352,11 @@
                 <hidden>false</hidden>
                 <nullableFacetHidden>false</nullableFacetHidden>
                 <parameterName>uri</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter1</parameterName>
             </parametersCustomizations>
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
@@ -2897,6 +3006,48 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.finder.VisibleStringComponentFinder</typeName>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>componentTree</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>windowIndex</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>xy.ui.testing.util.ComponentInspector</typeName>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>componentClassName</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>componentTree</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>propertyValues</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>windowIndex</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</typeName>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.util.Listener</typeName>
