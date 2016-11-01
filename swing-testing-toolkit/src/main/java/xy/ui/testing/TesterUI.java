@@ -47,6 +47,7 @@ import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
+import xy.reflect.ui.control.swing.MethodAction;
 import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.InfoCollectionSettingsProxy;
@@ -61,14 +62,13 @@ import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
-import xy.reflect.ui.info.type.util.HiddenNullableFacetsInfoProxyGenerator;
+import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyFactory;
 import xy.reflect.ui.info.type.util.InfoCustomizations;
-import xy.reflect.ui.info.type.util.InfoProxyGenerator;
+import xy.reflect.ui.info.type.util.TypeInfoProxyFactory;
 import xy.reflect.ui.info.type.DefaultTypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
 import xy.reflect.ui.undo.IModification;
-import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
@@ -480,25 +480,33 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			public boolean onMethodInvocationRequest(Component activatorComponent, Object object, IMethodInfo method,
-					Object[] returnValueArray) {
-				if ((object instanceof Tester) && method.getCaption().equals("Start Recording")) {
-					ListControl testActionsControl = getTestActionsControl();
-					if (testActionsControl.getSelection().size() == 1) {
-						String insertMessage = "Insert Recordings After The Current Selection Row";
-						String doNotInsertMessage = "Insert Recordings At The End";
-						String answer = getSwingRenderer().openSelectionDialog(testActionsControl,
-								Arrays.asList(insertMessage, doNotInsertMessage), insertMessage, "Choose", null);
-						if (insertMessage.equals(answer)) {
-							recordingInsertedAfterSelection = true;
-						} else if (doNotInsertMessage.equals(answer)) {
-							recordingInsertedAfterSelection = false;
-						} else {
-							return false;
+			public MethodAction createMethodAction(Object object, IMethodInfo method) {
+				return new MethodAction(swingRenderer, object, method) {
+					protected static final long serialVersionUID = 1L;
+
+					@Override
+					protected boolean onMethodInvocationRequest(Component activatorComponent) {
+						if ((object instanceof Tester) && method.getCaption().equals("Start Recording")) {
+							ListControl testActionsControl = getTestActionsControl();
+							if (testActionsControl.getSelection().size() == 1) {
+								String insertMessage = "Insert Recordings After The Current Selection Row";
+								String doNotInsertMessage = "Insert Recordings At The End";
+								String answer = getSwingRenderer().openSelectionDialog(testActionsControl,
+										Arrays.asList(insertMessage, doNotInsertMessage), insertMessage, "Choose",
+										null);
+								if (insertMessage.equals(answer)) {
+									recordingInsertedAfterSelection = true;
+								} else if (doNotInsertMessage.equals(answer)) {
+									recordingInsertedAfterSelection = false;
+								} else {
+									return false;
+								}
+							}
 						}
+						return super.onMethodInvocationRequest(activatorComponent);
 					}
-				}
-				return super.onMethodInvocationRequest(activatorComponent, object, method, returnValueArray);
+
+				};
 			}
 
 			@Override
@@ -529,7 +537,7 @@ public class TesterUI extends ReflectionUI {
 	@Override
 	public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
 		ITypeInfo result = super.getTypeInfo(typeSource);
-		result = new InfoProxyGenerator() {
+		result = new TypeInfoProxyFactory() {
 
 			@Override
 			protected String toString(ITypeInfo type) {
@@ -586,7 +594,6 @@ public class TesterUI extends ReflectionUI {
 							startRecording();
 							return null;
 						}
-
 					});
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
 
@@ -659,22 +666,7 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected IModification getUndoModification(IMethodInfo method, ITypeInfo containingType, Object object,
-					InvocationData invocationData) {
-				if (method.getName().startsWith("play")) {
-					return ModificationStack.EMPTY_MODIFICATION;
-				}
-				if (method.getName().equals("startRecording")) {
-					return ModificationStack.EMPTY_MODIFICATION;
-				}
-				if (method.getName().equals("stopRecording")) {
-					return ModificationStack.EMPTY_MODIFICATION;
-				}
-				return super.getUndoModification(method, containingType, object, invocationData);
-			}
-
-			@Override
-			protected List<AbstractListAction> getSpecificListActions(IListTypeInfo type, final Object object,
+			protected List<AbstractListAction> getDynamicActions(IListTypeInfo type, final Object object,
 					IFieldInfo field, final List<? extends ItemPosition> selection) {
 				if ((object instanceof Tester) && (field.getName().equals("testActions"))) {
 					if (selection.size() > 0) {
@@ -732,7 +724,7 @@ public class TesterUI extends ReflectionUI {
 						return result;
 					}
 				}
-				return super.getSpecificListActions(type, object, field, selection);
+				return super.getDynamicActions(type, object, field, selection);
 			}
 
 		}.get(result);
@@ -1019,7 +1011,7 @@ public class TesterUI extends ReflectionUI {
 				{
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					JPanel form = getSwingRenderer().createObjectForm(recordingControl);
-					getSwingRenderer().applyCommonWindowConfiguration(this, form, null,
+					getSwingRenderer().setupWindow(this, form, null,
 							getSwingRenderer().getObjectTitle(recordingControl), testerWindow.getIconImage());
 				}
 
@@ -1053,8 +1045,8 @@ public class TesterUI extends ReflectionUI {
 				{
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					JPanel form = getSwingRenderer().createObjectForm(playingControl);
-					getSwingRenderer().applyCommonWindowConfiguration(this, form, null,
-							getSwingRenderer().getObjectTitle(playingControl), testerWindow.getIconImage());
+					getSwingRenderer().setupWindow(this, form, null, getSwingRenderer().getObjectTitle(playingControl),
+							testerWindow.getIconImage());
 					addWindowListener(new WindowAdapter() {
 						@Override
 						public void windowOpened(WindowEvent e) {
@@ -1164,7 +1156,7 @@ public class TesterUI extends ReflectionUI {
 							@Override
 							public void run() {
 								getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
-										getSwingRenderer().getObjectTitle(tester));
+										getSwingRenderer().getObjectTitle(tester), null);
 								PlayingControl.this.stop();
 							}
 						});

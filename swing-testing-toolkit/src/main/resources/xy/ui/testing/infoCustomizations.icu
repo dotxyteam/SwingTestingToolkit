@@ -4,6 +4,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
@@ -19,6 +20,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>java.lang.String</itemTypeName>
@@ -56,6 +58,7 @@
         <fieldColumnsAdded>true</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>true</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.action.TestAction</itemTypeName>
@@ -71,6 +74,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction</itemTypeName>
@@ -86,6 +90,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>java.lang.Integer</itemTypeName>
@@ -101,6 +106,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
@@ -116,6 +122,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>true</itemCreationDisabled>
         <itemDeletionDisabled>true</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>true</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</itemTypeName>
@@ -130,6 +137,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
@@ -141,6 +149,7 @@
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemMoveDisabled>false</itemMoveDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
@@ -150,6 +159,27 @@
     </listStructures>
     <typeCustomizations>
         <typeName></typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName></fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>EncapsulationTypeInfo [fieldType=Tester, fieldCaption=Value]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName></fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>EncapsulationTypeInfo()</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -159,6 +189,7 @@
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>MethodParametersAsTypeInfo(loadFromFile)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -168,6 +199,7 @@
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>MethodParametersAsTypeInfo(saveToFile)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -177,6 +209,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo()</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -186,6 +219,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Choose a type:)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -195,6 +229,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Choose an option:)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -204,6 +239,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Choose the type of 'Keyboard Interaction')</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -213,6 +249,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Choose the type of 'Test Action')</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -222,6 +259,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Choose)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -231,6 +269,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Message)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -240,39 +279,51 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>VirtualFieldWrapperTypeInfo(Value)</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>[B</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>[Ljava.lang.String;</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>[Lxy.ui.testing.action.TestAction;</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>[Lxy.ui.testing.action.component.SendKeysAction$KeyboardInteraction;</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>[Lxy.ui.testing.action.component.specific.SelectComboBoxItemAction$Option;</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>boolean</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>byte</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>int</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.awt.AWTEvent</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.awt.Component</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.awt.Window</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <methodsCustomizations>
@@ -361,12 +412,15 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>java.io.File</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.io.InputStream</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.io.OutputStream</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <methodsCustomizations>
@@ -375,6 +429,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>java.lang.Integer</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -395,24 +450,31 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>java.lang.String</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.net.URI</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>java.util.List</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.reflect.ui.control.swing.PolymorphicEmbeddedForm$1</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.reflect.ui.info.field.ImplicitListField$ImplicitListFieldType$2</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.reflect.ui.info.type.util.InfoProxyGenerator$GeneratedBasicTypeInfoProxy</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.reflect.ui.info.type.util.InfoProxyGenerator$GeneratedMethodInfoProxy</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -509,7 +571,7 @@
         <methodsCustomizations>
             <hidden>false</hidden>
             <methodSignature>void playAll()</methodSignature>
-            <readOnlyForced>false</readOnlyForced>
+            <readOnlyForced>true</readOnlyForced>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
@@ -524,7 +586,7 @@
                 <nullableFacetHidden>false</nullableFacetHidden>
                 <parameterName>output</parameterName>
             </parametersCustomizations>
-            <readOnlyForced>false</readOnlyForced>
+            <readOnlyForced>true</readOnlyForced>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
@@ -539,12 +601,14 @@
         <methodsCustomizations>
             <hidden>false</hidden>
             <methodSignature>void startRecording()</methodSignature>
-            <readOnlyForced>false</readOnlyForced>
+            <readOnlyForced>true</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.Tester</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.TesterUI</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -560,6 +624,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.TesterUI$PlayingControl</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -576,6 +641,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.TesterUI$RecordingControl</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -674,6 +740,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.CallMainMethodAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -755,6 +822,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.CheckNumberOfOpenWindowsAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -770,6 +838,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>xy.ui.testing.action.TestAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -850,6 +919,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.WaitAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -992,9 +1062,11 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.ClickAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.action.component.ClickAction$ButtonId</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -1102,6 +1174,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.ClickOnMenuItemAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -1229,9 +1302,11 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <customFieldsOrder></customFieldsOrder>
@@ -1283,6 +1358,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -1328,6 +1404,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -1373,6 +1450,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -1418,6 +1496,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -1463,9 +1542,11 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$KeyName</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -1480,6 +1561,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.SendKeysAction$WriteText</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -1616,6 +1698,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.property.ChangeComponentPropertyAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -1749,6 +1832,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.property.CheckComponentPropertyAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -1906,6 +1990,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.specific.ClickOnTableCellAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -2024,6 +2109,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -2161,12 +2247,15 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.specific.SelectComboBoxItemAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.action.component.specific.SelectComboBoxItemAction$Option</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.action.component.specific.SelectComboBoxItemAction$SelectionMode</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -2298,6 +2387,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.specific.SelectTabAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -2436,6 +2526,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.specific.SelectTableRowAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -2550,6 +2641,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.window.CheckWindowVisibleStringsAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <specificProperties>
@@ -2640,6 +2732,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.window.CloseWindowAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <customFieldsOrder></customFieldsOrder>
@@ -2694,9 +2787,11 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.finder.ClassBasedComponentFinder</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.finder.ComponentFinder</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -2742,6 +2837,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.finder.MenuItemComponentFinder</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <customFieldsOrder></customFieldsOrder>
@@ -2902,6 +2998,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.finder.PropertyBasedComponentFinder</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -2952,6 +3049,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <customFieldsOrder></customFieldsOrder>
@@ -3006,6 +3104,7 @@
             <readOnlyForced>false</readOnlyForced>
         </methodsCustomizations>
         <typeName>xy.ui.testing.finder.VisibleStringComponentFinder</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -3021,6 +3120,7 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>xy.ui.testing.util.ComponentInspector</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <fieldsCustomizations>
@@ -3048,8 +3148,10 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.util.Listener</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>

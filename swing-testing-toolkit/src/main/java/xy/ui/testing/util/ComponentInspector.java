@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
@@ -55,7 +56,7 @@ public class ComponentInspector {
 	public class ComponentInspectorNode {
 
 		private PropertyBasedComponentFinder util;
-		List<ComponentInspectorNode> chilren;
+		private List<ComponentInspectorNode> chilren;
 
 		private Component c;
 		private TesterUI testerUI;
@@ -107,7 +108,15 @@ public class ComponentInspector {
 
 		@Override
 		public String toString() {
-			return getComponentClassName();
+			String result = getComponentClassName();
+			List<String> visibleStrings = TestingUtils.extractVisibleStrings(c);
+			if(visibleStrings.size() > 0){
+				String firstVisibleString = visibleStrings.get(0);
+				firstVisibleString = ReflectionUIUtils.truncateNicely(firstVisibleString, 100);
+				firstVisibleString = " (" + firstVisibleString + ")";
+				result += firstVisibleString; 
+			}
+			return result;
 		}
 
 		@Override

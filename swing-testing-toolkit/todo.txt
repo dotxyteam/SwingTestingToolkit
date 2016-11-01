@@ -1,3 +1,8 @@
+- component inspector:
+	. allow to run from main window
+	. display visible strings of descendant nodes
+	. disbale recording when inspector opened
+- tooltips in visible strings???
 - extracty class TesterWindow
 - menu item finder: too much generic???
 - extensibility: add documentation
