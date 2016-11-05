@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <infoCustomizations>
-    <listStructures>
+    <listCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -11,8 +11,8 @@
         <listTypeName>ImplicitListFieldType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <columnsCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
@@ -27,8 +27,8 @@
         <listTypeName>[Ljava.lang.String;</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <columnsCustomOrder></columnsCustomOrder>
         <columnsCustomOrder></columnsCustomOrder>
         <columnsCustomOrder></columnsCustomOrder>
@@ -65,8 +65,8 @@
         <listTypeName>[Lxy.ui.testing.action.TestAction;</listTypeName>
         <positionColumnAdded>true</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <columnsCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
@@ -81,8 +81,8 @@
         <listTypeName>[Lxy.ui.testing.action.component.SendKeysAction$KeyboardInteraction;</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <columnsCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
@@ -97,8 +97,8 @@
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <columnsCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
@@ -113,8 +113,8 @@
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <columnsCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
@@ -132,8 +132,8 @@
         <treeStructureDiscoverySettings>
             <heterogeneousTree>false</heterogeneousTree>
         </treeStructureDiscoverySettings>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -144,8 +144,8 @@
         <listTypeName>propertyValuesType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
-    <listStructures>
+    </listCustomizations>
+    <listCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -156,7 +156,7 @@
         <listTypeName>xy.reflect.ui.info.field.ImplicitListFieldType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
-    </listStructures>
+    </listCustomizations>
     <typeCustomizations>
         <typeName></typeName>
         <undoManagementHidden>false</undoManagementHidden>
