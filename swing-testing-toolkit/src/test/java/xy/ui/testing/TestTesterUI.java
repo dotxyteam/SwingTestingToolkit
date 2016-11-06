@@ -15,7 +15,7 @@ public class TestTesterUI {
 	public boolean booleanData;
 	public int intData;
 	public String stringData;
-	
+
 	public static void main(String[] args) {
 		if ((args.length == 1) && args[0].equals("TesterUI frame")) {
 			TesterUI testerUI = new TesterUI(new Tester());
@@ -23,7 +23,7 @@ public class TestTesterUI {
 			testerUI.setDecorationsForegroundColor(new Color(216, 214, 245));
 			testerUI.open();
 		} else if ((args.length == 1) && args[0].equals("TestTesterUI dialog")) {
-			new SwingRenderer(new ReflectionUI()).openObjectDialog(null, new TestTesterUI(), false);
+			new SwingRenderer(new ReflectionUI()).openObjectDialog(null, new TestTesterUI(), null, null, false, false);
 		}
 	}
 

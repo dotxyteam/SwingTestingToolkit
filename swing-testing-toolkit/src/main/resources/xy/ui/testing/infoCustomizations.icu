@@ -13,10 +13,10 @@
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listCustomizations>
     <listCustomizations>
-        <columnsCustomizations>
+        <columnCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
+        </columnCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -33,28 +33,28 @@
         <columnsCustomOrder></columnsCustomOrder>
         <columnsCustomOrder></columnsCustomOrder>
         <columnsCustomOrder></columnsCustomOrder>
-        <columnsCustomizations>
+        <columnCustomizations>
             <columnName>componentInformation</columnName>
             <customCaption>Component</customCaption>
             <hidden>false</hidden>
-        </columnsCustomizations>
-        <columnsCustomizations>
+        </columnCustomizations>
+        <columnCustomizations>
             <columnName>position</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
-        <columnsCustomizations>
+        </columnCustomizations>
+        <columnCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>true</hidden>
-        </columnsCustomizations>
-        <columnsCustomizations>
+        </columnCustomizations>
+        <columnCustomizations>
             <columnName>typeName</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
-        <columnsCustomizations>
+        </columnCustomizations>
+        <columnCustomizations>
             <columnName>valueDescription</columnName>
             <customCaption>Value</customCaption>
             <hidden>false</hidden>
-        </columnsCustomizations>
+        </columnCustomizations>
         <fieldColumnsAdded>true</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -67,10 +67,10 @@
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listCustomizations>
     <listCustomizations>
-        <columnsCustomizations>
+        <columnCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
+        </columnCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -83,10 +83,10 @@
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listCustomizations>
     <listCustomizations>
-        <columnsCustomizations>
+        <columnCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
+        </columnCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -99,10 +99,10 @@
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listCustomizations>
     <listCustomizations>
-        <columnsCustomizations>
+        <columnCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
+        </columnCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>false</itemCreationDisabled>
         <itemDeletionDisabled>false</itemDeletionDisabled>
@@ -115,10 +115,10 @@
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listCustomizations>
     <listCustomizations>
-        <columnsCustomizations>
+        <columnCustomizations>
             <columnName>toStringValue</columnName>
             <hidden>false</hidden>
-        </columnsCustomizations>
+        </columnCustomizations>
         <fieldColumnsAdded>false</fieldColumnsAdded>
         <itemCreationDisabled>true</itemCreationDisabled>
         <itemDeletionDisabled>true</itemDeletionDisabled>

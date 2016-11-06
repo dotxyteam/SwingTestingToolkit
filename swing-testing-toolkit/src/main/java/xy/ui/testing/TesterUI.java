@@ -44,6 +44,7 @@ import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.SwingCustomizer;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.ObjectDialogBuilder;
 import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
@@ -749,16 +750,20 @@ public class TesterUI extends ReflectionUI {
 
 	protected void openComponentInspector(Component c) {
 		ComponentInspector inspector = new ComponentInspector(c, this);
-		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector,
-				getSwingRenderer().getObjectTitle(inspector), null, true);
+		getSwingRenderer().openObjectDialog(recordingControlWindow, inspector);
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
-		boolean okPressed = getSwingRenderer().openObjectDialogAndGetConfirmation(recordingControlWindow, testAction,
-				true);
+		ObjectDialogBuilder dialogStatus = getSwingRenderer().openObjectDialog(recordingControlWindow,
+				testAction, getSwingRenderer().getObjectTitle(testAction), getSwingRenderer().getObjectIconImage(testAction), true, false);
 		componentFinderInitializationSource = null;
-		return okPressed;
+		if( dialogStatus.isOkPressed()){
+			return true;
+		}else{
+			dialogStatus.getModificationStack().undoAll();
+			return false;
+		}
 	}
 
 	protected void selectTestAction(TestAction testAction) {
