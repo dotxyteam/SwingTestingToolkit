@@ -2,7 +2,6 @@ package xy.ui.testing.action.component.property;
 
 import java.awt.Component;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.ValidationError;
@@ -48,7 +47,6 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		super.validate();
 	}

@@ -3,7 +3,6 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import java.awt.Window;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.IComponentTreeVisitor;
@@ -126,7 +125,6 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (occurrencesToSkip < 0) {
 			throw new ValidationError("The number of occurences to skip is invalid. Must be >= 0");

@@ -3,7 +3,6 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import java.text.MessageFormat;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.ValidationError;
@@ -49,7 +48,6 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (componentClassName == null) {
 			throw new ValidationError("Missing component class name");

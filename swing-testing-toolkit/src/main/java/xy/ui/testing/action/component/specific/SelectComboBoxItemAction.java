@@ -11,7 +11,6 @@ import javax.swing.JList;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
@@ -142,7 +141,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (optionToSelect == null) {
 			throw new ValidationError("Missing option to select");

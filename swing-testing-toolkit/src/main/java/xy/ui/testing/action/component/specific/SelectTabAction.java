@@ -5,7 +5,6 @@ import java.awt.Component;
 
 import javax.swing.JTabbedPane;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
@@ -70,7 +69,6 @@ public class SelectTabAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (tabToSelect == null) {
 			throw new ValidationError("Missing tab to select");

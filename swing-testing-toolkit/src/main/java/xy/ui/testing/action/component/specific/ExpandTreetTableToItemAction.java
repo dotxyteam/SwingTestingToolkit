@@ -11,7 +11,6 @@ import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
@@ -99,7 +98,6 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (itemPath.size() == 0) {
 			throw new ValidationError("Item path not defined");

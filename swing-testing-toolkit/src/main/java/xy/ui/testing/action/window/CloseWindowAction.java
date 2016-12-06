@@ -6,7 +6,6 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.ValidationError;
 
@@ -47,7 +46,6 @@ public class CloseWindowAction extends TargetWindowTestAction {
 	}
 	
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 	}
 

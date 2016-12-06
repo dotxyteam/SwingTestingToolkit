@@ -6,7 +6,6 @@ import java.awt.Component;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
@@ -99,7 +98,6 @@ public class ClickOnMenuItemAction extends TestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if(componentFinder == null){
 			throw new ValidationError("Missing component finding information");

@@ -1,3 +1,6 @@
+- replace removed annotations by customization:
+	. @Validating 
+	. @ValueOptions (for propertyName mainly)
 - component inspector:
 	. allow to run from main window
 	. display visible strings of descendant nodes

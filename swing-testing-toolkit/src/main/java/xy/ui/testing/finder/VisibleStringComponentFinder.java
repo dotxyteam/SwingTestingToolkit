@@ -6,7 +6,6 @@ import java.text.MessageFormat;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestingUtils;
@@ -47,7 +46,6 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		super.validate();
 		if(visibleString == null){

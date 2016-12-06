@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.ValidationError;
@@ -85,7 +84,6 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (firstItemToSelect < 0) {
 			throw new ValidationError("Invalid first selection index: Cannot be < 0");

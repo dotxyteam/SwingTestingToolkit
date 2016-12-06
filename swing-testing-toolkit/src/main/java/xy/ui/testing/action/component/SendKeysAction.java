@@ -14,7 +14,6 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.StandardKey;
 import xy.ui.testing.util.TestFailure;
@@ -77,7 +76,6 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (keyboardInteractions.size() == 0) {
 			throw new ValidationError("Missing keyboard interactions");
@@ -125,7 +123,6 @@ public class SendKeysAction extends TargetComponentTestAction {
 			return "\"" + StringEscapeUtils.escapeJava(text) + "\"";
 		}
 		
-		@Validating
 		public void validate() throws ValidationError {
 			if( (text == null) || (text.length()==0)){
 				throw new ValidationError("Missing text");
@@ -273,7 +270,6 @@ public class SendKeysAction extends TargetComponentTestAction {
 			return result;
 		}
 		
-		@Validating
 		public void validate() throws ValidationError {
 			if (keyName == null) {
 				throw new ValidationError("Missing key name");

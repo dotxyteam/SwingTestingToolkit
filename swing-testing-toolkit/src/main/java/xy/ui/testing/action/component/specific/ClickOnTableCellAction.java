@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.util.ValidationError;
@@ -76,7 +75,6 @@ public class ClickOnTableCellAction extends ClickAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		super.validate();
 		if (rowIndex < 0) {

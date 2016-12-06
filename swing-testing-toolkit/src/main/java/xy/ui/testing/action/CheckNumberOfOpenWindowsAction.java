@@ -4,7 +4,6 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.Window;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
@@ -70,7 +69,6 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 		return "Check that " + count + " windows are open";
 	}
 
-	@Validating
 	@Override
 	public void validate() throws ValidationError {
 		if (count < 0) {

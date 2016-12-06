@@ -9,8 +9,6 @@ import java.util.List;
 import org.apache.commons.lang3.ClassUtils;
 
 import xy.reflect.ui.control.swing.PrimitiveValueControl;
-import xy.reflect.ui.info.annotation.Validating;
-import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
@@ -47,7 +45,6 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		this.componentClassName = componentClassName;
 	}
 
-	@ValueOptionsForField("propertyName")
 	public List<String> getPropertyNameOptions() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
@@ -151,7 +148,6 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (componentClassName == null) {
 			throw new ValidationError("Missing component class name");

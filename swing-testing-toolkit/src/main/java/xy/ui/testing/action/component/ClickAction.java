@@ -7,7 +7,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.SwingUtilities;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
@@ -120,7 +119,6 @@ public class ClickAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (button == null) {
 			throw new ValidationError("Missing button identifier");

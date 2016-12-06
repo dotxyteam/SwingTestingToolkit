@@ -3,7 +3,6 @@ package xy.ui.testing.action;
 import java.awt.AWTEvent;
 import java.awt.Component;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
@@ -94,7 +93,6 @@ public class CallMainMethodAction extends TestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (checkThrownExceptionAfterSeconds != null) {
 			if (checkThrownExceptionAfterSeconds < 0) {

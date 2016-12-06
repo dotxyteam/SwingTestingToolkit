@@ -12,7 +12,6 @@ import javax.swing.JPopupMenu;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
@@ -117,7 +116,6 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (menuItemPath.size() == 0) {
 			throw new ValidationError("Missing menu item path");

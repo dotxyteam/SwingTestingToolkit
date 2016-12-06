@@ -3,7 +3,6 @@ package xy.ui.testing.action;
 import java.awt.AWTEvent;
 import java.awt.Component;
 
-import xy.reflect.ui.info.annotation.Validating;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
@@ -58,7 +57,6 @@ public class WaitAction extends TestAction {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		if (secondsToWait <= 0) {
 			throw new ValidationError("The number of seconds to wait must be > 0");

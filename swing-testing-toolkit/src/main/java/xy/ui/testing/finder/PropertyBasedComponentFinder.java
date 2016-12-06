@@ -5,8 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import xy.reflect.ui.info.annotation.Validating;
-import xy.reflect.ui.info.annotation.ValueOptionsForField;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
@@ -152,7 +150,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
-	@Validating
 	public void validate() throws ValidationError {
 		super.validate();
 		if (propertyValues.size() == 0) {
@@ -211,7 +208,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			return result;
 		}
 
-		@ValueOptionsForField("propertyName")
 		public List<String> getPropertyNameOptions() {
 			return createPropertyUtil().getPropertyNameOptions();
 		}
@@ -221,7 +217,6 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			return getPropertyUtil().getValueDescription();
 		}
 
-		@Validating
 		public void validate() throws ValidationError {
 			if (propertyName == null) {
 				throw new ValidationError("Missing property name");

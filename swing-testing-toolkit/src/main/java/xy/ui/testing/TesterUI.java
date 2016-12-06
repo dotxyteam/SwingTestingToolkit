@@ -129,14 +129,18 @@ public class TesterUI extends ReflectionUI {
 	protected AWTEventListener recordingListener;
 	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
 	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
-	protected RecordingControl recordingControl = new RecordingControl();
-	protected PlayingControl playingControl = new PlayingControl();
-	protected JFrame recordingControlWindow;
-	protected JFrame playingControlWindow;
 	protected JPanel testerForm;
 	protected SwingRenderer swingRenderer;
 	protected InfoCustomizations infoCustomizations;
 
+	protected PlayingControl playingControl = new PlayingControl();
+	protected JFrame playingControlWindow;
+	
+	protected RecordingControl recordingControl = new RecordingControl();
+	protected JPanel recordingControlForm;
+	protected JFrame recordingControlWindow;
+	
+	
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
 		try {
@@ -310,7 +314,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void setRecordingPausedAndUpdateUI(boolean b) {
-		IFieldInfo recordingPausedField = getSwingRenderer().getFormUpdatingField(recordingControl, "recordingPaused");
+		IFieldInfo recordingPausedField = getSwingRenderer().getFormAwareField(recordingControlForm, "recordingPaused");
 		recordingPausedField.setValue(recordingControl, b);
 	}
 
@@ -426,7 +430,7 @@ public class TesterUI extends ReflectionUI {
 			} else {
 				newTestActionListValue.add(testAction);
 			}
-			IFieldInfo testActionListField = getSwingRenderer().getFormUpdatingField(tester, "testActions");
+			IFieldInfo testActionListField = getSwingRenderer().getFormAwareField(testerForm, "testActions");
 			testActionListField.setValue(tester,
 					newTestActionListValue.toArray(new TestAction[newTestActionListValue.size()]));
 			SwingUtilities.invokeLater(new Runnable() {
@@ -458,7 +462,7 @@ public class TesterUI extends ReflectionUI {
 		SwingCustomizer result = new SwingCustomizer(this, infoCustomizations, getAlternateCustomizationsFilePath()) {
 
 			@Override
-			protected boolean areCustomizationsEditable() {
+			protected boolean areCustomizationsEditable(Object object) {
 				return getAlternateCustomizationsFilePath() != null;
 			}
 
@@ -511,8 +515,8 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			public JPanel createObjectForm(Object object, IInfoCollectionSettings settings) {
-				JPanel result = super.createObjectForm(object, settings);
+			public JPanel createForm(Object object, IInfoCollectionSettings settings) {
+				JPanel result = super.createForm(object, settings);
 				if (object == tester) {
 					if (testerForm != null) {
 						throw new AssertionError("Tester form cannot be created more than 1 time");
@@ -675,6 +679,11 @@ public class TesterUI extends ReflectionUI {
 						result.add(new AbstractListAction() {
 
 							@Override
+							public String getName() {
+								return "play";
+							}
+
+							@Override
 							public String getCaption() {
 								return "Play";
 							}
@@ -717,6 +726,11 @@ public class TesterUI extends ReflectionUI {
 								}
 
 								@Override
+								public String getName() {
+									return "resume";
+								}
+
+								@Override
 								public String getCaption() {
 									return "Resume";
 								}
@@ -755,12 +769,13 @@ public class TesterUI extends ReflectionUI {
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
-		ObjectDialogBuilder dialogStatus = getSwingRenderer().openObjectDialog(recordingControlWindow,
-				testAction, getSwingRenderer().getObjectTitle(testAction), getSwingRenderer().getObjectIconImage(testAction), true, false);
+		ObjectDialogBuilder dialogStatus = getSwingRenderer().openObjectDialog(recordingControlWindow, testAction,
+				getSwingRenderer().getObjectTitle(testAction), getSwingRenderer().getObjectIconImage(testAction), true,
+				false);
 		componentFinderInitializationSource = null;
-		if( dialogStatus.isOkPressed()){
+		if (dialogStatus.isOkPressed()) {
 			return true;
-		}else{
+		} else {
 			dialogStatus.getModificationStack().undoAll();
 			return false;
 		}
@@ -1015,8 +1030,8 @@ public class TesterUI extends ReflectionUI {
 
 				{
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					JPanel form = getSwingRenderer().createObjectForm(recordingControl);
-					getSwingRenderer().setupWindow(this, form, null,
+					recordingControlForm = getSwingRenderer().createForm(recordingControl);
+					getSwingRenderer().setupWindow(this, recordingControlForm, null,
 							getSwingRenderer().getObjectTitle(recordingControl), testerWindow.getIconImage());
 				}
 
@@ -1049,7 +1064,7 @@ public class TesterUI extends ReflectionUI {
 
 				{
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					JPanel form = getSwingRenderer().createObjectForm(playingControl);
+					JPanel form = getSwingRenderer().createForm(playingControl);
 					getSwingRenderer().setupWindow(this, form, null, getSwingRenderer().getObjectTitle(playingControl),
 							testerWindow.getIconImage());
 					addWindowListener(new WindowAdapter() {
