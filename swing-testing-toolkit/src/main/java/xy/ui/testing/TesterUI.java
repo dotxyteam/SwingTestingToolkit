@@ -135,12 +135,11 @@ public class TesterUI extends ReflectionUI {
 
 	protected PlayingControl playingControl = new PlayingControl();
 	protected JFrame playingControlWindow;
-	
+
 	protected RecordingControl recordingControl = new RecordingControl();
 	protected JPanel recordingControlForm;
 	protected JFrame recordingControlWindow;
-	
-	
+
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
 		try {
@@ -671,9 +670,10 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			protected List<AbstractListAction> getDynamicActions(IListTypeInfo type, final Object object,
-					IFieldInfo field, final List<? extends ItemPosition> selection) {
-				if ((object instanceof Tester) && (field.getName().equals("testActions"))) {
+			protected List<AbstractListAction> getDynamicActions(IListTypeInfo listType,
+					final List<? extends ItemPosition> selection) {
+				if ((listType.getItemType() != null)
+						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
 						List<AbstractListAction> result = new ArrayList<AbstractListAction>();
 						result.add(new AbstractListAction() {
@@ -739,7 +739,7 @@ public class TesterUI extends ReflectionUI {
 						return result;
 					}
 				}
-				return super.getDynamicActions(type, object, field, selection);
+				return super.getDynamicActions(listType, selection);
 			}
 
 		}.get(result);
