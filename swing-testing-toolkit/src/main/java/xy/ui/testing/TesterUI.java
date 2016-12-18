@@ -49,10 +49,10 @@ import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
 import xy.reflect.ui.control.swing.MethodAction;
-import xy.reflect.ui.info.IInfoCollectionSettings;
 import xy.reflect.ui.info.InfoCategory;
-import xy.reflect.ui.info.InfoCollectionSettingsProxy;
 import xy.reflect.ui.info.field.ImplicitListField;
+import xy.reflect.ui.info.filter.IInfoFilter;
+import xy.reflect.ui.info.filter.InfoFilterProxy;
 import xy.reflect.ui.info.field.FieldInfoProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
@@ -514,7 +514,7 @@ public class TesterUI extends ReflectionUI {
 			}
 
 			@Override
-			public JPanel createForm(Object object, IInfoCollectionSettings settings) {
+			public JPanel createForm(Object object, IInfoFilter settings) {
 				JPanel result = super.createForm(object, settings);
 				if (object == tester) {
 					if (testerForm != null) {
