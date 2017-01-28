@@ -54,7 +54,7 @@ public class CallMainMethodAction extends TestAction {
 			public void run() {
 				try {
 					TestingUtils.launchClassMainMethod(className, arguments);
-				} catch (Exception e) {
+				} catch (Throwable e) {
 					error[0] = new TestFailure("Failed to run the main method of '" + className + "': " + e.toString(),
 							e);
 				}

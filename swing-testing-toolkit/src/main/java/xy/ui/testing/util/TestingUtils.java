@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -154,9 +155,13 @@ public class TestingUtils {
 		}
 	}
 
-	public static void launchClassMainMethod(String mainClassName, String[] arguments) throws Exception {
-		Class.forName(mainClassName).getMethod("main", new Class[] { String[].class }).invoke(null,
-				new Object[] { arguments });
+	public static void launchClassMainMethod(String mainClassName, String[] arguments) throws Throwable{
+		try {
+			Class.forName(mainClassName).getMethod("main", new Class[] { String[].class }).invoke(null,
+					new Object[] { arguments });
+		} catch (InvocationTargetException e) {
+			throw e.getTargetException();
+		}
 	}
 
 	public static <T> List<T> getReversed(List<T> list) {
