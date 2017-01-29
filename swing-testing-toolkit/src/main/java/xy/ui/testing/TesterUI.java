@@ -136,15 +136,9 @@ public class TesterUI extends ReflectionUI {
 	protected SwingRenderer swingRenderer;
 	protected InfoCustomizations infoCustomizations;
 
-	protected ReplayManagement replayManagement = new ReplayManagement();
-	protected JFrame replayManagementWindow;
-
-	protected RecordingManagement recordingManagement = new RecordingManagement();
-	protected JPanel recordingManagementForm;
-	protected JFrame recordingManagementWindow;
-
-	protected ComponentInspectionModeManagement componentInspectionModeManagement = new ComponentInspectionModeManagement();
-	protected JFrame componentInspectionModeManagementWindow;
+	protected ReplayWindowSwitch replayWindowSwitch = new ReplayWindowSwitch();
+	protected RecordingWindowSwitch recordingWindowSwitch = new RecordingWindowSwitch();
+	protected ComponentInspectionWindowSwitch ComponentInspectionWindowSwitch = new ComponentInspectionWindowSwitch();
 
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
@@ -255,7 +249,8 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void awtEventDispatched(AWTEvent event) {
-		if (!(isRecording() && !recordingManagement.isRecordingPaused()) && !isInComponentInspectionMode()) {
+		if (!(isRecording() && !recordingWindowSwitch.getStatus().isRecordingPaused())
+				&& !isInComponentInspectionMode()) {
 			return;
 		}
 		if (event == null) {
@@ -291,7 +286,7 @@ public class TesterUI extends ReflectionUI {
 				WindowEvent windowEvent = (WindowEvent) event;
 				Window window = windowEvent.getWindow();
 				String title = getSwingRenderer().getObjectTitle(tester);
-				if (getSwingRenderer().openQuestionDialog(recordingManagementWindow,
+				if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
 						"Do you want to record this window closing event?", title)) {
 					CloseWindowAction closeAction = new CloseWindowAction();
 					closeAction.initializeFrom(window, event, this);
@@ -304,7 +299,7 @@ public class TesterUI extends ReflectionUI {
 				ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
 				testACtion.initializeFrom(menuItem, event, this);
 				String title = getSwingRenderer().getObjectTitle(tester);
-				if (getSwingRenderer().openQuestionDialog(recordingManagementWindow,
+				if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
 						"Do you want to record this menu item activation event?", title)) {
 					handleTestActionInsertionRequest(testACtion, menuItem, true);
 				} else {
@@ -312,7 +307,7 @@ public class TesterUI extends ReflectionUI {
 				}
 				return;
 			} else {
-				final AbstractAction todo = openTestActionSelectionWindow(event, recordingManagementWindow);
+				final AbstractAction todo = openTestActionSelectionWindow(event, recordingWindowSwitch.getWindow());
 				if (todo == null) {
 					return;
 				}
@@ -329,9 +324,8 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void setRecordingPausedAndUpdateUI(boolean b) {
-		IFieldInfo recordingPausedField = getSwingRenderer().getFormAwareField(recordingManagementForm,
-				"recordingPaused");
-		recordingPausedField.setValue(recordingManagement, b);
+		recordingWindowSwitch.getStatus().setRecordingPaused(b);
+		getSwingRenderer().refreshAllFieldControls(recordingWindowSwitch.getStatusControlForm(), false);
 	}
 
 	protected AbstractAction openTestActionSelectionWindow(AWTEvent event, Window parent) {
@@ -385,7 +379,7 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				stopRecording();
+				recordingWindowSwitch.activate(false);
 			}
 		});
 		options.add(stopRecordingItem);
@@ -432,7 +426,8 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected boolean handleTestActionInsertionRequest(final TestAction testAction, final Component c, boolean execute) {
+	protected boolean handleTestActionInsertionRequest(final TestAction testAction, final Component c,
+			boolean execute) {
 		if (openRecordingSettingsWindow(testAction, c)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					Arrays.asList(tester.getTestActions()));
@@ -667,7 +662,7 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							startComponentInspectionMode();
+							ComponentInspectionWindowSwitch.activate(true);
 							return null;
 						}
 					});
@@ -797,14 +792,14 @@ public class TesterUI extends ReflectionUI {
 
 	protected void openComponentInspector(Component c) {
 		ComponentInspector inspector = new ComponentInspector(c, this);
-		getSwingRenderer().openObjectDialog(recordingManagementWindow, inspector);
+		getSwingRenderer().openObjectDialog(recordingWindowSwitch.getWindow(), inspector);
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		componentFinderInitializationSource = c;
-		ObjectDialogBuilder dialogStatus = getSwingRenderer().openObjectDialog(recordingManagementWindow, testAction,
-				getSwingRenderer().getObjectTitle(testAction), getSwingRenderer().getObjectIconImage(testAction), true,
-				false);
+		ObjectDialogBuilder dialogStatus = getSwingRenderer().openObjectDialog(recordingWindowSwitch.getWindow(),
+				testAction, getSwingRenderer().getObjectTitle(testAction),
+				getSwingRenderer().getObjectIconImage(testAction), true, false);
 		componentFinderInitializationSource = null;
 		if (dialogStatus.isOkPressed()) {
 			return true;
@@ -1010,7 +1005,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected boolean isRecording() {
-		return recordingManagementWindow != null;
+		return recordingWindowSwitch.isActive();
 	}
 
 	protected void startRecording() {
@@ -1020,179 +1015,32 @@ public class TesterUI extends ReflectionUI {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				switchToRecordingControlWindow(true);
+				recordingWindowSwitch.activate(true);
 			}
 
 		});
 	}
 
-	protected void stopRecording() {
-		if (!isRecording()) {
-			return;
-		}
-		recordingManagementWindow.dispose();
-	}
-
 	protected boolean isReplaying() {
-		return replayManagementWindow != null;
+		return replayWindowSwitch.isActive();
 	}
 
 	protected void startReplay(final List<TestAction> selectedActions) {
 		if (isReplaying()) {
 			return;
 		}
-		replayManagement.setActionsToReplay(selectedActions);
+		replayWindowSwitch.setActionsToReplay(selectedActions);
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				switchToReplayWindow(true);
+				replayWindowSwitch.activate(true);
 			}
 
 		});
 	}
 
-	protected void stopReplay() {
-		if (!isReplaying()) {
-			return;
-		}
-		replayManagementWindow.dispose();
-	}
-
 	protected boolean isInComponentInspectionMode() {
-		return componentInspectionModeManagementWindow != null;
-	}
-
-	protected void startComponentInspectionMode() {
-		if (isInComponentInspectionMode()) {
-			return;
-		}
-		switchToComponentInspectionWindow(true);
-	}
-
-	protected void stopComponentInspectionMode() {
-		if (!isInComponentInspectionMode()) {
-			return;
-		}
-		componentInspectionModeManagementWindow.dispose();
-	}
-
-	protected void switchToComponentInspectionWindow(boolean b) {
-		if (b == isInComponentInspectionMode()) {
-			return;
-		}
-		final JFrame testerWindow = getTesterWindow();
-		if (b) {
-			componentInspectionModeManagementWindow = new JFrame() {
-				private static final long serialVersionUID = 1L;
-
-				{
-					setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					JPanel form = getSwingRenderer().createForm(componentInspectionModeManagement);
-					getSwingRenderer().setupWindow(this, form, null,
-							getSwingRenderer().getObjectTitle(componentInspectionModeManagement),
-							testerWindow.getIconImage());
-					addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowClosing(WindowEvent e) {
-							componentInspectionModeManagement.quit();
-						}
-
-					});
-				}
-
-				@Override
-				public void dispose() {
-					super.dispose();
-					tester.handleCurrentComponentChange(null);
-					testerWindow.setLocation(componentInspectionModeManagementWindow.getLocation());
-					componentInspectionModeManagementWindow = null;
-					testerWindow.setVisible(true);
-				}
-			};
-			testerWindow.setVisible(false);
-			componentInspectionModeManagementWindow.setLocation(testerWindow.getLocation());
-			componentInspectionModeManagementWindow.setVisible(true);
-		} else {
-			TestingUtils.sendWindowClosingEvent(componentInspectionModeManagementWindow);
-		}
-	}
-
-	protected void switchToRecordingControlWindow(boolean b) {
-		if (b == isRecording()) {
-			return;
-		}
-		final JFrame testerWindow = getTesterWindow();
-		if (b) {
-			recordingManagementWindow = new JFrame() {
-				private static final long serialVersionUID = 1L;
-
-				{
-					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					recordingManagementForm = getSwingRenderer().createForm(recordingManagement);
-					getSwingRenderer().setupWindow(this, recordingManagementForm, null,
-							getSwingRenderer().getObjectTitle(recordingManagement), testerWindow.getIconImage());
-				}
-
-				@Override
-				public void dispose() {
-					super.dispose();
-					tester.handleCurrentComponentChange(null);
-					testerWindow.setLocation(recordingManagementWindow.getLocation());
-					recordingManagementWindow = null;
-					testerWindow.setVisible(true);
-				}
-
-			};
-			testerWindow.setVisible(false);
-			recordingManagementWindow.setLocation(testerWindow.getLocation());
-			recordingManagementWindow.setVisible(true);
-		} else {
-			TestingUtils.sendWindowClosingEvent(recordingManagementWindow);
-		}
-	}
-
-	protected void switchToReplayWindow(boolean b) {
-		if (b == isReplaying()) {
-			return;
-		}
-		final JFrame testerWindow = getTesterWindow();
-		if (b) {
-			replayManagementWindow = new JFrame() {
-				private static final long serialVersionUID = 1L;
-
-				{
-					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					JPanel form = getSwingRenderer().createForm(replayManagement);
-					getSwingRenderer().setupWindow(this, form, null,
-							getSwingRenderer().getObjectTitle(replayManagement), testerWindow.getIconImage());
-					addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowOpened(WindowEvent e) {
-							replayManagement.startReplayThread();
-						}
-
-						@Override
-						public void windowClosing(WindowEvent e) {
-							replayManagement.stopReplayThread();
-						}
-
-					});
-				}
-
-				@Override
-				public void dispose() {
-					super.dispose();
-					testerWindow.setLocation(replayManagementWindow.getLocation());
-					replayManagementWindow = null;
-					testerWindow.setVisible(true);
-				}
-			};
-			testerWindow.setVisible(false);
-			replayManagementWindow.setLocation(testerWindow.getLocation());
-			replayManagementWindow.setVisible(true);
-		} else {
-			TestingUtils.sendWindowClosingEvent(replayManagementWindow);
-		}
+		return ComponentInspectionWindowSwitch.isActive();
 	}
 
 	protected int indexOfACtion(TestAction testAction) {
@@ -1206,38 +1054,154 @@ public class TesterUI extends ReflectionUI {
 		return -1;
 	}
 
-	public class RecordingManagement {
+	public abstract class AbstractWindowSwitch {
 
-		private boolean recordingPaused = false;
+		protected JFrame window;
+		protected JPanel statusControlForm;
+		protected StatusControlObject statusControlObject = new StatusControlObject();
 
-		public void stopRecording() {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					switchToRecordingControlWindow(false);
+		protected abstract void onBegining();
+
+		protected abstract void onEnd();
+
+		public abstract Object getStatus();
+
+		public abstract String getSwitchTitle();
+
+		public StatusControlObject getStatusControlObject() {
+			return statusControlObject;
+		}
+
+		public void activate(boolean b) {
+			if (b == isActive()) {
+				return;
+			}
+			final JFrame testerWindow = getTesterWindow();
+			if (b) {
+				window = new JFrame() {
+					private static final long serialVersionUID = 1L;
+
+					{
+						setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						statusControlForm = getSwingRenderer().createForm(statusControlObject);
+						getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(),
+								testerWindow.getIconImage());
+						addWindowListener(new WindowAdapter() {
+							@Override
+							public void windowOpened(WindowEvent e) {
+								SwingUtilities.invokeLater(new Runnable() {									
+									@Override
+									public void run() {
+										onBegining();
+									}
+								});
+							}
+
+							@Override
+							public void windowClosing(WindowEvent e) {
+								SwingUtilities.invokeLater(new Runnable() {									
+									@Override
+									public void run() {
+										onEnd();
+									}
+								});
+							}
+
+						});
+					}
+
+					@Override
+					public void dispose() {
+						super.dispose();
+						testerWindow.setLocation(window.getLocation());
+						window = null;
+						testerWindow.setVisible(true);
+					}
+				};
+				testerWindow.setVisible(false);
+				window.setLocation(testerWindow.getLocation());
+				window.setVisible(true);
+			} else {
+				TestingUtils.sendWindowClosingEvent(window);
+			}
+		}
+
+		protected boolean isActive() {
+			return window != null;
+		}
+
+		public JPanel getStatusControlForm() {
+			return statusControlForm;
+		}
+
+		public JFrame getWindow() {
+			return window;
+		}
+
+		public class StatusControlObject {
+
+			public Object getStatus() {
+				return AbstractWindowSwitch.this.getStatus();
+			}
+
+			public void stop() {
+				if (!isActive()) {
+					return;
 				}
-			});
+				activate(false);
+			}
+		}
+	}
+
+	public class RecordingWindowSwitch extends AbstractWindowSwitch {
+
+		protected RecordingStatus recordingStatus = new RecordingStatus();
+
+		@Override
+		public String getSwitchTitle() {
+			return "Recording Control";
 		}
 
-		public boolean isRecordingPaused() {
-			return recordingPaused;
+		@Override
+		protected void onBegining() {
+			recordingStatus.setRecordingPaused(false);
 		}
 
-		public void setRecordingPaused(boolean b) {
+		@Override
+		protected void onEnd() {
 			tester.handleCurrentComponentChange(null);
-			this.recordingPaused = b;
+		}
+
+		@Override
+		public RecordingStatus getStatus() {
+			return recordingStatus;
+		}
+
+		public class RecordingStatus {
+			protected boolean recordingPaused = false;
+
+			public boolean isRecordingPaused() {
+				return recordingPaused;
+			}
+
+			public void setRecordingPaused(boolean b) {
+				tester.handleCurrentComponentChange(null);
+				this.recordingPaused = b;
+			}
 		}
 
 	}
 
-	public class ReplayManagement {
+	public class ReplayWindowSwitch extends AbstractWindowSwitch {
 
-		protected String currentActionDescription;
-		protected List<TestAction> actionsToReplay;
 		protected Thread replayThread;
+		protected List<TestAction> actionsToReplay;
+		protected ReplayStatus replayStatus = new ReplayStatus();
+		protected String currentActionDescription;
 
-		public String getCurrentActionDescription() {
-			return currentActionDescription;
+		@Override
+		public String getSwitchTitle() {
+			return "Replay Control";
 		}
 
 		protected void setActionsToReplay(List<TestAction> actionsToReplay) {
@@ -1245,11 +1209,13 @@ public class TesterUI extends ReflectionUI {
 			currentActionDescription = "<initializing...>";
 		}
 
-		public void stop() {
-			switchToReplayWindow(false);
+		@Override
+		public ReplayStatus getStatus() {
+			return replayStatus;
 		}
 
-		protected void startReplayThread() {
+		@Override
+		protected void onBegining() {
 			replayThread = new Thread(TesterUI.class.getName() + " Replay Thread") {
 				@Override
 				public void run() {
@@ -1260,9 +1226,7 @@ public class TesterUI extends ReflectionUI {
 								currentActionDescription = testAction.toString();
 								int actionPosition = indexOfACtion(testAction) + 1;
 								currentActionDescription = actionPosition + " - " + currentActionDescription;
-								for (JPanel form : getSwingRenderer().getForms(replayManagement)) {
-									getSwingRenderer().refreshAllFieldControls(form, false);
-								}
+								getSwingRenderer().refreshAllFieldControls(getStatusControlForm(), false);
 								selectTestAction(testAction);
 							}
 
@@ -1273,15 +1237,15 @@ public class TesterUI extends ReflectionUI {
 							public void run() {
 								getSwingRenderer().openMessageDialog(testerForm, "Action(s) replayed successfully",
 										getSwingRenderer().getObjectTitle(tester), null);
-								ReplayManagement.this.stop();
+								getStatusControlObject().stop();
 							}
 						});
 					} catch (final Throwable t) {
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								getSwingRenderer().handleExceptionsFromDisplayedUI(replayManagementWindow, t);
-								ReplayManagement.this.stop();
+								getSwingRenderer().handleExceptionsFromDisplayedUI(replayWindowSwitch.getWindow(), t);
+								getStatusControlObject().stop();
 							}
 						});
 					}
@@ -1290,7 +1254,8 @@ public class TesterUI extends ReflectionUI {
 			replayThread.start();
 		}
 
-		protected void stopReplayThread() {
+		@Override
+		protected void onEnd() {
 			replayThread.interrupt();
 			try {
 				replayThread.join();
@@ -1299,19 +1264,37 @@ public class TesterUI extends ReflectionUI {
 			}
 		}
 
+		public class ReplayStatus {
+
+			public String getCurrentActionDescription() {
+				return currentActionDescription;
+			}
+
+		}
+
 	}
 
-	public class ComponentInspectionModeManagement {
+	public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 
-		public String getDescription(){
-			return "Choose component to inspect...";
+		@Override
+		public String getSwitchTitle() {
+			return "Component(s) Inspection";
 		}
-		
-		public void quit() {
-			switchToComponentInspectionWindow(false);
+
+		@Override
+		public Object getStatus() {
+			return "(Waiting) Choose a component to inspect...";
 		}
-		
-		
+
+		@Override
+		protected void onBegining() {
+		}
+
+		@Override
+		protected void onEnd() {
+			tester.handleCurrentComponentChange(null);
+
+		}
 
 	}
 
