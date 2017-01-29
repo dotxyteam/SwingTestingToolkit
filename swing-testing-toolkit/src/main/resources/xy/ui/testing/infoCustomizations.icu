@@ -378,26 +378,6 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
-            <fieldName></fieldName>
-            <getOnlyForced>false</getOnlyForced>
-            <nullableFacetHidden>false</nullableFacetHidden>
-        </fieldsCustomizations>
-        <typeName>EncapsulationTypeInfo [fieldType=Tester, fieldCaption=Value]</typeName>
-        <undoManagementHidden>false</undoManagementHidden>
-    </typeCustomizations>
-    <typeCustomizations>
-        <fieldsCustomizations>
-            <hidden>false</hidden>
-            <fieldName></fieldName>
-            <getOnlyForced>false</getOnlyForced>
-            <nullableFacetHidden>false</nullableFacetHidden>
-        </fieldsCustomizations>
-        <typeName>EncapsulationTypeInfo()</typeName>
-        <undoManagementHidden>false</undoManagementHidden>
-    </typeCustomizations>
-    <typeCustomizations>
-        <fieldsCustomizations>
-            <hidden>false</hidden>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1064,6 +1044,26 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <fieldName></fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>EncapsulationTypeInfo [fieldType=Tester, fieldCaption=Value]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName></fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>EncapsulationTypeInfo()</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
             <fieldName>input</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1528,12 +1528,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/Tester.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\Tester.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customMethodsOrder></customMethodsOrder>
@@ -1649,6 +1649,28 @@
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
+            <hidden>true</hidden>
+            <methodSignature>void replay(java.util.List, xy.ui.testing.util.Listener)</methodSignature>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>toReplay</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>beforeEachAction</parameterName>
+            </parametersCustomizations>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <methodSignature>void replayAll()</methodSignature>
+            <readOnlyForced>true</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
             <hidden>false</hidden>
             <methodSignature>void saveToFile(java.io.File)</methodSignature>
             <parametersCustomizations>
@@ -1719,18 +1741,22 @@
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
+        <typeName>xy.ui.testing.TesterUI$RecordingManagement</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
         <specificProperties>
             <entry>
                 <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/CallMainMethodAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CallMainMethodAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -1834,12 +1860,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/CheckNumberOfOpenWindowsAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CheckNumberOfOpenWindowsAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -1941,12 +1967,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/WaitAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\WaitAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -2031,12 +2057,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/ClickAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ClickAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -2189,12 +2215,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/ClickOnMenuItemAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ClickOnMenuItemAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -2308,12 +2334,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/SendKeysAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\SendKeysAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -2747,12 +2773,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/ChangeComponentPropertyAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ChangeComponentPropertyAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder>componentClassName</customFieldsOrder>
@@ -2901,12 +2927,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/CheckComponentPropertyAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CheckComponentPropertyAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -3051,12 +3077,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/ClickOnTableCellAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ClickOnTableCellAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3219,12 +3245,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/ExpandTreetTableToItemAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ExpandTreetTableToItemAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3348,12 +3374,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/SelectComboBoxItemAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\SelectComboBoxItemAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3647,12 +3673,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/SelectTableRowAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\SelectTableRowAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3796,12 +3822,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/CheckWindowVisibleStringsAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CheckWindowVisibleStringsAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder>windowIndex</customFieldsOrder>
@@ -3921,12 +3947,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy/ui/testing/CloseWindowAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CloseWindowAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
