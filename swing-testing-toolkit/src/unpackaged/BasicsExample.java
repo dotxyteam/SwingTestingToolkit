@@ -27,7 +27,7 @@ public class BasicsExample {
 		 */
 		File testCaseFile = new File("test-case1.stt");
 		tester.loadFromFile(testCaseFile);
-		tester.playAll();
+		tester.replayAll();
 
 		/*
 		 * You can also use a utility method to replay the test case file.

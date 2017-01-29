@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.AWTEventListener;
@@ -42,6 +43,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.SwingCustomizer;
+import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.ObjectDialogBuilder;
@@ -134,12 +136,15 @@ public class TesterUI extends ReflectionUI {
 	protected SwingRenderer swingRenderer;
 	protected InfoCustomizations infoCustomizations;
 
-	protected PlayingManagement playingManagement = new PlayingManagement();
-	protected JFrame playingManagementWindow;
+	protected ReplayManagement replayManagement = new ReplayManagement();
+	protected JFrame replayManagementWindow;
 
 	protected RecordingManagement recordingManagement = new RecordingManagement();
 	protected JPanel recordingManagementForm;
 	protected JFrame recordingManagementWindow;
+
+	protected ComponentInspectionModeManagement componentInspectionModeManagement = new ComponentInspectionModeManagement();
+	protected JFrame componentInspectionModeManagementWindow;
 
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
@@ -250,7 +255,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void awtEventDispatched(AWTEvent event) {
-		if (!isRecording() || recordingManagement.isRecordingPaused()) {
+		if (!(isRecording() && !recordingManagement.isRecordingPaused()) && !isInComponentInspectionMode()) {
 			return;
 		}
 		if (event == null) {
@@ -270,46 +275,56 @@ public class TesterUI extends ReflectionUI {
 		if (isCurrentComponentChangeEvent(event)) {
 			tester.handleCurrentComponentChange(c);
 		}
-		if (isComponentIntrospectionRequestEvent(event)) {
-			handleComponentIntrospectionRequest(event);
+		if (isComponentIntrospectionEvent(event)) {
+			if (isInComponentInspectionMode()) {
+				openComponentInspector(c);
+			} else {
+				handleRecordingEvent(event);
+			}
 		}
 	}
 
-	protected void handleComponentIntrospectionRequest(final AWTEvent event) {
-		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
-			WindowEvent windowEvent = (WindowEvent) event;
-			Window window = windowEvent.getWindow();
-			setRecordingPausedAndUpdateUI(true);
-			String title = getSwingRenderer().getObjectTitle(tester);
-			if (getSwingRenderer().openQuestionDialog(recordingManagementWindow,
-					"Do you want to record this window closing event?", title)) {
-				setRecordingPausedAndUpdateUI(false);
-				CloseWindowAction closeAction = new CloseWindowAction();
-				closeAction.initializeFrom(window, event, this);
-				onTestActionRecordingRequest(closeAction, window, false);
-			} else {
-				setRecordingPausedAndUpdateUI(false);
-			}
-		} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
-			final JMenuItem menuItem = (JMenuItem) event.getSource();
-			setRecordingPausedAndUpdateUI(true);
-			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
-			testACtion.initializeFrom(menuItem, event, this);
-			String title = getSwingRenderer().getObjectTitle(tester);
-			if (getSwingRenderer().openQuestionDialog(recordingManagementWindow,
-					"Do you want to record this menu item activation event?", title)) {
-				setRecordingPausedAndUpdateUI(false);
-				onTestActionRecordingRequest(testACtion, menuItem, true);
-			} else {
-				setRecordingPausedAndUpdateUI(false);
-			}
-			return;
-		} else {
-			AbstractAction todo = openTestActionSelectionWindow(event, recordingManagementWindow);
-			if (todo == null) {
+	protected void handleRecordingEvent(final AWTEvent event) {
+		setRecordingPausedAndUpdateUI(true);
+		try {
+			if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
+				WindowEvent windowEvent = (WindowEvent) event;
+				Window window = windowEvent.getWindow();
+				String title = getSwingRenderer().getObjectTitle(tester);
+				if (getSwingRenderer().openQuestionDialog(recordingManagementWindow,
+						"Do you want to record this window closing event?", title)) {
+					CloseWindowAction closeAction = new CloseWindowAction();
+					closeAction.initializeFrom(window, event, this);
+					handleTestActionInsertionRequest(closeAction, window, false);
+				} else {
+					setRecordingPausedAndUpdateUI(false);
+				}
+			} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
+				final JMenuItem menuItem = (JMenuItem) event.getSource();
+				ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
+				testACtion.initializeFrom(menuItem, event, this);
+				String title = getSwingRenderer().getObjectTitle(tester);
+				if (getSwingRenderer().openQuestionDialog(recordingManagementWindow,
+						"Do you want to record this menu item activation event?", title)) {
+					handleTestActionInsertionRequest(testACtion, menuItem, true);
+				} else {
+					setRecordingPausedAndUpdateUI(false);
+				}
 				return;
+			} else {
+				final AbstractAction todo = openTestActionSelectionWindow(event, recordingManagementWindow);
+				if (todo == null) {
+					return;
+				}
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						todo.actionPerformed(null);
+					}
+				});
 			}
-			todo.actionPerformed(null);
+		} finally {
+			setRecordingPausedAndUpdateUI(false);
 		}
 	}
 
@@ -330,7 +345,7 @@ public class TesterUI extends ReflectionUI {
 		DefaultTreeModel treeModel = new DefaultTreeModel(options);
 		final TreeSelectionDialog dialog = new TreeSelectionDialog(parent, title, null, treeModel,
 				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
-				getTestActionMenuItemSelectableAccessor(), true, ModalityType.DOCUMENT_MODAL) {
+				getTestActionMenuItemSelectableAccessor(), true, ModalityType.APPLICATION_MODAL) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -388,7 +403,7 @@ public class TesterUI extends ReflectionUI {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					onTestActionRecordingRequest(testAction, c, true);
+					handleTestActionInsertionRequest(testAction, c, true);
 				}
 
 				@Override
@@ -417,7 +432,7 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected boolean onTestActionRecordingRequest(final TestAction testAction, final Component c, boolean execute) {
+	protected boolean handleTestActionInsertionRequest(final TestAction testAction, final Component c, boolean execute) {
 		if (openRecordingSettingsWindow(testAction, c)) {
 			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
 					Arrays.asList(tester.getTestActions()));
@@ -465,6 +480,20 @@ public class TesterUI extends ReflectionUI {
 			@Override
 			protected boolean areCustomizationsEditable(Object object) {
 				return getAlternateCustomizationsFilePath() != null;
+			}
+
+			@Override
+			public DialogBuilder createDialogBuilder(Component activatorComponent) {
+				return new DialogBuilder(this, activatorComponent) {
+
+					@Override
+					public JDialog build() {
+						JDialog result = super.build();
+						result.setModalityType(ModalityType.APPLICATION_MODAL);
+						return result;
+					}
+
+				};
 			}
 
 			@Override
@@ -583,9 +612,9 @@ public class TesterUI extends ReflectionUI {
 			protected List<IMethodInfo> getMethods(ITypeInfo type) {
 				if (type.getName().equals(Tester.class.getName())) {
 					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
-					IMethodInfo playAllMethod;
-					while ((playAllMethod = ReflectionUIUtils.findInfoByName(result, "playAll")) != null) {
-						result.remove(playAllMethod);
+					IMethodInfo replayAllMethod;
+					while ((replayAllMethod = ReflectionUIUtils.findInfoByName(result, "replayAll")) != null) {
+						result.remove(replayAllMethod);
 					}
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
 
@@ -609,20 +638,38 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public String getName() {
-							return "playAll";
+							return "replayAll";
 						}
 
 						@Override
 						public String getCaption() {
-							return "Play All";
+							return "Replay All";
 						}
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							startPlaying(Arrays.asList(tester.getTestActions()));
+							startReplay(Arrays.asList(tester.getTestActions()));
 							return null;
 						}
 
+					});
+					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
+
+						@Override
+						public String getName() {
+							return "inspectComponents";
+						}
+
+						@Override
+						public String getCaption() {
+							return "Inspect Component(s)";
+						}
+
+						@Override
+						public Object invoke(Object object, InvocationData invocationData) {
+							startComponentInspectionMode();
+							return null;
+						}
 					});
 					return result;
 				} else {
@@ -666,12 +713,12 @@ public class TesterUI extends ReflectionUI {
 
 							@Override
 							public String getName() {
-								return "play";
+								return "replay";
 							}
 
 							@Override
 							public String getCaption() {
-								return "Play";
+								return "Replay";
 							}
 
 							@Override
@@ -682,7 +729,7 @@ public class TesterUI extends ReflectionUI {
 										TestAction testAction = (TestAction) itemPosition.getItem();
 										selectedActions.add(testAction);
 									}
-									startPlaying(selectedActions);
+									startReplay(selectedActions);
 									return null;
 								} catch (Exception e) {
 									throw new ReflectionUIError(e);
@@ -696,15 +743,15 @@ public class TesterUI extends ReflectionUI {
 								@Override
 								public Object invoke(Object object, InvocationData invocationData) {
 									try {
-										List<TestAction> actionsToPlay = new ArrayList<TestAction>();
+										List<TestAction> actionsToReplay = new ArrayList<TestAction>();
 										ItemPosition singleSelection = selection.get(0);
 										for (int i = singleSelection.getIndex(); i < singleSelection
 												.getContainingListRawValue().length; i++) {
 											TestAction testAction = (TestAction) singleSelection.getSibling(i)
 													.getItem();
-											actionsToPlay.add(testAction);
+											actionsToReplay.add(testAction);
 										}
-										startPlaying(actionsToPlay);
+										startReplay(actionsToReplay);
 										return null;
 									} catch (Exception e) {
 										throw new ReflectionUIError(e);
@@ -888,7 +935,7 @@ public class TesterUI extends ReflectionUI {
 		};
 	}
 
-	protected boolean isComponentIntrospectionRequestEvent(AWTEvent event) {
+	protected boolean isComponentIntrospectionEvent(AWTEvent event) {
 		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
 			return true;
 		}
@@ -909,49 +956,6 @@ public class TesterUI extends ReflectionUI {
 			}
 		}
 		return false;
-	}
-
-	protected boolean isRecording() {
-		return recordingManagementWindow != null;
-	}
-
-	protected boolean isPlaying() {
-		return playingManagementWindow != null;
-	}
-
-	protected void startRecording() {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				switchToRecordingControlWindow(true);
-			}
-
-		});
-	}
-
-	protected void startPlaying(final List<TestAction> selectedActions) {
-		playingManagement.setActionsToPlay(selectedActions);
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				switchToPlayingControlWindow(true);
-			}
-
-		});
-	}
-
-	protected void stopRecording() {
-		if (!isRecording()) {
-			return;
-		}
-		recordingManagementWindow.dispose();
-	}
-
-	protected void stopPlaying() {
-		if (!isPlaying()) {
-			return;
-		}
-		playingManagementWindow.dispose();
 	}
 
 	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
@@ -1005,6 +1009,114 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
+	protected boolean isRecording() {
+		return recordingManagementWindow != null;
+	}
+
+	protected void startRecording() {
+		if (isRecording()) {
+			return;
+		}
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				switchToRecordingControlWindow(true);
+			}
+
+		});
+	}
+
+	protected void stopRecording() {
+		if (!isRecording()) {
+			return;
+		}
+		recordingManagementWindow.dispose();
+	}
+
+	protected boolean isReplaying() {
+		return replayManagementWindow != null;
+	}
+
+	protected void startReplay(final List<TestAction> selectedActions) {
+		if (isReplaying()) {
+			return;
+		}
+		replayManagement.setActionsToReplay(selectedActions);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				switchToReplayWindow(true);
+			}
+
+		});
+	}
+
+	protected void stopReplay() {
+		if (!isReplaying()) {
+			return;
+		}
+		replayManagementWindow.dispose();
+	}
+
+	protected boolean isInComponentInspectionMode() {
+		return componentInspectionModeManagementWindow != null;
+	}
+
+	protected void startComponentInspectionMode() {
+		if (isInComponentInspectionMode()) {
+			return;
+		}
+		switchToComponentInspectionWindow(true);
+	}
+
+	protected void stopComponentInspectionMode() {
+		if (!isInComponentInspectionMode()) {
+			return;
+		}
+		componentInspectionModeManagementWindow.dispose();
+	}
+
+	protected void switchToComponentInspectionWindow(boolean b) {
+		if (b == isInComponentInspectionMode()) {
+			return;
+		}
+		final JFrame testerWindow = getTesterWindow();
+		if (b) {
+			componentInspectionModeManagementWindow = new JFrame() {
+				private static final long serialVersionUID = 1L;
+
+				{
+					setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					JPanel form = getSwingRenderer().createForm(componentInspectionModeManagement);
+					getSwingRenderer().setupWindow(this, form, null,
+							getSwingRenderer().getObjectTitle(componentInspectionModeManagement),
+							testerWindow.getIconImage());
+					addWindowListener(new WindowAdapter() {
+						@Override
+						public void windowClosing(WindowEvent e) {
+							componentInspectionModeManagement.quit();
+						}
+
+					});
+				}
+
+				@Override
+				public void dispose() {
+					super.dispose();
+					tester.handleCurrentComponentChange(null);
+					testerWindow.setLocation(componentInspectionModeManagementWindow.getLocation());
+					componentInspectionModeManagementWindow = null;
+					testerWindow.setVisible(true);
+				}
+			};
+			testerWindow.setVisible(false);
+			componentInspectionModeManagementWindow.setLocation(testerWindow.getLocation());
+			componentInspectionModeManagementWindow.setVisible(true);
+		} else {
+			TestingUtils.sendWindowClosingEvent(componentInspectionModeManagementWindow);
+		}
+	}
+
 	protected void switchToRecordingControlWindow(boolean b) {
 		if (b == isRecording()) {
 			return;
@@ -1039,29 +1151,29 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected void switchToPlayingControlWindow(boolean b) {
-		if (b == isPlaying()) {
+	protected void switchToReplayWindow(boolean b) {
+		if (b == isReplaying()) {
 			return;
 		}
 		final JFrame testerWindow = getTesterWindow();
 		if (b) {
-			playingManagementWindow = new JFrame() {
+			replayManagementWindow = new JFrame() {
 				private static final long serialVersionUID = 1L;
 
 				{
 					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					JPanel form = getSwingRenderer().createForm(playingManagement);
+					JPanel form = getSwingRenderer().createForm(replayManagement);
 					getSwingRenderer().setupWindow(this, form, null,
-							getSwingRenderer().getObjectTitle(playingManagement), testerWindow.getIconImage());
+							getSwingRenderer().getObjectTitle(replayManagement), testerWindow.getIconImage());
 					addWindowListener(new WindowAdapter() {
 						@Override
 						public void windowOpened(WindowEvent e) {
-							playingManagement.startPlayingThread();
+							replayManagement.startReplayThread();
 						}
 
 						@Override
 						public void windowClosing(WindowEvent e) {
-							playingManagement.stopPlayingThread();
+							replayManagement.stopReplayThread();
 						}
 
 					});
@@ -1070,18 +1182,17 @@ public class TesterUI extends ReflectionUI {
 				@Override
 				public void dispose() {
 					super.dispose();
-					testerWindow.setLocation(playingManagementWindow.getLocation());
-					playingManagementWindow = null;
+					testerWindow.setLocation(replayManagementWindow.getLocation());
+					replayManagementWindow = null;
 					testerWindow.setVisible(true);
 				}
 			};
 			testerWindow.setVisible(false);
-			playingManagementWindow.setLocation(testerWindow.getLocation());
-			playingManagementWindow.setVisible(true);
+			replayManagementWindow.setLocation(testerWindow.getLocation());
+			replayManagementWindow.setVisible(true);
 		} else {
-			TestingUtils.sendWindowClosingEvent(playingManagementWindow);
+			TestingUtils.sendWindowClosingEvent(replayManagementWindow);
 		}
-
 	}
 
 	protected int indexOfACtion(TestAction testAction) {
@@ -1119,33 +1230,29 @@ public class TesterUI extends ReflectionUI {
 
 	}
 
-	public class PlayingManagement {
+	public class ReplayManagement {
 
 		protected String currentActionDescription;
-		protected List<TestAction> actionsToPlay;
-		protected Thread playingThread;
+		protected List<TestAction> actionsToReplay;
+		protected Thread replayThread;
 
 		public String getCurrentActionDescription() {
 			return currentActionDescription;
 		}
 
-		protected void setActionsToPlay(List<TestAction> actionsToPlay) {
-			this.actionsToPlay = actionsToPlay;
+		protected void setActionsToReplay(List<TestAction> actionsToReplay) {
+			this.actionsToReplay = actionsToReplay;
 			currentActionDescription = "<initializing...>";
 		}
 
 		public void stop() {
-			switchToPlayingControlWindow(false);
+			switchToReplayWindow(false);
 		}
 
-		protected void startPlayingThread() {
-			playingThread = new Thread(TesterUI.class.getName() + " Playing Thread") {
+		protected void startReplayThread() {
+			replayThread = new Thread(TesterUI.class.getName() + " Replay Thread") {
 				@Override
 				public void run() {
-					boolean wasRecording = isRecording();
-					if (wasRecording) {
-						setRecordingPausedAndUpdateUI(true);
-					}
 					try {
 						Listener<TestAction> listener = new Listener<TestAction>() {
 							@Override
@@ -1153,48 +1260,58 @@ public class TesterUI extends ReflectionUI {
 								currentActionDescription = testAction.toString();
 								int actionPosition = indexOfACtion(testAction) + 1;
 								currentActionDescription = actionPosition + " - " + currentActionDescription;
-								for (JPanel form : getSwingRenderer().getForms(playingManagement)) {
+								for (JPanel form : getSwingRenderer().getForms(replayManagement)) {
 									getSwingRenderer().refreshAllFieldControls(form, false);
 								}
 								selectTestAction(testAction);
 							}
 
 						};
-						tester.play(actionsToPlay, listener);
+						tester.replay(actionsToReplay, listener);
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								getSwingRenderer().openMessageDialog(testerForm, "Action(s) played successfully",
+								getSwingRenderer().openMessageDialog(testerForm, "Action(s) replayed successfully",
 										getSwingRenderer().getObjectTitle(tester), null);
-								PlayingManagement.this.stop();
+								ReplayManagement.this.stop();
 							}
 						});
 					} catch (final Throwable t) {
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								getSwingRenderer().handleExceptionsFromDisplayedUI(playingManagementWindow, t);
-								PlayingManagement.this.stop();
+								getSwingRenderer().handleExceptionsFromDisplayedUI(replayManagementWindow, t);
+								ReplayManagement.this.stop();
 							}
 						});
-					} finally {
-						if (wasRecording) {
-							setRecordingPausedAndUpdateUI(false);
-						}
 					}
 				}
 			};
-			playingThread.start();
+			replayThread.start();
 		}
 
-		protected void stopPlayingThread() {
-			playingThread.interrupt();
+		protected void stopReplayThread() {
+			replayThread.interrupt();
 			try {
-				playingThread.join();
+				replayThread.join();
 			} catch (InterruptedException e) {
 				throw new AssertionError(e);
 			}
 		}
+
+	}
+
+	public class ComponentInspectionModeManagement {
+
+		public String getDescription(){
+			return "Choose component to inspect...";
+		}
+		
+		public void quit() {
+			switchToComponentInspectionWindow(false);
+		}
+		
+		
 
 	}
 

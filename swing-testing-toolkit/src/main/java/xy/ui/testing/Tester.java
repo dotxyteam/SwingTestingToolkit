@@ -50,13 +50,13 @@ public class Tester {
 	public static void assertSuccessfulReplay(File replayFile) throws IOException {
 		Tester tester = new Tester();
 		tester.loadFromFile(replayFile);
-		tester.playAll();
+		tester.replayAll();
 	}
 
 	public static void assertSuccessfulReplay(InputStream replayStream) throws IOException {
 		Tester tester = new Tester();
 		tester.loadFromStream(replayStream);
-		tester.playAll();
+		tester.replayAll();
 	}
 
 	public int getMinimumSecondsToWaitBetwneenActions() {
@@ -84,15 +84,15 @@ public class Tester {
 		this.testActions.addAll(Arrays.asList(testActions));
 	}
 
-	public void playAll() {
-		playAll(null);
+	public void replayAll() {
+		replayAll(null);
 	}
 
-	public void playAll(Listener<TestAction> beforeEachAction) {
-		play(testActions, beforeEachAction);
+	public void replayAll(Listener<TestAction> beforeEachAction) {
+		replay(testActions, beforeEachAction);
 	}
 
-	public void play(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
+	public void replay(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
 		for (int i = 0; i < toReplay.size(); i++) {
 			if (Thread.currentThread().isInterrupted()) {
 				break;
