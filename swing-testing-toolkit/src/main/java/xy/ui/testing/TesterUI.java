@@ -635,19 +635,19 @@ public class TesterUI extends ReflectionUI {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getTestActionClasses()) {
-						result.add(new DefaultTypeInfo(TesterUI.this, clazz));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz)));
 					}
 					return result;
 				} else if (type.getName().equals(ComponentFinder.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getComponentFinderClasses()) {
-						result.add(new DefaultTypeInfo(TesterUI.this, clazz));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz)));
 					}
 					return result;
 				} else if (type.getName().equals(KeyboardInteraction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getKeyboardInteractionClasses()) {
-						result.add(new DefaultTypeInfo(TesterUI.this, clazz));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz)));
 					}
 					return result;
 				} else {

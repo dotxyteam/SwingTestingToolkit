@@ -402,7 +402,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -412,7 +412,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Call Main Method Action, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Call Main Method Action, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -422,7 +422,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Call Main Method Action, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Call Main Method Action, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -432,7 +432,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Expand Treet Table To Item Action, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Expand Treet Table To Item Action, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -442,7 +442,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Expand Treet Table To Item Action, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Expand Treet Table To Item Action, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -458,7 +458,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Menu Item Component Finder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Menu Item Component Finder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -468,7 +468,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Select Combo Box Item Action, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Select Combo Box Item Action, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -478,7 +478,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Select Combo Box Item Action, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Select Combo Box Item Action, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -488,7 +488,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Selection, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Selection, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -498,7 +498,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Tester, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Tester, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -514,7 +514,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Visible String Component Finder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Visible String Component Finder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -524,7 +524,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Wait Action, fieldCaption=Value]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Wait Action, fieldCaption=Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -534,7 +534,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=Wait Action, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=Wait Action, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -544,7 +544,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=java.lang.Integer, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=java.lang.Integer, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -554,7 +554,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@1eaecfd3, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@1eaecfd3, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -564,7 +564,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@2acd0c52, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@2acd0c52, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -574,7 +574,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@4110ded, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@4110ded, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -584,7 +584,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@57f9cc39, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@57f9cc39, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -594,7 +594,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@5c07e0f6, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@5c07e0f6, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -604,7 +604,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@78e785aa, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@78e785aa, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -614,7 +614,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@79c2f20c, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@79c2f20c, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -624,7 +624,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@7ff5376c, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@7ff5376c, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -634,7 +634,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@9dbdf42, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@9dbdf42, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -644,7 +644,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -654,25 +654,15 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
-        <undoManagementHidden>false</undoManagementHidden>
-    </typeCustomizations>
-    <typeCustomizations>
-        <fieldsCustomizations>
-            <hidden>false</hidden>
-            <fieldName>value</fieldName>
-            <getOnlyForced>false</getOnlyForced>
-            <nullableFacetHidden>true</nullableFacetHidden>
-        </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -682,7 +672,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -692,7 +682,17 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -708,53 +708,11 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.finder.ComponentFinder.SubTypesEnumeration, fieldCaption=]</typeName>
-        <undoManagementHidden>false</undoManagementHidden>
-    </typeCustomizations>
-    <typeCustomizations>
-        <fieldsCustomizations>
-            <specificProperties>
-                <entry>
-                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
-                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
-                </entry>
-            </specificProperties>
-            <hidden>false</hidden>
-            <fieldName>value</fieldName>
-            <getOnlyForced>false</getOnlyForced>
-            <nullableFacetHidden>false</nullableFacetHidden>
-        </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
-        <undoManagementHidden>false</undoManagementHidden>
-    </typeCustomizations>
-    <typeCustomizations>
-        <fieldsCustomizations>
-            <hidden>false</hidden>
-            <fieldName>value</fieldName>
-            <getOnlyForced>false</getOnlyForced>
-            <nullableFacetHidden>true</nullableFacetHidden>
-        </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue, fieldCaption=]</typeName>
-        <undoManagementHidden>false</undoManagementHidden>
-    </typeCustomizations>
-    <typeCustomizations>
-        <fieldsCustomizations>
-            <specificProperties>
-                <entry>
-                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
-                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
-                </entry>
-            </specificProperties>
-            <hidden>false</hidden>
-            <fieldName>value</fieldName>
-            <getOnlyForced>false</getOnlyForced>
-            <nullableFacetHidden>true</nullableFacetHidden>
-        </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.ComponentFinder.SubTypesEnumeration, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -770,11 +728,33 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=, fieldType=xy.ui.testing.finder.VisibleStringComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
-        <typeName>Encapsulation[typeCaption=Component Finder - Polymorphic Type, fieldType=xy.ui.testing.finder.ComponentFinder.SubTypesEnumeration, fieldCaption=]</typeName>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -790,7 +770,11 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.VisibleStringComponentFinder, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Type, fieldType=xy.ui.testing.finder.ComponentFinder.SubTypesEnumeration, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -806,7 +790,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -822,7 +806,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -838,7 +822,23 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.VisibleStringComponentFinder, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.VisibleStringComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -848,7 +848,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -858,7 +858,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -868,7 +868,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -878,7 +878,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -888,7 +888,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -898,7 +898,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$WriteText, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$WriteText, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -908,7 +908,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Selection, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@33799a1e, fieldCaption=Choose an option]</typeName>
+        <typeName>Encapsulation [typeCaption=Selection, fieldType=xy.reflect.ui.info.type.util.ArrayAsEnumerationFactory$TypeInfo@33799a1e, fieldCaption=Choose an option]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -918,7 +918,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -928,7 +928,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -938,7 +938,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -948,7 +948,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -958,7 +958,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -968,7 +968,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -978,7 +978,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -988,7 +988,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.property.CheckComponentPropertyAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.property.CheckComponentPropertyAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -998,7 +998,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1008,7 +1008,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1018,7 +1018,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1028,7 +1028,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.SelectTabAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.SelectTabAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1038,7 +1038,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1048,7 +1048,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1058,7 +1058,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>Encapsulation[typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.window.CloseWindowAction, fieldCaption=]</typeName>
+        <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.window.CloseWindowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1088,7 +1088,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>MethodSetupObject[method=Load From File - specify Input (File)]</typeName>
+        <typeName>MethodSetupObject [method=Load From File - specify Input (File)]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1098,7 +1098,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>MethodSetupObject[method=Save To File - specify Output (File)]</typeName>
+        <typeName>MethodSetupObject [method=Save To File - specify Output (File)]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1108,7 +1108,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>MethodSetupObject[method=void loadFromFile(java.io.File), containingType=xy.ui.testing.Tester]</typeName>
+        <typeName>MethodSetupObject [method=void loadFromFile(java.io.File), containingType=xy.ui.testing.Tester]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -1118,7 +1118,7 @@
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
-        <typeName>MethodSetupObject[method=void saveToFile(java.io.File), containingType=xy.ui.testing.Tester]</typeName>
+        <typeName>MethodSetupObject [method=void saveToFile(java.io.File), containingType=xy.ui.testing.Tester]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
