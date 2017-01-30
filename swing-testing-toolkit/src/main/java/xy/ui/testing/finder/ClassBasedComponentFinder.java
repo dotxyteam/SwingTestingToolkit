@@ -59,7 +59,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 						"The component class is not a sub-type of '" + Component.class.getName() + "'");
 			}
 		} catch (ClassNotFoundException e) {
-			throw new ValidationError("Invalid class name: : Class not found");
+			throw new ValidationError("Invalid class name: Class not found");
 		}
 
 	}

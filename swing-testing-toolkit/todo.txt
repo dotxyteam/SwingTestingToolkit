@@ -1,3 +1,4 @@
+- validate: check component finder not null 
 - replace removed annotations by customization:
 	. @Validating 
 	. @ValueOptions (for propertyName mainly)
