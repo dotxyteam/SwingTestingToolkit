@@ -754,6 +754,16 @@
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Arguments - Item, fieldType=java.lang.String, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
         <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Type, fieldType=SubTypesEnumeration [polymorphicType=xy.ui.testing.finder.ComponentFinder], fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -921,6 +931,10 @@
     </typeCustomizations>
     <typeCustomizations>
         <typeName>Encapsulation [typeCaption=Selection, fieldType=SelectionDialogArrayAsEnumeration [title=null], fieldCaption=Choose]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <typeName>Encapsulation [typeCaption=Selection, fieldType=SubTypesEnumeration [polymorphicType=xy.ui.testing.action.TestAction], fieldCaption=Choose a type:]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
@@ -2920,6 +2934,7 @@
             <fieldName>propertyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
+            <valueOptionsFieldName>propertyNameOptions</valueOptionsFieldName>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
@@ -3061,6 +3076,7 @@
             <fieldName>propertyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
+            <valueOptionsFieldName>propertyNameOptions</valueOptionsFieldName>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
@@ -4440,6 +4456,7 @@
             <fieldName>propertyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
+            <valueOptionsFieldName>propertyNameOptions</valueOptionsFieldName>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>

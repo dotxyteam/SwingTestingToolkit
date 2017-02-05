@@ -94,7 +94,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return "Path = " + itemPath;
+		return "Index-based path = " + itemPath;
 	}
 
 	@Override

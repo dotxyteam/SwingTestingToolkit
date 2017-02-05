@@ -67,7 +67,14 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return Arrays.toString(keyboardInteractions.toArray());
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < keyboardInteractions.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			result.append(keyboardInteractions.get(i));
+		}
+		return result.toString();
 	}
 
 	@Override
@@ -253,19 +260,19 @@ public class SendKeysAction extends TargetComponentTestAction {
 		public String toString() {
 			String result = keyName.toString();
 			if (metaDown) {
-				result = "Meta + " + result;
+				result = "Meta+" + result;
 			}
 			if (shiftDown) {
-				result = "Shift + " + result;
+				result = "Shift+" + result;
 			}
 			if (altGrtDown) {
-				result = "AltGr + " + result;
+				result = "AltGr+" + result;
 			}
 			if (altDown) {
-				result = "Alt + " + result;
+				result = "Alt+" + result;
 			}
 			if (ctrlDown) {
-				result = "Ctrl + " + result;
+				result = "Ctrl+" + result;
 			}
 			return result;
 		}

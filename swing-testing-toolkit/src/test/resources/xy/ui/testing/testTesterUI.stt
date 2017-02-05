@@ -172,7 +172,7 @@
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
-            <windowIndex>0</windowIndex>
+            <windowIndex>1</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
@@ -266,7 +266,7 @@
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
-            <windowIndex>0</windowIndex>
+            <windowIndex>1</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
@@ -419,6 +419,16 @@
       <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>OK</visibleString>
+        <windowIndex>2</windowIndex>
+      </componentFinder>
+      <doubleClick>false</doubleClick>
+      <poupTrigger>false</poupTrigger>
+    </xy.ui.testing.action.component.ClickAction>
+    <xy.ui.testing.action.component.ClickAction>
+      <button>LEFT_BUTTON</button>
+      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <visibleString>OK</visibleString>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <doubleClick>false</doubleClick>
@@ -454,7 +464,7 @@
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
-            <windowIndex>0</windowIndex>
+            <windowIndex>1</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
@@ -492,7 +502,7 @@
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>Play All</visibleString>
+        <visibleString>Replay All</visibleString>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <doubleClick>false</doubleClick>

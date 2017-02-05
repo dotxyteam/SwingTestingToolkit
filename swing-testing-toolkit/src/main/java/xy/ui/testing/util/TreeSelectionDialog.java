@@ -3,7 +3,6 @@ package xy.ui.testing.util;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -74,7 +73,7 @@ public class TreeSelectionDialog extends JDialog {
 			}
 		}
 		TreeSelectionDialog dialog = new TreeSelectionDialog(parentWindow, title, message, treeModel, textAccessor,
-				iconAccessor, selectableAccessor, expandAll, ModalityType.APPLICATION_MODAL);
+				iconAccessor, selectableAccessor, expandAll);
 
 		dialog.setVisible(true);
 
@@ -87,18 +86,15 @@ public class TreeSelectionDialog extends JDialog {
 
 	public TreeSelectionDialog(Window parent, String title, String message, TreeModel treeModel,
 			final INodePropertyAccessor<String> textAccessor, final INodePropertyAccessor<Icon> iconAccessor,
-			final INodePropertyAccessor<Boolean> selectableAccessor, boolean expandAll, ModalityType modalityType) {
+			final INodePropertyAccessor<Boolean> selectableAccessor, boolean expandAll) {
 		super(parent);
 		if (title != null) {
 			setTitle(title);
 		}
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setModalityType(modalityType);
 		initializeTree(treeModel, textAccessor, iconAccessor, selectableAccessor, expandAll);
 		setContentPane(createContentPane(message));
-		setPreferredSize(new Dimension(300, 300));
 		pack();
-		setLocationRelativeTo(null);
 	}
 
 	protected Container createContentPane(String message) {

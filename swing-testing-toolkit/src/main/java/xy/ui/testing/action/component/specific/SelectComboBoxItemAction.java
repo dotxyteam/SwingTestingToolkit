@@ -128,7 +128,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		if (selectionMode == SelectionMode.BY_POSITION) {
 			return "Item n°" + (Integer.valueOf(optionToSelect) + 1);
 		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
-			return StringEscapeUtils.escapeJava(optionToSelect);
+			return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
 		} else {
 			throw new AssertionError();
 		}
@@ -196,10 +196,12 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		}
 
 	}
+
 	@Override
 	public String getComponentInformation() {
 		return "combo-box " + super.getComponentInformation();
 	}
+
 	@Override
 	public String toString() {
 		String optionToSelectText = (optionToSelect == null) ? "<none>" : optionToSelect;

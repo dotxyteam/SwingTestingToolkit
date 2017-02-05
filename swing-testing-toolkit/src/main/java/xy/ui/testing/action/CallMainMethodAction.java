@@ -3,6 +3,8 @@ package xy.ui.testing.action;
 import java.awt.AWTEvent;
 import java.awt.Component;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
@@ -74,7 +76,17 @@ public class CallMainMethodAction extends TestAction {
 
 	@Override
 	public String getValueDescription() {
-		return className;
+		StringBuilder result = new StringBuilder(className);
+		if (arguments.length > 0) {
+			result.append(" ");
+			for (int i = 0; i < arguments.length; i++) {
+				if (i > 0) {
+					result.append(" ");
+				}
+				result.append("\"" + StringEscapeUtils.escapeJava(arguments[i]) + "\"");
+			}
+		}
+		return result.toString();
 	}
 
 	@Override

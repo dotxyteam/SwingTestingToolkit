@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import xy.ui.testing.Tester;
 import xy.ui.testing.finder.MatchingComponentFinder;
 import xy.ui.testing.util.TestFailure;
@@ -53,7 +55,14 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return Arrays.toString(visibleStrings.toArray());
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < visibleStrings.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			result.append("\"" + StringEscapeUtils.escapeJava(visibleStrings.get(i)) + "\"");
+		}
+		return result.toString();
 	}
 
 	@Override

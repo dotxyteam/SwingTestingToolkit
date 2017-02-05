@@ -1,3 +1,5 @@
+- allow a customizable TestingContext
+	. that can be used to filter out tester windows when testing 
 - validate: check component finder not null 
 - replace removed annotations by customization:
 	. @Validating 

@@ -106,7 +106,7 @@ public class ClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return (doubleClick ? "Double-" : "") + "Click with the " + button.name().toLowerCase().replace('_', ' ');
+		return button.name().toLowerCase().replace('_', ' ') + (doubleClick ? "Double-Click" : "");
 	}
 
 	@Override

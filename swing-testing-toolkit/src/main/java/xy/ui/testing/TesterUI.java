@@ -290,7 +290,7 @@ public class TesterUI extends ReflectionUI {
 						"Do you want to record this window closing event?", title)) {
 					CloseWindowAction closeAction = new CloseWindowAction();
 					closeAction.initializeFrom(window, event, this);
-					handleTestActionInsertionRequest(closeAction, window, false);
+					handleNewTestActionInsertionRequest(closeAction, window, false);
 				} else {
 					setRecordingPausedAndUpdateUI(false);
 				}
@@ -301,7 +301,7 @@ public class TesterUI extends ReflectionUI {
 				String title = getSwingRenderer().getObjectTitle(tester);
 				if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
 						"Do you want to record this menu item activation event?", title)) {
-					handleTestActionInsertionRequest(testACtion, menuItem, true);
+					handleNewTestActionInsertionRequest(testACtion, menuItem, true);
 				} else {
 					setRecordingPausedAndUpdateUI(false);
 				}
@@ -333,13 +333,13 @@ public class TesterUI extends ReflectionUI {
 		DefaultMutableTreeNode options = new DefaultMutableTreeNode();
 		addPauseRecordingOption(options, c);
 		addStopRecordingOption(options, c);
-		addInspectComponentOption(options, c);
-		addTestActionOptions(options, c, event);
+		addInspectComponentRecordingOption(options, c);
+		addTestActionCreationRecordingOptions(options, c, event);
 		String title = getSwingRenderer().getObjectTitle(tester);
 		DefaultTreeModel treeModel = new DefaultTreeModel(options);
 		final TreeSelectionDialog dialog = new TreeSelectionDialog(parent, title, null, treeModel,
 				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
-				getTestActionMenuItemSelectableAccessor(), true, ModalityType.APPLICATION_MODAL) {
+				getTestActionMenuItemSelectableAccessor(), true) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
@@ -349,6 +349,7 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		};
+		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
 		dialog.setVisible(true);
 		DefaultMutableTreeNode selected = (DefaultMutableTreeNode) dialog.getSelection();
 		if (selected == null) {
@@ -385,7 +386,8 @@ public class TesterUI extends ReflectionUI {
 		options.add(stopRecordingItem);
 	}
 
-	protected void addTestActionOptions(DefaultMutableTreeNode options, final Component c, AWTEvent event) {
+	protected void addTestActionCreationRecordingOptions(DefaultMutableTreeNode options, final Component c,
+			AWTEvent event) {
 		DefaultMutableTreeNode recordGroup = new DefaultMutableTreeNode("(Execute And Record)");
 		options.add(recordGroup);
 		DefaultMutableTreeNode actionsGroup = new DefaultMutableTreeNode("(Actions)");
@@ -397,7 +399,12 @@ public class TesterUI extends ReflectionUI {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					handleTestActionInsertionRequest(testAction, c, true);
+					setRecordingPausedAndUpdateUI(true);
+					try {
+						handleNewTestActionInsertionRequest(testAction, c, true);
+					} finally {
+						setRecordingPausedAndUpdateUI(false);
+					}
 				}
 
 				@Override
@@ -426,24 +433,24 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected boolean handleTestActionInsertionRequest(final TestAction testAction, final Component c,
+	protected boolean handleNewTestActionInsertionRequest(final TestAction testAction, final Component c,
 			boolean execute) {
 		if (openRecordingSettingsWindow(testAction, c)) {
-			final List<TestAction> newTestActionListValue = new ArrayList<TestAction>(
+			final List<TestAction> newTestActionList = new ArrayList<TestAction>(
 					Arrays.asList(tester.getTestActions()));
 			if (recordingInsertedAfterSelection) {
 				int index = getSelectedActionIndex();
 				if (index != -1) {
-					newTestActionListValue.add(index + 1, testAction);
+					newTestActionList.add(index + 1, testAction);
 				} else {
-					newTestActionListValue.add(testAction);
+					newTestActionList.add(testAction);
 				}
 			} else {
-				newTestActionListValue.add(testAction);
+				newTestActionList.add(testAction);
 			}
 			IFieldInfo testActionListField = getSwingRenderer().getFormAwareField(testerForm, "testActions");
 			testActionListField.setValue(tester,
-					newTestActionListValue.toArray(new TestAction[newTestActionListValue.size()]));
+					newTestActionList.toArray(new TestAction[newTestActionList.size()]));
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
@@ -799,7 +806,7 @@ public class TesterUI extends ReflectionUI {
 		componentFinderInitializationSource = c;
 		ObjectDialogBuilder dialogStatus = getSwingRenderer().openObjectDialog(recordingWindowSwitch.getWindow(),
 				testAction, getSwingRenderer().getObjectTitle(testAction),
-				getSwingRenderer().getObjectIconImage(testAction), true, false);
+				getSwingRenderer().getObjectIconImage(testAction), true, true);
 		componentFinderInitializationSource = null;
 		if (dialogStatus.isOkPressed()) {
 			return true;
@@ -826,7 +833,7 @@ public class TesterUI extends ReflectionUI {
 		return result.getIndex();
 	}
 
-	protected void addInspectComponentOption(DefaultMutableTreeNode options, final Component c) {
+	protected void addInspectComponentRecordingOption(DefaultMutableTreeNode options, final Component c) {
 		DefaultMutableTreeNode item = new DefaultMutableTreeNode(new AbstractAction("Inspect Component") {
 			private static final long serialVersionUID = 1L;
 
@@ -841,7 +848,12 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				openComponentInspector(c);
+				setRecordingPausedAndUpdateUI(true);
+				try {
+					openComponentInspector(c);
+				} finally {
+					setRecordingPausedAndUpdateUI(false);
+				}
 			}
 		});
 		options.add(item);
@@ -1078,9 +1090,9 @@ public class TesterUI extends ReflectionUI {
 			}
 			final JFrame testerWindow = getTesterWindow();
 			if (b) {
-				window = new JFrame() {
+				AbstractWindowSwitch.this.window = new JFrame() {
 					private static final long serialVersionUID = 1L;
-
+					boolean disposed = false;
 					{
 						setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						statusControlForm = getSwingRenderer().createForm(statusControlObject);
@@ -1089,7 +1101,7 @@ public class TesterUI extends ReflectionUI {
 						addWindowListener(new WindowAdapter() {
 							@Override
 							public void windowOpened(WindowEvent e) {
-								SwingUtilities.invokeLater(new Runnable() {									
+								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
 										onBegining();
@@ -1099,7 +1111,7 @@ public class TesterUI extends ReflectionUI {
 
 							@Override
 							public void windowClosing(WindowEvent e) {
-								SwingUtilities.invokeLater(new Runnable() {									
+								SwingUtilities.invokeLater(new Runnable() {
 									@Override
 									public void run() {
 										onEnd();
@@ -1112,17 +1124,24 @@ public class TesterUI extends ReflectionUI {
 
 					@Override
 					public void dispose() {
+						synchronized (this) {
+							if (disposed) {
+								return;
+							}
+							disposed = true;
+						}
 						super.dispose();
-						testerWindow.setLocation(window.getLocation());
-						window = null;
+						testerWindow.setLocation(AbstractWindowSwitch.this.window.getLocation());
+						AbstractWindowSwitch.this.window = null;
+						testerWindow.invalidate();
 						testerWindow.setVisible(true);
 					}
 				};
 				testerWindow.setVisible(false);
-				window.setLocation(testerWindow.getLocation());
-				window.setVisible(true);
+				AbstractWindowSwitch.this.window.setLocation(testerWindow.getLocation());
+				AbstractWindowSwitch.this.window.setVisible(true);
 			} else {
-				TestingUtils.sendWindowClosingEvent(window);
+				TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.window);
 			}
 		}
 

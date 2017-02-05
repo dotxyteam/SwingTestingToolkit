@@ -5,6 +5,8 @@ import java.awt.Component;
 
 import javax.swing.JTabbedPane;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
@@ -65,7 +67,7 @@ public class SelectTabAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return "tab '" + tabToSelect + "'";
+		return "tab " + "\"" + StringEscapeUtils.escapeJava(tabToSelect) + "\"";
 	}
 
 	@Override
@@ -74,15 +76,15 @@ public class SelectTabAction extends TargetComponentTestAction {
 			throw new ValidationError("Missing tab to select");
 		}
 	}
-	
+
 	@Override
 	public String getComponentInformation() {
 		return "tabbed-pane " + super.getComponentInformation();
 	}
-	
+
 	@Override
 	public String toString() {
-		String tabToSelectText = (tabToSelect==null) ? "<none>" : tabToSelect;
+		String tabToSelectText = (tabToSelect == null) ? "<none>" : tabToSelect;
 		return "Select the tab <" + tabToSelectText + "> of the " + getComponentInformation();
 	}
 }
