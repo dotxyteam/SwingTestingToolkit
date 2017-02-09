@@ -1,3 +1,4 @@
+- Inspector cannot see many properties (ex: dimensions)
 - allow a customizable TestingContext
 	. that can be used to filter out tester windows when testing 
 - validate: check component finder not null 

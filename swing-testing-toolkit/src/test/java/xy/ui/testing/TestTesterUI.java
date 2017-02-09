@@ -9,7 +9,7 @@ import org.junit.Test;
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.ui.testing.util.TestingUtils;
-
+ 
 public class TestTesterUI {
 
 	public boolean booleanData;
