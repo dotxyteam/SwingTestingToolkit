@@ -181,7 +181,7 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void cleanupRecordingEventHandling() {
-		TestingUtils.removeAWTEventListener(recordingListener);
+		SwingRendererUtils.removeAWTEventListener(recordingListener);
 	}
 
 	protected InfoCustomizations createInfoCustomizations() {

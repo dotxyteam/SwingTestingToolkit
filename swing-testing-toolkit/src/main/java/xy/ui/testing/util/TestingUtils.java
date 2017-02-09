@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.event.AWTEventListener;
-import java.awt.event.AWTEventListenerProxy;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -72,24 +70,6 @@ public class TestingUtils {
 			}
 		}
 		return true;
-	}
-
-	public static int removeAWTEventListener(AWTEventListener listener) {
-		final List<AWTEventListener> listenersToRemove = new ArrayList<AWTEventListener>();
-		for (AWTEventListener l : Toolkit.getDefaultToolkit().getAWTEventListeners()) {
-			if (l == listener) {
-				listenersToRemove.add(l);
-			} else if (l instanceof AWTEventListenerProxy) {
-				final AWTEventListenerProxy proxyListener = (AWTEventListenerProxy) l;
-				if (proxyListener.getListener() == listener) {
-					listenersToRemove.add(proxyListener);
-				}
-			}
-		}
-		for (AWTEventListener l : listenersToRemove) {
-			Toolkit.getDefaultToolkit().removeAWTEventListener(l);
-		}
-		return listenersToRemove.size();
 	}
 
 	public static Color shiftColor(Color color, int redOffset, int greenOffset, int blueOffset) {

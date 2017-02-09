@@ -515,7 +515,7 @@
       <completenessChecked>false</completenessChecked>
       <orderChecked>false</orderChecked>
       <visibleStrings>
-        <string>&lt;HTML&gt;&lt;BR&gt;Action(s) played successfully&lt;BR&gt;&lt;BR&gt;&lt;HTML&gt;</string>
+        <string>Action(s) replayed successfully</string>
       </visibleStrings>
       <windowIndex>1</windowIndex>
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
@@ -549,10 +549,10 @@
         <string>An Error Occured</string>
         <string>Missing Value Error</string>
       </visibleStrings>
-      <windowIndex>3</windowIndex>
+      <windowIndex>2</windowIndex>
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
     <xy.ui.testing.action.window.CloseWindowAction>
-      <windowIndex>3</windowIndex>
+      <windowIndex>2</windowIndex>
     </xy.ui.testing.action.window.CloseWindowAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
@@ -569,13 +569,11 @@
         <string>Component</string>
         <string>Value</string>
         <string>Call Main Method Action</string>
-        <string>xy.ui.testing.TestTesterUI</string>
-        <string>Play Selected Action(s)</string>
-        <string>Play From Selection To End</string>
+        <string>xy.ui.testing.TestTesterUI &quot;TestTesterUI dialog&quot;</string>
         <string>Load From File...</string>
         <string>Save To File...</string>
         <string>Start Recording</string>
-        <string>Play All</string>
+        <string>Replay All</string>
         <string>Undo</string>
         <string>Redo</string>
         <string>Reset</string>
