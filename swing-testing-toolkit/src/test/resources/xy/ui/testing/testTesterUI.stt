@@ -198,7 +198,7 @@
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.specific.SelectTabAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>xy.reflect.ui.util.component.AutoResizeTabbedPane</componentClassName>
+        <componentClassName>javax.swing.JTabbedPane</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
@@ -346,7 +346,7 @@
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.specific.SelectTabAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>xy.reflect.ui.util.component.AutoResizeTabbedPane</componentClassName>
+        <componentClassName>javax.swing.JTabbedPane</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
