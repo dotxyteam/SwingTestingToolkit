@@ -10,6 +10,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>ImplicitListFieldType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -28,6 +29,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>java.lang.String</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>[Ljava.lang.String;</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -37,10 +39,12 @@
             <columnName>componentInformation</columnName>
             <customCaption>Component</customCaption>
             <hidden>false</hidden>
+            <minimalCharacterCount>50</minimalCharacterCount>
         </columnCustomizations>
         <columnCustomizations>
             <columnName>position</columnName>
             <hidden>false</hidden>
+            <minimalCharacterCount>7</minimalCharacterCount>
         </columnCustomizations>
         <columnCustomizations>
             <columnName>toStringValue</columnName>
@@ -49,11 +53,13 @@
         <columnCustomizations>
             <columnName>typeName</columnName>
             <hidden>false</hidden>
+            <minimalCharacterCount>20</minimalCharacterCount>
         </columnCustomizations>
         <columnCustomizations>
             <columnName>valueDescription</columnName>
             <customCaption>Value</customCaption>
             <hidden>false</hidden>
+            <minimalCharacterCount>30</minimalCharacterCount>
         </columnCustomizations>
         <columnsCustomOrder></columnsCustomOrder>
         <columnsCustomOrder></columnsCustomOrder>
@@ -68,6 +74,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>true</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.action.TestAction</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>[Lxy.ui.testing.action.TestAction;</listTypeName>
         <positionColumnAdded>true</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -86,6 +93,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>[Lxy.ui.testing.action.component.SendKeysAction$KeyboardInteraction;</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -104,6 +112,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>java.lang.Integer</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -122,6 +131,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -140,6 +150,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -158,6 +169,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -175,6 +187,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>propertyValuesType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -189,6 +202,7 @@
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
+        <listSorted>false</listSorted>
         <listTypeName>xy.reflect.ui.info.field.ImplicitListFieldType</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
@@ -200,24 +214,31 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>arguments</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>checkThrownExceptionAfterSeconds</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>className</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -228,24 +249,31 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>arguments</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>checkThrownExceptionAfterSeconds</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>className</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -256,24 +284,31 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>arguments</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>checkThrownExceptionAfterSeconds</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>className</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -284,12 +319,15 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>secondsToWait</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -300,18 +338,23 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>itemPath</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -322,18 +365,23 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>itemPath</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -344,30 +392,39 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>knownOptions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>optionToSelect</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>selectionMode</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -378,6 +435,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -388,6 +447,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -398,6 +459,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -408,6 +471,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -418,6 +483,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -434,6 +501,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -444,6 +513,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -454,6 +525,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -464,6 +537,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -474,6 +549,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -490,6 +567,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -500,6 +579,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -510,6 +591,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -520,6 +603,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -530,6 +615,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -540,6 +627,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -550,6 +639,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -560,6 +651,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -570,6 +663,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -580,6 +675,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -590,6 +687,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -600,6 +699,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -610,6 +711,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -620,6 +723,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -630,6 +735,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -648,6 +755,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -658,6 +767,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -668,6 +779,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -684,6 +797,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -704,6 +819,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -714,6 +831,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -730,6 +849,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -746,6 +867,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -756,6 +879,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -780,6 +905,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -796,6 +923,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -812,6 +941,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -828,6 +959,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -842,6 +975,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -852,6 +987,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -862,6 +999,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -872,6 +1011,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -882,6 +1023,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -892,6 +1035,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -902,6 +1047,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -912,6 +1059,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -922,6 +1071,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -944,6 +1095,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -954,6 +1107,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -964,6 +1119,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -974,6 +1131,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -984,6 +1143,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -994,6 +1155,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1004,6 +1167,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1014,6 +1179,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1024,6 +1191,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1034,6 +1203,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1044,6 +1215,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1054,6 +1227,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1064,6 +1239,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1074,6 +1251,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1084,6 +1263,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1094,6 +1275,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1104,6 +1287,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>value</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1114,6 +1299,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1124,6 +1311,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1134,6 +1323,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>input</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1144,6 +1335,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>output</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1154,6 +1347,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>input</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1164,6 +1359,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>output</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1174,6 +1371,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>input</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1184,6 +1383,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>output</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1198,6 +1399,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1208,6 +1411,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1218,6 +1423,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1228,6 +1435,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1238,6 +1447,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1248,6 +1459,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1258,6 +1471,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1268,6 +1483,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName></fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1326,12 +1543,14 @@
     <typeCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File ()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File File(java.io.File, java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1358,6 +1577,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File File(java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1374,6 +1594,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File File(java.lang.String, java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1400,6 +1621,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File File(java.net.URI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1416,12 +1638,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File new()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File new+paramjava.io.File+paramjava.lang.String(java.io.File, java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1438,6 +1662,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File new+paramjava.lang.String(java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1449,6 +1674,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File new+paramjava.lang.String+paramjava.lang.String(java.lang.String, java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1465,6 +1691,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.io.File new+paramjava.net.URI(java.net.URI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1492,30 +1719,39 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>MAX_VALUE</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>MIN_VALUE</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>SIZE</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>TYPE</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.lang.Integer ()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -1526,24 +1762,31 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>CASE_INSENSITIVE_ORDER</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>bytes</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>empty</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.lang.String ()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -1612,42 +1855,55 @@
         <customMethodsOrder></customMethodsOrder>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>DEFAULT</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>HIGHLIGHT_BACKGROUND</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>HIGHLIGHT_FOREGROUND</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>maximumSecondsToWaitBetwneenActions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>minimumSecondsToWaitBetwneenActions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>testActions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void assertSuccessfulReplay(java.io.File)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1659,6 +1915,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void assertSuccessfulReplay(java.io.InputStream)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1670,6 +1927,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void loadFromFile(java.io.File)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1681,6 +1939,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void loadFromStream(java.io.InputStream)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1692,6 +1951,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void play(java.util.List, xy.ui.testing.util.Listener)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1708,18 +1968,21 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void playAll()</methodSignature>
             <readOnlyForced>true</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void playAll(xy.ui.testing.util.Listener)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void replay(java.util.List, xy.ui.testing.util.Listener)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1736,12 +1999,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void replayAll()</methodSignature>
             <readOnlyForced>true</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void saveToFile(java.io.File)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1753,6 +2018,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void saveToStream(java.io.OutputStream)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1764,6 +2030,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void startRecording()</methodSignature>
             <readOnlyForced>true</readOnlyForced>
             <validating>false</validating>
@@ -1784,6 +2051,8 @@
                 </entry>
             </specificProperties>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>status</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1795,12 +2064,15 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Currently</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>currentActionDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void stop()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -1812,6 +2084,8 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Pause</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>recordingPaused</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1819,6 +2093,7 @@
         <methodsCustomizations>
             <hidden>false</hidden>
             <customMethodCaption>Stop </customMethodCaption>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void stopRecording()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -1834,6 +2109,8 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Pause</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>recordingPaused</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1842,6 +2119,15 @@
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <customFieldCaption>Current Action</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>currentActionDescription</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
         <typeName>xy.ui.testing.TesterUI$ReplayWindowSwitch$ReplayStatus</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -1862,6 +2148,8 @@
         </specificProperties>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>arguments</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -1869,30 +2157,39 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Check Exceptions After (seconds)</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>checkThrownExceptionAfterSeconds</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>className</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1914,6 +2211,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1925,6 +2223,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -1941,12 +2240,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.action.CallMainMethodAction CallMainMethodAction()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -1971,6 +2272,8 @@
         </specificProperties>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -1978,18 +2281,23 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Expected Number Of Open Windows</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>count</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2011,6 +2319,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2022,6 +2331,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2038,6 +2348,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -2048,12 +2359,16 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2078,24 +2393,31 @@
         </specificProperties>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>secondsToWait</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2117,6 +2439,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2128,6 +2451,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2144,6 +2468,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -2175,6 +2500,8 @@
                 <caption>Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>button</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -2191,12 +2518,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2206,6 +2537,8 @@
                 <caption>Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>doubleClick</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2215,12 +2548,16 @@
                 <caption>Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>poupTrigger</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2233,6 +2570,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2254,6 +2592,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2265,6 +2604,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2276,6 +2616,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2292,12 +2633,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.action.component.ClickAction ClickAction()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -2333,24 +2676,31 @@
             </specificProperties>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2372,6 +2722,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean macthesComponent(java.awt.Component)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2383,6 +2734,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2394,6 +2746,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2405,6 +2758,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2421,6 +2775,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -2458,12 +2813,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2473,6 +2832,8 @@
                 <caption>Key Events</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>keyboardInteractions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -2482,12 +2843,16 @@
                 <caption>Key Events</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>requestToFocusOnTheComponent</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2500,6 +2865,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2521,6 +2887,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2532,6 +2899,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2543,6 +2911,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2559,6 +2928,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -2579,18 +2949,24 @@
         <customFieldsOrder></customFieldsOrder>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altDown</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altGrtDown</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>ctrlDown</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2598,30 +2974,38 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Key</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>keyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>metaDown</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>shiftDown</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.util.List getKeyEvents(java.awt.Component)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -2632,18 +3016,24 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altGrtDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>ctrlDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2651,30 +3041,38 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Key</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>keyName</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>metaDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>shiftDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.util.List getKeyEvents(java.awt.Component)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -2685,18 +3083,24 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altGrtDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>ctrlDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2704,30 +3108,38 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Key</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>keyName</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>metaDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>shiftDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.util.List getKeyEvents(java.awt.Component)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -2738,18 +3150,24 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altGrtDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>ctrlDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2757,30 +3175,38 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Key</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>keyName</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>metaDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>shiftDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.util.List getKeyEvents(java.awt.Component)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -2791,18 +3217,24 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>altGrtDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>ctrlDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2810,30 +3242,38 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Key</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>keyName</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>metaDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>shiftDown</fieldName>
             <getOnlyForced>true</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.util.List getKeyEvents(java.awt.Component)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -2848,18 +3288,22 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>text</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.util.List getKeyEvents(java.awt.Component)</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -2892,6 +3336,8 @@
                 <caption>Property</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentClassName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -2907,12 +3353,16 @@
                 <caption>Component Location</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2922,6 +3372,8 @@
                 <caption>Property</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>newPropertyValue</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2931,6 +3383,8 @@
                 <caption>Property</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2938,12 +3392,16 @@
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyNameOptions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -2956,6 +3414,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2977,6 +3436,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2988,6 +3448,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -2999,6 +3460,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3015,6 +3477,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -3042,6 +3505,8 @@
                 <caption>Property Checking</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentClassName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
@@ -3058,12 +3523,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3073,6 +3542,8 @@
                 <caption>Property Checking</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3080,6 +3551,8 @@
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyNameOptions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3089,12 +3562,16 @@
                 <caption>Property Checking</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValueExpected</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3107,6 +3584,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3128,6 +3606,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3139,6 +3618,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3150,6 +3630,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3166,6 +3647,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -3199,6 +3681,8 @@
                 <caption>Cell Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>button</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3208,6 +3692,8 @@
                 <caption>Cell Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>columnIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3224,12 +3710,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3239,6 +3729,8 @@
                 <caption>Cell Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>doubleClick</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3248,6 +3740,8 @@
                 <caption>Cell Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>poupTrigger</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3257,12 +3751,16 @@
                 <caption>Cell Click</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>rowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3275,6 +3773,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3296,6 +3795,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3307,6 +3807,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3318,6 +3819,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3334,6 +3836,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -3370,12 +3873,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3386,12 +3893,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption>Item Path (by index)</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>itemPath</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3404,6 +3915,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3425,6 +3937,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3436,6 +3949,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3447,6 +3961,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3463,6 +3978,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -3501,12 +4017,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3516,6 +4036,8 @@
                 <caption>Item Selection</caption>
             </category>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>knownOptions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3525,6 +4047,8 @@
                 <caption>Item Selection</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>optionToSelect</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3535,12 +4059,16 @@
                 <caption>Item Selection</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>selectionMode</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3553,6 +4081,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3574,6 +4103,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3585,6 +4115,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3596,6 +4127,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3612,6 +4144,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -3653,6 +4186,8 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3662,6 +4197,8 @@
                 <caption>Tab Selection</caption>
             </category>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3671,6 +4208,8 @@
                 <caption>Tab Selection</caption>
             </category>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>knownTabs</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3680,12 +4219,16 @@
                 <caption>Tab Selection</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>tabToSelect</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3698,6 +4241,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3719,6 +4263,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3730,6 +4275,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3741,6 +4287,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3757,12 +4304,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.action.component.specific.SelectTabAction SelectTabAction()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -3795,6 +4344,8 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption>Add To Existing Selection</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>addedToExistingSelection</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3811,12 +4362,16 @@
             </category>
             <hidden>false</hidden>
             <customFieldCaption></customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentFinder</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3826,6 +4381,8 @@
                 <caption>Row Selection</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>firstItemToSelect</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3835,12 +4392,16 @@
                 <caption>Row Selection</caption>
             </category>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>lastItemToSelect</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3853,6 +4414,7 @@
         </memberCategories>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3874,6 +4436,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3885,6 +4448,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3896,6 +4460,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3912,6 +4477,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -3941,12 +4507,16 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Check Completeness</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>completenessChecked</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -3954,30 +4524,39 @@
         <fieldsCustomizations>
             <hidden>false</hidden>
             <customFieldCaption>Check Order</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>orderChecked</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>visibleStrings</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -3999,6 +4578,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Window findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4010,6 +4590,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4026,6 +4607,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void loadVisibleStringsFromText(java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4037,6 +4619,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -4061,24 +4644,31 @@
         </specificProperties>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentInformation</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>valueDescription</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4100,6 +4690,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matchIntrospectionRequestEvent(java.awt.AWTEvent)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4111,6 +4702,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Window findComponent(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4122,6 +4714,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4138,6 +4731,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
@@ -4151,24 +4745,31 @@
         <customFieldsOrder></customFieldsOrder>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentClassName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>occurrencesToSkip</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4185,6 +4786,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component find(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4196,12 +4798,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.ClassBasedComponentFinder ClassBasedComponentFinder()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -4220,18 +4824,23 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>menuItemPath</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4248,6 +4857,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component find(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4259,12 +4869,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.MenuItemComponentFinder MenuItemComponentFinder()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -4281,42 +4893,55 @@
         <customFieldsOrder></customFieldsOrder>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentClassName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>occurrencesToSkip</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValueCount</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValueList</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValues</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4333,6 +4958,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component find(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4344,6 +4970,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.lang.String getPropertyValue(java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4355,6 +4982,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void addPropertyValue(int, xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4371,6 +4999,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void removePropertyValue(int)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4382,6 +5011,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void setPropertyNames([Ljava.lang.String;)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4393,6 +5023,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void setPropertyValue(java.lang.String, java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4409,24 +5040,28 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.PropertyBasedComponentFinder PropertyBasedComponentFinder()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue createPropertyValue()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue findPropertyValue(java.lang.String)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4438,6 +5073,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue getPropertyValue(int)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4453,6 +5089,8 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -4460,18 +5098,23 @@
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyNameOptions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValueExpected</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initialize(java.awt.Component)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4483,6 +5126,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean matches(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4499,12 +5143,14 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue PropertyValue(xy.ui.testing.finder.PropertyBasedComponentFinder)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4523,24 +5169,31 @@
         <customFieldsOrder></customFieldsOrder>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>occurrencesToSkip</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>visibleString</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>boolean initializeFrom(java.awt.Component, xy.ui.testing.TesterUI)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4557,6 +5210,7 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>java.awt.Component find(xy.ui.testing.Tester)</methodSignature>
             <parametersCustomizations>
                 <hidden>false</hidden>
@@ -4568,18 +5222,21 @@
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>void validate()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>true</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.VisibleStringComponentFinder VisibleStringComponentFinder()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
             <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
             <methodSignature>xy.ui.testing.finder.VisibleStringComponentFinder new()</methodSignature>
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
@@ -4590,12 +5247,16 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentTree</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -4606,24 +5267,32 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentClassName</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>componentTree</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValues</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -4633,6 +5302,324 @@
     </typeCustomizations>
     <typeCustomizations>
         <typeName>xy.ui.testing.util.Listener</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Polymorphic Value, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">false</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action, fieldType=xy.ui.testing.action.TestAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Polymorphic Type, fieldType=SubTypesEnumeration [polymorphicType=xy.ui.testing.action.TestAction], fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.SelectTabAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.window.CloseWindowAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.property.CheckComponentPropertyAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <specificProperties>
+                <entry>
+                    <key>DesktopSpecificProperty.CREATE_EMBEDDED_FORM</key>
+                    <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:boolean">true</value>
+                </entry>
+            </specificProperties>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>

@@ -40,7 +40,7 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 	@Override
 	public String toString() {
 		return MessageFormat.format(
-				"component n°{1} labeled with <{0}> in the window n°{2}",
+				"component n°{1} labeled with \"{0}\" in the window n°{2}",
 				StringEscapeUtils.escapeJava(visibleString),
 				(occurrencesToSkip + 1), (windowIndex + 1));
 	}

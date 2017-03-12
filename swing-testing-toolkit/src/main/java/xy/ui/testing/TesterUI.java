@@ -59,10 +59,10 @@ import xy.reflect.ui.info.field.FieldInfoProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
+import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.structure.IListStructuralInfo;
 import xy.reflect.ui.info.type.iterable.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
-import xy.reflect.ui.info.type.iterable.util.ItemPosition;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyFactory;
@@ -481,7 +481,10 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected boolean areCustomizationsEditable(Object object) {
-				return getAlternateCustomizationsFilePath() != null;
+				if( getAlternateCustomizationsFilePath() == null){
+					return false;
+				}
+				return super.areCustomizationsEditable(object);
 			}
 
 			@Override
@@ -821,7 +824,7 @@ public class TesterUI extends ReflectionUI {
 		if (testActionsControl == null) {
 			return;
 		}
-		testActionsControl.setSingleSelection(testActionsControl.findItemPosition(testAction));
+		testActionsControl.setSingleSelection(testActionsControl.findItemPositionByReference(testAction));
 	}
 
 	public int getSelectedActionIndex() {
@@ -1254,7 +1257,7 @@ public class TesterUI extends ReflectionUI {
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								getSwingRenderer().openMessageDialog(testerForm, "Action(s) replayed successfully",
+								getSwingRenderer().openInformationDialog(testerForm, "Action(s) replayed successfully",
 										getSwingRenderer().getObjectTitle(tester), null);
 								getStatusControlObject().stop();
 							}
