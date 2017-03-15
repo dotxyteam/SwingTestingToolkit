@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -48,7 +47,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 
-@SuppressWarnings("unused")
+
 public class TestingUtils {
 
 	private static Map<String, Image> IMAGE_CACHE = new HashMap<String, Image>();
@@ -57,20 +56,6 @@ public class TestingUtils {
 	public static final Image TESTER_IMAGE = loadImageResource("Tester.png");
 	public static final ImageIcon TESTER_ICON = new ImageIcon(
 			TESTER_IMAGE.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
-
-	public static boolean visitComponentTree(Component treeRoot, IComponentTreeVisitor visitor) {
-		if (!visitor.visit(treeRoot)) {
-			return false;
-		}
-		if (treeRoot instanceof Container) {
-			for (Component childComponent : ((Container) treeRoot).getComponents()) {
-				if (!visitComponentTree(childComponent, visitor)) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
 
 	public static Color shiftColor(Color color, int redOffset, int greenOffset, int blueOffset) {
 		int red = (color.getRed() + redOffset) % 256;
@@ -135,7 +120,7 @@ public class TestingUtils {
 		}
 	}
 
-	public static void launchClassMainMethod(String mainClassName, String[] arguments) throws Throwable{
+	public static void launchClassMainMethod(String mainClassName, String[] arguments) throws Throwable {
 		try {
 			Class.forName(mainClassName).getMethod("main", new Class[] { String[].class }).invoke(null,
 					new Object[] { arguments });
@@ -275,9 +260,9 @@ public class TestingUtils {
 		}
 	}
 
-	public static List<String> collectVisibleStrings(Window window) {
+	public static List<String> extractComponentTreeVisibleStrings(Component c, final Tester tester) {
 		final List<String> result = new ArrayList<String>();
-		visitComponentTree(window, new IComponentTreeVisitor() {
+		tester.visitComponentTree(c, new IComponentTreeVisitor() {
 
 			@Override
 			public boolean visit(Component c) {

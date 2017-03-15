@@ -50,16 +50,6 @@
       <doubleClick>false</doubleClick>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
@@ -118,12 +108,11 @@
       <orderChecked>false</orderChecked>
       <visibleStrings>
         <string>Missing class name</string>
-        <string>Check Exceptions After (seconds): </string>
+        <string>Check Exceptions After (seconds)</string>
         <string>2</string>
         <string>Class Name: </string>
         <string>xy.ui.testing.TestTesterUI</string>
         <string>Arguments</string>
-        <string>Item(depth=0, position=0, value=TestTesterUI dialog)</string>
         <string>Undo</string>
         <string>Redo</string>
         <string>Reset</string>
@@ -186,16 +175,6 @@
       <optionToSelect>Click Action</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.specific.SelectTabAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTabbedPane</componentClassName>
@@ -207,7 +186,7 @@
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
+        <occurrencesToSkip>2</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <optionToSelect>Visible String Component Finder</optionToSelect>
@@ -280,16 +259,6 @@
       <optionToSelect>Check Component Property Action</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
@@ -306,7 +275,7 @@
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
+        <occurrencesToSkip>1</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <optionToSelect>Is Selected</optionToSelect>
@@ -335,15 +304,6 @@
       </keyboardInteractions>
       <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
     </xy.ui.testing.action.component.SendKeysAction>
-    <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
-      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JComboBox</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <optionToSelect>Property Based Component Finder</optionToSelect>
-      <selectionMode>BY_LABEL_TEXT</selectionMode>
-    </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.specific.SelectTabAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTabbedPane</componentClassName>
@@ -352,6 +312,15 @@
       </componentFinder>
       <tabToSelect>Component Location</tabToSelect>
     </xy.ui.testing.action.component.specific.SelectTabAction>
+    <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <componentClassName>javax.swing.JComboBox</componentClassName>
+        <occurrencesToSkip>2</occurrencesToSkip>
+        <windowIndex>1</windowIndex>
+      </componentFinder>
+      <optionToSelect>Property Based Component Finder</optionToSelect>
+      <selectionMode>BY_LABEL_TEXT</selectionMode>
+    </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
@@ -478,16 +447,6 @@
       <optionToSelect>Close Window Action</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">

@@ -4,31 +4,23 @@ import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dialog;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dialog.ModalityType;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.AWTEventListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.Window;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.WeakHashMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -38,59 +30,50 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.SwingCustomizer;
 import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
-import xy.reflect.ui.control.swing.NullableControl;
-import xy.reflect.ui.control.swing.ObjectDialogBuilder;
-import xy.reflect.ui.control.swing.SwingRenderer;
-import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.ListControl.AutoFieldValueUpdatingItemPosition;
 import xy.reflect.ui.control.swing.MethodAction;
-import xy.reflect.ui.info.InfoCategory;
+import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.ObjectDialogBuilder;
+import xy.reflect.ui.control.swing.SwingCustomizer;
+import xy.reflect.ui.control.swing.SwingRenderer;
+import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
+import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListField;
 import xy.reflect.ui.info.filter.IInfoFilter;
-import xy.reflect.ui.info.filter.InfoFilterProxy;
-import xy.reflect.ui.info.field.FieldInfoProxy;
-import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
+import xy.reflect.ui.info.method.InvocationData;
+import xy.reflect.ui.info.method.MethodInfoProxy;
+import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
-import xy.reflect.ui.info.type.iterable.structure.IListStructuralInfo;
-import xy.reflect.ui.info.type.iterable.structure.ListStructuralInfoProxy;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
-import xy.reflect.ui.info.type.util.HiddenNullableFacetsTypeInfoProxyFactory;
 import xy.reflect.ui.info.type.util.InfoCustomizations;
 import xy.reflect.ui.info.type.util.TypeInfoProxyFactory;
-import xy.reflect.ui.info.type.DefaultTypeInfo;
-import xy.reflect.ui.info.type.ITypeInfo;
-import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
-import xy.reflect.ui.undo.IModification;
-import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
-import xy.reflect.ui.util.SystemProperties;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
+import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.WaitAction;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
 import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
+import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlC;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlV;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlX;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
 import xy.ui.testing.action.component.TargetComponentTestAction;
-import xy.ui.testing.action.component.SendKeysAction.SpecialKey.CtrlA;
 import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.action.component.specific.ClickOnTableCellAction;
@@ -100,25 +83,19 @@ import xy.ui.testing.action.component.specific.SelectTabAction;
 import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
-import xy.ui.testing.action.TestAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
-import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
+import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.util.AlternateWindowDecorationsContentPane;
 import xy.ui.testing.util.ComponentInspector;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
 import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
-import xy.reflect.ui.info.method.InvocationData;
-import xy.reflect.ui.info.method.MethodInfoProxy;
-import xy.reflect.ui.info.parameter.IParameterInfo;
-import xy.reflect.ui.info.method.InvocationData;
 
-@SuppressWarnings("unused")
 public class TesterUI extends ReflectionUI {
 
 	public static final String CUSTOM_UI_CUSTOMIZATION_FILE_PATH = "xy.ui.testing.gui.customizationFile";
@@ -138,7 +115,7 @@ public class TesterUI extends ReflectionUI {
 
 	protected ReplayWindowSwitch replayWindowSwitch = new ReplayWindowSwitch();
 	protected RecordingWindowSwitch recordingWindowSwitch = new RecordingWindowSwitch();
-	protected ComponentInspectionWindowSwitch ComponentInspectionWindowSwitch = new ComponentInspectionWindowSwitch();
+	protected ComponentInspectionWindowSwitch componentInspectionWindowSwitch = new ComponentInspectionWindowSwitch();
 
 	public static void main(String[] args) {
 		TesterUI testerUI = new TesterUI(new Tester());
@@ -249,8 +226,9 @@ public class TesterUI extends ReflectionUI {
 	}
 
 	protected void awtEventDispatched(AWTEvent event) {
-		if (!(isRecording() && !recordingWindowSwitch.getStatus().isRecordingPaused())
-				&& !isInComponentInspectionMode()) {
+		if (!(recordingWindowSwitch.isActive() && !recordingWindowSwitch.getStatus().isRecordingPaused())
+				&& !(componentInspectionWindowSwitch.isActive()
+						&& !componentInspectionWindowSwitch.isInspectorOpen())) {
 			return;
 		}
 		if (event == null) {
@@ -271,62 +249,16 @@ public class TesterUI extends ReflectionUI {
 			tester.handleCurrentComponentChange(c);
 		}
 		if (isComponentIntrospectionEvent(event)) {
-			if (isInComponentInspectionMode()) {
-				openComponentInspector(c);
-			} else {
-				handleRecordingEvent(event);
+			if (componentInspectionWindowSwitch.isActive()) {
+				componentInspectionWindowSwitch.openComponentInspector(c);
+			}
+			if (recordingWindowSwitch.isActive()) {
+				recordingWindowSwitch.handleRecordingEvent(event);
 			}
 		}
 	}
 
-	protected void handleRecordingEvent(final AWTEvent event) {
-		setRecordingPausedAndUpdateUI(true);
-		try {
-			if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
-				WindowEvent windowEvent = (WindowEvent) event;
-				Window window = windowEvent.getWindow();
-				String title = getSwingRenderer().getObjectTitle(tester);
-				if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
-						"Do you want to record this window closing event?", title)) {
-					CloseWindowAction closeAction = new CloseWindowAction();
-					closeAction.initializeFrom(window, event, this);
-					handleNewTestActionInsertionRequest(closeAction, window, false);
-				} else {
-					setRecordingPausedAndUpdateUI(false);
-				}
-			} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
-				final JMenuItem menuItem = (JMenuItem) event.getSource();
-				ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
-				testACtion.initializeFrom(menuItem, event, this);
-				String title = getSwingRenderer().getObjectTitle(tester);
-				if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
-						"Do you want to record this menu item activation event?", title)) {
-					handleNewTestActionInsertionRequest(testACtion, menuItem, true);
-				} else {
-					setRecordingPausedAndUpdateUI(false);
-				}
-				return;
-			} else {
-				final AbstractAction todo = openTestActionSelectionWindow(event, recordingWindowSwitch.getWindow());
-				if (todo == null) {
-					return;
-				}
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						todo.actionPerformed(null);
-					}
-				});
-			}
-		} finally {
-			setRecordingPausedAndUpdateUI(false);
-		}
-	}
-
-	protected void setRecordingPausedAndUpdateUI(boolean b) {
-		recordingWindowSwitch.getStatus().setRecordingPaused(b);
-		getSwingRenderer().refreshAllFieldControls(recordingWindowSwitch.getStatusControlForm(), false);
-	}
+	
 
 	protected AbstractAction openTestActionSelectionWindow(AWTEvent event, Window parent) {
 		final Component c = (Component) event.getSource();
@@ -399,11 +331,11 @@ public class TesterUI extends ReflectionUI {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setRecordingPausedAndUpdateUI(true);
+					recordingWindowSwitch.setRecordingPausedAndUpdateUI(true);
 					try {
 						handleNewTestActionInsertionRequest(testAction, c, true);
 					} finally {
-						setRecordingPausedAndUpdateUI(false);
+						recordingWindowSwitch.setRecordingPausedAndUpdateUI(false);
 					}
 				}
 
@@ -449,8 +381,7 @@ public class TesterUI extends ReflectionUI {
 				newTestActionList.add(testAction);
 			}
 			IFieldInfo testActionListField = getSwingRenderer().getFormAwareField(testerForm, "testActions");
-			testActionListField.setValue(tester,
-					newTestActionList.toArray(new TestAction[newTestActionList.size()]));
+			testActionListField.setValue(tester, newTestActionList.toArray(new TestAction[newTestActionList.size()]));
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
@@ -481,7 +412,7 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			protected boolean areCustomizationsEditable(Object object) {
-				if( getAlternateCustomizationsFilePath() == null){
+				if (getAlternateCustomizationsFilePath() == null) {
 					return false;
 				}
 				return super.areCustomizationsEditable(object);
@@ -672,7 +603,7 @@ public class TesterUI extends ReflectionUI {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							ComponentInspectionWindowSwitch.activate(true);
+							componentInspectionWindowSwitch.activate(true);
 							return null;
 						}
 					});
@@ -731,7 +662,7 @@ public class TesterUI extends ReflectionUI {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
 									for (ItemPosition itemPosition : selection) {
-										TestAction testAction = (TestAction) itemPosition.getItem();
+										TestAction testAction = (TestAction) itemPosition.getLastKnownItem();
 										selectedActions.add(testAction);
 									}
 									startReplay(selectedActions);
@@ -753,7 +684,7 @@ public class TesterUI extends ReflectionUI {
 										for (int i = singleSelection.getIndex(); i < singleSelection
 												.getContainingListRawValue().length; i++) {
 											TestAction testAction = (TestAction) singleSelection.getSibling(i)
-													.getItem();
+													.getLastKnownItem();
 											actionsToReplay.add(testAction);
 										}
 										startReplay(actionsToReplay);
@@ -798,11 +729,6 @@ public class TesterUI extends ReflectionUI {
 			c = ((NullableControl) c).getSubControl();
 		}
 		return (ListControl) c;
-	}
-
-	protected void openComponentInspector(Component c) {
-		ComponentInspector inspector = new ComponentInspector(c, this);
-		getSwingRenderer().openObjectDialog(recordingWindowSwitch.getWindow(), inspector);
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
@@ -851,11 +777,11 @@ public class TesterUI extends ReflectionUI {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setRecordingPausedAndUpdateUI(true);
+				recordingWindowSwitch.setRecordingPausedAndUpdateUI(true);
 				try {
-					openComponentInspector(c);
+					componentInspectionWindowSwitch.openComponentInspector(c);
 				} finally {
-					setRecordingPausedAndUpdateUI(false);
+					recordingWindowSwitch.setRecordingPausedAndUpdateUI(false);
 				}
 			}
 		});
@@ -879,7 +805,7 @@ public class TesterUI extends ReflectionUI {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						tester.handleCurrentComponentChange(null);
-						setRecordingPausedAndUpdateUI(true);
+						recordingWindowSwitch.setRecordingPausedAndUpdateUI(true);
 						new Thread(Tester.class.getSimpleName() + " Restarter") {
 							@Override
 							public void run() {
@@ -888,7 +814,7 @@ public class TesterUI extends ReflectionUI {
 								} catch (InterruptedException e) {
 									throw new AssertionError(e);
 								}
-								setRecordingPausedAndUpdateUI(false);
+								recordingWindowSwitch.setRecordingPausedAndUpdateUI(false);
 							}
 						}.start();
 					}
@@ -898,8 +824,6 @@ public class TesterUI extends ReflectionUI {
 
 	protected INodePropertyAccessor<Icon> getTestActionMenuItemIconAccessor() {
 		return new INodePropertyAccessor<Icon>() {
-
-			DefaultTreeCellRenderer treeCellRenderer = new DefaultTreeCellRenderer();
 
 			@Override
 			public Icon get(Object node) {
@@ -1019,12 +943,8 @@ public class TesterUI extends ReflectionUI {
 		}
 	}
 
-	protected boolean isRecording() {
-		return recordingWindowSwitch.isActive();
-	}
-
 	protected void startRecording() {
-		if (isRecording()) {
+		if (recordingWindowSwitch.isActive()) {
 			return;
 		}
 		SwingUtilities.invokeLater(new Runnable() {
@@ -1036,12 +956,9 @@ public class TesterUI extends ReflectionUI {
 		});
 	}
 
-	protected boolean isReplaying() {
-		return replayWindowSwitch.isActive();
-	}
-
+	
 	protected void startReplay(final List<TestAction> selectedActions) {
-		if (isReplaying()) {
+		if (replayWindowSwitch.isActive()) {
 			return;
 		}
 		replayWindowSwitch.setActionsToReplay(selectedActions);
@@ -1052,10 +969,6 @@ public class TesterUI extends ReflectionUI {
 			}
 
 		});
-	}
-
-	protected boolean isInComponentInspectionMode() {
-		return ComponentInspectionWindowSwitch.isActive();
 	}
 
 	protected int indexOfACtion(TestAction testAction) {
@@ -1198,6 +1111,55 @@ public class TesterUI extends ReflectionUI {
 		public RecordingStatus getStatus() {
 			return recordingStatus;
 		}
+		
+		public void handleRecordingEvent(final AWTEvent event) {
+			setRecordingPausedAndUpdateUI(true);
+			try {
+				if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
+					WindowEvent windowEvent = (WindowEvent) event;
+					Window window = windowEvent.getWindow();
+					String title = getSwingRenderer().getObjectTitle(tester);
+					if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
+							"Do you want to record this window closing event?", title)) {
+						CloseWindowAction closeAction = new CloseWindowAction();
+						closeAction.initializeFrom(window, event, TesterUI.this);
+						handleNewTestActionInsertionRequest(closeAction, window, false);
+					} else {
+						setRecordingPausedAndUpdateUI(false);
+					}
+				} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
+					final JMenuItem menuItem = (JMenuItem) event.getSource();
+					ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
+					testACtion.initializeFrom(menuItem, event, TesterUI.this);
+					String title = getSwingRenderer().getObjectTitle(tester);
+					if (getSwingRenderer().openQuestionDialog(recordingWindowSwitch.getWindow(),
+							"Do you want to record this menu item activation event?", title)) {
+						handleNewTestActionInsertionRequest(testACtion, menuItem, true);
+					} else {
+						setRecordingPausedAndUpdateUI(false);
+					}
+					return;
+				} else {
+					final AbstractAction todo = openTestActionSelectionWindow(event, recordingWindowSwitch.getWindow());
+					if (todo == null) {
+						return;
+					}
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							todo.actionPerformed(null);
+						}
+					});
+				}
+			} finally {
+				setRecordingPausedAndUpdateUI(false);
+			}
+		}
+
+		public void setRecordingPausedAndUpdateUI(boolean b) {
+			recordingStatus.setRecordingPaused(b);
+			getSwingRenderer().refreshAllFieldControls(statusControlForm, false);
+		}
 
 		public class RecordingStatus {
 			protected boolean recordingPaused = false;
@@ -1298,6 +1260,8 @@ public class TesterUI extends ReflectionUI {
 
 	public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 
+		protected boolean inspectorOpen = false;
+
 		@Override
 		public String getSwitchTitle() {
 			return "Component(s) Inspection";
@@ -1315,6 +1279,20 @@ public class TesterUI extends ReflectionUI {
 		@Override
 		protected void onEnd() {
 			tester.handleCurrentComponentChange(null);
+		}
+
+		public boolean isInspectorOpen() {
+			return inspectorOpen;
+		}
+
+		public void openComponentInspector(Component c) {
+			inspectorOpen = true;
+			try {
+				ComponentInspector inspector = new ComponentInspector(c, TesterUI.this);
+				getSwingRenderer().openObjectDialog(recordingWindowSwitch.getWindow(), inspector);
+			} finally {
+				inspectorOpen = false;
+			}
 
 		}
 

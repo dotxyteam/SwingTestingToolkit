@@ -3,7 +3,6 @@ package xy.ui.testing.action.window;
 import java.awt.Component;
 import java.awt.Window;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -11,12 +10,12 @@ import java.util.TreeSet;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.finder.MatchingComponentFinder;
+import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-@SuppressWarnings("unused")
+
 public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -71,15 +70,15 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Window w) {
-		visibleStrings.addAll(TestingUtils.collectVisibleStrings(w));
+	protected boolean initializeSpecificProperties(Window w, TesterUI testerUI) {
+		visibleStrings.addAll(TestingUtils.extractComponentTreeVisibleStrings(w, testerUI.getTester()));
 		return true;
 	}
 
 	@Override
 	public Window findComponent(Tester tester) {
 		Window window = super.findComponent(tester);
-		List<String> currentVisibleStrings = TestingUtils.collectVisibleStrings(window);
+		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeVisibleStrings(window, tester);
 		check(currentVisibleStrings, window);
 		return window;
 	}

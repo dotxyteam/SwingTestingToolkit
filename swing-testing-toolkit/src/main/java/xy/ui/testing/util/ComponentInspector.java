@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TesterUI;
+import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 
@@ -55,15 +58,18 @@ public class ComponentInspector {
 
 	public class ComponentInspectorNode {
 
-		private PropertyBasedComponentFinder util;
-		private List<ComponentInspectorNode> chilren;
-
-		private Component c;
-		private TesterUI testerUI;
+		protected PropertyBasedComponentFinder util;
+		protected List<ComponentInspectorNode> chilren;
+		protected List<String> visibleStrings;
+		protected Component c;
+		protected TesterUI testerUI;
+		protected String componentTreeVisibleStringsSummary;
 
 		public ComponentInspectorNode(Component c, TesterUI testerUI) {
 			this.c = c;
 			this.testerUI = testerUI;
+			this.visibleStrings = TestingUtils.extractVisibleStrings(c);
+			this.visibleStrings.remove("");
 		}
 
 		protected PropertyBasedComponentFinder createOrGetUtil() {
@@ -93,12 +99,12 @@ public class ComponentInspector {
 			return result.toArray(new PropertyValue[result.size()]);
 		}
 
-		public List<ComponentInspectorNode> getComponentTree() {
+		public List<ComponentInspectorNode> getChildren() {
 			if (chilren == null) {
 				chilren = new ArrayList<ComponentInspectorNode>();
 				if (c instanceof Container) {
 					Container container = (Container) c;
-					for (Component child : container.getComponents()) {
+					for (Component child : testerUI.getTester().getChildrenComponents(container)) {
 						chilren.add(new ComponentInspectorNode(child, testerUI));
 					}
 				}
@@ -106,17 +112,65 @@ public class ComponentInspector {
 			return chilren;
 		}
 
-		@Override
-		public String toString() {
-			String result = getComponentClassName();
-			List<String> visibleStrings = TestingUtils.extractVisibleStrings(c);
-			if(visibleStrings.size() > 0){
-				String firstVisibleString = visibleStrings.get(0);
-				firstVisibleString = ReflectionUIUtils.truncateNicely(firstVisibleString, 100);
-				firstVisibleString = " (" + firstVisibleString + ")";
-				result += firstVisibleString; 
+		public List<String> getComponentTreeVisibleStrings() {
+			final List<String> result = new ArrayList<String>(visibleStrings);
+			for (ComponentInspectorNode node : getChildren()) {
+				result.addAll(node.getComponentTreeVisibleStrings());
 			}
 			return result;
+		}
+
+		public String getComponentTreeVisibleStringsSummary() {
+			if (componentTreeVisibleStringsSummary == null) {
+				StringBuilder result = new StringBuilder();
+				int MAX_VISIBLE_STRING_COUNT = 2;
+				int MAX_VISIBLE_STRING_LENGTH = 30;
+				boolean stringListReduced = false;
+				List<String> allVisibleStrings = getComponentTreeVisibleStrings();
+				if (allVisibleStrings.size() > MAX_VISIBLE_STRING_COUNT) {
+					allVisibleStrings = allVisibleStrings.subList(0, MAX_VISIBLE_STRING_COUNT);
+					stringListReduced = true;
+				}
+				if (allVisibleStrings.size() > 0) {
+					result.append(" (");
+					for (int i = 0; i < allVisibleStrings.size(); i++) {
+						String s = allVisibleStrings.get(i);
+						s = ReflectionUIUtils.truncateNicely(s, MAX_VISIBLE_STRING_LENGTH);
+						if (i > 0) {
+							result.append(", ");
+						}
+						result.append("\"" + StringEscapeUtils.escapeJava(s) + "\"");
+					}
+					if (stringListReduced) {
+						result.append(", ...");
+					}
+					result.append(")");
+				}
+				componentTreeVisibleStringsSummary = result.toString();
+			}
+			return componentTreeVisibleStringsSummary;
+		}
+		
+		public List<ComponentFinder> getCompatibleFinders(){
+			List<ComponentFinder> result = new ArrayList<ComponentFinder>();
+			for(Class<?> finderClass :testerUI.getComponentFinderClasses()){
+				ComponentFinder finder;
+				try {
+					finder = (ComponentFinder)finderClass.newInstance();
+				} catch (Exception e) {
+					throw new AssertionError(e);
+				} 
+				if(finder.initializeFrom(c, testerUI)){
+					result.add(finder);
+				}
+			}
+			return result;
+		}
+
+		@Override
+		public String toString() {
+			return getComponentClassName() + getComponentTreeVisibleStringsSummary();
+
 		}
 
 		@Override

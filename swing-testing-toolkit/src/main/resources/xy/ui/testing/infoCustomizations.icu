@@ -157,15 +157,43 @@
     </listCustomizations>
     <listCustomizations>
         <columnCustomizations>
-            <columnName>toStringValue</columnName>
+            <columnName>children</columnName>
+            <hidden>true</hidden>
+        </columnCustomizations>
+        <columnCustomizations>
+            <columnName>compatibleFinders</columnName>
+            <hidden>true</hidden>
+        </columnCustomizations>
+        <columnCustomizations>
+            <columnName>componentClassName</columnName>
             <hidden>false</hidden>
+        </columnCustomizations>
+        <columnCustomizations>
+            <columnName>componentTreeVisibleStrings</columnName>
+            <hidden>false</hidden>
+        </columnCustomizations>
+        <columnCustomizations>
+            <columnName>componentTreeVisibleStringsSummary</columnName>
+            <hidden>true</hidden>
+        </columnCustomizations>
+        <columnCustomizations>
+            <columnName>propertyValues</columnName>
+            <hidden>true</hidden>
+        </columnCustomizations>
+        <columnCustomizations>
+            <columnName>toStringValue</columnName>
+            <hidden>true</hidden>
         </columnCustomizations>
         <editOptions>
             <itemCreationEnabled>true</itemCreationEnabled>
             <itemDeletionEnabled>true</itemDeletionEnabled>
             <itemMoveEnabled>true</itemMoveEnabled>
         </editOptions>
-        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <fieldColumnsAdded>true</fieldColumnsAdded>
+        <fieldsExcludedFromItemDetails>
+            <regularExpression>false</regularExpression>
+            <value>componentTreeVisibleStrings</value>
+        </fieldsExcludedFromItemDetails>
         <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
         <itemTypeColumnAdded>false</itemTypeColumnAdded>
         <itemTypeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</itemTypeName>
@@ -204,6 +232,25 @@
         <itemTypeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</itemTypeName>
         <listSorted>false</listSorted>
         <listTypeName>xy.reflect.ui.info.field.ImplicitListFieldType</listTypeName>
+        <positionColumnAdded>false</positionColumnAdded>
+        <stringValueColumnAdded>false</stringValueColumnAdded>
+    </listCustomizations>
+    <listCustomizations>
+        <columnCustomizations>
+            <columnName>toStringValue</columnName>
+            <hidden>false</hidden>
+        </columnCustomizations>
+        <editOptions>
+            <itemCreationEnabled>true</itemCreationEnabled>
+            <itemDeletionEnabled>true</itemDeletionEnabled>
+            <itemMoveEnabled>true</itemMoveEnabled>
+        </editOptions>
+        <fieldColumnsAdded>false</fieldColumnsAdded>
+        <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
+        <itemTypeColumnAdded>false</itemTypeColumnAdded>
+        <itemTypeName>xy.ui.testing.finder.ComponentFinder</itemTypeName>
+        <listSorted>false</listSorted>
+        <listTypeName>java.util.List</listTypeName>
         <positionColumnAdded>false</positionColumnAdded>
         <stringValueColumnAdded>false</stringValueColumnAdded>
     </listCustomizations>
@@ -1841,12 +1888,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/Tester.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\Tester.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customMethodsOrder></customMethodsOrder>
@@ -1900,6 +1947,14 @@
             <fieldName>testActions</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>componentPositionBasedComparator</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <methodsCustomizations>
             <hidden>true</hidden>
@@ -2035,6 +2090,20 @@
             <readOnlyForced>true</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>java.util.List getChildrenComponents(java.awt.Container)</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>true</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>boolean visitComponentTree(java.awt.Component, xy.ui.testing.util.IComponentTreeVisitor)</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
         <typeName>xy.ui.testing.Tester</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -2138,12 +2207,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/CallMainMethodAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CallMainMethodAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -2262,12 +2331,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/CheckNumberOfOpenWindowsAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CheckNumberOfOpenWindowsAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -2383,12 +2452,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/WaitAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\WaitAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -2483,12 +2552,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/ClickAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ClickAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -2659,12 +2728,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/ClickOnMenuItemAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ClickOnMenuItemAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -2790,12 +2859,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/SendKeysAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\SendKeysAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3318,12 +3387,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/ChangeComponentPropertyAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ChangeComponentPropertyAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder>componentClassName</customFieldsOrder>
@@ -3492,12 +3561,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/CheckComponentPropertyAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CheckComponentPropertyAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -3662,12 +3731,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/ClickOnTableCellAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ClickOnTableCellAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3851,12 +3920,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/ExpandTreetTableToItemAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\ExpandTreetTableToItemAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -3993,18 +4062,17 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/SelectComboBoxItemAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\SelectComboBoxItemAction.png</value>
             </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
+            </entry>
         </specificProperties>
-        <customFieldsOrder></customFieldsOrder>
-        <customFieldsOrder></customFieldsOrder>
-        <customFieldsOrder></customFieldsOrder>
-        <customFieldsOrder></customFieldsOrder>
+        <customFieldsOrder>selectionMode</customFieldsOrder>
+        <customFieldsOrder>optionToSelect</customFieldsOrder>
+        <customFieldsOrder>componentFinder</customFieldsOrder>
         <fieldsCustomizations>
             <specificProperties>
                 <entry>
@@ -4224,6 +4292,7 @@
             <fieldName>tabToSelect</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>true</nullableFacetHidden>
+            <valueOptionsFieldName>knownTabs</valueOptionsFieldName>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>true</hidden>
@@ -4316,6 +4385,13 @@
             <readOnlyForced>false</readOnlyForced>
             <validating>false</validating>
         </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>xy.ui.testing.action.component.specific.SelectTabAction new()</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
         <typeName>xy.ui.testing.action.component.specific.SelectTabAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -4326,12 +4402,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/SelectTableRowAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\SelectTableRowAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder></customFieldsOrder>
@@ -4492,12 +4568,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/CheckWindowVisibleStringsAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CheckWindowVisibleStringsAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <customFieldsOrder>windowIndex</customFieldsOrder>
@@ -4634,12 +4710,12 @@
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">&lt;class-path-resource&gt; xy/ui/testing/CloseWindowAction.png</value>
             </entry>
             <entry>
-                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
-                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
-            </entry>
-            <entry>
                 <key>DesktopSpecificProperty.ICON_IMAGE_FILE_PATH</key>
                 <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">images\CloseWindowAction.png</value>
+            </entry>
+            <entry>
+                <key>DesktopSpecificProperty.KEY_ICON_IMAGE_PATH_KIND</key>
+                <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">DesktopSpecificProperty.VALUE_PATH_TYPE_KIND_CLASSPATH_RESOURCE</value>
             </entry>
         </specificProperties>
         <fieldsCustomizations>
@@ -4814,6 +4890,42 @@
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>windowIndex</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>void validate()</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>boolean initializeFrom(java.awt.Component, xy.ui.testing.TesterUI)</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>java.awt.Component find(xy.ui.testing.Tester)</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>xy.ui.testing.finder.ComponentFinder new()</methodSignature>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
         <typeName>xy.ui.testing.finder.ComponentFinder</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -5089,6 +5201,7 @@
     <typeCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <customFieldCaption>Name</customFieldCaption>
             <displayedAsMethods>false</displayedAsMethods>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyName</fieldName>
@@ -5106,6 +5219,7 @@
         </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
+            <customFieldCaption>Value</customFieldCaption>
             <displayedAsMethods>false</displayedAsMethods>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValueExpected</fieldName>
@@ -5265,6 +5379,20 @@
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
     <typeCustomizations>
+        <customFieldsOrder>componentClassName</customFieldsOrder>
+        <customFieldsOrder>children</customFieldsOrder>
+        <customFieldsOrder>componentTreeVisibleStrings</customFieldsOrder>
+        <customFieldsOrder>compatibleFinders</customFieldsOrder>
+        <customFieldsOrder>propertyValues</customFieldsOrder>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <customFieldCaption>Component Tree</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>children</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
         <fieldsCustomizations>
             <hidden>false</hidden>
             <displayedAsMethods>false</displayedAsMethods>
@@ -5285,6 +5413,23 @@
             <hidden>false</hidden>
             <displayedAsMethods>false</displayedAsMethods>
             <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>componentTreeVisibleStrings</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>true</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>componentTreeVisibleStringsSummary</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <customFieldCaption>Properties</customFieldCaption>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>propertyValues</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
@@ -5294,6 +5439,15 @@
             <displayedAsMethods>false</displayedAsMethods>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <fieldName>windowIndex</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <customValueReturnMode>COPY</customValueReturnMode>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>compatibleFinders</fieldName>
             <getOnlyForced>false</getOnlyForced>
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
@@ -5620,6 +5774,92 @@
             <nullableFacetHidden>false</nullableFacetHidden>
         </fieldsCustomizations>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=String, fieldType=java.lang.String, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <customTypeCaption>Property</customTypeCaption>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Property Value, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>true</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Property Based Component Finder, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <fieldsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsMethods>false</displayedAsMethods>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <fieldName>value</fieldName>
+            <getOnlyForced>false</getOnlyForced>
+            <nullableFacetHidden>false</nullableFacetHidden>
+        </fieldsCustomizations>
+        <typeName>Encapsulation [typeCaption=Component Finder - Dynamic Wrapper, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>boolean initializeFrom(java.awt.Component, xy.ui.testing.TesterUI)</methodSignature>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter1</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter2</parameterName>
+            </parametersCustomizations>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <typeName>initializeFrom</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <methodsCustomizations>
+            <hidden>false</hidden>
+            <displayedAsField>false</displayedAsField>
+            <methodSignature>java.awt.Component find(xy.ui.testing.Tester)</methodSignature>
+            <parametersCustomizations>
+                <hidden>false</hidden>
+                <nullableFacetHidden>false</nullableFacetHidden>
+                <parameterName>parameter1</parameterName>
+            </parametersCustomizations>
+            <readOnlyForced>false</readOnlyForced>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <typeName>find</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>

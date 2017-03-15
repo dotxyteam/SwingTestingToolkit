@@ -14,7 +14,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 
 	protected static final long serialVersionUID = 1L;
 
-	protected abstract boolean initializeSpecificProperties(Window w);
+	protected abstract boolean initializeSpecificProperties(Window w, TesterUI testerUI);
 
 	protected MatchingComponentFinder windowFinder = new MatchingComponentFinder() {
 
@@ -45,7 +45,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 		if (!windowFinder.initializeFrom(window, testerUI)) {
 			return false;
 		}
-		initializeSpecificProperties(window);
+		initializeSpecificProperties(window, testerUI);
 		return true;
 	}
 

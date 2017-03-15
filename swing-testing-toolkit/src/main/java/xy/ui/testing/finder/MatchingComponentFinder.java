@@ -2,13 +2,13 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 import java.awt.Window;
-
 import xy.ui.testing.Tester;
 import xy.ui.testing.TesterUI;
 import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
+
 
 public abstract class MatchingComponentFinder extends ComponentFinder {
 	private static final long serialVersionUID = 1L;
@@ -56,7 +56,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 
 	protected Component find(Window containingWindow, final Tester tester) {
 		final Component[] result = new Component[1];
-		TestingUtils.visitComponentTree(containingWindow, new IComponentTreeVisitor() {
+		tester.visitComponentTree(containingWindow, new IComponentTreeVisitor() {
 			int occurrences = 0;
 
 			@Override
@@ -74,6 +74,8 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 		});
 		return result[0];
 	}
+
+	
 
 	@Override
 	public boolean initializeFrom(final Component c, TesterUI testerUI) {
@@ -93,7 +95,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	protected boolean initializeOccurrencesToSkip(Window componentWindow, final Component c, final TesterUI testerUI) {
 		occurrencesToSkip = 0;
 		final boolean[] ok = new boolean[] { false };
-		TestingUtils.visitComponentTree(componentWindow, new IComponentTreeVisitor() {
+		testerUI.getTester().visitComponentTree(componentWindow, new IComponentTreeVisitor() {
 			@Override
 			public boolean visit(Component otherComponent) {
 				if (otherComponent == c) {

@@ -133,20 +133,20 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	@Override
 	public String toString() {
-		String valuesDescription;
+		String propertyValuesDescription;
 		if (propertyValues.size() == 0) {
-			valuesDescription = "";
+			propertyValuesDescription = "";
 		} else {
-			List<String> valueStrings = new ArrayList<String>();
+			List<String> propertyValueStrings = new ArrayList<String>();
 			for (PropertyValue value : propertyValues) {
-				valueStrings.add(value.toString());
+				propertyValueStrings.add(value.toString());
 			}
-			valuesDescription = ", having:";
-			for (String s : valueStrings) {
-				valuesDescription += "\n- " + s;
+			propertyValuesDescription = " having:";
+			for (String s : propertyValueStrings) {
+				propertyValuesDescription += "\n " + s;
 			}
 		}
-		return super.toString() + valuesDescription;
+		return super.toString() + propertyValuesDescription;
 	}
 
 	@Override

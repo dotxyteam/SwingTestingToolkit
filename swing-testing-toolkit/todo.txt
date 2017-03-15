@@ -1,3 +1,6 @@
+- find another way to locate unlabelled controls
+that may be recreate and then have rank changed in the container.
+Maybe visit the components by location order
 - Inspector cannot see many properties (ex: dimensions)
 - allow a customizable TestingContext
 	. that can be used to filter out tester windows when testing 

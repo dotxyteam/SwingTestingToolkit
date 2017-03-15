@@ -2,6 +2,8 @@ package xy.ui.testing;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.Point;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,6 +13,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -21,6 +25,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -103,6 +108,7 @@ public class Tester {
 					beforeEachAction.handle(testAction);
 				}
 				Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+				testAction.validate();
 				Component c = findComponentImmediatelyOrRetry(testAction);
 				if (c != null) {
 					currentComponent = c;
@@ -111,7 +117,6 @@ public class Tester {
 					unhighlightCurrentComponent();
 					currentComponent = null;
 				}
-				testAction.validate();
 				testAction.execute(c, this);
 			} catch (Throwable t) {
 				if (t instanceof InterruptedException) {
@@ -249,4 +254,40 @@ public class Tester {
 		disableCurrentComponentListeners();
 	}
 
+	public boolean visitComponentTree(Component treeRoot, IComponentTreeVisitor visitor) {
+		if (!visitor.visit(treeRoot)) {
+			return false;
+		}
+		if (treeRoot instanceof Container) {
+			List<Component> components = getChildrenComponents((Container) treeRoot);
+			for (Component childComponent : components) {
+				if (!visitComponentTree(childComponent, visitor)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public List<Component> getChildrenComponents(Container container) {
+		List<Component> result = Arrays.asList(container.getComponents());
+		result = new ArrayList<Component>(result);
+		Collections.sort(result, getComponentPositionBasedComparator());
+		return result;
+	}
+
+	public Comparator<Component> getComponentPositionBasedComparator() {
+		return new Comparator<Component>() {
+			@Override
+			public int compare(Component c1, Component c2) {
+				Point location1 = c1.getLocation();
+				Point location2 = c2.getLocation();
+				int result = new Integer(location1.y).compareTo(new Integer(location2.y));
+				if (result == 0) {
+					result = new Integer(location1.x).compareTo(new Integer(location2.x));
+				}
+				return result;
+			}
+		};
+	}
 }
