@@ -1,3 +1,5 @@
+- extensibility:
+	. useless members are not automatically hidden for new actions
 - find another way to locate unlabelled controls
 that may be recreate and then have rank changed in the container.
 Maybe visit the components by location order

@@ -5,12 +5,16 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import xy.reflect.ui.util.ReflectionUIError;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
@@ -40,8 +44,21 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		this.optionToSelect = optionToSelect;
 	}
 
-	public Option[] getKnownOptions() {
-		return knownOptions;
+	public List<String> getKnownOptions() {
+		if (knownOptions == null) {
+			return null;
+		}
+		List<String> result = new ArrayList<String>();
+		for (Option option : knownOptions) {
+			if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
+				result.add(option.getLabel());
+			} else if (selectionMode == SelectionMode.BY_POSITION) {
+				result.add(Integer.toString(option.getPosition()));
+			} else {
+				throw new ReflectionUIError();
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -58,7 +75,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		for (int i = 0; i < allOptions.size(); i++) {
 			knownOptions[i] = new Option(i, allOptions.get(i));
 		}
-		String labelText = getLabelText(comboBox, 0);
+		String labelText = getLabelText(comboBox.getModel(), comboBox.getRenderer(), 0);
 		if (labelText != null) {
 			selectionMode = SelectionMode.BY_LABEL_TEXT;
 			if (allOptions.size() > 0) {
@@ -73,11 +90,11 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		return true;
 	}
 
-	protected String getOption(JComboBox comboBox, int i) {
+	protected String getOption(ComboBoxModel model, ListCellRenderer renderer, int i) {
 		if (selectionMode == SelectionMode.BY_POSITION) {
 			return Integer.toString(i);
 		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
-			return getLabelText(comboBox, i);
+			return getLabelText(model, renderer, i);
 		} else {
 			throw new AssertionError();
 		}
@@ -86,16 +103,17 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	protected List<String> getAllOptions(JComboBox comboBox) {
 		List<String> result = new ArrayList<String>();
-		for (int i = 0; i < comboBox.getItemCount(); i++) {
-			result.add(getOption(comboBox, i));
+		ComboBoxModel model = comboBox.getModel();
+		ListCellRenderer renderer = comboBox.getRenderer();
+		for (int i = 0; i < model.getSize(); i++) {
+			result.add(getOption(model, renderer, i));
 		}
 		return result;
 	}
 
-	protected String getLabelText(JComboBox comboBox, int i) {
-		Object item = comboBox.getModel().getElementAt(i);
-		Component cellRenderer = comboBox.getRenderer().getListCellRendererComponent(new JList(), item, 0, false,
-				false);
+	protected String getLabelText(ComboBoxModel model, ListCellRenderer renderer, int i) {
+		Object item = model.getElementAt(i);
+		Component cellRenderer = renderer.getListCellRendererComponent(new JList(), item, 0, false, false);
 		if (!(cellRenderer instanceof JLabel)) {
 			return null;
 		}
@@ -104,22 +122,26 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(Component c, Tester tester) {
-		JComboBox comboBox = (JComboBox) c;
+		final JComboBox comboBox = (JComboBox) c;
 		List<String> options = getAllOptions(comboBox);
-		boolean found = false;
-		int i = 0;
-		for (String option : options) {
+		int indexToSelect = -1;
+		for (int i = 0; i < options.size(); i++) {
+			String option = options.get(i);
 			if (option.equals(optionToSelect)) {
-				comboBox.setSelectedIndex(i);
-				found = true;
-				break;
+				indexToSelect = i;
 			}
-			i++;
 		}
-		if (!found) {
+		if (indexToSelect == -1) {
 			throw new TestFailure("Could not select the combo box item '" + optionToSelect + "': Item not found." + "\n"
 					+ "Selection Mode=" + selectionMode + "\n" + "Found items: " + options);
 		}
+		final int finalIndexToSelect = indexToSelect;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				comboBox.setSelectedIndex(finalIndexToSelect);
+			}
+		});
 
 	}
 

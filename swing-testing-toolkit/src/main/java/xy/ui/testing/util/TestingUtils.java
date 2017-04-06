@@ -11,11 +11,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -25,28 +25,16 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
-import javax.swing.JTable;
-import javax.swing.JTree;
-import javax.swing.ListCellRenderer;
-import javax.swing.ListModel;
 import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableModel;
-import javax.swing.tree.TreeModel;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
-
+import xy.ui.testing.editor.TesterEditor;
 
 public class TestingUtils {
 
@@ -77,14 +65,14 @@ public class TestingUtils {
 		return SwingUtilities.getWindowAncestor(c);
 	}
 
-	public static boolean isTesterUIComponent(TesterUI testerUI, Component c) {
-		if (testerUI != null) {
+	public static boolean isTesterEditorComponent(TesterEditor testerEditor, Component c) {
+		if (testerEditor != null) {
 			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-			if (testerUI == TesterUI.BY_WINDOW.get(componentWindow)) {
+			if (testerEditor.getAllwindows().contains(componentWindow)) {
 				return true;
 			}
 			while (componentWindow.getOwner() != null) {
-				if (isTesterUIComponent(testerUI, componentWindow.getOwner())) {
+				if (isTesterEditorComponent(testerEditor, componentWindow.getOwner())) {
 					return true;
 				}
 				componentWindow = componentWindow.getOwner();
@@ -135,138 +123,13 @@ public class TestingUtils {
 		return result;
 	}
 
-	public static List<String> extractVisibleStrings(Component c) {
-		List<String> result = new ArrayList<String>();
-		String s;
-		s = extractVisibleStringThroughMethod(c, "getTitle");
-		if (s != null) {
-			result.add(s);
-		}
-		s = extractVisibleStringThroughMethod(c, "getText");
-		if (s != null) {
-			result.add(s);
-		}
-		if (c instanceof JComponent) {
-			Border border = ((JComponent) c).getBorder();
-			if (border != null) {
-				s = extractVisibleStringFromBorder(border);
-				if ((s != null) && (s.trim().length() > 0)) {
-					result.add(s);
-				}
-			}
-		}
-		if (c instanceof JTable) {
-			JTable table = (JTable) c;
-			result.addAll(extractVisibleStringsFromTable(table));
-		}
-		if (c instanceof JTree) {
-			JTree tree = (JTree) c;
-			result.addAll(extractVisibleStringsFromTree(tree));
-		}
-		if (c instanceof JList) {
-			JList list = (JList) c;
-			result.addAll(extractVisibleStringsFromList(list));
-		}
-		return result;
-	}
-
-	public static String extractVisibleStringFromBorder(Border border) {
-		if (border instanceof TitledBorder) {
-			String s = ((TitledBorder) border).getTitle();
-			if ((s != null) && (s.trim().length() > 0)) {
-				return s;
-			}
-		}
-		return null;
-	}
-
-	public static Collection<String> extractVisibleStringsFromList(JList list) {
-		List<String> result = new ArrayList<String>();
-		ListModel model = list.getModel();
-		ListCellRenderer cellRenderer = list.getCellRenderer();
-		for (int i = 0; i < model.getSize(); i++) {
-			try {
-				Object item = model.getElementAt(i);
-				Component cellComponent = cellRenderer.getListCellRendererComponent(list, item, i, false, false);
-				result.addAll(extractVisibleStrings(cellComponent));
-			} catch (Exception ignore) {
-			}
-		}
-		return result;
-	}
-
-	public static List<String> extractVisibleStringsFromTable(JTable table) {
-		List<String> result = new ArrayList<String>();
-		TableModel model = table.getModel();
-		String s;
-		for (int i = 0; i < model.getColumnCount(); i++) {
-			s = model.getColumnName(i);
-			if ((s != null) && (s.trim().length() > 0)) {
-				result.add(s);
-			}
-		}
-		for (int iRow = 0; iRow < model.getRowCount(); iRow++) {
-			for (int iCol = 0; iCol < model.getColumnCount(); iCol++) {
-				try {
-					Object cellValue = model.getValueAt(iRow, iCol);
-					TableCellRenderer cellRenderer = table.getCellRenderer(iRow, iCol);
-					Component cellComponent = cellRenderer.getTableCellRendererComponent(table, cellValue, false, false,
-							iRow, iCol);
-					List<String> cellVisibleStrings = extractVisibleStrings(cellComponent);
-					result.addAll(cellVisibleStrings);
-				} catch (Exception ignore) {
-				}
-			}
-		}
-		return result;
-	}
-
-	public static Collection<? extends String> extractVisibleStringsFromTree(JTree tree) {
-		List<String> result = new ArrayList<String>();
-		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
-		return result;
-	}
-
-	public static List<String> extractVisibleStringsFromTree(int currentRow, Object currentNode, JTree tree) {
-		List<String> result = new ArrayList<String>();
-		TreeModel model = tree.getModel();
-		try {
-			String s = tree.convertValueToText(currentNode, false, true, model.isLeaf(currentNode), currentRow, false);
-			if ((s != null) && (s.trim().length() > 0)) {
-				result.add(s);
-			}
-		} catch (Exception ignore) {
-		}
-		for (int i = 0; i < model.getChildCount(currentNode); i++) {
-			Object childNode = model.getChild(currentNode, i);
-			result.addAll(extractVisibleStringsFromTree(currentRow + 1, childNode, tree));
-		}
-		return result;
-	}
-
-	public static String extractVisibleStringThroughMethod(Component c, String methodName) {
-		try {
-			Method method = c.getClass().getMethod(methodName);
-			String result = (String) method.invoke(c);
-			if (result == null) {
-				return null;
-			}
-			if (result.trim().length() == 0) {
-				return null;
-			}
-			return result;
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
 	public static List<String> extractComponentTreeVisibleStrings(Component c, final Tester tester) {
 		final List<String> result = new ArrayList<String>();
-		tester.visitComponentTree(c, new IComponentTreeVisitor() {
+		TestingUtils.visitComponentTree(tester, c, new IComponentTreeVisitor() {
 
 			@Override
 			public boolean visit(Component c) {
-				result.addAll(extractVisibleStrings(c));
+				result.addAll(tester.extractVisibleStrings(c));
 				return true;
 			}
 		});
@@ -305,28 +168,16 @@ public class TestingUtils {
 		return result;
 	}
 
-	public static boolean isTestableWindow(Window window, TesterUI... testerUIs) {
-		for (TesterUI testerUI : testerUIs) {
-			if (isTesterUIComponent(testerUI, window)) {
-				return false;
-			}
-		}
-		if (!window.isVisible()) {
-			return false;
-		}
-		return true;
-	}
-
-	public static void closeAllTestableWindows(TesterUI... testerUIs) {
-		for (Window w : getAllTestableWindows(testerUIs)) {
+	public static void closeAllTestableWindows(Tester tester) {
+		for (Window w : getAllTestableWindows(tester)) {
 			w.dispose();
 		}
 	}
 
-	public static List<Window> getAllTestableWindows(TesterUI... testerUIs) {
+	public static List<Window> getAllTestableWindows(Tester tester) {
 		List<Window> result = new ArrayList<Window>();
 		for (Window w : Window.getWindows()) {
-			if (isTestableWindow(w, testerUIs)) {
+			if (tester.isTestableWindow(w)) {
 				result.add(w);
 			}
 		}
@@ -401,18 +252,16 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static File saveAllTestableWindowImages(TesterUI... testerUIs) {
+	public static File saveAllTestableWindowImages(Tester tester) {
 		List<BufferedImage> images = new ArrayList<BufferedImage>();
-		for (TesterUI testerUI : testerUIs) {
-			for (Window w : getAllTestableWindows(testerUI)) {
-				BufferedImage windowImage = getScreenShot(w);
-				images.add(windowImage);
-			}
+		for (Window w : getAllTestableWindows(tester)) {
+			BufferedImage windowImage = getScreenShot(w);
+			images.add(windowImage);
 		}
 		if (images.size() == 0) {
 			return null;
 		}
-		return saveImage(joinImages(images));
+		return saveTesterImage(tester, joinImages(images));
 	}
 
 	public static BufferedImage joinImages(List<BufferedImage> images) {
@@ -433,8 +282,8 @@ public class TestingUtils {
 		return result;
 	}
 
-	public static File saveImage(BufferedImage image) {
-		File dir = getSavedImagesDirectory();
+	public static File saveTesterImage(Tester tester, BufferedImage image) {
+		File dir = tester.getSavedImagesDirectory();
 		if (!dir.exists()) {
 			if (!dir.mkdir()) {
 				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
@@ -456,10 +305,6 @@ public class TestingUtils {
 		return outputfile;
 	}
 
-	public static File getSavedImagesDirectory() {
-		return new File(Tester.class.getSimpleName().toLowerCase() + "-saved-images");
-	}
-
 	public static BufferedImage getScreenShot(Component component) {
 		if ((component.getWidth() == 0) || (component.getHeight() == 0)) {
 			return new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
@@ -472,16 +317,16 @@ public class TestingUtils {
 
 	}
 
-	public static File saveTestableWindowImage(int windowIndex, TesterUI... testerUIs) {
-		return saveImage(getScreenShot(getAllTestableWindows(testerUIs).get(windowIndex)));
+	public static File saveTestableWindowImage(Tester tester, int windowIndex) {
+		return saveTesterImage(tester, getScreenShot(getAllTestableWindows(tester).get(windowIndex)));
 	}
 
-	public static File saveImage(Component c) {
-		return saveImage(getScreenShot(c));
+	public static File saveTestableComponentImage(Tester tester, Component c) {
+		return saveTesterImage(tester, getScreenShot(c));
 	}
 
-	public static void purgeSavedImagesDirectory() {
-		File dir = getSavedImagesDirectory();
+	public static void purgeSavedImagesDirectory(Tester tester) {
+		File dir = tester.getSavedImagesDirectory();
 		try {
 			FileUtils.deleteDirectory(dir);
 		} catch (IOException e) {
@@ -489,9 +334,9 @@ public class TestingUtils {
 		}
 	}
 
-	public static TesterUI[] getTesterUIs(Tester tester) {
-		List<TesterUI> result = getKeysFromValue(TesterUI.TESTERS, tester);
-		return result.toArray(new TesterUI[result.size()]);
+	public static TesterEditor[] getTesterEditors(Tester tester) {
+		List<TesterEditor> result = getKeysFromValue(TesterEditor.TESTER_BY_EDITOR, tester);
+		return result.toArray(new TesterEditor[result.size()]);
 	}
 
 	public static <K, V> List<K> getKeysFromValue(Map<K, V> map, Object value) {
@@ -532,11 +377,11 @@ public class TestingUtils {
 	public static Image loadImageResource(String imageResourceName) {
 		Image result = IMAGE_CACHE.get(imageResourceName);
 		if (result == null) {
-			if (TesterUI.class.getResource(imageResourceName) == null) {
+			if (Tester.class.getResource(imageResourceName) == null) {
 				result = NULL_IMAGE;
 			} else {
 				try {
-					result = ImageIO.read(TesterUI.class.getResourceAsStream(imageResourceName));
+					result = ImageIO.read(Tester.class.getResourceAsStream(imageResourceName));
 				} catch (IOException e) {
 					throw new AssertionError(e);
 				}
@@ -552,5 +397,30 @@ public class TestingUtils {
 	public static void sendWindowClosingEvent(Window w) {
 		WindowEvent closeEvent = new WindowEvent(w, WindowEvent.WINDOW_CLOSING);
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
+	}
+
+	public static void assertSuccessfulReplay(Tester tester, File replayFile) throws IOException {
+		assertSuccessfulReplay(tester, new FileInputStream(replayFile));
+	}
+
+	public static void assertSuccessfulReplay(Tester tester, InputStream replayStream) throws IOException {
+		tester.loadFromStream(replayStream);
+		closeAllTestableWindows(tester);
+		tester.replayAll();
+	}
+
+	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor) {
+		if (!visitor.visit(treeRoot)) {
+			return false;
+		}
+		if (treeRoot instanceof Container) {
+			List<Component> components = tester.getChildrenComponents((Container) treeRoot);
+			for (Component childComponent : components) {
+				if (!visitComponentTree(tester, childComponent, visitor)) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }

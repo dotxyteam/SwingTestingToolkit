@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -50,19 +51,25 @@ public class SelectTabAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(Component c, Tester tester) {
-		JTabbedPane tabbedPane = (JTabbedPane) c;
-		boolean found = false;
+		final JTabbedPane tabbedPane = (JTabbedPane) c;
+		int indexToSelect = -1;
 		for (int i = 0; i < tabbedPane.getTabCount(); i++) {
 			String currentTabTitle = tabbedPane.getTitleAt(i);
 			if (currentTabTitle.equals(tabToSelect)) {
-				tabbedPane.setSelectedIndex(i);
-				found = true;
+				indexToSelect = i;
 				break;
 			}
 		}
-		if (!found) {
+		if (indexToSelect == -1) {
 			throw new TestFailure("Could not select the tab '" + tabToSelect + "': Tab not found");
 		}
+		final int finalIndexToSelect = indexToSelect;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				tabbedPane.setSelectedIndex(finalIndexToSelect);
+			}
+		});
 	}
 
 	@Override

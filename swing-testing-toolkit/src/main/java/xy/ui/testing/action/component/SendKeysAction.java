@@ -62,7 +62,6 @@ public class SendKeysAction extends TargetComponentTestAction {
 				}
 			}
 		});
-
 	}
 
 	@Override
@@ -87,6 +86,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 		if (keyboardInteractions.size() == 0) {
 			throw new ValidationError("Missing keyboard interactions");
 		}
+		super.validate();
 	};
 
 	public static abstract class KeyboardInteraction implements Serializable {
@@ -129,13 +129,12 @@ public class SendKeysAction extends TargetComponentTestAction {
 		public String toString() {
 			return "\"" + StringEscapeUtils.escapeJava(text) + "\"";
 		}
-		
+
 		public void validate() throws ValidationError {
-			if( (text == null) || (text.length()==0)){
+			if ((text == null) || (text.length() == 0)) {
 				throw new ValidationError("Missing text");
 			}
 		};
-
 
 	}
 
@@ -276,13 +275,12 @@ public class SendKeysAction extends TargetComponentTestAction {
 			}
 			return result;
 		}
-		
+
 		public void validate() throws ValidationError {
 			if (keyName == null) {
 				throw new ValidationError("Missing key name");
 			}
 		};
-
 
 		public static class CtrlC extends SpecialKey {
 			private static final long serialVersionUID = 1L;

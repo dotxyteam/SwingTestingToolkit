@@ -10,7 +10,7 @@ import java.util.TreeSet;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -70,8 +70,8 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Window w, TesterUI testerUI) {
-		visibleStrings.addAll(TestingUtils.extractComponentTreeVisibleStrings(w, testerUI.getTester()));
+	protected boolean initializeSpecificProperties(Window w, TesterEditor testerEditor) {
+		visibleStrings.addAll(TestingUtils.extractComponentTreeVisibleStrings(w, testerEditor.getTester()));
 		return true;
 	}
 
@@ -79,11 +79,11 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	public Window findComponent(Tester tester) {
 		Window window = super.findComponent(tester);
 		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeVisibleStrings(window, tester);
-		check(currentVisibleStrings, window);
+		check(currentVisibleStrings, window, tester);
 		return window;
 	}
 
-	protected void check(List<String> currentVisibleStrings, Window window) {
+	protected void check(List<String> currentVisibleStrings, Window window, Tester tester) {
 		try {
 			if (completenessChecked && orderChecked) {
 				if (!visibleStrings.equals(currentVisibleStrings)) {
@@ -126,7 +126,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 							+ ".\nThese are the original and the current visible strings:\n"
 							+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
 							+ TestingUtils.formatVisibleStrings(currentVisibleStrings),
-					"Window image", TestingUtils.saveImage(window), e);
+					"Window image", TestingUtils.saveTestableComponentImage(tester, window), e);
 		}
 	}
 

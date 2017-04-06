@@ -1,4 +1,4 @@
-package xy.ui.testing.action.component.property;
+package xy.ui.testing.util;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.ClassUtils;
 
+import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.PrimitiveValueControl;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
@@ -15,17 +16,13 @@ import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
 import xy.reflect.ui.info.type.custom.TextualTypeInfo;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.ui.testing.TesterUI;
-import xy.ui.testing.action.component.TargetComponentTestAction;
-import xy.ui.testing.util.ValidationError;
 
-public abstract class ComponentPropertyAction extends TargetComponentTestAction {
+public class ComponentPropertyUtil {
 
-	private static final long serialVersionUID = 1L;
 	protected String propertyName;
 	protected String componentClassName;
 
-	public ComponentPropertyAction() {
+	public ComponentPropertyUtil() {
 		super();
 	}
 
@@ -48,7 +45,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 	public List<String> getPropertyNameOptions() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
-			return Collections.emptyList();
+			return null;
 		}
 		List<String> result = new ArrayList<String>();
 		for (IFieldInfo field : componentType.getFields()) {
@@ -60,7 +57,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		return result;
 	}
 
-	protected boolean isSupportedPropertyField(IFieldInfo field) {
+	public boolean isSupportedPropertyField(IFieldInfo field) {
 		Class<?> javaType = getFieldJavaType(field);
 		if (TextualTypeInfo.isCompatibleWith(javaType)) {
 			return true;
@@ -71,7 +68,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		return false;
 	}
 
-	protected Class<?> getFieldJavaType(IFieldInfo field) {
+	public Class<?> getFieldJavaType(IFieldInfo field) {
 		try {
 			return ClassUtils.getClass(field.getType().getName());
 		} catch (ClassNotFoundException e) {
@@ -79,7 +76,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 	}
 
-	protected ITypeInfo getComponentTypeInfo() {
+	public ITypeInfo getComponentTypeInfo() {
 		if (componentClassName == null) {
 			return null;
 		}
@@ -87,13 +84,13 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 			return null;
 		}
 		try {
-			return TesterUI.DEFAULT.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
+			return ReflectionUI.getDefault().getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
 	}
 
-	protected String fieldValueToPropertyValue(Object fieldValue) {
+	public String fieldValueToPropertyValue(Object fieldValue) {
 		if (fieldValue == null) {
 			return null;
 		}
@@ -110,7 +107,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 	}
 
-	protected Object propertyValueToFieldValue(String propertyValue) {
+	public Object propertyValueToFieldValue(String propertyValue) {
 		if (propertyValue == null) {
 			return null;
 		}
@@ -128,7 +125,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		}
 	}
 
-	protected IFieldInfo getPropertyFieldInfo() {
+	public IFieldInfo getPropertyFieldInfo() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
 			return null;
@@ -136,8 +133,7 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		return ReflectionUIUtils.findInfoByCaption(componentType.getFields(), propertyName);
 	}
 
-	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+	public boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		componentClassName = c.getClass().getName();
 		List<String> propertyNameOptions = getPropertyNameOptions();
 		if (propertyNameOptions.size() == 0) {
@@ -147,7 +143,6 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 		return true;
 	}
 
-	@Override
 	public void validate() throws ValidationError {
 		if (componentClassName == null) {
 			throw new ValidationError("Missing component class name");
@@ -160,10 +155,6 @@ public abstract class ComponentPropertyAction extends TargetComponentTestAction 
 			}
 		} catch (ClassNotFoundException e) {
 			throw new ValidationError("Invalid class name: Class not found");
-		}
-
-		if (componentFinder == null) {
-			throw new ValidationError("Missing component finding information");
 		}
 	}
 

@@ -4,10 +4,10 @@
   <testActions>
     <xy.ui.testing.action.CallMainMethodAction>
       <arguments>
-        <string>TesterUI frame</string>
+        <string>TesterEditor frame</string>
       </arguments>
       <checkThrownExceptionAfterSeconds>2</checkThrownExceptionAfterSeconds>
-      <className>xy.ui.testing.TestTesterUI</className>
+      <className>xy.ui.testing.TestTesterEditor</className>
     </xy.ui.testing.action.CallMainMethodAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
@@ -53,12 +53,12 @@
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
+        <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
-          <text>xy.ui.testing.TestTesterUI</text>
+          <text>xy.ui.testing.TestTesterEditor</text>
         </xy.ui.testing.action.component.SendKeysAction_-WriteText>
       </keyboardInteractions>
       <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
@@ -88,7 +88,7 @@
       </componentFinder>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
-          <text>TestTesterUI dialog</text>
+          <text>TestTesterEditor dialog</text>
         </xy.ui.testing.action.component.SendKeysAction_-WriteText>
       </keyboardInteractions>
       <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
@@ -108,10 +108,9 @@
       <orderChecked>false</orderChecked>
       <visibleStrings>
         <string>Missing class name</string>
-        <string>Check Exceptions After (seconds)</string>
         <string>2</string>
         <string>Class Name: </string>
-        <string>xy.ui.testing.TestTesterUI</string>
+        <string>xy.ui.testing.TestTesterEditor</string>
         <string>Arguments</string>
         <string>Undo</string>
         <string>Redo</string>
@@ -528,7 +527,7 @@
         <string>Component</string>
         <string>Value</string>
         <string>Call Main Method Action</string>
-        <string>xy.ui.testing.TestTesterUI &quot;TestTesterUI dialog&quot;</string>
+        <string>xy.ui.testing.TestTesterEditor &quot;TestTesterEditor dialog&quot;</string>
         <string>Load From File...</string>
         <string>Save To File...</string>
         <string>Start Recording</string>

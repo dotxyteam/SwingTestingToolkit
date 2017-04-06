@@ -1,18 +1,32 @@
+package xy.ui.testing;
+
 import java.awt.AWTEvent;
+import java.awt.Color;
 import java.awt.Component;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import xy.ui.testing.Tester;
+import org.junit.Test;
+
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-public class ExtensibilityExample {
+public class TestExtensibility {
+
+	@Test
+	public void test() throws IOException {
+		Tester tester = new Tester();
+		TestingUtils.purgeSavedImagesDirectory(tester);
+		TestingUtils.assertSuccessfulReplay(tester,
+				TestTesterEditor.class.getResourceAsStream("testExtensibility.stt"));
+	}
 
 	public static void main(String[] args) throws Exception {
 
@@ -42,15 +56,17 @@ public class ExtensibilityExample {
 			}
 
 		};
+		testerEditor.setDecorationsBackgroundColor(new Color(68, 61, 205));
+		testerEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
 		testerEditor.open();
 
 	}
 
 	/*
 	 * This is the custom test action class. Usually you would use it either to
-	 * send events, change some properties of some target component (triggering action) or
-	 * check that some stored property values do not change during the replay
-	 * (assertion).
+	 * send events, change some properties of some target component (triggering
+	 * action) or check that some stored property values do not change during
+	 * the replay (assertion).
 	 */
 	public static class CustomComponentAssertion extends TargetComponentTestAction {
 		private static final long serialVersionUID = 1L;
@@ -108,7 +124,8 @@ public class ExtensibilityExample {
 
 			/*
 			 * Note that actions that may block the replay thread (eg: by
-			 * requiring user input) must be run in the Event Dispatching Thread.
+			 * requiring user input) must be run in the Event Dispatching
+			 * Thread.
 			 */
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
@@ -138,8 +155,6 @@ public class ExtensibilityExample {
 					+ propertytoChangeNewValue;
 		}
 	}
-	
-
 
 	/*
 	 * the custom component class.

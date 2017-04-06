@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.io.Serializable;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ValidationError;
 
 public abstract class ComponentFinder implements Serializable {
@@ -13,7 +13,7 @@ public abstract class ComponentFinder implements Serializable {
 
 	public abstract Component find(Tester tester);
 
-	public abstract boolean initializeFrom(final Component c, TesterUI testerUI);
+	public abstract boolean initializeFrom(final Component c, TesterEditor testerEditor);
 	
 	public abstract int getWindowIndex();
 

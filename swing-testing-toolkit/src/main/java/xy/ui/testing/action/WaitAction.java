@@ -4,7 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -23,7 +23,7 @@ public class WaitAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterUI testerUI) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 		return false;
 	}
 

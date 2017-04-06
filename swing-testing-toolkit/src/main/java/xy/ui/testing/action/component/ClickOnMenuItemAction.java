@@ -7,8 +7,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -28,12 +28,11 @@ public class ClickOnMenuItemAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c,
-			AWTEvent introspectionRequestEvent, TesterUI testerUI) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 		if (!macthesComponent(c)) {
 			return false;
 		}
-		if (!componentFinder.initializeFrom(c, testerUI)) {
+		if (!componentFinder.initializeFrom(c, testerEditor)) {
 			return false;
 		}
 		return true;
@@ -43,10 +42,8 @@ public class ClickOnMenuItemAction extends TestAction {
 	public Component findComponent(Tester tester) {
 		Component c = componentFinder.find(tester);
 		if (c == null) {
-			throw new TestFailure("Unable to find "
-					+ componentFinder.toString(), "Window",
-					TestingUtils.saveTestableWindowImage(componentFinder
-							.getWindowIndex(), TestingUtils.getTesterUIs(tester)));
+			throw new TestFailure("Unable to find " + componentFinder.toString(), "Window",
+					TestingUtils.saveTestableWindowImage(tester, componentFinder.getWindowIndex()));
 		}
 		return c;
 	}
@@ -99,7 +96,7 @@ public class ClickOnMenuItemAction extends TestAction {
 
 	@Override
 	public void validate() throws ValidationError {
-		if(componentFinder == null){
+		if (componentFinder == null) {
 			throw new ValidationError("Missing component finding information");
 		}
 	};

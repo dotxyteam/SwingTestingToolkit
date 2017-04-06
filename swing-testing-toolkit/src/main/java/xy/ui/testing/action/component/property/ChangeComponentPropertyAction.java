@@ -1,14 +1,30 @@
 package xy.ui.testing.action.component.property;
 
+import java.awt.AWTEvent;
 import java.awt.Component;
+import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
+import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.util.ComponentPropertyUtil;
 import xy.ui.testing.util.ValidationError;
 
-public class ChangeComponentPropertyAction extends ComponentPropertyAction {
+public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
+	protected ComponentPropertyUtil propertyUtil = new ComponentPropertyUtil() {
+		@Override
+		public boolean isSupportedPropertyField(IFieldInfo field) {
+			if (field.isGetOnly()) {
+				return false;
+			}
+			return super.isSupportedPropertyField(field);
+		}
+
+	};
 	protected String newPropertyValue;
 
 	public String getNewPropertyValue() {
@@ -19,24 +35,46 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 		this.newPropertyValue = newPropertyValue;
 	}
 
-	@Override
-	protected boolean isSupportedPropertyField(IFieldInfo field) {
-		if (field.isGetOnly()) {
-			return false;
-		}
-		return super.isSupportedPropertyField(field);
+	public String getPropertyName() {
+		return propertyUtil.getPropertyName();
 	}
 
+	public void setPropertyName(String propertyName) {
+		propertyUtil.setPropertyName(propertyName);
+	}
+
+	public String getComponentClassName() {
+		return propertyUtil.getComponentClassName();
+	}
+
+	public void setComponentClassName(String componentClassName) {
+		propertyUtil.setComponentClassName(componentClassName);
+	}
+
+	public List<String> getPropertyNameOptions() {
+		return propertyUtil.getPropertyNameOptions();
+	}
+	@Override
+	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+		return propertyUtil.initializeSpecificProperties(c, event);
+	}
 	@Override
 	public void execute(final Component c, Tester tester) {
-		IFieldInfo field = getPropertyFieldInfo();
-		Object newFieldValue = propertyValueToFieldValue(newPropertyValue);
-		field.setValue(c, newFieldValue);
+		final IFieldInfo field = propertyUtil.getPropertyFieldInfo();
+		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(newPropertyValue);
+		SwingUtilities.invokeLater(new Runnable() {			
+			@Override
+			public void run() {
+				field.setValue(c, newFieldValue);
+			}
+		});		
 	}
+
+	
 
 	@Override
 	public String getValueDescription() {
-		String propertyNameText = (propertyName == null) ? "<unspecified-property>" : propertyName;
+		String propertyNameText = (getPropertyName() == null) ? "<unspecified-property>" : getPropertyName();
 		String newPropertyValueText = (newPropertyValue == null) ? "<null>" : newPropertyValue;
 		return propertyNameText + " = " + newPropertyValueText;
 	}
@@ -48,6 +86,7 @@ public class ChangeComponentPropertyAction extends ComponentPropertyAction {
 
 	@Override
 	public void validate() throws ValidationError {
+		propertyUtil.validate();
 		super.validate();
 	}
 

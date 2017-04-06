@@ -4,7 +4,7 @@ import java.awt.Component;
 import java.text.MessageFormat;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ValidationError;
 
 public class ClassBasedComponentFinder extends MatchingComponentFinder {
@@ -32,7 +32,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c, TesterUI testerUI) {
+	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
 		componentClassName = c.getClass().getName();
 		return true;
 	}

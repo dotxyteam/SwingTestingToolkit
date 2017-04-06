@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
@@ -59,12 +60,17 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(Component c, Tester tester) {
-		JTable table = (JTable) c;
-		if (addedToExistingSelection) {
-			table.getSelectionModel().addSelectionInterval(firstItemToSelect, lastItemToSelect);
-		} else {
-			table.getSelectionModel().setSelectionInterval(firstItemToSelect, lastItemToSelect);
-		}
+		final JTable table = (JTable) c;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				if (addedToExistingSelection) {
+					table.getSelectionModel().addSelectionInterval(firstItemToSelect, lastItemToSelect);
+				} else {
+					table.getSelectionModel().setSelectionInterval(firstItemToSelect, lastItemToSelect);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -98,11 +104,11 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	public String getComponentInformation() {
 		return "table " + super.getComponentInformation();
 	}
-	
+
 	@Override
 	public String toString() {
-		return (addedToExistingSelection?"Add":"Set") + " selection from row " + firstItemToSelect
-				+ " to row " + lastItemToSelect + " on " + getComponentInformation();
+		return (addedToExistingSelection ? "Add" : "Set") + " selection from row " + firstItemToSelect + " to row "
+				+ lastItemToSelect + " on " + getComponentInformation();
 	}
 
 }

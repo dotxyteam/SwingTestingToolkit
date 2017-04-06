@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.awt.Window;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,33 +12,49 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JTable;
+import javax.swing.JTree;
+import javax.swing.ListCellRenderer;
+import javax.swing.ListModel;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
+import javax.swing.tree.TreeModel;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.util.IComponentTreeVisitor;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
 public class Tester {
 
-	public static final Tester DEFAULT = new Tester();
-
 	public static final Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightForeground", "235,48,33"));
 	public static final Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
+
+	protected static final Object CURRENT_COMPONENT_MUTEX = new Object() {
+		@Override
+		public String toString() {
+			return Tester.class.getName() + ".CURRENT_COMPONENT_MUTEX";
+		}
+	};
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
 	protected int minimumSecondsToWaitBetwneenActions = 2;
@@ -50,18 +67,6 @@ public class Tester {
 	protected Border currentComponentBorder;
 
 	public Tester() {
-	}
-
-	public static void assertSuccessfulReplay(File replayFile) throws IOException {
-		Tester tester = new Tester();
-		tester.loadFromFile(replayFile);
-		tester.replayAll();
-	}
-
-	public static void assertSuccessfulReplay(InputStream replayStream) throws IOException {
-		Tester tester = new Tester();
-		tester.loadFromStream(replayStream);
-		tester.replayAll();
 	}
 
 	public int getMinimumSecondsToWaitBetwneenActions() {
@@ -240,33 +245,20 @@ public class Tester {
 		return result;
 	}
 
-	protected void handleCurrentComponentChange(Component c) {
-		if (currentComponent != null) {
-			unhighlightCurrentComponent();
-			restoreCurrentComponentListeners();
-			currentComponent = null;
-		}
-		if (c == null) {
-			return;
-		}
-		currentComponent = c;
-		highlightCurrentComponent();
-		disableCurrentComponentListeners();
-	}
-
-	public boolean visitComponentTree(Component treeRoot, IComponentTreeVisitor visitor) {
-		if (!visitor.visit(treeRoot)) {
-			return false;
-		}
-		if (treeRoot instanceof Container) {
-			List<Component> components = getChildrenComponents((Container) treeRoot);
-			for (Component childComponent : components) {
-				if (!visitComponentTree(childComponent, visitor)) {
-					return false;
-				}
+	public void handleCurrentComponentChange(Component c) {
+		synchronized (CURRENT_COMPONENT_MUTEX) {
+			if (currentComponent != null) {
+				unhighlightCurrentComponent();
+				restoreCurrentComponentListeners();
+				currentComponent = null;
 			}
+			if (c == null) {
+				return;
+			}
+			currentComponent = c;
+			highlightCurrentComponent();
+			disableCurrentComponentListeners();
 		}
-		return true;
 	}
 
 	public List<Component> getChildrenComponents(Container container) {
@@ -276,7 +268,7 @@ public class Tester {
 		return result;
 	}
 
-	public Comparator<Component> getComponentPositionBasedComparator() {
+	protected Comparator<Component> getComponentPositionBasedComparator() {
 		return new Comparator<Component>() {
 			@Override
 			public int compare(Component c1, Component c2) {
@@ -289,5 +281,150 @@ public class Tester {
 				return result;
 			}
 		};
+	}
+
+	public boolean isTestableWindow(Window window) {
+		for (TesterEditor testerEditor : TestingUtils.getTesterEditors(this)) {
+			if (TestingUtils.isTesterEditorComponent(testerEditor, window)) {
+				return false;
+			}
+		}
+		if (!window.isVisible()) {
+			return false;
+		}
+		return true;
+	}
+
+	public File getSavedImagesDirectory() {
+		return new File(Tester.class.getSimpleName().toLowerCase() + "-saved-images");
+	}
+
+	public List<String> extractVisibleStrings(Component c) {
+		List<String> result = new ArrayList<String>();
+		String s;
+		s = extractVisibleStringThroughMethod(c, "getTitle");
+		if (s != null) {
+			result.add(s);
+		}
+		s = extractVisibleStringThroughMethod(c, "getText");
+		if (s != null) {
+			result.add(s);
+		}
+		s = extractVisibleStringThroughMethod(c, "getToolTipText");
+		if (s != null) {
+			result.add(s);
+		}
+		if (c instanceof JComponent) {
+			Border border = ((JComponent) c).getBorder();
+			if (border != null) {
+				s = extractVisibleStringFromBorder(border);
+				if ((s != null) && (s.trim().length() > 0)) {
+					result.add(s);
+				}
+			}
+		}
+		if (c instanceof JTable) {
+			JTable table = (JTable) c;
+			result.addAll(extractVisibleStringsFromTable(table));
+		}
+		if (c instanceof JTree) {
+			JTree tree = (JTree) c;
+			result.addAll(extractVisibleStringsFromTree(tree));
+		}
+		if (c instanceof JList) {
+			JList list = (JList) c;
+			result.addAll(extractVisibleStringsFromList(list));
+		}
+		return result;
+	}
+
+	protected String extractVisibleStringFromBorder(Border border) {
+		if (border instanceof TitledBorder) {
+			String s = ((TitledBorder) border).getTitle();
+			if ((s != null) && (s.trim().length() > 0)) {
+				return s;
+			}
+		}
+		return null;
+	}
+
+	protected Collection<String> extractVisibleStringsFromList(JList list) {
+		List<String> result = new ArrayList<String>();
+		ListModel model = list.getModel();
+		ListCellRenderer cellRenderer = list.getCellRenderer();
+		for (int i = 0; i < model.getSize(); i++) {
+			try {
+				Object item = model.getElementAt(i);
+				Component cellComponent = cellRenderer.getListCellRendererComponent(list, item, i, false, false);
+				result.addAll(extractVisibleStrings(cellComponent));
+			} catch (Exception ignore) {
+			}
+		}
+		return result;
+	}
+
+	protected List<String> extractVisibleStringsFromTable(JTable table) {
+		List<String> result = new ArrayList<String>();
+		TableModel model = table.getModel();
+		String s;
+		for (int i = 0; i < model.getColumnCount(); i++) {
+			s = model.getColumnName(i);
+			if ((s != null) && (s.trim().length() > 0)) {
+				result.add(s);
+			}
+		}
+		for (int iRow = 0; iRow < model.getRowCount(); iRow++) {
+			for (int iCol = 0; iCol < model.getColumnCount(); iCol++) {
+				try {
+					Object cellValue = model.getValueAt(iRow, iCol);
+					TableCellRenderer cellRenderer = table.getCellRenderer(iRow, iCol);
+					Component cellComponent = cellRenderer.getTableCellRendererComponent(table, cellValue, false, false,
+							iRow, iCol);
+					List<String> cellVisibleStrings = extractVisibleStrings(cellComponent);
+					result.addAll(cellVisibleStrings);
+				} catch (Exception ignore) {
+				}
+			}
+		}
+		return result;
+	}
+
+	protected Collection<? extends String> extractVisibleStringsFromTree(JTree tree) {
+		List<String> result = new ArrayList<String>();
+		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
+		return result;
+	}
+
+	protected List<String> extractVisibleStringsFromTree(int currentRow, Object currentNode, JTree tree) {
+		List<String> result = new ArrayList<String>();
+		TreeModel model = tree.getModel();
+		try {
+			String s = tree.convertValueToText(currentNode, false, true, model.isLeaf(currentNode), currentRow, false);
+			if ((s != null) && (s.trim().length() > 0)) {
+				result.add(s);
+			}
+		} catch (Exception ignore) {
+		}
+		for (int i = 0; i < model.getChildCount(currentNode); i++) {
+			Object childNode = model.getChild(currentNode, i);
+			result.addAll(extractVisibleStringsFromTree(currentRow + 1, childNode, tree));
+		}
+		return result;
+	}
+
+	protected String extractVisibleStringThroughMethod(Component c, String methodName) {
+		try {
+			Method method = c.getClass().getMethod(methodName);
+			String result = (String) method.invoke(c);
+			if (result == null) {
+				return null;
+			}
+			if (result.trim().length() == 0) {
+				return null;
+			}
+			return result;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

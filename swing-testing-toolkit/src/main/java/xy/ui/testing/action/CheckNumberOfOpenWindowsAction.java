@@ -5,7 +5,7 @@ import java.awt.Component;
 import java.awt.Window;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -25,7 +25,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterUI testerUI) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 		return false;
 	}
 
@@ -35,14 +35,14 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 		if (count != n) {
 			throw new TestFailure(
 					"The number of currently open windows (" + n + ") does not match the declared number: " + count,
-					"Found window(s)", TestingUtils.saveAllTestableWindowImages(TestingUtils.getTesterUIs(tester)));
+					"Found window(s)", TestingUtils.saveAllTestableWindowImages(tester));
 		}
 	}
 
 	protected int countWindows(Tester tester) {
 		int n = 0;
 		for (Window window : Window.getWindows()) {
-			if (TestingUtils.isTestableWindow(window, TestingUtils.getTesterUIs(tester))) {
+			if (tester.isTestableWindow(window)) {
 				n++;
 			}
 		}

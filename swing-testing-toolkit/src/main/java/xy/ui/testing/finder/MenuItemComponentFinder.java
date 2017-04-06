@@ -13,7 +13,7 @@ import javax.swing.JPopupMenu;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -42,7 +42,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 			JMenuItem menuItem = (JMenuItem) menuItemFinder.find(tester);
 			if (menuItem == null) {
 				throw new TestFailure("Unable to find " + menuItemFinder.toString(), "Window", TestingUtils
-						.saveTestableWindowImage(menuItemFinder.getWindowIndex(), TestingUtils.getTesterUIs(tester)));
+						.saveTestableWindowImage(tester, menuItemFinder.getWindowIndex()));
 			}
 			boolean lastMenuItem = i == (menuItemPath.size() - 1);
 			if (lastMenuItem) {
@@ -66,27 +66,27 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, TesterUI testerUI) {
+	public boolean initializeFrom(Component c, TesterEditor testerEditor) {
 		if (!(c instanceof JMenuItem)) {
 			return false;
 		}
 		JMenuItem menuItem = (JMenuItem) c;
 		menuItemPath.clear();
-		menuItemPath.add(createMenuItemFinder(menuItem, testerUI));
+		menuItemPath.add(createMenuItemFinder(menuItem, testerEditor));
 		List<JMenuItem> ancestors = TestingUtils.getAncestorMenuItems(menuItem);
 		for (JMenuItem ancestor : ancestors) {
 			if (!(ancestor.getParent() instanceof JPopupMenu)) {
 				break;
 			}
-			menuItemPath.add(0, createMenuItemFinder(ancestor, testerUI));
+			menuItemPath.add(0, createMenuItemFinder(ancestor, testerEditor));
 		}
 		return true;
 	}
 
-	protected PropertyBasedComponentFinder createMenuItemFinder(JMenuItem menuItem, TesterUI testerUI) {
+	protected PropertyBasedComponentFinder createMenuItemFinder(JMenuItem menuItem, TesterEditor testerEditor) {
 		PropertyBasedComponentFinder result = new PropertyBasedComponentFinder();
 		result.setPropertyNames("Text");
-		result.initializeFrom(menuItem, testerUI);
+		result.initializeFrom(menuItem, testerEditor);
 		return result;
 	}
 

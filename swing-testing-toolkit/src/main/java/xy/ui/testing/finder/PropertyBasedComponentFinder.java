@@ -7,8 +7,8 @@ import java.util.List;
 
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
-import xy.ui.testing.TesterUI;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -85,11 +85,11 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c, TesterUI testerUI) {
-		if (!super.initializeSpecificValues(c, testerUI)) {
+	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
+		if (!super.initializeSpecificValues(c, testerEditor)) {
 			return false;
 		}
-		ComponentPropertyUtil propertyUtil = createPropertyUtil();
+		LocalComponentPropertyUtil propertyUtil = createPropertyUtil();
 		if (propertyValues.size() == 0) {
 			for (String propertyName : propertyUtil.getPropertyNameOptions()) {
 				PropertyValue propertyValue = new PropertyValue();
@@ -112,8 +112,8 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		return true;
 	}
 
-	protected ComponentPropertyUtil createPropertyUtil() {
-		ComponentPropertyUtil result = new ComponentPropertyUtil();
+	protected LocalComponentPropertyUtil createPropertyUtil() {
+		LocalComponentPropertyUtil result = new LocalComponentPropertyUtil();
 		result.setComponentClassName(getComponentClassName());
 		return result;
 	}
@@ -181,7 +181,7 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 		}
 
 		public boolean initialize(final Component c) {
-			ComponentPropertyUtil propertyUtil = getPropertyUtil();
+			LocalComponentPropertyUtil propertyUtil = getPropertyUtil();
 			IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 			if (field != null) {
 				Object fieldValue = field.getValue(c);
@@ -201,8 +201,8 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 			}
 		}
 
-		protected ComponentPropertyUtil getPropertyUtil() {
-			ComponentPropertyUtil result = createPropertyUtil();
+		protected LocalComponentPropertyUtil getPropertyUtil() {
+			LocalComponentPropertyUtil result = createPropertyUtil();
 			result.setPropertyName(propertyName);
 			result.setPropertyValueExpected(propertyValueExpected);
 			return result;
@@ -225,23 +225,20 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 
 	}
 
-	protected class ComponentPropertyUtil extends CheckComponentPropertyAction {
+	protected class LocalComponentPropertyUtil extends CheckComponentPropertyAction {
 
 		private static final long serialVersionUID = 1L;
 
-		@Override
 		public String fieldValueToPropertyValue(Object fieldValue) {
-			return super.fieldValueToPropertyValue(fieldValue);
+			return propertyUtil.fieldValueToPropertyValue(fieldValue);
 		}
 
-		@Override
 		public Object propertyValueToFieldValue(String propertyValue) {
-			return super.propertyValueToFieldValue(propertyValue);
+			return propertyUtil.propertyValueToFieldValue(propertyValue);
 		}
 
-		@Override
 		public IFieldInfo getPropertyFieldInfo() {
-			return super.getPropertyFieldInfo();
+			return propertyUtil.getPropertyFieldInfo();
 		}
 
 	}

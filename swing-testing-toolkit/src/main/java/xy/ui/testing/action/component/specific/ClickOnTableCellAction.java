@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.ClickAction;
@@ -58,15 +59,20 @@ public class ClickOnTableCellAction extends ClickAction {
 
 	@Override
 	public void execute(Component c, Tester tester) {
-		JTable table = (JTable) c;
+		final JTable table = (JTable) c;
 		Rectangle cellBounds = table.getCellRect(rowIndex, columnIndex, false);
 		int clickCount = isDoubleClick() ? 2 : 1;
 		Point clickPoint = new Point(cellBounds.x + cellBounds.width / 2, cellBounds.y + cellBounds.height / 2);
-		MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
+		final MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
 				clickPoint.x, clickPoint.y, clickCount, false, getButtonMask());
-		for (MouseListener l : table.getMouseListeners()) {
-			l.mouseClicked(clickEvent);
-		}
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				for (MouseListener l : table.getMouseListeners()) {
+					l.mouseClicked(clickEvent);
+				}
+			}
+		});
 	}
 
 	@Override
