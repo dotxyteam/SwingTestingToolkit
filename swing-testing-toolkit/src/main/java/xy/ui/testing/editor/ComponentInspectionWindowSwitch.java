@@ -49,14 +49,11 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 		inspectorOpen = true;
 		try {
 			ComponentInspector inspector = new ComponentInspector(c, testerEditor);
-			if (isActive()) {
-				ComponentInspectionWindowSwitch.this.getWindow().requestFocus();
-			}
 			StandardEditorBuilder inspectorDialogBuilder = getSwingRenderer().getEditorBuilder(activatorComponent,
 					inspector, getSwingRenderer().getObjectTitle(inspector),
 					getSwingRenderer().getObjectIconImage(inspector), false);
 			JDialog inspectorDialog = inspectorDialogBuilder.createDialog();
-			highlightCompoentOnSelection(inspector, inspectorDialog);
+			highlightComponentOnSelection(inspector, inspectorDialog);
 			getSwingRenderer().showDialog(inspectorDialog, true);
 		} finally {
 			inspectorOpen = false;
@@ -64,7 +61,7 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 
 	}
 
-	protected void highlightCompoentOnSelection(ComponentInspector inspector, JDialog inspectorDialog) {
+	protected void highlightComponentOnSelection(ComponentInspector inspector, JDialog inspectorDialog) {
 		JPanel inpectorForm = SwingRendererUtils.findFirstObjectDescendantForm(inspector, inspectorDialog,
 				getSwingRenderer());
 		ListControl componentTreeControl = (ListControl) getSwingRenderer()

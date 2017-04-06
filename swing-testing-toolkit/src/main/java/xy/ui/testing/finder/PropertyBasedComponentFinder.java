@@ -97,7 +97,11 @@ public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
 				try {
 					propertyValue.initialize(c);
 				} catch (Throwable t) {
-					t.printStackTrace();
+					testerEditor
+							.logDebug(new Exception(
+									"Skipping <" + propertyName + "> property of <"
+											+ propertyUtil.getComponentClassName() + "> component: " + t.toString(),
+									t));
 					continue;
 				}
 				propertyValues.add(propertyValue);

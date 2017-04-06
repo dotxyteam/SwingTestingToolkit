@@ -49,7 +49,7 @@ public class Tester {
 	public static final Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
 
-	protected static final Object CURRENT_COMPONENT_MUTEX = new Object() {
+	protected final Object CURRENT_COMPONENT_MUTEX = new Object() {
 		@Override
 		public String toString() {
 			return Tester.class.getName() + ".CURRENT_COMPONENT_MUTEX";
@@ -118,17 +118,16 @@ public class Tester {
 				if (c != null) {
 					currentComponent = c;
 					highlightCurrentComponent();
-					Thread.sleep(1000);
-					unhighlightCurrentComponent();
-					currentComponent = null;
+					try {
+						Thread.sleep(1000);
+					} finally {
+						unhighlightCurrentComponent();
+						currentComponent = null;
+					}
 				}
 				testAction.execute(c, this);
 			} catch (Throwable t) {
 				if (t instanceof InterruptedException) {
-					if (currentComponent != null) {
-						unhighlightCurrentComponent();
-						currentComponent = null;
-					}
 					break;
 				}
 				throw new TestFailure("Test Action n°" + (testActions.indexOf(testAction) + 1) + ": " + t.toString(),
@@ -175,8 +174,8 @@ public class Tester {
 
 	protected void disableCurrentComponentListeners() {
 		currentComponentMouseListeners = currentComponent.getMouseListeners();
-		while (currentComponent.getMouseListeners().length > 0) {
-			currentComponent.removeMouseListener(currentComponent.getMouseListeners()[0]);
+		for (int i = 0; i < currentComponentMouseListeners.length; i++) {
+			currentComponent.removeMouseListener(currentComponentMouseListeners[i]);
 		}
 	}
 
@@ -184,7 +183,10 @@ public class Tester {
 		currentComponent.setBackground(currentComponentBackground);
 		currentComponent.setForeground(currentComponentForeground);
 		if (currentComponent instanceof JComponent) {
-			((JComponent) currentComponent).setBorder(currentComponentBorder);
+			try {
+				((JComponent) currentComponent).setBorder(currentComponentBorder);
+			} catch (Throwable ignore) {
+			}
 		}
 	}
 
@@ -197,8 +199,11 @@ public class Tester {
 
 		if (currentComponent instanceof JComponent) {
 			currentComponentBorder = ((JComponent) currentComponent).getBorder();
-			((JComponent) currentComponent).setBorder(BorderFactory.createCompoundBorder(
-					BorderFactory.createLineBorder(HIGHLIGHT_FOREGROUND, 1), currentComponentBorder));
+			try {
+				((JComponent) currentComponent).setBorder(BorderFactory.createCompoundBorder(
+						BorderFactory.createLineBorder(HIGHLIGHT_FOREGROUND, 1), currentComponentBorder));
+			} catch (Throwable ignore) {
+			}
 		}
 	}
 

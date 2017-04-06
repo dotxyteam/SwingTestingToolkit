@@ -45,7 +45,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 	@Override
 	protected void onBegining() {
-		recordingStatus.setRecordingPaused(false);
+		setRecordingPausedAndUpdateUI(false);
 	}
 
 	@Override
@@ -62,47 +62,55 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		this.recordingInsertedAfterSelection = recordingInsertedAfterSelection;
 	}
 
-	public void handleRecordingEvent(final AWTEvent event) {
+	public void handleWindowClosingRecordingEvent(AWTEvent event) {
+		setRecordingPausedAndUpdateUI(true);
+		try {
+			WindowEvent windowEvent = (WindowEvent) event;
+			Window window = windowEvent.getWindow();
+			String title = getSwingRenderer().getObjectTitle(getTester());
+			RecordingWindowSwitch.this.getWindow().requestFocus();
+			if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
+					"Do you want to record this window closing event?", title)) {
+				CloseWindowAction closeAction = new CloseWindowAction();
+				closeAction.initializeFrom(window, event, testerEditor);
+				handleNewTestActionInsertionRequest(closeAction, window, false);
+			}
+		} finally {
+			setRecordingPausedAndUpdateUI(false);
+		}
+	}
+
+	public void handleMenuItemClickRecordingEvent(AWTEvent event) {
+		setRecordingPausedAndUpdateUI(true);
+		try {
+			final JMenuItem menuItem = (JMenuItem) event.getSource();
+			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
+			testACtion.initializeFrom(menuItem, event, testerEditor);
+			String title = getSwingRenderer().getObjectTitle(getTester());
+			RecordingWindowSwitch.this.getWindow().requestFocus();
+			if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
+					"Do you want to record this menu item activation event?", title)) {
+				handleNewTestActionInsertionRequest(testACtion, menuItem, true);
+			}
+		} finally {
+			setRecordingPausedAndUpdateUI(false);
+		}
+	}
+
+	public void handleGenericRecordingEvent(AWTEvent event) {
 		setRecordingPausedAndUpdateUI(true);
 		try {
 			RecordingWindowSwitch.this.getWindow().requestFocus();
-			if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
-				WindowEvent windowEvent = (WindowEvent) event;
-				Window window = windowEvent.getWindow();
-				String title = getSwingRenderer().getObjectTitle(getTester());
-				if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
-						"Do you want to record this window closing event?", title)) {
-					CloseWindowAction closeAction = new CloseWindowAction();
-					closeAction.initializeFrom(window, event, testerEditor);
-					handleNewTestActionInsertionRequest(closeAction, window, false);
-				} else {
-					setRecordingPausedAndUpdateUI(false);
-				}
-			} else if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
-				final JMenuItem menuItem = (JMenuItem) event.getSource();
-				ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
-				testACtion.initializeFrom(menuItem, event, testerEditor);
-				String title = getSwingRenderer().getObjectTitle(getTester());
-				if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
-						"Do you want to record this menu item activation event?", title)) {
-					handleNewTestActionInsertionRequest(testACtion, menuItem, true);
-				} else {
-					setRecordingPausedAndUpdateUI(false);
-				}
+			final AbstractAction todo = openTestActionSelectionWindow(event, RecordingWindowSwitch.this.getWindow());
+			if (todo == null) {
 				return;
-			} else {
-				final AbstractAction todo = openTestActionSelectionWindow(event,
-						RecordingWindowSwitch.this.getWindow());
-				if (todo == null) {
-					return;
-				}
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						todo.actionPerformed(null);
-					}
-				});
 			}
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					todo.actionPerformed(null);
+				}
+			});
 		} finally {
 			setRecordingPausedAndUpdateUI(false);
 		}
@@ -306,8 +314,13 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			List<TestAction> result = new ArrayList<TestAction>();
 			for (Class<?> testActionClass : testerEditor.getTestActionClasses()) {
 				TestAction testAction = (TestAction) testActionClass.newInstance();
-				if (testAction.initializeFrom(c, event, testerEditor)) {
-					result.add(testAction);
+				try {
+					if (testAction.initializeFrom(c, event, testerEditor)) {
+						result.add(testAction);
+					}
+				} catch (Throwable t) {
+					getTesterEditor().logError(new Exception(
+							"Failed to initialize " + testActionClass.getName() + " instance: " + t.toString(), t));
 				}
 			}
 			return result;

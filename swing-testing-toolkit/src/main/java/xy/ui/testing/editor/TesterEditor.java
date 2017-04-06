@@ -57,7 +57,6 @@ import xy.reflect.ui.info.type.util.InfoCustomizations;
 import xy.reflect.ui.info.type.util.TypeInfoProxyFactory;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ClassUtils;
-import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
@@ -68,7 +67,6 @@ import xy.ui.testing.action.WaitAction;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
 import xy.ui.testing.action.component.SendKeysAction;
-import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
@@ -95,6 +93,8 @@ public class TesterEditor extends JFrame {
 
 	public static final String ALTERNATE_UI_CUSTOMIZATION_FILE_PATH_PROPERTY_KEY = "xy.ui.testing.gui.customizationFile";
 	public static final WeakHashMap<TesterEditor, Tester> TESTER_BY_EDITOR = new WeakHashMap<TesterEditor, Tester>();
+	public static final boolean DEBUG = Boolean
+			.valueOf(System.getProperty(TesterEditor.class.getName() + ".DEBUG", "false"));
 
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
 
@@ -185,6 +185,24 @@ public class TesterEditor extends JFrame {
 		return allWindows;
 	}
 
+	public void logDebug(String msg) {
+		if (DEBUG) {
+			System.out.println("[" + TesterEditor.class.getName() + "] DEBUG - " + msg);
+		}
+	}
+
+	public void logDebug(Throwable t) {
+		logDebug(ReflectionUIUtils.getPrintedStackTrace(t));
+	}
+
+	public void logError(String msg) {
+		System.out.println("[" + TesterEditor.class.getName() + "] ERROR - " + msg);
+	}
+
+	public void logError(Throwable t) {
+		logError(ReflectionUIUtils.getPrintedStackTrace(t));
+	}
+
 	protected void createControls() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
@@ -235,25 +253,52 @@ public class TesterEditor extends JFrame {
 		if (isCurrentComponentChangeEvent(event)) {
 			getTester().handleCurrentComponentChange(c);
 		}
-		if (isComponentIntrospectionEvent(event)) {
-			if (componentInspectionWindowSwitch.isActive()) {
+		if (componentInspectionWindowSwitch.isActive()) {
+			if (isComponentInspectionRequestEvent(event)) {
+				componentInspectionWindowSwitch.getWindow().requestFocus();
 				componentInspectionWindowSwitch.openComponentInspector(c, componentInspectionWindowSwitch.getWindow());
 			}
-			if (recordingWindowSwitch.isActive()) {
-				recordingWindowSwitch.handleRecordingEvent(event);
+		}
+		if (recordingWindowSwitch.isActive()) {
+			if (isWindowClosingRecordingRequestEvent(event)) {
+				recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
+			} else if (isMenuItemClickRecordingRequestEvent(event)) {
+				recordingWindowSwitch.handleMenuItemClickRecordingEvent(event);
+			} else if (isGenericRecordingRequestEvent(event)) {
+				recordingWindowSwitch.handleGenericRecordingEvent(event);
 			}
 		}
 	}
 
-	protected boolean isComponentIntrospectionEvent(AWTEvent event) {
-		if (CloseWindowAction.matchIntrospectionRequestEvent(event)) {
+	public boolean isComponentInspectionRequestEvent(AWTEvent event) {
+		if (isWindowClosingRecordingRequestEvent(event)) {
 			return true;
 		}
-		if (ClickOnMenuItemAction.matchIntrospectionRequestEvent(event)) {
+		if (isMenuItemClickRecordingRequestEvent(event)) {
 			return true;
 		}
-		if (TargetComponentTestAction.matchIntrospectionRequestEvent(event)) {
+		if (isGenericRecordingRequestEvent(event)) {
 			return true;
+		}
+		return false;
+	}
+
+	public boolean isMenuItemClickRecordingRequestEvent(AWTEvent event) {
+		return ClickOnMenuItemAction.matchesEvent(event);
+	}
+
+	public boolean isWindowClosingRecordingRequestEvent(AWTEvent event) {
+		return CloseWindowAction.matchesEvent(event);
+	}
+
+	public boolean isGenericRecordingRequestEvent(AWTEvent event) {
+		if (event instanceof MouseEvent) {
+			MouseEvent mouseEvent = (MouseEvent) event;
+			if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
+				if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -354,7 +399,7 @@ public class TesterEditor extends JFrame {
 				result.loadFromStream(Tester.class.getResourceAsStream("infoCustomizations.icu"));
 			}
 		} catch (IOException e) {
-			throw new ReflectionUIError(e);
+			throw new AssertionError(e);
 		}
 		return result;
 	}
@@ -536,6 +581,21 @@ public class TesterEditor extends JFrame {
 			return result;
 		}
 
+		@Override
+		public void logDebug(String msg) {
+			TesterEditor.this.logDebug(msg);
+		}
+
+		@Override
+		public void logError(String msg) {
+			TesterEditor.this.logDebug(msg);
+		}
+
+		@Override
+		public void logError(Throwable t) {
+			TesterEditor.this.logDebug(t);
+		}
+
 		protected class ExtensionsProxyFactory extends TypeInfoProxyFactory {
 
 			protected Pattern encapsulationTypePattern = Pattern
@@ -651,7 +711,7 @@ public class TesterEditor extends JFrame {
 			@Override
 			protected void validate(ITypeInfo type, Object object) throws Exception {
 				if (isExtensionTestActionTypeName(type.getName())) {
-					((TestAction)object).validate();
+					((TestAction) object).validate();
 				} else {
 					super.validate(type, object);
 				}
@@ -804,7 +864,7 @@ public class TesterEditor extends JFrame {
 									startReplay(selectedActions);
 									return null;
 								} catch (Exception e) {
-									throw new ReflectionUIError(e);
+									throw new AssertionError(e);
 								}
 							}
 
@@ -826,7 +886,7 @@ public class TesterEditor extends JFrame {
 										startReplay(actionsToReplay);
 										return null;
 									} catch (Exception e) {
-										throw new ReflectionUIError(e);
+										throw new AssertionError(e);
 									}
 								}
 

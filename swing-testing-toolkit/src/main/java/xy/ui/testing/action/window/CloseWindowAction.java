@@ -36,16 +36,6 @@ public class CloseWindowAction extends TargetWindowTestAction {
 	}
 
 
-	public static boolean matchIntrospectionRequestEvent(AWTEvent event) {
-		if (event instanceof WindowEvent) {
-			WindowEvent windowEvent = (WindowEvent) event;
-			if (windowEvent.getID() == WindowEvent.WINDOW_CLOSING) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	@Override
 	public void validate() throws ValidationError {
 	}
@@ -54,6 +44,17 @@ public class CloseWindowAction extends TargetWindowTestAction {
 	@Override
 	public String toString() {
 		return "Close The " + getComponentInformation();
+	}
+
+
+	public static boolean matchesEvent(AWTEvent event) {
+		if (event instanceof WindowEvent) {
+			WindowEvent windowEvent = (WindowEvent) event;
+			if (windowEvent.getID() == WindowEvent.WINDOW_CLOSING) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	

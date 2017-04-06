@@ -2,6 +2,7 @@ package xy.ui.testing.action.component;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -72,15 +73,11 @@ public class ClickOnMenuItemAction extends TestAction {
 		return "Click on the " + componentFinder + "\"";
 	}
 
-	public static boolean matchIntrospectionRequestEvent(AWTEvent event) {
-		if (!TargetComponentTestAction.matchIntrospectionRequestEvent(event)) {
-			return false;
+	@Override
+	public void validate() throws ValidationError {
+		if (componentFinder == null) {
+			throw new ValidationError("Missing component finding information");
 		}
-		Component c = (Component) event.getSource();
-		if (!macthesComponent(c)) {
-			return false;
-		}
-		return true;
 	}
 
 	public static boolean macthesComponent(Component c) {
@@ -94,11 +91,19 @@ public class ClickOnMenuItemAction extends TestAction {
 		return true;
 	}
 
-	@Override
-	public void validate() throws ValidationError {
-		if (componentFinder == null) {
-			throw new ValidationError("Missing component finding information");
+	public static boolean matchesEvent(AWTEvent event) {
+		if (event instanceof MouseEvent) {
+			MouseEvent mouseEvent = (MouseEvent) event;
+			if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
+				if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+					Component c = (Component) event.getSource();
+					if (macthesComponent(c)) {
+						return true;
+					}
+				}
+			}
 		}
+		return false;
 	};
 
 }

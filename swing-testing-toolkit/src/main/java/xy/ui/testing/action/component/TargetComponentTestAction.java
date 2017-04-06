@@ -2,7 +2,6 @@ package xy.ui.testing.action.component;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
@@ -19,18 +18,6 @@ public abstract class TargetComponentTestAction extends TestAction {
 	protected ComponentFinder componentFinder;
 
 	protected abstract boolean initializeSpecificProperties(Component c, AWTEvent event);
-
-	public static boolean matchIntrospectionRequestEvent(AWTEvent event) {
-		if (event instanceof MouseEvent) {
-			MouseEvent mouseEvent = (MouseEvent) event;
-			if (mouseEvent.getID() == MouseEvent.MOUSE_CLICKED) {
-				if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 
 	public ComponentFinder getComponentFinder() {
 		return componentFinder;
