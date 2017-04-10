@@ -7,7 +7,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import xy.reflect.ui.control.swing.ListControl;
-import xy.reflect.ui.control.swing.StandardEditorBuilder;
+import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.util.Listener;
 import xy.reflect.ui.util.SwingRendererUtils;

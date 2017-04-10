@@ -31,10 +31,8 @@ import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.input.DefaultFieldControlData;
-import xy.reflect.ui.control.input.IMethodControlInput;
 import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
-import xy.reflect.ui.control.swing.MethodAction;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
@@ -525,36 +523,6 @@ public class TesterEditor extends JFrame {
 			return result;
 		}
 
-		@Override
-		public MethodAction createMethodAction(IMethodControlInput input) {
-			return new MethodAction(swingRenderer, input) {
-				protected static final long serialVersionUID = 1L;
-
-				@Override
-				protected boolean onMethodInvocationRequest(Component activatorComponent) {
-					if ((data.getMethodOwnerType() != null)
-							&& data.getMethodOwnerType().getName().equals(Tester.class.getName())
-							&& data.getCaption().equals("Start Recording")) {
-						ListControl testActionsControl = getTestActionsControl();
-						if (testActionsControl.getSelection().size() == 1) {
-							String insertMessage = "Insert Recordings After The Current Selection Row";
-							String doNotInsertMessage = "Insert Recordings At The End";
-							String answer = getSwingRenderer().openSelectionDialog(testActionsControl,
-									Arrays.asList(insertMessage, doNotInsertMessage), insertMessage, "Choose", null);
-							if (insertMessage.equals(answer)) {
-								recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
-							} else if (doNotInsertMessage.equals(answer)) {
-								recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
-							} else {
-								return false;
-							}
-						}
-					}
-					return super.onMethodInvocationRequest(activatorComponent);
-				}
-
-			};
-		}
 
 		@Override
 		public JPanel createForm(Object object, IInfoFilter infoFilter) {
@@ -599,7 +567,7 @@ public class TesterEditor extends JFrame {
 		protected class ExtensionsProxyFactory extends TypeInfoProxyFactory {
 
 			protected Pattern encapsulationTypePattern = Pattern
-					.compile("Encapsulation \\[typeCaption=(.*), fieldType=(.*), fieldCaption=(.*)\\]");
+					.compile("^Encapsulation \\[.*, encapsulatedObjectType=(.*)\\]$");
 			protected final Image EXTENSION_IMAGE = TestingUtils.loadImageResource("ExtensionAction.png");
 
 			protected boolean isExtensionTestActionTypeName(String typeName) {
@@ -624,7 +592,7 @@ public class TesterEditor extends JFrame {
 				if (!matcher.matches()) {
 					return false;
 				}
-				String fieldTypeName = matcher.group(2);
+				String fieldTypeName = matcher.group(1);
 				return isExtensionTestActionTypeName(fieldTypeName);
 			}
 
@@ -724,6 +692,29 @@ public class TesterEditor extends JFrame {
 			@Override
 			public String toString() {
 				return TesterEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
+			}
+
+			@Override
+			protected Object invoke(Object object, InvocationData invocationData, IMethodInfo method,
+					ITypeInfo containingType) {
+				if (containingType.getName().equals(Tester.class.getName())
+						&& method.getCaption().equals("Start Recording")) {
+					ListControl testActionsControl = getTestActionsControl();
+					if (testActionsControl.getSelection().size() == 1) {
+						String insertMessage = "Insert Recordings After The Current Selection Row";
+						String doNotInsertMessage = "Insert Recordings At The End";
+						String answer = getSwingRenderer().openSelectionDialog(testActionsControl,
+								Arrays.asList(insertMessage, doNotInsertMessage), insertMessage, "Choose", null);
+						if (insertMessage.equals(answer)) {
+							recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
+						} else if (doNotInsertMessage.equals(answer)) {
+							recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
+						} else {
+							return null;
+						}
+					}
+				}
+				return super.invoke(object, invocationData, method, containingType);
 			}
 
 			@Override

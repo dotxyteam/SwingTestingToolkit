@@ -20,7 +20,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import xy.reflect.ui.control.swing.StandardEditorBuilder;
+import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
@@ -156,12 +156,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 				testAction, getSwingRenderer().getObjectTitle(testAction),
 				getSwingRenderer().getObjectIconImage(testAction), true, true);
 		testerEditor.setComponentFinderInitializationSource(null);
-		if (dialogStatus.wasOkPressed()) {
-			return true;
-		} else {
-			dialogStatus.getSubObjectModificationStack().undoAll();
-			return false;
-		}
+		return !dialogStatus.isCancelled();
 	}
 
 	protected AbstractAction openTestActionSelectionWindow(AWTEvent event, Window parent) {
