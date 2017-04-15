@@ -54,8 +54,9 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							getSwingRenderer().openInformationDialog(testerEditor, "Action(s) replayed successfully",
-									getSwingRenderer().getObjectTitle(getTester()), null);
+							getSwingRenderer().openInformationDialog(ReplayWindowSwitch.this.getWindow(),
+									"Action(s) replayed successfully", getSwingRenderer().getObjectTitle(getTester()),
+									getSwingRenderer().getObjectIconImage(getTester()));
 							getStatusControlObject().stop();
 						}
 					});

@@ -69,6 +69,10 @@ public class Tester {
 	public Tester() {
 	}
 
+	public Component getCurrentComponent() {
+		return currentComponent;
+	}
+
 	public int getMinimumSecondsToWaitBetwneenActions() {
 		return minimumSecondsToWaitBetwneenActions;
 	}

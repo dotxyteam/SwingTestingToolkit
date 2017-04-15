@@ -45,12 +45,15 @@ import xy.reflect.ui.info.filter.IInfoFilter;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.method.InvocationData;
 import xy.reflect.ui.info.method.MethodInfoProxy;
+import xy.reflect.ui.info.parameter.IParameterInfo;
+import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
+import xy.reflect.ui.info.type.util.GenericEnumerationFactory;
 import xy.reflect.ui.info.type.util.InfoCustomizations;
 import xy.reflect.ui.info.type.util.TypeInfoProxyFactory;
 import xy.reflect.ui.undo.ModificationStack;
@@ -251,34 +254,24 @@ public class TesterEditor extends JFrame {
 		if (isCurrentComponentChangeEvent(event)) {
 			getTester().handleCurrentComponentChange(c);
 		}
-		if (componentInspectionWindowSwitch.isActive()) {
-			if (isComponentInspectionRequestEvent(event)) {
-				componentInspectionWindowSwitch.getWindow().requestFocus();
-				componentInspectionWindowSwitch.openComponentInspector(c, componentInspectionWindowSwitch.getWindow());
+		if (c == getTester().getCurrentComponent()) {
+			if (componentInspectionWindowSwitch.isActive()) {
+				if (isGenericRecordingRequestEvent(event)) {
+					componentInspectionWindowSwitch.getWindow().requestFocus();
+					componentInspectionWindowSwitch.openComponentInspector(c,
+							componentInspectionWindowSwitch.getWindow());
+				}
+			}
+			if (recordingWindowSwitch.isActive()) {
+				if (isWindowClosingRecordingRequestEvent(event)) {
+					recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
+				} else if (isMenuItemClickRecordingRequestEvent(event)) {
+					recordingWindowSwitch.handleMenuItemClickRecordingEvent(event);
+				} else if (isGenericRecordingRequestEvent(event)) {
+					recordingWindowSwitch.handleGenericRecordingEvent(event);
+				}
 			}
 		}
-		if (recordingWindowSwitch.isActive()) {
-			if (isWindowClosingRecordingRequestEvent(event)) {
-				recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
-			} else if (isMenuItemClickRecordingRequestEvent(event)) {
-				recordingWindowSwitch.handleMenuItemClickRecordingEvent(event);
-			} else if (isGenericRecordingRequestEvent(event)) {
-				recordingWindowSwitch.handleGenericRecordingEvent(event);
-			}
-		}
-	}
-
-	public boolean isComponentInspectionRequestEvent(AWTEvent event) {
-		if (isWindowClosingRecordingRequestEvent(event)) {
-			return true;
-		}
-		if (isMenuItemClickRecordingRequestEvent(event)) {
-			return true;
-		}
-		if (isGenericRecordingRequestEvent(event)) {
-			return true;
-		}
-		return false;
 	}
 
 	public boolean isMenuItemClickRecordingRequestEvent(AWTEvent event) {
@@ -353,7 +346,7 @@ public class TesterEditor extends JFrame {
 		if (testActionsControl == null) {
 			return;
 		}
-		testActionsControl.setSingleSelection(testActionsControl.getAnyRootListItemPosition().getSibling(index));
+		testActionsControl.setSingleSelection(testActionsControl.getRootListItemPosition(index));
 	}
 
 	protected void startRecording() {
@@ -522,7 +515,6 @@ public class TesterEditor extends JFrame {
 			}
 			return result;
 		}
-
 
 		@Override
 		public JPanel createForm(Object object, IInfoFilter infoFilter) {
@@ -695,29 +687,6 @@ public class TesterEditor extends JFrame {
 			}
 
 			@Override
-			protected Object invoke(Object object, InvocationData invocationData, IMethodInfo method,
-					ITypeInfo containingType) {
-				if (containingType.getName().equals(Tester.class.getName())
-						&& method.getCaption().equals("Start Recording")) {
-					ListControl testActionsControl = getTestActionsControl();
-					if (testActionsControl.getSelection().size() == 1) {
-						String insertMessage = "Insert Recordings After The Current Selection Row";
-						String doNotInsertMessage = "Insert Recordings At The End";
-						String answer = getSwingRenderer().openSelectionDialog(testActionsControl,
-								Arrays.asList(insertMessage, doNotInsertMessage), insertMessage, "Choose", null);
-						if (insertMessage.equals(answer)) {
-							recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
-						} else if (doNotInsertMessage.equals(answer)) {
-							recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
-						} else {
-							return null;
-						}
-					}
-				}
-				return super.invoke(object, invocationData, method, containingType);
-			}
-
-			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
@@ -735,11 +704,38 @@ public class TesterEditor extends JFrame {
 			protected List<IMethodInfo> getMethods(ITypeInfo type) {
 				if (type.getName().equals(Tester.class.getName())) {
 					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
-					IMethodInfo replayAllMethod;
-					while ((replayAllMethod = ReflectionUIUtils.findInfoByName(result, "replayAll")) != null) {
-						result.remove(replayAllMethod);
-					}
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
+
+						String afterSelectionStartOption = "Insert Recordings After The Current Selection Row";
+						String atEndStartOption = "Insert Recordings At The End";
+						GenericEnumerationFactory startOptionsEnumFactory = new GenericEnumerationFactory(reflectionUI,
+								new Object[] { afterSelectionStartOption, atEndStartOption },
+								"testActionsRecordingStartOption", "");
+
+						IParameterInfo startOptionParameter = new ParameterInfoProxy(
+								IParameterInfo.NULL_PARAMETER_INFO) {
+
+							@Override
+							public ITypeInfo getType() {
+								return reflectionUI.getTypeInfo(startOptionsEnumFactory.getInstanceTypeInfoSource());
+							}
+
+							@Override
+							public Object getDefaultValue() {
+								return startOptionsEnumFactory.getInstance(afterSelectionStartOption);
+							}
+
+							@Override
+							public boolean isValueNullable() {
+								return false;
+							}
+
+							@Override
+							public String getCaption() {
+								return "Select";
+							}
+
+						};
 
 						@Override
 						public String getName() {
@@ -752,7 +748,29 @@ public class TesterEditor extends JFrame {
 						}
 
 						@Override
+						public List<IParameterInfo> getParameters() {
+							ListControl testActionsControl = getTestActionsControl();
+							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
+								return Collections.<IParameterInfo>singletonList(startOptionParameter);
+							} else {
+								return Collections.emptyList();
+							}
+						}
+
+						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
+							ListControl testActionsControl = getTestActionsControl();
+							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
+								String startOption = (String) startOptionsEnumFactory
+										.unwrapInstance(invocationData.getParameterValue(startOptionParameter));
+								if (afterSelectionStartOption.equals(startOption)) {
+									recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
+								} else if (atEndStartOption.equals(startOption)) {
+									recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
+								} else {
+									return null;
+								}
+							}
 							startRecording();
 							return null;
 						}
@@ -761,7 +779,7 @@ public class TesterEditor extends JFrame {
 
 						@Override
 						public String getName() {
-							return "replayAll";
+							return "replayAllWhileSelecting";
 						}
 
 						@Override
@@ -827,12 +845,17 @@ public class TesterEditor extends JFrame {
 
 			@Override
 			protected List<AbstractListAction> getDynamicActions(IListTypeInfo listType,
-					final List<? extends ItemPosition> selection) {
+					final ItemPosition anyRootListItemPosition, final List<? extends ItemPosition> selection) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
 						List<AbstractListAction> result = new ArrayList<AbstractListAction>();
 						result.add(new AbstractListAction() {
+
+							@Override
+							public boolean isReturnValueNullable() {
+								return false;
+							}
 
 							@Override
 							public String getName() {
@@ -862,6 +885,11 @@ public class TesterEditor extends JFrame {
 						});
 						if (selection.size() == 1) {
 							result.add(new AbstractListAction() {
+
+								@Override
+								public boolean isReturnValueNullable() {
+									return false;
+								}
 
 								@Override
 								public Object invoke(Object object, InvocationData invocationData) {
@@ -895,7 +923,7 @@ public class TesterEditor extends JFrame {
 						return result;
 					}
 				}
-				return super.getDynamicActions(listType, selection);
+				return super.getDynamicActions(listType, anyRootListItemPosition, selection);
 			}
 
 		}
