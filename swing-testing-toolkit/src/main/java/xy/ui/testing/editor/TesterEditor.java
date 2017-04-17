@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.regex.Matcher;
@@ -37,7 +35,6 @@ import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.SwingRenderer;
 import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.customization.SwingCustomizer;
-import xy.reflect.ui.info.DesktopSpecificProperty;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListField;
@@ -59,6 +56,7 @@ import xy.reflect.ui.info.type.util.TypeInfoProxyFactory;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.reflect.ui.util.ResourcePath;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.CallMainMethodAction;
@@ -89,6 +87,7 @@ import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.AlternateWindowDecorationsContentPane;
 import xy.ui.testing.util.TestingUtils;
 
+@SuppressWarnings("unused")
 public class TesterEditor extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -98,6 +97,8 @@ public class TesterEditor extends JFrame {
 			.valueOf(System.getProperty(TesterEditor.class.getName() + ".DEBUG", "false"));
 
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
+	protected static final ResourcePath EXTENSION_IMAGE_PÄTH = SwingRendererUtils
+			.putImageInCached(TestingUtils.loadImageResource("ExtensionAction.png"));
 
 	protected static final Class<?>[] DEFAULT_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
 			WaitAction.class, ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
@@ -311,7 +312,7 @@ public class TesterEditor extends JFrame {
 		List<FieldControlPlaceHolder> result = getSwingRenderer().getFieldControlPlaceHoldersByName(testerForm,
 				TEST_ACTIONS_FIELD_NAME);
 		if (result.size() != 1) {
-			throw new AssertionError("'testActions' control not found for: " + getTester());
+			return null;
 		}
 		Component c = result.get(0).getFieldControl();
 		if (c instanceof NullableControl) {
@@ -516,18 +517,7 @@ public class TesterEditor extends JFrame {
 			return result;
 		}
 
-		@Override
-		public JPanel createForm(Object object, IInfoFilter infoFilter) {
-			JPanel result = super.createForm(object, infoFilter);
-			if (object == tester) {
-				if (testerForm != null) {
-					throw new AssertionError("Tester form cannot be created more than 1 time");
-				}
-				testerForm = result;
-			}
-			return result;
-		}
-
+		
 	}
 
 	protected class TesterEditorReflectionUI extends ReflectionUI {
@@ -558,9 +548,8 @@ public class TesterEditor extends JFrame {
 
 		protected class ExtensionsProxyFactory extends TypeInfoProxyFactory {
 
-			protected Pattern encapsulationTypePattern = Pattern
+			protected final Pattern encapsulationTypePattern = Pattern
 					.compile("^Encapsulation \\[.*, encapsulatedObjectType=(.*)\\]$");
-			protected final Image EXTENSION_IMAGE = TestingUtils.loadImageResource("ExtensionAction.png");
 
 			protected boolean isExtensionTestActionTypeName(String typeName) {
 				Class<?> clazz;
@@ -589,26 +578,19 @@ public class TesterEditor extends JFrame {
 			}
 
 			@Override
-			protected Map<String, Object> getSpecificProperties(ITypeInfo type) {
+			protected String getIconImagePath(ITypeInfo type) {
 				if (isExtensionTestActionTypeName(type.getName())) {
-					Map<String, Object> result = new HashMap<String, Object>(super.getSpecificProperties(type));
-					DesktopSpecificProperty.setIconImage(result, EXTENSION_IMAGE);
-					return result;
-				} else {
-					return super.getSpecificProperties(type);
+					return EXTENSION_IMAGE_PÄTH.getSpecification();
 				}
+				return super.getIconImagePath(type);
 			}
 
 			@Override
-			protected Map<String, Object> getSpecificProperties(IFieldInfo field, ITypeInfo containingType) {
+			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo containingType) {
 				if (isExtensionTestActionEncapsulationTypeName(containingType.getName())) {
-					Map<String, Object> result = new HashMap<String, Object>(
-							super.getSpecificProperties(field, containingType));
-					DesktopSpecificProperty.setSubFormExpanded(result, true);
-					return result;
-				} else {
-					return super.getSpecificProperties(field, containingType);
+					return true;
 				}
+				return super.isFormControlEmbedded(field, containingType);
 			}
 
 			@Override

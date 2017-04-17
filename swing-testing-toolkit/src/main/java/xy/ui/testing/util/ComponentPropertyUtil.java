@@ -19,6 +19,8 @@ import xy.reflect.ui.util.ReflectionUIUtils;
 
 public class ComponentPropertyUtil {
 
+	protected static ReflectionUI introspector = new ReflectionUI();
+
 	protected String propertyName;
 	protected String componentClassName;
 
@@ -84,7 +86,7 @@ public class ComponentPropertyUtil {
 			return null;
 		}
 		try {
-			return ReflectionUI.getDefault().getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
+			return introspector.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}

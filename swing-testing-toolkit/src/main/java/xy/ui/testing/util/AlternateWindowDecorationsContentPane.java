@@ -1,8 +1,5 @@
 package xy.ui.testing.util;
 
-//-*- mode:java; encoding:utf-8 -*-
-// vim:set fileencoding=utf-8:
-//http://ateraimemo.com/Swing/CustomDecoratedFrame.html
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
@@ -119,13 +116,13 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 		JPanel result = new JPanel();
 		result.setLayout(new FlowLayout());
 		result.setOpaque(false);
-		//result.add(makeMaximizeButton());
+		result.add(makeMaximizeButton());
 		result.add(makeCloseButton());
 		return result;
 	}
 
 	private JButton makeCloseButton() {
-		JButton button = new JButton(new CloseIcon());
+		final JButton button = new JButton(new CloseIcon());
 		button.setContentAreaFilled(false);
 		button.setFocusPainted(false);
 		button.setBorder(BorderFactory.createEmptyBorder());
@@ -138,17 +135,15 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 				JComponent b = (JComponent) e.getSource();
 				Window w = SwingUtilities.getWindowAncestor(b);
 				if (w != null) {
-					w.dispatchEvent(new WindowEvent(w,
-							WindowEvent.WINDOW_CLOSING));
+					w.dispatchEvent(new WindowEvent(w, WindowEvent.WINDOW_CLOSING));
 				}
 			}
 		});
 		return button;
 	}
 
-	@SuppressWarnings("unused")
 	private JButton makeMaximizeButton() {
-		JButton button = new JButton(new MaximizeIcon());
+		final JButton button = new JButton(new MaximizeIcon());
 		button.setContentAreaFilled(false);
 		button.setFocusPainted(false);
 		button.setBorder(BorderFactory.createEmptyBorder());
@@ -164,12 +159,21 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 					JFrame frame = (JFrame) w;
 					int state = frame.getExtendedState();
 					if ((state & Frame.MAXIMIZED_BOTH) == 0) {
-						frame.setExtendedState(state
-								| Frame.MAXIMIZED_BOTH);
-					}else{
-						frame.setExtendedState(state
-								& ~Frame.MAXIMIZED_BOTH);
+						frame.setExtendedState(state | Frame.MAXIMIZED_BOTH);
+					} else {
+						frame.setExtendedState(state & ~Frame.MAXIMIZED_BOTH);
 					}
+				}
+			}
+		});
+		button.addHierarchyListener(new HierarchyListener() {
+			HierarchyListener thisListener = this;
+			@Override
+			public void hierarchyChanged(HierarchyEvent e) {
+				Window w = SwingUtilities.getWindowAncestor(button);
+				if (w != null) {
+					button.setVisible(w instanceof JFrame);
+					button.removeHierarchyListener(thisListener);
 				}
 			}
 		});
@@ -187,22 +191,18 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 			((JDialog) window).setUndecorated(true);
 		}
 		ResizeWindowListener rwl = new ResizeWindowListener(window);
-		for (SideLabel l : Arrays.asList(left, right, top, bottom, topleft,
-				topright, bottomleft, bottomright)) {
+		for (SideLabel l : Arrays.asList(left, right, top, bottom, topleft, topright, bottomleft, bottomright)) {
 			l.addMouseListener(rwl);
 			l.addMouseMotionListener(rwl);
 		}
 	}
 
 	private enum Side {
-		N(Cursor.N_RESIZE_CURSOR, new Dimension(0, 4)), W(
-				Cursor.W_RESIZE_CURSOR, new Dimension(4, 0)), E(
-				Cursor.E_RESIZE_CURSOR, new Dimension(4, 0)), S(
-				Cursor.S_RESIZE_CURSOR, new Dimension(0, 4)), NW(
-				Cursor.NW_RESIZE_CURSOR, new Dimension(4, 4)), NE(
-				Cursor.NE_RESIZE_CURSOR, new Dimension(4, 4)), SW(
-				Cursor.SW_RESIZE_CURSOR, new Dimension(4, 4)), SE(
-				Cursor.SE_RESIZE_CURSOR, new Dimension(4, 4));
+		N(Cursor.N_RESIZE_CURSOR, new Dimension(0, 4)), W(Cursor.W_RESIZE_CURSOR, new Dimension(4, 0)), E(
+				Cursor.E_RESIZE_CURSOR, new Dimension(4, 0)), S(Cursor.S_RESIZE_CURSOR, new Dimension(0, 4)), NW(
+						Cursor.NW_RESIZE_CURSOR, new Dimension(4, 4)), NE(Cursor.NE_RESIZE_CURSOR,
+								new Dimension(4, 4)), SW(Cursor.SW_RESIZE_CURSOR,
+										new Dimension(4, 4)), SE(Cursor.SE_RESIZE_CURSOR, new Dimension(4, 4));
 		public final Dimension dim;
 		public final int cursor;
 
@@ -262,8 +262,7 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 			window.setBounds(getResizedRect(rect, side, e.getX(), e.getY()));
 		}
 
-		private static Rectangle getResizedRect(Rectangle r, Side side, int dx,
-				int dy) {
+		private static Rectangle getResizedRect(Rectangle r, Side side, int dx, int dy) {
 			switch (side) {
 			case NW:
 				r.y += dy;
@@ -317,8 +316,7 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 				if (o instanceof Window) {
 					window = (Window) o;
 				} else if (o instanceof JComponent) {
-					window = SwingUtilities.windowForComponent(me
-							.getComponent());
+					window = SwingUtilities.windowForComponent(me.getComponent());
 				}
 			}
 			startPt.setLocation(me.getPoint());
@@ -328,8 +326,7 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 		public void mouseDragged(MouseEvent me) {
 			if (window != null) {
 				Point eventLocationOnScreen = me.getLocationOnScreen();
-				window.setLocation(eventLocationOnScreen.x - startPt.x,
-						eventLocationOnScreen.y - startPt.y);
+				window.setLocation(eventLocationOnScreen.x - startPt.x, eventLocationOnScreen.y - startPt.y);
 			}
 		}
 	}
