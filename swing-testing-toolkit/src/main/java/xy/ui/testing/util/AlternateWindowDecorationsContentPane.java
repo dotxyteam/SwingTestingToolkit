@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
+import xy.reflect.ui.util.SwingRendererUtils;
+
 public class AlternateWindowDecorationsContentPane extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -151,23 +153,30 @@ public class AlternateWindowDecorationsContentPane extends JPanel {
 		button.setBackground(getDecorationsBackgroundColor());
 		button.setFont(getDecorationsFont());
 		button.addActionListener(new ActionListener() {
+
+			Rectangle minimizeBounds;
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JComponent b = (JComponent) e.getSource();
 				Window w = SwingUtilities.getWindowAncestor(b);
 				if (w instanceof JFrame) {
 					JFrame frame = (JFrame) w;
-					int state = frame.getExtendedState();
-					if ((state & Frame.MAXIMIZED_BOTH) == 0) {
-						frame.setExtendedState(state | Frame.MAXIMIZED_BOTH);
+					if (minimizeBounds != null) {
+						frame.setBounds(minimizeBounds);
+						minimizeBounds = null;
 					} else {
-						frame.setExtendedState(state & ~Frame.MAXIMIZED_BOTH);
+						minimizeBounds = frame.getBounds();
+						Rectangle maxBounds = SwingRendererUtils
+								.getMaximumWindowBounds(SwingRendererUtils.getWindowCurrentGraphicsDevice(frame));
+						frame.setBounds(maxBounds);
 					}
 				}
 			}
 		});
 		button.addHierarchyListener(new HierarchyListener() {
 			HierarchyListener thisListener = this;
+
 			@Override
 			public void hierarchyChanged(HierarchyEvent e) {
 				Window w = SwingUtilities.getWindowAncestor(button);

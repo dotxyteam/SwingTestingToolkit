@@ -33,7 +33,11 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
-		componentClassName = c.getClass().getName();
+		Class<?> componentClass = c.getClass();
+		while(componentClass.isAnonymousClass()){
+			componentClass = componentClass.getSuperclass();
+		}
+		componentClassName = componentClass.getName();
 		return true;
 	}
 

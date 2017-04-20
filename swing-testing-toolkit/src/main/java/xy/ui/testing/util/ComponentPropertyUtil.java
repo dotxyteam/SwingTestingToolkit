@@ -9,11 +9,8 @@ import java.util.List;
 import org.apache.commons.lang3.ClassUtils;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.PrimitiveValueControl;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
-import xy.reflect.ui.info.type.custom.BooleanTypeInfo;
-import xy.reflect.ui.info.type.custom.TextualTypeInfo;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
 
@@ -61,10 +58,7 @@ public class ComponentPropertyUtil {
 
 	public boolean isSupportedPropertyField(IFieldInfo field) {
 		Class<?> javaType = getFieldJavaType(field);
-		if (TextualTypeInfo.isCompatibleWith(javaType)) {
-			return true;
-		}
-		if (BooleanTypeInfo.isCompatibleWith(javaType)) {
+		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
 			return true;
 		}
 		return false;
@@ -100,9 +94,7 @@ public class ComponentPropertyUtil {
 		if (field == null) {
 			return null;
 		}
-		if (TextualTypeInfo.isCompatibleWith(fieldValue.getClass())) {
-			return PrimitiveValueControl.toText(fieldValue);
-		} else if (BooleanTypeInfo.isCompatibleWith(fieldValue.getClass())) {
+		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
 			return fieldValue.toString();
 		} else {
 			throw new AssertionError();
@@ -118,10 +110,12 @@ public class ComponentPropertyUtil {
 			return null;
 		}
 		Class<?> javaType = getFieldJavaType(field);
-		if (TextualTypeInfo.isCompatibleWith(javaType)) {
-			return PrimitiveValueControl.fromText(propertyValue, javaType);
-		} else if (BooleanTypeInfo.isCompatibleWith(javaType)) {
-			return Boolean.valueOf(propertyValue);
+		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
+			if (javaType.equals(String.class)) {
+				return propertyValue;
+			} else {
+				return xy.reflect.ui.util.ClassUtils.primitiveFromText(propertyValue, javaType);
+			}
 		} else {
 			throw new AssertionError();
 		}

@@ -28,7 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.input.DefaultFieldControlData;
+import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
@@ -45,14 +45,14 @@ import xy.reflect.ui.info.method.MethodInfoProxy;
 import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
+import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
+import xy.reflect.ui.info.type.factory.InfoCustomizations;
+import xy.reflect.ui.info.type.factory.TypeInfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
-import xy.reflect.ui.info.type.util.GenericEnumerationFactory;
-import xy.reflect.ui.info.type.util.InfoCustomizations;
-import xy.reflect.ui.info.type.util.TypeInfoProxyFactory;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.ReflectionUIUtils;
@@ -507,8 +507,8 @@ public class TesterEditor extends JFrame {
 		}
 
 		@Override
-		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type, boolean silent) {
-			Object result = super.onTypeInstanciationRequest(activatorComponent, type, silent);
+		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type) {
+			Object result = super.onTypeInstanciationRequest(activatorComponent, type);
 			if (result instanceof ComponentFinder) {
 				if (componentFinderInitializationSource != null) {
 					((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TesterEditor.this);
