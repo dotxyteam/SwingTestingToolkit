@@ -114,7 +114,7 @@ public class ComponentPropertyUtil {
 			if (javaType.equals(String.class)) {
 				return propertyValue;
 			} else {
-				return xy.reflect.ui.util.ClassUtils.primitiveFromText(propertyValue, javaType);
+				return xy.reflect.ui.util.ClassUtils.primitiveFromString(propertyValue, javaType);
 			}
 		} else {
 			throw new AssertionError();

@@ -8,7 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.SwingRenderer;
+import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestingUtils;
 

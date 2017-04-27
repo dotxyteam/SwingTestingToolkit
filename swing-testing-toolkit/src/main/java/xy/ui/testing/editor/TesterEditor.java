@@ -32,10 +32,11 @@ import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
-import xy.reflect.ui.control.swing.SwingRenderer;
-import xy.reflect.ui.control.swing.SwingRenderer.FieldControlPlaceHolder;
-import xy.reflect.ui.control.swing.customization.SwingCustomizer;
+import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
+import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
+import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.info.InfoCategory;
+import xy.reflect.ui.info.custom.InfoCustomizations;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListField;
 import xy.reflect.ui.info.filter.IInfoFilter;
@@ -46,7 +47,7 @@ import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
-import xy.reflect.ui.info.type.factory.InfoCustomizations;
+import xy.reflect.ui.info.type.factory.InfoCustomizationsFactory;
 import xy.reflect.ui.info.type.factory.TypeInfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
@@ -58,6 +59,7 @@ import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.ResourcePath;
 import xy.reflect.ui.util.SwingRendererUtils;
+import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
@@ -84,7 +86,6 @@ import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
-import xy.ui.testing.util.AlternateWindowDecorationsContentPane;
 import xy.ui.testing.util.TestingUtils;
 
 @SuppressWarnings("unused")
@@ -149,7 +150,7 @@ public class TesterEditor extends JFrame {
 			} else if (args.length == 1) {
 				String fileName = args[0];
 				testerEditor.getTester().loadFromFile(new File(fileName));
-				testerEditor.refreshTestActionsControl();
+				testerEditor.refreshForm();
 			}
 			testerEditor.open();
 		} catch (Throwable t) {
@@ -321,8 +322,8 @@ public class TesterEditor extends JFrame {
 		return (ListControl) c;
 	}
 
-	public void refreshTestActionsControl() {
-		getSwingRenderer().refreshFieldControlsByName(testerForm, TEST_ACTIONS_FIELD_NAME, false);
+	public void refreshForm() {
+		getSwingRenderer().refreshAllFieldControls(testerForm, false);
 	}
 
 	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
@@ -330,7 +331,7 @@ public class TesterEditor extends JFrame {
 		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(testerForm);
 		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testACtionsField),
 				testActions, modifStack, testACtionsField);
-		refreshTestActionsControl();
+		refreshForm();
 	}
 
 	public int getSelectedActionIndex() {
@@ -440,9 +441,9 @@ public class TesterEditor extends JFrame {
 		return new TesterEditorReflectionUI();
 	}
 
-	protected static AlternateWindowDecorationsContentPane getAlternateWindowDecorationsContentPane(Window window,
+	protected static AlternativeWindowDecorationsPanel getAlternateWindowDecorationsContentPane(Window window,
 			Component initialContentPane, final TesterEditor testerEditor) {
-		AlternateWindowDecorationsContentPane result = new AlternateWindowDecorationsContentPane(
+		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(
 				SwingRendererUtils.getWindowTitle(window), window, initialContentPane) {
 
 			private static final long serialVersionUID = 1L;
@@ -526,7 +527,7 @@ public class TesterEditor extends JFrame {
 		public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
 			ITypeInfo result = super.getTypeInfo(typeSource);
 			result = new StandardProxyFactory().get(result);
-			result = infoCustomizations.get(this, result);
+			result = new InfoCustomizationsFactory(this, infoCustomizations).get(result);
 			result = new ExtensionsProxyFactory().get(result);
 			return result;
 		}

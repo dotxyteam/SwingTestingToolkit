@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import xy.reflect.ui.control.swing.SwingRenderer;
+import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestingUtils;
 
