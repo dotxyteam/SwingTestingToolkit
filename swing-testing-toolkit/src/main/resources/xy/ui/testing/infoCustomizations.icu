@@ -17058,13 +17058,17 @@
             <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cb</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
-            <customMethodCaption></customMethodCaption>
+            <customMethodCaption>Record</customMethodCaption>
             <detachedReturnValueForced>false</detachedReturnValueForced>
             <duplicateGenerated>false</duplicateGenerated>
             <iconImagePath>
                 <specification>/media/olitank/data/prog/git/SwingTestingToolkit/swing-testing-toolkit/src/main/resources/xy/ui/testing/record.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
+                <name>Run</name>
+            </menu>
             <methodSignature>void switchToRecording()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
             <readOnlyForced>false</readOnlyForced>
@@ -17076,13 +17080,17 @@
             <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cc</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
-            <customMethodCaption></customMethodCaption>
+            <customMethodCaption>Replay</customMethodCaption>
             <detachedReturnValueForced>false</detachedReturnValueForced>
             <duplicateGenerated>false</duplicateGenerated>
             <iconImagePath>
                 <specification>/media/olitank/data/prog/git/SwingTestingToolkit/swing-testing-toolkit/src/main/resources/xy/ui/testing/replay.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
+                <name>Run</name>
+            </menu>
             <methodSignature>void swithToReplay()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
             <readOnlyForced>false</readOnlyForced>
@@ -17094,13 +17102,17 @@
             <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cd</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
-            <customMethodCaption></customMethodCaption>
+            <customMethodCaption>Inspect</customMethodCaption>
             <detachedReturnValueForced>false</detachedReturnValueForced>
             <duplicateGenerated>false</duplicateGenerated>
             <iconImagePath>
                 <specification>/media/olitank/data/prog/git/SwingTestingToolkit/swing-testing-toolkit/src/main/resources/xy/ui/testing/inspect.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
+                <name>Run</name>
+            </menu>
             <methodSignature>void inspectComponents()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
             <readOnlyForced>false</readOnlyForced>
