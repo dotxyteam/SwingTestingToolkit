@@ -65,7 +65,7 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 		JPanel inpectorForm = SwingRendererUtils.findFirstObjectDescendantForm(inspector, inspectorDialog,
 				getSwingRenderer());
 		ListControl componentTreeControl = (ListControl) getSwingRenderer()
-				.getFieldControlPlaceHoldersByName(inpectorForm, "rootNode").get(0).getFieldControl();
+				.getFieldControlPlaceHolder(inpectorForm, "rootNode").getFieldControl();
 		componentTreeControl.addListControlSelectionListener(new Listener<List<BufferedItemPosition>>() {
 			@Override
 			public void handle(List<BufferedItemPosition> newSelection) {

@@ -1,6 +1,7 @@
 package xy.ui.testing.editor;
 
 import java.awt.AWTEvent;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -24,6 +25,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -36,10 +38,10 @@ import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.info.InfoCategory;
+import xy.reflect.ui.info.ResourcePath;
 import xy.reflect.ui.info.custom.InfoCustomizations;
 import xy.reflect.ui.info.field.IFieldInfo;
-import xy.reflect.ui.info.field.ImplicitListField;
-import xy.reflect.ui.info.filter.IInfoFilter;
+import xy.reflect.ui.info.field.ImplicitListFieldInfo;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.method.InvocationData;
 import xy.reflect.ui.info.method.MethodInfoProxy;
@@ -57,7 +59,6 @@ import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.reflect.ui.util.ResourcePath;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
 import xy.ui.testing.Tester;
@@ -88,7 +89,6 @@ import xy.ui.testing.finder.VisibleStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.TestingUtils;
 
-@SuppressWarnings("unused")
 public class TesterEditor extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -98,7 +98,7 @@ public class TesterEditor extends JFrame {
 			.valueOf(System.getProperty(TesterEditor.class.getName() + ".DEBUG", "false"));
 
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
-	protected static final ResourcePath EXTENSION_IMAGE_PÄTH = SwingRendererUtils
+	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
 			.putImageInCached(TestingUtils.loadImageResource("ExtensionAction.png"));
 
 	protected static final Class<?>[] DEFAULT_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
@@ -310,12 +310,12 @@ public class TesterEditor extends JFrame {
 		if (testerForm == null) {
 			return null;
 		}
-		List<FieldControlPlaceHolder> result = getSwingRenderer().getFieldControlPlaceHoldersByName(testerForm,
+		FieldControlPlaceHolder fieldControlPlaceHolder = getSwingRenderer().getFieldControlPlaceHolder(testerForm,
 				TEST_ACTIONS_FIELD_NAME);
-		if (result.size() != 1) {
+		if (fieldControlPlaceHolder == null) {
 			return null;
 		}
-		Component c = result.get(0).getFieldControl();
+		Component c = fieldControlPlaceHolder.getFieldControl();
 		if (c instanceof NullableControl) {
 			c = ((NullableControl) c).getSubControl();
 		}
@@ -327,7 +327,8 @@ public class TesterEditor extends JFrame {
 	}
 
 	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
-		IFieldInfo testACtionsField = getSwingRenderer().getFormField(testerForm, TEST_ACTIONS_FIELD_NAME);
+		IFieldInfo testACtionsField = getSwingRenderer().getFieldControlPlaceHolder(testerForm, TEST_ACTIONS_FIELD_NAME)
+				.getField();
 		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(testerForm);
 		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testACtionsField),
 				testActions, modifStack, testACtionsField);
@@ -387,9 +388,9 @@ public class TesterEditor extends JFrame {
 		String alternateCustomizationFilePath = getAlternateCustomizationsFilePath();
 		try {
 			if (alternateCustomizationFilePath != null) {
-				result.loadFromFile(new File(alternateCustomizationFilePath));
+				result.loadFromFile(new File(alternateCustomizationFilePath), null);
 			} else {
-				result.loadFromStream(Tester.class.getResourceAsStream("infoCustomizations.icu"));
+				result.loadFromStream(Tester.class.getResourceAsStream("infoCustomizations.icu"), null);
 			}
 		} catch (IOException e) {
 			throw new AssertionError(e);
@@ -501,10 +502,32 @@ public class TesterEditor extends JFrame {
 		}
 
 		@Override
-		public Container createWindowContentPane(Window window, Component content,
-				List<? extends Component> toolbarControls) {
-			Container result = super.createWindowContentPane(window, content, toolbarControls);
-			return TesterEditor.getAlternateWindowDecorationsContentPane(window, result, TesterEditor.this);
+		public void setContentPane(Window window, Container contentPane) {
+			super.setContentPane(window,
+					TesterEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TesterEditor.this));
+		}
+
+		@Override
+		public void setMenuBar(Window window, JMenuBar menuBar) {
+			getBarsContainer(window).add(menuBar, BorderLayout.NORTH);
+		}
+
+		@Override
+		public void setStatusBar(Window window, Component statusBar) {
+			getBarsContainer(window).add(statusBar, BorderLayout.SOUTH);
+		}
+
+		protected Container getBarsContainer(Window window) {
+			AlternativeWindowDecorationsPanel decorationsPanel = (AlternativeWindowDecorationsPanel) SwingRendererUtils.getContentPane(window);
+			Container contentPane = decorationsPanel.getContentPane();
+			JPanel barsContainer = (JPanel) ((BorderLayout) contentPane.getLayout())
+					.getLayoutComponent(BorderLayout.NORTH);
+			if (barsContainer == null) {
+				barsContainer = new JPanel();
+				contentPane.add(barsContainer, BorderLayout.NORTH);
+				barsContainer.setLayout(new BorderLayout());
+			}
+			return barsContainer;
 		}
 
 		@Override
@@ -518,7 +541,6 @@ public class TesterEditor extends JFrame {
 			return result;
 		}
 
-		
 	}
 
 	protected class TesterEditorReflectionUI extends ReflectionUI {
@@ -579,9 +601,9 @@ public class TesterEditor extends JFrame {
 			}
 
 			@Override
-			protected String getIconImagePath(ITypeInfo type) {
+			protected ResourcePath getIconImagePath(ITypeInfo type) {
 				if (isExtensionTestActionTypeName(type.getName())) {
-					return EXTENSION_IMAGE_PÄTH.getSpecification();
+					return EXTENSION_IMAGE_PATH;
 				}
 				return super.getIconImagePath(type);
 			}
@@ -674,7 +696,7 @@ public class TesterEditor extends JFrame {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
 					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class));
-					result.add(new ImplicitListField(TesterEditor.this.reflectionUI, "propertyValues", type,
+					result.add(new ImplicitListFieldInfo(TesterEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
 					return result;
@@ -709,7 +731,7 @@ public class TesterEditor extends JFrame {
 							}
 
 							@Override
-							public boolean isValueNullable() {
+							public boolean isNullValueDistinct() {
 								return false;
 							}
 
@@ -722,7 +744,12 @@ public class TesterEditor extends JFrame {
 
 						@Override
 						public String getName() {
-							return "startRecording";
+							return "switchToRecording";
+						}
+
+						@Override
+						public String getSignature() {
+							return ReflectionUIUtils.buildMethodSignature(this);
 						}
 
 						@Override
@@ -762,7 +789,12 @@ public class TesterEditor extends JFrame {
 
 						@Override
 						public String getName() {
-							return "replayAllWhileSelecting";
+							return "swithToReplay";
+						}
+
+						@Override
+						public String getSignature() {
+							return ReflectionUIUtils.buildMethodSignature(this);
 						}
 
 						@Override
@@ -782,6 +814,11 @@ public class TesterEditor extends JFrame {
 						@Override
 						public String getName() {
 							return "inspectComponents";
+						}
+
+						@Override
+						public String getSignature() {
+							return ReflectionUIUtils.buildMethodSignature(this);
 						}
 
 						@Override
@@ -836,7 +873,7 @@ public class TesterEditor extends JFrame {
 						result.add(new AbstractListAction() {
 
 							@Override
-							public boolean isReturnValueNullable() {
+							public boolean isNullReturnValueDistinct() {
 								return false;
 							}
 
@@ -870,7 +907,7 @@ public class TesterEditor extends JFrame {
 							result.add(new AbstractListAction() {
 
 								@Override
-								public boolean isReturnValueNullable() {
+								public boolean isNullReturnValueDistinct() {
 									return false;
 								}
 
