@@ -58,7 +58,7 @@ public class ClickOnMenuItemAction extends TestAction {
 	@Override
 	public String getComponentInformation() {
 		if (componentFinder == null) {
-			return null;
+			return "<unspecified component>";
 		}
 		return componentFinder.toString();
 	}

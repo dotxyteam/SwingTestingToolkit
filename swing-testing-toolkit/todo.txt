@@ -1,3 +1,7 @@
+- try context menu on list/table/tree
+- do a regression test on swing set example
+- allow to expand jtree
+- knowOptions must be editable ???
 - for class based finders: avoid anonymous classes
 - find another way to locate unlabelled controls
 that may be recreate and then have rank changed in the container.

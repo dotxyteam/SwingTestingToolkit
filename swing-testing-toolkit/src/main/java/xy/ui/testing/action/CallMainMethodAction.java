@@ -76,7 +76,7 @@ public class CallMainMethodAction extends TestAction {
 
 	@Override
 	public String getValueDescription() {
-		StringBuilder result = new StringBuilder(className);
+		StringBuilder result = new StringBuilder("<" + className + ">");
 		if (arguments.length > 0) {
 			result.append(" ");
 			for (int i = 0; i < arguments.length; i++) {

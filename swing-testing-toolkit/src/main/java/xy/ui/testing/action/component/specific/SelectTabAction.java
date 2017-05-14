@@ -84,10 +84,6 @@ public class SelectTabAction extends TargetComponentTestAction {
 		}
 	}
 
-	@Override
-	public String getComponentInformation() {
-		return "tabbed-pane " + super.getComponentInformation();
-	}
 
 	@Override
 	public String toString() {

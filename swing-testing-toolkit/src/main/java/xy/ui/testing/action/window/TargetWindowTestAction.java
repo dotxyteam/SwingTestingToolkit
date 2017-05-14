@@ -57,6 +57,6 @@ public abstract class TargetWindowTestAction extends TestAction {
 
 	@Override
 	public String getComponentInformation() {
-		return "Window n°" + (getWindowIndex() + 1);
+		return "<window> n°" + (getWindowIndex() + 1);
 	}
 }

@@ -41,8 +41,8 @@ public class MenuItemComponentFinder extends ComponentFinder {
 			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
 			JMenuItem menuItem = (JMenuItem) menuItemFinder.find(tester);
 			if (menuItem == null) {
-				throw new TestFailure("Unable to find " + menuItemFinder.toString(), "Window", TestingUtils
-						.saveTestableWindowImage(tester, menuItemFinder.getWindowIndex()));
+				throw new TestFailure("Unable to find " + menuItemFinder.toString(), "Window",
+						TestingUtils.saveTestableWindowImage(tester, menuItemFinder.getWindowIndex()));
 			}
 			boolean lastMenuItem = i == (menuItemPath.size() - 1);
 			if (lastMenuItem) {
@@ -100,16 +100,22 @@ public class MenuItemComponentFinder extends ComponentFinder {
 
 	@Override
 	public String toString() {
-		StringBuilder result = new StringBuilder("menu item");
+		StringBuilder result = new StringBuilder();
 		if (menuItemPath.size() == 0) {
 			result.append(" <unspecified path> ");
 		} else {
 			for (int i = 0; i < menuItemPath.size(); i++) {
 				PropertyBasedComponentFinder pathElt = menuItemPath.get(i);
 				if (i > 0) {
-					result.append(" -> ");
+					result.append(" / ");
 				}
-				result.append("\"" + StringEscapeUtils.escapeJava(pathElt.getPropertyValue("Text")) + "\"");
+				String pathEltText = pathElt.getPropertyValue("Text");
+				if (pathEltText == null) {
+					pathEltText = "<unknown item>";
+				} else {
+					pathEltText = "\"" + StringEscapeUtils.escapeJava(pathEltText) + "\"";
+				}
+				result.append(pathEltText);
 			}
 		}
 		return result.toString();

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
@@ -54,29 +56,33 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	public List<String> getPropertyNameOptions() {
 		return propertyUtil.getPropertyNameOptions();
 	}
+
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		return propertyUtil.initializeSpecificProperties(c, event);
 	}
+
 	@Override
 	public void execute(final Component c, Tester tester) {
 		final IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(newPropertyValue);
-		SwingUtilities.invokeLater(new Runnable() {			
+		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				field.setValue(c, newFieldValue);
 			}
-		});		
+		});
 	}
-
-	
 
 	@Override
 	public String getValueDescription() {
 		String propertyNameText = (getPropertyName() == null) ? "<unspecified-property>" : getPropertyName();
 		String newPropertyValueText = (newPropertyValue == null) ? "<null>" : newPropertyValue;
-		return propertyNameText + " = " + newPropertyValueText;
+		IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
+		if ((propertyFieldInfo == null) || String.class.getName().equals(propertyFieldInfo.getType().getName())) {
+			newPropertyValueText = "\"" + StringEscapeUtils.escapeJava(newPropertyValueText) + "\"";
+		}
+		return propertyNameText + " <= " + newPropertyValueText;
 	}
 
 	@Override

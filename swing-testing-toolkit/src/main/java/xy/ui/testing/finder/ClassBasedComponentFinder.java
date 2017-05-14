@@ -1,8 +1,6 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
-import java.text.MessageFormat;
-
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ValidationError;
@@ -34,7 +32,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 	@Override
 	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
 		Class<?> componentClass = c.getClass();
-		while(componentClass.isAnonymousClass()){
+		while (componentClass.isAnonymousClass()) {
 			componentClass = componentClass.getSuperclass();
 		}
 		componentClassName = componentClass.getName();
@@ -43,12 +41,14 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	public String toString() {
-		String componentClassString = componentClassName;
-		if ((componentClassName == null) || (componentClassName.length() == 0)) {
-			componentClassString = "?";
+		String result = "";
+		if (componentClassName == null) {
+			result += "<unspecified class>";
+		} else {
+			result += "<" + componentClassName + ">";
 		}
-		return MessageFormat.format("<{0}> n°{1} in the window n°{2}", componentClassString,
-				(occurrencesToSkip + 1), (windowIndex + 1));
+		result += " n°" + (occurrencesToSkip + 1);
+		return result;
 	}
 
 	@Override

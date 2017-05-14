@@ -77,7 +77,7 @@ public class ClickOnTableCellAction extends ClickAction {
 
 	@Override
 	public String getValueDescription() {
-		return super.getValueDescription() + " at the cell(" + (rowIndex + 1) + ", " + (columnIndex + 1) + ")";
+		return super.getValueDescription() + " on Cell[" + (rowIndex + 1) + ", " + (columnIndex + 1) + "]";
 	}
 
 	@Override
@@ -89,11 +89,6 @@ public class ClickOnTableCellAction extends ClickAction {
 		if (columnIndex < 0) {
 			throw new ValidationError("Invalid column index: Cannot be < 0");
 		}
-	}
-
-	@Override
-	public String getComponentInformation() {
-		return "table " + super.getComponentInformation();
 	}
 
 }

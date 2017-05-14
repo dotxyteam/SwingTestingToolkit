@@ -49,7 +49,7 @@ public class ClickAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		SwingUtilities.invokeLater(new Runnable() {			
+		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				click(c);
@@ -57,7 +57,7 @@ public class ClickAction extends TargetComponentTestAction {
 					click(c);
 				}
 			}
-		});		
+		});
 	}
 
 	protected void click(Component c) {
@@ -106,7 +106,7 @@ public class ClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return button.name().toLowerCase().replace('_', ' ') + (doubleClick ? "Double-Click" : "Click");
+		return button.name().replace("_",  " ") + (doubleClick ? " x 2" : "");
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 
 	@Override
 	public String getValueDescription() {
-		return count + " open windows";
+		return Integer.toString(count);
 	}
 
 	@Override

@@ -76,15 +76,10 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	@Override
 	public String getValueDescription() {
 		String result = "";
-		if (addedToExistingSelection) {
-			result += "Add selection";
-		} else {
-			result += "Set selection";
-		}
 		if (firstItemToSelect == lastItemToSelect) {
-			result += " of the item n°" + (firstItemToSelect + 1);
+			result += "Row" + (firstItemToSelect + 1);
 		} else {
-			result += " from the item n°" + (firstItemToSelect + 1) + " to the item n°" + (lastItemToSelect + 1);
+			result += "Rows n°" + (firstItemToSelect + 1) + " To " + (lastItemToSelect + 1);
 		}
 		return result;
 	}
@@ -98,11 +93,6 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 			throw new ValidationError("Invalid last selection index: Cannot be < 0");
 		}
 
-	}
-
-	@Override
-	public String getComponentInformation() {
-		return "table " + super.getComponentInformation();
 	}
 
 	@Override

@@ -219,10 +219,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	}
 
-	@Override
-	public String getComponentInformation() {
-		return "combo-box " + super.getComponentInformation();
-	}
 
 	@Override
 	public String toString() {

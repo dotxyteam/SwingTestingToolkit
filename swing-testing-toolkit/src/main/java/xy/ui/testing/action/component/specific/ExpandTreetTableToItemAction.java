@@ -13,6 +13,7 @@ import javax.swing.tree.TreePath;
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 
+import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.TestFailure;
@@ -102,7 +103,15 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return "Index-based path = " + itemPath;
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < itemPath.size(); i++) {
+			int index = itemPath.get(i);
+			if (i > 0) {
+				result.append(" / ");
+			}
+			result.append("Item n°" + Integer.toString(index + 1));
+		}
+		return result.toString();
 	}
 
 	@Override
@@ -110,11 +119,6 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		if (itemPath.size() == 0) {
 			throw new ValidationError("Item path not defined");
 		}
-	}
-
-	@Override
-	public String getComponentInformation() {
-		return "tree-table " + super.getComponentInformation();
 	}
 
 	@Override

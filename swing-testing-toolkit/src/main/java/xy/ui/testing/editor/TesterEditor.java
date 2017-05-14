@@ -14,6 +14,8 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,6 +60,7 @@ import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ClassUtils;
+import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
@@ -518,7 +521,8 @@ public class TesterEditor extends JFrame {
 		}
 
 		protected Container getBarsContainer(Window window) {
-			AlternativeWindowDecorationsPanel decorationsPanel = (AlternativeWindowDecorationsPanel) SwingRendererUtils.getContentPane(window);
+			AlternativeWindowDecorationsPanel decorationsPanel = (AlternativeWindowDecorationsPanel) SwingRendererUtils
+					.getContentPane(window);
 			Container contentPane = decorationsPanel.getContentPane();
 			JPanel barsContainer = (JPanel) ((BorderLayout) contentPane.getLayout())
 					.getLayoutComponent(BorderLayout.NORTH);
@@ -689,6 +693,32 @@ public class TesterEditor extends JFrame {
 			@Override
 			public String toString() {
 				return TesterEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
+			}
+
+			@Override
+			protected void save(ITypeInfo type, Object object, OutputStream out) {
+				if (object instanceof Tester) {
+					try {
+						((Tester) object).saveToStream(out);
+					} catch (Exception e) {
+						throw new ReflectionUIError(e);
+					}
+				} else {
+					super.save(type, object, out);
+				}
+			}
+
+			@Override
+			protected void load(ITypeInfo type, Object object, InputStream in) {
+				if (object instanceof Tester) {
+					try {
+						((Tester) object).loadFromStream(in);
+					} catch (Exception e) {
+						throw new ReflectionUIError(e);
+					}
+				} else {
+					super.load(type, object, in);
+				}
 			}
 
 			@Override

@@ -70,16 +70,10 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	@Override
 	public String getValueDescription() {
 		String propertyNameText = (getPropertyName() == null) ? "<unspecified-property>" : getPropertyName();
-		String propertyValueText;
-		if (propertyValueExpected == null) {
-			propertyValueText = "<null>";
-		} else {
-			IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
-			if ((propertyFieldInfo != null) && String.class.getName().equals(propertyFieldInfo.getType().getName())) {
-				propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
-			} else {
-				propertyValueText = propertyValueExpected;
-			}
+		String propertyValueText = (propertyValueExpected == null) ? "<null>" : propertyValueExpected;
+		IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
+		if ((propertyFieldInfo == null) || String.class.getName().equals(propertyFieldInfo.getType().getName())) {
+			propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
 		}
 		return propertyNameText + " = " + propertyValueText;
 	}
