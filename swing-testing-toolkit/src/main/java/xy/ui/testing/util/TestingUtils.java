@@ -123,19 +123,6 @@ public class TestingUtils {
 		return result;
 	}
 
-	public static List<String> extractComponentTreeVisibleStrings(Component c, final Tester tester) {
-		final List<String> result = new ArrayList<String>();
-		TestingUtils.visitComponentTree(tester, c, new IComponentTreeVisitor() {
-
-			@Override
-			public boolean visit(Component c) {
-				result.addAll(tester.extractVisibleStrings(c));
-				return true;
-			}
-		});
-		return result;
-	}
-
 	public static String formatVisibleStrings(List<String> visibleStrings) {
 		StrBuilder result = new StrBuilder();
 		for (int i = 0; i < visibleStrings.size(); i++) {
@@ -422,5 +409,18 @@ public class TestingUtils {
 			}
 		}
 		return true;
+	}
+
+	public static List<String> extractComponentTreeVisibleStrings(Component c, final Tester tester) {
+		final List<String> result = new ArrayList<String>();
+		TestingUtils.visitComponentTree(tester, c, new IComponentTreeVisitor() {
+
+			@Override
+			public boolean visit(Component c) {
+				result.addAll(tester.extractVisibleStrings(c));
+				return true;
+			}
+		});
+		return result;
 	}
 }

@@ -43,7 +43,7 @@ public class CloseWindowAction extends TargetWindowTestAction {
 
 	@Override
 	public String toString() {
-		return "Close The " + getComponentInformation();
+		return "Close " + getComponentInformation();
 	}
 
 

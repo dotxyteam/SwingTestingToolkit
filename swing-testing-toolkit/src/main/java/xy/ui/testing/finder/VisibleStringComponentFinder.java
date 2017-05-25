@@ -50,7 +50,7 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 		} else {
 			result += "\"" + StringEscapeUtils.escapeJava(visibleString) + "\"";
 		}
-		result += " n°" + (occurrencesToSkip + 1);
+		result = MatchingComponentFinder.appendOccurrenceNumber(result, occurrencesToSkip);
 		return result;
 	}
 

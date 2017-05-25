@@ -15,7 +15,6 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-
 public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -66,7 +65,7 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	@Override
 	public String toString() {
-		return "Check the visible strings of the " + getComponentInformation();
+		return "Check visible strings of " + getComponentInformation();
 	}
 
 	@Override

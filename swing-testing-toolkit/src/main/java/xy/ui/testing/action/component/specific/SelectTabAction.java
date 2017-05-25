@@ -88,6 +88,6 @@ public class SelectTabAction extends TargetComponentTestAction {
 	@Override
 	public String toString() {
 		String tabToSelectText = (tabToSelect == null) ? "<none>" : tabToSelect;
-		return "Select the tab <" + tabToSelectText + "> of the " + getComponentInformation();
+		return "Select tab <" + tabToSelectText + "> of " + getComponentInformation();
 	}
 }

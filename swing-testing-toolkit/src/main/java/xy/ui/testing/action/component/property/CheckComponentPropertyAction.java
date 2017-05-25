@@ -80,7 +80,7 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Check that " + getValueDescription() + " for the " + getComponentInformation();
+		return "Check " + getValueDescription() + " for " + getComponentInformation();
 	}
 
 	@Override

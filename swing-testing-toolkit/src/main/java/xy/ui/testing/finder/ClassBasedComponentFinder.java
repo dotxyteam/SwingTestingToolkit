@@ -47,7 +47,7 @@ public class ClassBasedComponentFinder extends MatchingComponentFinder {
 		} else {
 			result += "<" + componentClassName + ">";
 		}
-		result += " n°" + (occurrencesToSkip + 1);
+		result = MatchingComponentFinder.appendOccurrenceNumber(result, occurrencesToSkip);
 		return result;
 	}
 

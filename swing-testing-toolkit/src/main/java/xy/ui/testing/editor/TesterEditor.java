@@ -5,17 +5,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.AWTEventListener;
+import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,9 +36,11 @@ import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
+import xy.reflect.ui.control.IMethodControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
@@ -83,6 +88,7 @@ import xy.ui.testing.action.component.specific.SelectComboBoxItemAction;
 import xy.ui.testing.action.component.specific.SelectTabAction;
 import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
+import xy.ui.testing.action.window.CloseAllWindowsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
@@ -108,7 +114,7 @@ public class TesterEditor extends JFrame {
 			WaitAction.class, ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
 			SelectTableRowAction.class, SelectTabAction.class, ClickOnTableCellAction.class,
 			ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
-			ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
+			CloseAllWindowsAction.class, ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
 			CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
 	protected static final Class<?>[] DEFAULT_COMPONENT_FINDRER_CLASSES = new Class[] {
 			VisibleStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class,
@@ -135,36 +141,146 @@ public class TesterEditor extends JFrame {
 	protected AWTEventListener recordingListener;
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
 
+	private AWTEventListener modalityChangingListener;
+
 	public TesterEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
 		setupRecordingEventHandling();
+		preventDialogApplicationModality();
+		interceptSystemExitCalls();
 		infoCustomizations = createInfoCustomizations();
 		reflectionUI = createTesterReflectionUI();
 		swingRenderer = createSwingRenderer(reflectionUI, infoCustomizations);
 		createControls();
 	}
 
-	public static void main(String[] args) {
-		TesterEditor testerEditor = new TesterEditor(new Tester());
-		try {
-			if (args.length > 1) {
-				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
-			} else if (args.length == 1) {
-				String fileName = args[0];
-				testerEditor.getTester().loadFromFile(new File(fileName));
-				testerEditor.refreshForm();
-			}
-			testerEditor.open();
-		} catch (Throwable t) {
-			testerEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
-		}
-	}
-
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
 		cleanupRecordingEventHandling();
+		cleanupDialogApplicationModalityPrevention();
+		cleanupSystemExitCallsInterception();
+	}
+
+	protected void interceptSystemExitCalls() {
+		System.setSecurityManager(new SecurityManager() {
+
+			@Override
+			public void checkExit(int status) {
+				if (recordingWindowSwitch.isActive()) {
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							recordingWindowSwitch.handleSystemExitCall();
+						}
+					});
+				}
+				throw new SecurityException();
+			}
+
+			@Override
+			public void checkPermission(Permission perm) {
+				// allow anything.
+			}
+
+			@Override
+			public void checkPermission(Permission perm, Object context) {
+				// allow anything.
+			}
+		});
+	}
+
+	protected static final SecurityManager DEFAULT_SECURITY_MANAGER = System.getSecurityManager();
+
+	protected void cleanupSystemExitCallsInterception() {
+		System.setSecurityManager(DEFAULT_SECURITY_MANAGER);
+	}
+
+	protected void setupRecordingEventHandling() {
+		recordingListener = new AWTEventListener() {
+			@Override
+			public void eventDispatched(AWTEvent event) {
+				if (!(recordingWindowSwitch.isActive() && !recordingWindowSwitch.getStatus().isRecordingPaused())
+						&& !(componentInspectionWindowSwitch.isActive()
+								&& !componentInspectionWindowSwitch.isInspectorOpen())) {
+					return;
+				}
+				if (event == null) {
+					getTester().handleCurrentComponentChange(null);
+					return;
+				}
+				if (!(event.getSource() instanceof Component)) {
+					return;
+				}
+				Component c = (Component) event.getSource();
+				if (!c.isShowing()) {
+					return;
+				}
+				if (TestingUtils.isTesterEditorComponent(TesterEditor.this, c)) {
+					return;
+				}
+				if (isCurrentComponentChangeEvent(event)) {
+					getTester().handleCurrentComponentChange(c);
+				}
+				if (c == getTester().getCurrentComponent()) {
+					if (componentInspectionWindowSwitch.isActive()) {
+						if (isGenericRecordingRequestEvent(event)) {
+							componentInspectionWindowSwitch.getWindow().requestFocus();
+							componentInspectionWindowSwitch.openComponentInspector(c,
+									componentInspectionWindowSwitch.getWindow());
+						}
+					}
+					if (recordingWindowSwitch.isActive()) {
+						if (isWindowClosingRecordingRequestEvent(event)) {
+							recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
+						} else if (isMenuItemClickRecordingRequestEvent(event)) {
+							recordingWindowSwitch.handleMenuItemClickRecordingEvent(event);
+						} else if (isGenericRecordingRequestEvent(event)) {
+							recordingWindowSwitch.handleGenericRecordingEvent(event);
+						}
+					}
+				}
+			}
+		};
+		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
+				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
+	}
+
+	protected void cleanupRecordingEventHandling() {
+		SwingRendererUtils.removeAWTEventListener(recordingListener);
+	}
+
+	protected void preventDialogApplicationModality() {
+		modalityChangingListener = new AWTEventListener() {
+			@Override
+			public void eventDispatched(AWTEvent event) {
+				HierarchyEvent hierarchyEvent = (HierarchyEvent) event;
+				if (hierarchyEvent.getID() == HierarchyEvent.HIERARCHY_CHANGED) {
+					if ((hierarchyEvent.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
+						if (event.getSource() instanceof Window) {
+							Window window = (Window) event.getSource();
+							if (tester.isTestableWindow(window)) {
+								if (window.isAlwaysOnTop()) {
+									window.setAlwaysOnTop(false);
+								}
+								if (window instanceof Dialog) {
+									Dialog dialog = (Dialog) window;
+									if (dialog.isModal()) {
+										dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		};
+		Toolkit.getDefaultToolkit().addAWTEventListener(modalityChangingListener, AWTEvent.HIERARCHY_EVENT_MASK);
+	}
+
+	protected void cleanupDialogApplicationModalityPrevention() {
+		SwingRendererUtils.removeAWTEventListener(modalityChangingListener);
 	}
 
 	public void open() {
@@ -218,64 +334,6 @@ public class TesterEditor extends JFrame {
 			List<? extends Component> toolbarControls = getSwingRenderer().createFormCommonToolbarControls(testerForm);
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
 			getSwingRenderer().setupWindow(this, testerForm, toolbarControls, title, iconImage);
-		}
-	}
-
-	protected void setupRecordingEventHandling() {
-		recordingListener = new AWTEventListener() {
-			@Override
-			public void eventDispatched(AWTEvent event) {
-				awtEventDispatched(event);
-			}
-		};
-		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
-				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
-	}
-
-	protected void cleanupRecordingEventHandling() {
-		SwingRendererUtils.removeAWTEventListener(recordingListener);
-	}
-
-	protected void awtEventDispatched(AWTEvent event) {
-		if (!(recordingWindowSwitch.isActive() && !recordingWindowSwitch.getStatus().isRecordingPaused())
-				&& !(componentInspectionWindowSwitch.isActive()
-						&& !componentInspectionWindowSwitch.isInspectorOpen())) {
-			return;
-		}
-		if (event == null) {
-			getTester().handleCurrentComponentChange(null);
-			return;
-		}
-		if (!(event.getSource() instanceof Component)) {
-			return;
-		}
-		Component c = (Component) event.getSource();
-		if (!c.isShowing()) {
-			return;
-		}
-		if (TestingUtils.isTesterEditorComponent(TesterEditor.this, c)) {
-			return;
-		}
-		if (isCurrentComponentChangeEvent(event)) {
-			getTester().handleCurrentComponentChange(c);
-		}
-		if (c == getTester().getCurrentComponent()) {
-			if (componentInspectionWindowSwitch.isActive()) {
-				if (isGenericRecordingRequestEvent(event)) {
-					componentInspectionWindowSwitch.getWindow().requestFocus();
-					componentInspectionWindowSwitch.openComponentInspector(c,
-							componentInspectionWindowSwitch.getWindow());
-				}
-			}
-			if (recordingWindowSwitch.isActive()) {
-				if (isWindowClosingRecordingRequestEvent(event)) {
-					recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
-				} else if (isMenuItemClickRecordingRequestEvent(event)) {
-					recordingWindowSwitch.handleMenuItemClickRecordingEvent(event);
-				} else if (isGenericRecordingRequestEvent(event)) {
-					recordingWindowSwitch.handleGenericRecordingEvent(event);
-				}
-			}
 		}
 	}
 
@@ -364,7 +422,6 @@ public class TesterEditor extends JFrame {
 			public void run() {
 				recordingWindowSwitch.activate(true);
 			}
-
 		});
 	}
 
@@ -476,6 +533,22 @@ public class TesterEditor extends JFrame {
 		allWindows.add(window);
 	}
 
+	public static void main(String[] args) {
+		TesterEditor testerEditor = new TesterEditor(new Tester());
+		try {
+			if (args.length > 1) {
+				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
+			} else if (args.length == 1) {
+				String fileName = args[0];
+				testerEditor.getTester().loadFromFile(new File(fileName));
+				testerEditor.refreshForm();
+			}
+			testerEditor.open();
+		} catch (Throwable t) {
+			testerEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
+		}
+	}
+
 	protected class TesterEditorSwingRenderer extends SwingCustomizer {
 
 		public TesterEditorSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
@@ -483,11 +556,21 @@ public class TesterEditor extends JFrame {
 		}
 
 		@Override
-		protected boolean areCustomizationsEditable(Object object) {
-			if (getAlternateCustomizationsFilePath() == null) {
-				return false;
-			}
-			return super.areCustomizationsEditable(object);
+		public CustomizingMethodControlPlaceHolder createMethodControlPlaceHolder(JPanel form, IMethodInfo method) {
+			return new CustomizingMethodControlPlaceHolder(this, form, method) {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public IMethodControlData indicateWhenBusy(IMethodControlData data) {
+					if (method.getName().startsWith("switch")) {
+						return data;
+					} else {
+						return super.indicateWhenBusy(data);
+					}
+				}
+
+			};
 		}
 
 		@Override
@@ -747,31 +830,6 @@ public class TesterEditor extends JFrame {
 								new Object[] { afterSelectionStartOption, atEndStartOption },
 								"testActionsRecordingStartOption", "");
 
-						IParameterInfo startOptionParameter = new ParameterInfoProxy(
-								IParameterInfo.NULL_PARAMETER_INFO) {
-
-							@Override
-							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(startOptionsEnumFactory.getInstanceTypeInfoSource());
-							}
-
-							@Override
-							public Object getDefaultValue() {
-								return startOptionsEnumFactory.getInstance(afterSelectionStartOption);
-							}
-
-							@Override
-							public boolean isNullValueDistinct() {
-								return false;
-							}
-
-							@Override
-							public String getCaption() {
-								return "Select";
-							}
-
-						};
-
 						@Override
 						public String getName() {
 							return "switchToRecording";
@@ -789,31 +847,95 @@ public class TesterEditor extends JFrame {
 
 						@Override
 						public List<IParameterInfo> getParameters() {
-							ListControl testActionsControl = getTestActionsControl();
-							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
-								return Collections.<IParameterInfo>singletonList(startOptionParameter);
-							} else {
-								return Collections.emptyList();
-							}
+							List<IParameterInfo> result = new ArrayList<IParameterInfo>();
+							result.add(startPositionParameter);
+							result.add(mainMethodParameter);
+							return result;
 						}
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
 							ListControl testActionsControl = getTestActionsControl();
 							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
-								String startOption = (String) startOptionsEnumFactory
-										.unwrapInstance(invocationData.getParameterValue(startOptionParameter));
-								if (afterSelectionStartOption.equals(startOption)) {
+								String startPosition = (String) startOptionsEnumFactory
+										.unwrapInstance(invocationData.getParameterValue(startPositionParameter));
+								if (afterSelectionStartOption.equals(startPosition)) {
 									recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
-								} else if (atEndStartOption.equals(startOption)) {
+								} else if (atEndStartOption.equals(startPosition)) {
 									recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
 								} else {
 									return null;
 								}
 							}
+							final CallMainMethodAction mainMethodCall = (CallMainMethodAction) invocationData
+									.getParameterValue(mainMethodParameter);
+							if (mainMethodCall != null) {
+								mainMethodCall.execute(null, tester);
+								recordingWindowSwitch.insertNewTestAction(mainMethodCall);
+							}
 							startRecording();
 							return null;
 						}
+
+						IParameterInfo startPositionParameter = new ParameterInfoProxy(
+								IParameterInfo.NULL_PARAMETER_INFO) {
+
+							@Override
+							public String getName() {
+								return "insertPosition";
+							}
+
+							@Override
+							public String getCaption() {
+								return "Insert Position";
+							}
+
+							@Override
+							public ITypeInfo getType() {
+								return reflectionUI.getTypeInfo(startOptionsEnumFactory.getInstanceTypeInfoSource());
+							}
+
+							@Override
+							public Object getDefaultValue() {
+								return startOptionsEnumFactory.getInstance(afterSelectionStartOption);
+							}
+
+							@Override
+							public boolean isNullValueDistinct() {
+								return false;
+							}
+
+						};
+
+						IParameterInfo mainMethodParameter = new ParameterInfoProxy(
+								IParameterInfo.NULL_PARAMETER_INFO) {
+
+							@Override
+							public String getName() {
+								return "startCallMainMethodAction";
+							}
+
+							@Override
+							public String getCaption() {
+								return "Start By Calling Main Method";
+							}
+
+							@Override
+							public ITypeInfo getType() {
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(CallMainMethodAction.class));
+							}
+
+							@Override
+							public Object getDefaultValue() {
+								return null;
+							}
+
+							@Override
+							public boolean isNullValueDistinct() {
+								return true;
+							}
+
+						};
 					});
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
 

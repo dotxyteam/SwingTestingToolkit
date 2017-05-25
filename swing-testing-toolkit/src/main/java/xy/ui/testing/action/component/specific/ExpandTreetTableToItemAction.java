@@ -123,7 +123,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Expand the item " + itemPath + " of the " + getComponentInformation();
+		return "Expand item " + itemPath + " of " + getComponentInformation();
 	}
 
 }

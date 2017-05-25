@@ -1,5 +1,6 @@
 package xy.ui.testing;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -23,6 +24,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JList;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
@@ -42,6 +44,7 @@ import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
+@SuppressWarnings("unused")
 public class Tester {
 
 	public static final Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
@@ -271,14 +274,14 @@ public class Tester {
 	}
 
 	public List<Component> getChildrenComponents(Container container) {
-		List<Component> result = Arrays.asList(container.getComponents());
+		List<Component> result = new ArrayList<Component>();
+		for (Component c : container.getComponents()) {
+			if (c.isVisible()) {
+				result.add(c);
+			}
+		}
 		result = new ArrayList<Component>(result);
-		Collections.sort(result, getComponentPositionBasedComparator());
-		return result;
-	}
-
-	protected Comparator<Component> getComponentPositionBasedComparator() {
-		return new Comparator<Component>() {
+		Collections.sort(result, new Comparator<Component>() {
 			@Override
 			public int compare(Component c1, Component c2) {
 				Point location1 = c1.getLocation();
@@ -289,7 +292,8 @@ public class Tester {
 				}
 				return result;
 			}
-		};
+		});
+		return result;
 	}
 
 	public boolean isTestableWindow(Window window) {

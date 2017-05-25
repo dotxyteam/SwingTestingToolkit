@@ -24,6 +24,7 @@ import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
+import xy.ui.testing.action.window.CloseAllWindowsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
@@ -60,6 +61,23 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 	public void setRecordingInsertedAfterSelection(boolean recordingInsertedAfterSelection) {
 		this.recordingInsertedAfterSelection = recordingInsertedAfterSelection;
+	}
+
+	public void handleSystemExitCall() {
+		setRecordingPausedAndUpdateUI(true);
+		try {
+			String title = getSwingRenderer().getObjectTitle(getTester());
+			RecordingWindowSwitch.this.getWindow().requestFocus();
+			if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
+					"A System.exit() call was intercepted."
+							+ "\nDo you want to record the closing of all open windows?",
+					title)) {
+				CloseAllWindowsAction closeAllAction = new CloseAllWindowsAction();
+				handleNewTestActionInsertionRequest(closeAllAction, null, true);
+			}
+		} finally {
+			setRecordingPausedAndUpdateUI(false);
+		}
 	}
 
 	public void handleWindowClosingRecordingEvent(AWTEvent event) {
@@ -119,19 +137,8 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	protected boolean handleNewTestActionInsertionRequest(final TestAction testAction, final Component c,
 			boolean execute) {
 		if (openRecordingSettingsWindow(testAction, c)) {
-			final List<TestAction> newTestActionList = new ArrayList<TestAction>(
-					Arrays.asList(getTester().getTestActions()));
-			int selectionIndex = testerEditor.getSelectedActionIndex();
-			int insertionIndex;
-			if ((selectionIndex != -1) && recordingInsertedAfterSelection) {
-				insertionIndex = selectionIndex + 1;
-			} else {
-				insertionIndex = newTestActionList.size();
-			}
-			newTestActionList.add(insertionIndex, testAction);
-			testerEditor.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
-			testerEditor.setSelectedActionIndex(insertionIndex);
 			getTester().handleCurrentComponentChange(null);
+			insertNewTestAction(testAction);
 			if (execute) {
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
@@ -148,6 +155,24 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			return true;
 		}
 		return false;
+	}
+
+	public void insertNewTestAction(TestAction testAction) {
+		final List<TestAction> newTestActionList = new ArrayList<TestAction>(
+				Arrays.asList(getTester().getTestActions()));
+		int insertionIndex = getNewTestActionInsertionIndex();
+		newTestActionList.add(insertionIndex, testAction);
+		testerEditor.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
+		testerEditor.setSelectedActionIndex(insertionIndex);
+	}
+
+	public int getNewTestActionInsertionIndex() {
+		int selectionIndex = testerEditor.getSelectedActionIndex();
+		if ((selectionIndex != -1) && recordingInsertedAfterSelection) {
+			return selectionIndex + 1;
+		} else {
+			return getTester().getTestActions().length;
+		}
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {

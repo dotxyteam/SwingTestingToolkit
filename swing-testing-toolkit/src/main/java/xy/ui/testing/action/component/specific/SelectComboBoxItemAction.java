@@ -225,7 +225,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		String optionToSelectText = (optionToSelect == null) ? "<none>" : optionToSelect;
 		String selectionModeText = (selectionMode == null) ? "<unspecified selection mode>"
 				: selectionMode.toString().toLowerCase().replace('_', ' ');
-		return "Select " + selectionModeText + " the item <" + optionToSelectText + "> of the "
+		return "Select " + selectionModeText + " item <" + optionToSelectText + "> of "
 				+ getComponentInformation();
 	}
 

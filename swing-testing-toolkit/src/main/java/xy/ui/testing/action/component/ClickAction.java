@@ -106,12 +106,12 @@ public class ClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return button.name().replace("_",  " ") + (doubleClick ? " x 2" : "");
+		return button.name().replace("_",  " ") + " click" + (doubleClick ? " x 2" : "");
 	}
 
 	@Override
 	public String toString() {
-		return getValueDescription() + " on the " + getComponentInformation();
+		return getValueDescription() + " on " + getComponentInformation();
 	}
 
 	public enum ButtonId {

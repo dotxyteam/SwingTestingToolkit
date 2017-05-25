@@ -87,7 +87,7 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Set " + getValueDescription() + " for the " + getComponentInformation();
+		return "Set " + getValueDescription() + " for " + getComponentInformation();
 	}
 
 	@Override

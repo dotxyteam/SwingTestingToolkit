@@ -1,5 +1,9 @@
 package xy.ui.testing.editor;
 
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -8,15 +12,18 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
+import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestingUtils;
 
+@SuppressWarnings("unused")
 public abstract class AbstractWindowSwitch {
 
 	protected TesterEditor testerEditor;
-	protected JFrame window;
+	protected JFrame controlWindow;
 	protected JPanel statusControlForm;
 	protected StatusControlObject statusControlObject = new StatusControlObject();
+	protected Rectangle lastBounds;
 
 	protected abstract void onBegining();
 
@@ -51,63 +58,16 @@ public abstract class AbstractWindowSwitch {
 			return;
 		}
 		if (b) {
-			AbstractWindowSwitch.this.window = new JFrame() {
-				private static final long serialVersionUID = 1L;
-				boolean disposed = false;
-				{
-					setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					statusControlForm = getSwingRenderer().createForm(statusControlObject);
-					getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(),
-							testerEditor.getIconImage());
-					addWindowListener(new WindowAdapter() {
-						@Override
-						public void windowOpened(WindowEvent e) {
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									onBegining();
-								}
-							});
-						}
-
-						@Override
-						public void windowClosing(WindowEvent e) {
-							SwingUtilities.invokeLater(new Runnable() {
-								@Override
-								public void run() {
-									onEnd();
-								}
-							});
-						}
-
-					});
-				}
-
-				@Override
-				public void dispose() {
-					synchronized (this) {
-						if (disposed) {
-							return;
-						}
-						disposed = true;
-					}
-					super.dispose();
-					testerEditor.setLocation(AbstractWindowSwitch.this.window.getLocation());
-					AbstractWindowSwitch.this.window = null;
-					testerEditor.invalidate();
-					testerEditor.setVisible(true);
-				}
-			};
+			controlWindow = new StatusControlWindow();
 			testerEditor.setVisible(false);
-			AbstractWindowSwitch.this.window.setLocation(testerEditor.getLocation());
-			AbstractWindowSwitch.this.window.setVisible(true);
+			controlWindow.setVisible(true);
 		} else {
-			TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.window);
+			TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.controlWindow);
 		}
 	}
 
 	protected boolean isActive() {
-		return window != null;
+		return controlWindow != null;
 	}
 
 	public JPanel getStatusControlForm() {
@@ -115,7 +75,7 @@ public abstract class AbstractWindowSwitch {
 	}
 
 	public JFrame getWindow() {
-		return window;
+		return controlWindow;
 	}
 
 	public class StatusControlObject {
@@ -130,5 +90,69 @@ public abstract class AbstractWindowSwitch {
 			}
 			activate(false);
 		}
+	}
+
+	public class StatusControlWindow extends JFrame {
+		private static final long serialVersionUID = 1L;
+		boolean disposed = false;
+
+		public StatusControlWindow() {
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setAlwaysOnTop(true);
+			statusControlForm = getSwingRenderer().createForm(statusControlObject);
+			getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(),
+					testerEditor.getIconImage());
+			if (lastBounds != null) {
+				setBounds(lastBounds);
+			} else {
+				setLocation(getInitialLocation());
+			}
+			addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowOpened(WindowEvent e) {
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							onBegining();
+						}
+					});
+				}
+
+				@Override
+				public void windowClosing(WindowEvent e) {
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							onEnd();
+						}
+					});
+				}
+
+			});
+		}
+
+		@Override
+		public void dispose() {
+			synchronized (this) {
+				if (disposed) {
+					return;
+				}
+				disposed = true;
+			}
+			lastBounds = getBounds();
+			super.dispose();
+			AbstractWindowSwitch.this.controlWindow = null;
+			testerEditor.invalidate();
+			testerEditor.setVisible(true);
+		}
+
+		protected Point getInitialLocation() {
+			Rectangle screenBounds = SwingRendererUtils.getScreenBounds(this);
+			Dimension currentSize = getSize();
+			int x = screenBounds.x + screenBounds.width - currentSize.width;
+			int y = screenBounds.y + screenBounds.height - currentSize.height;
+			return new Point(x, y);
+		}
+
 	}
 }

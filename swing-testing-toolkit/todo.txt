@@ -1,3 +1,5 @@
+- intersting links:
+	. http://www.drdobbs.com/windows/a-text-ui-for-the-java-awt/184410274
 - try context menu on list/table/tree
 - do a regression test on swing set example
 - allow to expand jtree
