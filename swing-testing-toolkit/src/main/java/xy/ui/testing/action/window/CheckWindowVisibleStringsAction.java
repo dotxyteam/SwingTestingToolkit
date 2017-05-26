@@ -70,14 +70,14 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	@Override
 	protected boolean initializeSpecificProperties(Window w, TesterEditor testerEditor) {
-		visibleStrings.addAll(TestingUtils.extractComponentTreeVisibleStrings(w, testerEditor.getTester()));
+		visibleStrings.addAll(TestingUtils.extractComponentTreeDisplayedStrings(w, testerEditor.getTester()));
 		return true;
 	}
 
 	@Override
 	public Window findComponent(Tester tester) {
 		Window window = super.findComponent(tester);
-		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeVisibleStrings(window, tester);
+		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeDisplayedStrings(window, tester);
 		check(currentVisibleStrings, window, tester);
 		return window;
 	}

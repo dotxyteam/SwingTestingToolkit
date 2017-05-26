@@ -62,12 +62,12 @@ public class ComponentInspector {
 		protected List<String> visibleStrings;
 		protected Component c;
 		protected TesterEditor testerEditor;
-		protected String componentTreeVisibleStringsSummary;
+		protected String componentTreeDisplayedStringsSummary;
 
 		public ComponentInspectorNode(Component c, TesterEditor testerEditor) {
 			this.c = c;
 			this.testerEditor = testerEditor;
-			this.visibleStrings = testerEditor.getTester().extractVisibleStrings(c);
+			this.visibleStrings = testerEditor.getTester().extractDisplayedStrings(c);
 			this.visibleStrings.remove("");
 		}
 
@@ -115,21 +115,21 @@ public class ComponentInspector {
 			return chilren;
 		}
 
-		public List<String> getComponentTreeVisibleStrings() {
+		public List<String> getComponentTreeDisplayedStrings() {
 			final List<String> result = new ArrayList<String>(visibleStrings);
 			for (ComponentInspectorNode node : getChildren()) {
-				result.addAll(node.getComponentTreeVisibleStrings());
+				result.addAll(node.getComponentTreeDisplayedStrings());
 			}
 			return result;
 		}
 
-		public String getComponentTreeVisibleStringsSummary() {
-			if (componentTreeVisibleStringsSummary == null) {
+		public String getComponentTreeDisplayedStringsSummary() {
+			if (componentTreeDisplayedStringsSummary == null) {
 				StringBuilder result = new StringBuilder();
 				int MAX_VISIBLE_STRING_COUNT = 2;
 				int MAX_VISIBLE_STRING_LENGTH = 30;
 				boolean stringListReduced = false;
-				List<String> allVisibleStrings = getComponentTreeVisibleStrings();
+				List<String> allVisibleStrings = getComponentTreeDisplayedStrings();
 				if (allVisibleStrings.size() > MAX_VISIBLE_STRING_COUNT) {
 					allVisibleStrings = allVisibleStrings.subList(0, MAX_VISIBLE_STRING_COUNT);
 					stringListReduced = true;
@@ -149,9 +149,9 @@ public class ComponentInspector {
 					}
 					result.append(")");
 				}
-				componentTreeVisibleStringsSummary = result.toString();
+				componentTreeDisplayedStringsSummary = result.toString();
 			}
-			return componentTreeVisibleStringsSummary;
+			return componentTreeDisplayedStringsSummary;
 		}
 
 		public List<ComponentFinder> getCompatibleFinders() {
@@ -172,7 +172,7 @@ public class ComponentInspector {
 
 		@Override
 		public String toString() {
-			return getComponentClassName() + getComponentTreeVisibleStringsSummary();
+			return getComponentClassName() + getComponentTreeDisplayedStringsSummary();
 
 		}
 

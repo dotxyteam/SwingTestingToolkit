@@ -64,16 +64,19 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 
 			@Override
 			public boolean visit(Component c) {
-				if (matchesInContainingWindow(c, tester)) {
-					if (occurrences == occurrencesToSkip) {
-						result[0] = c;
-						return false;
-					} else {
-						occurrences++;
+				if (tester.isVisible(c)) {
+					if (matchesInContainingWindow(c, tester)) {
+						if (occurrences == occurrencesToSkip) {
+							result[0] = c;
+							return false;
+						} else {
+							occurrences++;
+						}
 					}
 				}
 				return true;
 			}
+
 		});
 		return result[0];
 	}
@@ -104,8 +107,10 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 					ok[0] = true;
 					return false;
 				}
-				if (matchesInContainingWindow(otherComponent, testerEditor.getTester())) {
-					occurrencesToSkip++;
+				if (testerEditor.getTester().isVisible(c)) {
+					if (matchesInContainingWindow(otherComponent, testerEditor.getTester())) {
+						occurrencesToSkip++;
+					}
 				}
 				return true;
 			}

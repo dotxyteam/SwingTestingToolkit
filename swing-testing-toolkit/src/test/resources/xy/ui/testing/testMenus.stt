@@ -8,7 +8,7 @@
     </xy.ui.testing.action.CallMainMethodAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>A Menu</visibleString>
         <windowIndex>0</windowIndex>
@@ -56,7 +56,7 @@
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>RIGHT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>This menu item was activated: text=&apos;An item in the submenu&apos;, selected=false</visibleString>
         <windowIndex>0</windowIndex>
@@ -104,7 +104,7 @@
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.VisibleStringComponentFinder">
+      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>A Menu</visibleString>
         <windowIndex>0</windowIndex>

@@ -68,6 +68,7 @@ public class Tester {
 	protected Color currentComponentForeground;
 	protected MouseListener[] currentComponentMouseListeners;
 	protected Border currentComponentBorder;
+	protected EditingOptions editingOptions = new EditingOptions();
 
 	public Tester() {
 	}
@@ -273,12 +274,14 @@ public class Tester {
 		}
 	}
 
+	public boolean isVisible(Component c) {
+		return c.isVisible();
+	}
+
 	public List<Component> getChildrenComponents(Container container) {
 		List<Component> result = new ArrayList<Component>();
 		for (Component c : container.getComponents()) {
-			if (c.isVisible()) {
-				result.add(c);
-			}
+			result.add(c);
 		}
 		result = new ArrayList<Component>(result);
 		Collections.sort(result, new Comparator<Component>() {
@@ -312,7 +315,7 @@ public class Tester {
 		return new File(Tester.class.getSimpleName().toLowerCase() + "-saved-images");
 	}
 
-	public List<String> extractVisibleStrings(Component c) {
+	public List<String> extractDisplayedStrings(Component c) {
 		List<String> result = new ArrayList<String>();
 		String s;
 		s = extractVisibleStringThroughMethod(c, "getTitle");
@@ -369,7 +372,7 @@ public class Tester {
 			try {
 				Object item = model.getElementAt(i);
 				Component cellComponent = cellRenderer.getListCellRendererComponent(list, item, i, false, false);
-				result.addAll(extractVisibleStrings(cellComponent));
+				result.addAll(extractDisplayedStrings(cellComponent));
 			} catch (Exception ignore) {
 			}
 		}
@@ -393,7 +396,7 @@ public class Tester {
 					TableCellRenderer cellRenderer = table.getCellRenderer(iRow, iCol);
 					Component cellComponent = cellRenderer.getTableCellRendererComponent(table, cellValue, false, false,
 							iRow, iCol);
-					List<String> cellVisibleStrings = extractVisibleStrings(cellComponent);
+					List<String> cellVisibleStrings = extractDisplayedStrings(cellComponent);
 					result.addAll(cellVisibleStrings);
 				} catch (Exception ignore) {
 				}
@@ -439,5 +442,33 @@ public class Tester {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	public EditingOptions getEditingOptions() {
+		return editingOptions;
+	}
+
+	public static class EditingOptions {
+
+		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
+		protected boolean testableModalWindowsForcedToDocumentModality = true;
+
+		public boolean isTestableWindowsAlwaysOnTopFeatureDisabled() {
+			return testableWindowsAlwaysOnTopFeatureDisabled;
+		}
+
+		public void setTestableWindowsAlwaysOnTopFeatureDisabled(boolean testableWindowsAlwaysOnTopFeatureDisabled) {
+			this.testableWindowsAlwaysOnTopFeatureDisabled = testableWindowsAlwaysOnTopFeatureDisabled;
+		}
+
+		public boolean isTestableModalWindowsForcedToDocumentModality() {
+			return testableModalWindowsForcedToDocumentModality;
+		}
+
+		public void setTestableModalWindowsForcedToDocumentModality(
+				boolean testableModalWindowsForcedToDocumentModality) {
+			this.testableModalWindowsForcedToDocumentModality = testableModalWindowsForcedToDocumentModality;
+		}
+
 	}
 }

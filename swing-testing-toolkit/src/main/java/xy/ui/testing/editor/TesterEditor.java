@@ -18,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,6 +71,7 @@ import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
+import xy.ui.testing.action.SystemExitCallInterceptionAction;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.WaitAction;
 import xy.ui.testing.action.component.ClickAction;
@@ -88,13 +88,12 @@ import xy.ui.testing.action.component.specific.SelectComboBoxItemAction;
 import xy.ui.testing.action.component.specific.SelectTabAction;
 import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
-import xy.ui.testing.action.window.CloseAllWindowsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
-import xy.ui.testing.finder.VisibleStringComponentFinder;
+import xy.ui.testing.finder.DisplayedStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.TestingUtils;
 
@@ -106,21 +105,21 @@ public class TesterEditor extends JFrame {
 	public static final boolean DEBUG = Boolean
 			.valueOf(System.getProperty(TesterEditor.class.getName() + ".DEBUG", "false"));
 
+	public static final Class<?>[] BUILT_IN_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
+			SystemExitCallInterceptionAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
+			SelectComboBoxItemAction.class, SelectTableRowAction.class, SelectTabAction.class,
+			ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class,
+			CloseWindowAction.class, ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
+			CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
+	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] {
+			DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class,
+			MenuItemComponentFinder.class };
+	public static final Class<?>[] BUILT_IN_KEYBOARD_INTERACTION_CLASSES = new Class[] { WriteText.class,
+			SpecialKey.class };
+
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
 			.putImageInCached(TestingUtils.loadImageResource("ExtensionAction.png"));
-
-	protected static final Class<?>[] DEFAULT_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
-			WaitAction.class, ExpandTreetTableToItemAction.class, SelectComboBoxItemAction.class,
-			SelectTableRowAction.class, SelectTabAction.class, ClickOnTableCellAction.class,
-			ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class, CloseWindowAction.class,
-			CloseAllWindowsAction.class, ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class,
-			CheckWindowVisibleStringsAction.class, CheckNumberOfOpenWindowsAction.class };
-	protected static final Class<?>[] DEFAULT_COMPONENT_FINDRER_CLASSES = new Class[] {
-			VisibleStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class,
-			MenuItemComponentFinder.class };
-	protected static final Class<?>[] DEFAULT_KEYBOARD_INTERACTION_CLASSES = new Class[] { WriteText.class,
-			SpecialKey.class };
 
 	protected Tester tester;
 
@@ -148,7 +147,6 @@ public class TesterEditor extends JFrame {
 		this.tester = tester;
 		setupRecordingEventHandling();
 		preventDialogApplicationModality();
-		interceptSystemExitCalls();
 		infoCustomizations = createInfoCustomizations();
 		reflectionUI = createTesterReflectionUI();
 		swingRenderer = createSwingRenderer(reflectionUI, infoCustomizations);
@@ -160,41 +158,6 @@ public class TesterEditor extends JFrame {
 		super.finalize();
 		cleanupRecordingEventHandling();
 		cleanupDialogApplicationModalityPrevention();
-		cleanupSystemExitCallsInterception();
-	}
-
-	protected void interceptSystemExitCalls() {
-		System.setSecurityManager(new SecurityManager() {
-
-			@Override
-			public void checkExit(int status) {
-				if (recordingWindowSwitch.isActive()) {
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							recordingWindowSwitch.handleSystemExitCall();
-						}
-					});
-				}
-				throw new SecurityException();
-			}
-
-			@Override
-			public void checkPermission(Permission perm) {
-				// allow anything.
-			}
-
-			@Override
-			public void checkPermission(Permission perm, Object context) {
-				// allow anything.
-			}
-		});
-	}
-
-	protected static final SecurityManager DEFAULT_SECURITY_MANAGER = System.getSecurityManager();
-
-	protected void cleanupSystemExitCallsInterception() {
-		System.setSecurityManager(DEFAULT_SECURITY_MANAGER);
 	}
 
 	protected void setupRecordingEventHandling() {
@@ -261,13 +224,17 @@ public class TesterEditor extends JFrame {
 						if (event.getSource() instanceof Window) {
 							Window window = (Window) event.getSource();
 							if (tester.isTestableWindow(window)) {
-								if (window.isAlwaysOnTop()) {
-									window.setAlwaysOnTop(false);
+								if (tester.getEditingOptions().isTestableWindowsAlwaysOnTopFeatureDisabled()) {
+									if (window.isAlwaysOnTop()) {
+										window.setAlwaysOnTop(false);
+									}
 								}
 								if (window instanceof Dialog) {
 									Dialog dialog = (Dialog) window;
-									if (dialog.isModal()) {
-										dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+									if (tester.getEditingOptions().isTestableModalWindowsForcedToDocumentModality()) {
+										if (dialog.isModal()) {
+											dialog.setModalityType(ModalityType.DOCUMENT_MODAL);
+										}
 									}
 								}
 							}
@@ -277,6 +244,7 @@ public class TesterEditor extends JFrame {
 			}
 		};
 		Toolkit.getDefaultToolkit().addAWTEventListener(modalityChangingListener, AWTEvent.HIERARCHY_EVENT_MASK);
+
 	}
 
 	protected void cleanupDialogApplicationModalityPrevention() {
@@ -483,15 +451,15 @@ public class TesterEditor extends JFrame {
 	}
 
 	public Class<?>[] getTestActionClasses() {
-		return DEFAULT_TEST_ACTION_CLASSES;
+		return BUILT_IN_TEST_ACTION_CLASSES;
 	}
 
 	public Class<?>[] getComponentFinderClasses() {
-		return DEFAULT_COMPONENT_FINDRER_CLASSES;
+		return BUILT_IN_COMPONENT_FINDRER_CLASSES;
 	}
 
 	public Class<?>[] getKeyboardInteractionClasses() {
-		return DEFAULT_KEYBOARD_INTERACTION_CLASSES;
+		return BUILT_IN_KEYBOARD_INTERACTION_CLASSES;
 	}
 
 	protected SwingRenderer createSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
@@ -670,7 +638,7 @@ public class TesterEditor extends JFrame {
 				}
 				if (!TestAction.class.equals(clazz)) {
 					if (TestAction.class.isAssignableFrom(clazz)) {
-						if (!Arrays.asList(DEFAULT_TEST_ACTION_CLASSES).contains(clazz)) {
+						if (!Arrays.asList(BUILT_IN_TEST_ACTION_CLASSES).contains(clazz)) {
 							return true;
 						}
 					}

@@ -8,7 +8,7 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ValidationError;
 
-public class VisibleStringComponentFinder extends MatchingComponentFinder {
+public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 
 	protected String visibleString = "";
@@ -23,7 +23,7 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
-		List<String> visibleStrings = testerEditor.getTester().extractVisibleStrings(c);
+		List<String> visibleStrings = testerEditor.getTester().extractDisplayedStrings(c);
 		if (visibleStrings.size() == 0) {
 			return false;
 		}
@@ -33,7 +33,7 @@ public class VisibleStringComponentFinder extends MatchingComponentFinder {
 
 	@Override
 	protected boolean matchesInContainingWindow(Component c, Tester tester) {
-		List<String> visibleStrings = tester.extractVisibleStrings(c);
+		List<String> visibleStrings = tester.extractDisplayedStrings(c);
 		for (String s : visibleStrings) {
 			if (visibleString.equals(s)) {
 				return true;

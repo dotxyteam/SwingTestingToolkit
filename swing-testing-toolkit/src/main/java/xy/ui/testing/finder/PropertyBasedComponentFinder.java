@@ -12,7 +12,7 @@ import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
-public class PropertyBasedComponentFinder extends ClassBasedComponentFinder {
+public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
 
 	protected List<PropertyValue> propertyValues = new ArrayList<PropertyBasedComponentFinder.PropertyValue>();

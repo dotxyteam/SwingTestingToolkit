@@ -411,13 +411,15 @@ public class TestingUtils {
 		return true;
 	}
 
-	public static List<String> extractComponentTreeVisibleStrings(Component c, final Tester tester) {
+	public static List<String> extractComponentTreeDisplayedStrings(Component c, final Tester tester) {
 		final List<String> result = new ArrayList<String>();
 		TestingUtils.visitComponentTree(tester, c, new IComponentTreeVisitor() {
 
 			@Override
 			public boolean visit(Component c) {
-				result.addAll(tester.extractVisibleStrings(c));
+				if (tester.isVisible(c)) {
+					result.addAll(tester.extractDisplayedStrings(c));
+				}
 				return true;
 			}
 		});
