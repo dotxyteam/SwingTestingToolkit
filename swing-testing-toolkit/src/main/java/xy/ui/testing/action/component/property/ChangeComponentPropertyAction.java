@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ComponentPropertyUtil;
 import xy.ui.testing.util.ValidationError;
 
@@ -58,8 +59,8 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
-		return propertyUtil.initializeSpecificProperties(c, event);
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+		return propertyUtil.initializeSpecificProperties(c, introspectionRequestEvent);
 	}
 
 	@Override

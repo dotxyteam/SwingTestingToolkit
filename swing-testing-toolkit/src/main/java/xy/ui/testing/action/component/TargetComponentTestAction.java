@@ -17,7 +17,8 @@ public abstract class TargetComponentTestAction extends TestAction {
 
 	protected ComponentFinder componentFinder;
 
-	protected abstract boolean initializeSpecificProperties(Component c, AWTEvent event);
+	protected abstract boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TesterEditor testerEditor);
 
 	public ComponentFinder getComponentFinder() {
 		return componentFinder;
@@ -44,7 +45,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 		if (getComponentFinder() == null) {
 			return false;
 		}
-		if (!initializeSpecificProperties(c, introspectionRequestEvent)) {
+		if (!initializeSpecificProperties(c, introspectionRequestEvent, testerEditor)) {
 			return false;
 		}
 		return true;
@@ -57,7 +58,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 		} else {
 			Component c = getComponentFinder().find(tester);
 			if (c == null) {
-				throw new TestFailure("Unable to find " + getComponentFinder().toString(), "Window",
+				throw new TestFailure("Unable to find " + getComponentFinder().toString(), "Window image",
 						TestingUtils.saveTestableWindowImage(tester, getComponentFinder().getWindowIndex()));
 			}
 			return c;

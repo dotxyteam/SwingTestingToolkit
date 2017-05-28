@@ -1,11 +1,9 @@
 package xy.ui.testing;
 
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,17 +12,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JList;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
@@ -44,7 +43,6 @@ import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
-@SuppressWarnings("unused")
 public class Tester {
 
 	public static final Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
@@ -116,6 +114,7 @@ public class Tester {
 				break;
 			}
 			final TestAction testAction = toReplay.get(i);
+			log("Replaying: " + testAction);
 			try {
 				if (beforeEachAction != null) {
 					beforeEachAction.handle(testAction);
@@ -146,6 +145,10 @@ public class Tester {
 			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
 		} catch (InterruptedException ignore) {
 		}
+	}
+
+	protected void log(String msg) {
+		System.out.println(SimpleDateFormat.getDateTimeInstance().format(new Date()) + " [" + Tester.this + "] " + msg);
 	}
 
 	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {
@@ -299,14 +302,14 @@ public class Tester {
 		return result;
 	}
 
-	public boolean isTestableWindow(Window window) {
+	public boolean isTestable(Component c) {
+		if (!isVisible(c)) {
+			return false;
+		}
 		for (TesterEditor testerEditor : TestingUtils.getTesterEditors(this)) {
-			if (TestingUtils.isTesterEditorComponent(testerEditor, window)) {
+			if (TestingUtils.isTesterEditorComponent(testerEditor, c)) {
 				return false;
 			}
-		}
-		if (!window.isVisible()) {
-			return false;
 		}
 		return true;
 	}
@@ -318,22 +321,22 @@ public class Tester {
 	public List<String> extractDisplayedStrings(Component c) {
 		List<String> result = new ArrayList<String>();
 		String s;
-		s = extractVisibleStringThroughMethod(c, "getTitle");
+		s = extractDisplayedStringThroughMethod(c, "getTitle");
 		if (s != null) {
 			result.add(s);
 		}
-		s = extractVisibleStringThroughMethod(c, "getText");
+		s = extractDisplayedStringThroughMethod(c, "getText");
 		if (s != null) {
 			result.add(s);
 		}
-		s = extractVisibleStringThroughMethod(c, "getToolTipText");
+		s = extractDisplayedStringThroughMethod(c, "getToolTipText");
 		if (s != null) {
 			result.add(s);
 		}
 		if (c instanceof JComponent) {
 			Border border = ((JComponent) c).getBorder();
 			if (border != null) {
-				s = extractVisibleStringFromBorder(border);
+				s = extracDisplayedStringFromBorder(border);
 				if ((s != null) && (s.trim().length() > 0)) {
 					result.add(s);
 				}
@@ -341,20 +344,20 @@ public class Tester {
 		}
 		if (c instanceof JTable) {
 			JTable table = (JTable) c;
-			result.addAll(extractVisibleStringsFromTable(table));
+			result.addAll(extractDisplayedStringsFromTable(table));
 		}
 		if (c instanceof JTree) {
 			JTree tree = (JTree) c;
-			result.addAll(extractVisibleStringsFromTree(tree));
+			result.addAll(extractDisplayedStringsFromTree(tree));
 		}
 		if (c instanceof JList) {
 			JList list = (JList) c;
-			result.addAll(extractVisibleStringsFromList(list));
+			result.addAll(extractDisplayedStringsFromList(list));
 		}
 		return result;
 	}
 
-	protected String extractVisibleStringFromBorder(Border border) {
+	protected String extracDisplayedStringFromBorder(Border border) {
 		if (border instanceof TitledBorder) {
 			String s = ((TitledBorder) border).getTitle();
 			if ((s != null) && (s.trim().length() > 0)) {
@@ -364,7 +367,7 @@ public class Tester {
 		return null;
 	}
 
-	protected Collection<String> extractVisibleStringsFromList(JList list) {
+	protected Collection<String> extractDisplayedStringsFromList(JList list) {
 		List<String> result = new ArrayList<String>();
 		ListModel model = list.getModel();
 		ListCellRenderer cellRenderer = list.getCellRenderer();
@@ -379,7 +382,7 @@ public class Tester {
 		return result;
 	}
 
-	protected List<String> extractVisibleStringsFromTable(JTable table) {
+	protected List<String> extractDisplayedStringsFromTable(JTable table) {
 		List<String> result = new ArrayList<String>();
 		TableModel model = table.getModel();
 		String s;
@@ -405,7 +408,7 @@ public class Tester {
 		return result;
 	}
 
-	protected Collection<? extends String> extractVisibleStringsFromTree(JTree tree) {
+	protected Collection<? extends String> extractDisplayedStringsFromTree(JTree tree) {
 		List<String> result = new ArrayList<String>();
 		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
 		return result;
@@ -428,7 +431,7 @@ public class Tester {
 		return result;
 	}
 
-	protected String extractVisibleStringThroughMethod(Component c, String methodName) {
+	protected String extractDisplayedStringThroughMethod(Component c, String methodName) {
 		try {
 			Method method = c.getClass().getMethod(methodName);
 			String result = (String) method.invoke(c);

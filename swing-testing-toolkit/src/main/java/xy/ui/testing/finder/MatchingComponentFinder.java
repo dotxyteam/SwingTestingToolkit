@@ -40,7 +40,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 		int windowCount = 0;
 		for (Window window : Window.getWindows()) {
 			boolean testable = true;
-			if (!tester.isTestableWindow(window)) {
+			if (!tester.isTestable(window)) {
 				testable = false;
 			}
 			if (!testable) {
@@ -54,7 +54,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 		throw new TestFailure(
 				"Component not found: Containing window index is out of bounds: " + windowIndex + ": Only "
 						+ windowCount + " window(s) found",
-				"Found window(s)", TestingUtils.saveAllTestableWindowImages(tester));
+				"Found window(s) image", TestingUtils.saveAllTestableWindowImages(tester));
 	}
 
 	protected Component find(Window containingWindow, final Tester tester) {
@@ -77,7 +77,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 				return true;
 			}
 
-		});
+		}, true);
 		return result[0];
 	}
 
@@ -114,7 +114,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 				}
 				return true;
 			}
-		});
+		}, true);
 		return ok[0];
 
 	}
@@ -122,7 +122,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	protected boolean initializeWindowIndex(Window componentWindow, TesterEditor testerEditor) {
 		windowIndex = 0;
 		for (Window window : Window.getWindows()) {
-			if (!testerEditor.getTester().isTestableWindow(window)) {
+			if (!testerEditor.getTester().isTestable(window)) {
 				continue;
 			}
 			if (window == componentWindow) {

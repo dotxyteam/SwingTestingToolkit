@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -62,7 +63,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 		if (!(c instanceof JComboBox)) {
 			return false;
 		}

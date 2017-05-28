@@ -54,7 +54,7 @@ public class TestFailure extends RuntimeException {
 			result = "Test Failure";
 		}
 		if ((imageDescription != null) && (imageFile != null)) {
-			result += "\n\n- " + imageDescription + " image:\n" + imageFile.getAbsolutePath();
+			result += "\n\n- " + imageDescription + ":\n" + imageFile.getAbsolutePath();
 		}
 		return result;
 	}

@@ -16,6 +16,7 @@ import org.jdesktop.swingx.treetable.TreeTableModel;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -35,12 +36,12 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 		if (!(c instanceof JXTreeTable)) {
 			return false;
 		}
 		JXTreeTable treeTable = (JXTreeTable) c;
-		MouseEvent mouseEvt = (MouseEvent) event;
+		MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
 		TreePath treePath = treeTable.getPathForLocation(mouseEvt.getX(), mouseEvt.getY());
 		if (treePath == null) {
 			return false;
@@ -91,7 +92,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		final TreePath treePath = fromIntPathToTreePath(itemPath, treeTable);
 		if (treePath == null) {
 			throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath,
-					"Component", TestingUtils.saveTestableComponentImage(tester, c));
+					"Component image", TestingUtils.saveTestableComponentImage(tester, c));
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.AbstractClickAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ValidationError;
 
 public class ClickOnTableCellAction extends AbstractClickAction {
@@ -37,15 +38,15 @@ public class ClickOnTableCellAction extends AbstractClickAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
-		if (!super.initializeSpecificProperties(c, event)) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+		if (!super.initializeSpecificProperties(c, introspectionRequestEvent, testerEditor)) {
 			return false;
 		}
 		if (!(c instanceof JTable)) {
 			return false;
 		}
 		JTable table = (JTable) c;
-		MouseEvent mouseEvt = (MouseEvent) event;
+		MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
 		rowIndex = table.rowAtPoint(mouseEvt.getPoint());
 		if (rowIndex == -1) {
 			return false;

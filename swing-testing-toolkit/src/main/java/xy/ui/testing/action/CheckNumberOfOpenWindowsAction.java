@@ -35,14 +35,14 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 		if (count != n) {
 			throw new TestFailure(
 					"The number of currently open windows (" + n + ") does not match the declared number: " + count,
-					"Found window(s)", TestingUtils.saveAllTestableWindowImages(tester));
+					"Found window(s) image", TestingUtils.saveAllTestableWindowImages(tester));
 		}
 	}
 
 	protected int countWindows(Tester tester) {
 		int n = 0;
 		for (Window window : Window.getWindows()) {
-			if (tester.isTestableWindow(window)) {
+			if (tester.isTestable(window)) {
 				n++;
 			}
 		}

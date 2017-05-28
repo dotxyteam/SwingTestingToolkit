@@ -43,7 +43,7 @@ public class ClickOnMenuItemAction extends TestAction {
 	public Component findComponent(Tester tester) {
 		Component c = componentFinder.find(tester);
 		if (c == null) {
-			throw new TestFailure("Unable to find " + componentFinder.toString(), "Window",
+			throw new TestFailure("Unable to find " + componentFinder.toString(), "Window image",
 					TestingUtils.saveTestableWindowImage(tester, componentFinder.getWindowIndex()));
 		}
 		return c;

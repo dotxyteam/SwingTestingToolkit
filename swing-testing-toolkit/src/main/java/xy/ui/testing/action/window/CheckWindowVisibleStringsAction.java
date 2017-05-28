@@ -2,16 +2,11 @@ package xy.ui.testing.action.window;
 
 import java.awt.Component;
 import java.awt.Window;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
-import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
+import xy.ui.testing.action.component.CheckVisibleStringsAction;
 import xy.ui.testing.editor.TesterEditor;
-import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
@@ -19,125 +14,69 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
 
-	protected List<String> visibleStrings = new ArrayList<String>();
-	protected boolean completenessChecked = false;
-	protected boolean orderChecked = false;
+	protected CheckVisibleStringsAction delegate = new CheckVisibleStringsAction();
 
+	public CheckWindowVisibleStringsAction(){
+		delegate.setComponentFinder(windowFinder);
+	}
+	
 	public List<String> getVisibleStrings() {
-		return visibleStrings;
+		return delegate.getVisibleStrings();
 	}
 
 	public void setVisibleStrings(List<String> visibleStrings) {
-		this.visibleStrings = visibleStrings;
+		delegate.setVisibleStrings(visibleStrings);
 	}
 
 	public void loadVisibleStringsFromText(String s) {
-		visibleStrings = TestingUtils.parseVisibleStrings(s);
+		delegate.loadVisibleStringsFromText(s);
 	}
 
 	public boolean isCompletenessChecked() {
-		return completenessChecked;
+		return delegate.isCompletenessChecked();
 	}
 
 	public void setCompletenessChecked(boolean completenessChecked) {
-		this.completenessChecked = completenessChecked;
+		delegate.setCompletenessChecked(completenessChecked);
 	}
 
 	public boolean isOrderChecked() {
-		return orderChecked;
+		return delegate.isOrderChecked();
 	}
 
 	public void setOrderChecked(boolean orderChecked) {
-		this.orderChecked = orderChecked;
+		delegate.setOrderChecked(orderChecked);
 	}
 
 	@Override
 	public String getValueDescription() {
-		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < visibleStrings.size(); i++) {
-			if (i > 0) {
-				result.append(", ");
-			}
-			result.append("\"" + StringEscapeUtils.escapeJava(visibleStrings.get(i)) + "\"");
-		}
-		return result.toString();
+		return delegate.getValueDescription();
 	}
 
 	@Override
 	public String toString() {
-		return "Check visible strings of " + getComponentInformation();
+		return delegate.toString();
 	}
-
+	
 	@Override
 	protected boolean initializeSpecificProperties(Window w, TesterEditor testerEditor) {
-		visibleStrings.addAll(TestingUtils.extractComponentTreeDisplayedStrings(w, testerEditor.getTester()));
+		delegate.setVisibleStrings(TestingUtils.extractComponentTreeDisplayedStrings(w, testerEditor.getTester()));
 		return true;
 	}
 
 	@Override
 	public Window findComponent(Tester tester) {
-		Window window = super.findComponent(tester);
-		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeDisplayedStrings(window, tester);
-		check(currentVisibleStrings, window, tester);
-		return window;
-	}
-
-	protected void check(List<String> currentVisibleStrings, Window window, Tester tester) {
-		try {
-			if (completenessChecked && orderChecked) {
-				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TestFailure("The visible string(s) have changed");
-				}
-			} else if (completenessChecked && !orderChecked) {
-				{
-					List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-					currentVisibleStrings2.removeAll(visibleStrings);
-					if (currentVisibleStrings.size() > 0) {
-						throw new TestFailure("The following visible string(s) were not declared: "
-								+ TestingUtils.formatVisibleStrings(new ArrayList<String>(currentVisibleStrings2)));
-					}
-				}
-				{
-					List<String> visibleStrings2 = new ArrayList<String>(visibleStrings);
-					visibleStrings2.removeAll(currentVisibleStrings);
-					if (visibleStrings2.size() > 0) {
-						throw new TestFailure("The following declared string(s) are not visible: "
-								+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStrings2)));
-					}
-				}
-			} else if (!completenessChecked && orderChecked) {
-				List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-				currentVisibleStrings2.retainAll(visibleStrings);
-				if (!visibleStrings.equals(currentVisibleStrings2)) {
-					throw new TestFailure("The visible strings order or occurences have changed");
-				}
-			} else if (!completenessChecked && !orderChecked) {
-				SortedSet<String> visibleStringSortedSet = new TreeSet<String>(visibleStrings);
-				visibleStringSortedSet.removeAll(currentVisibleStrings);
-				if (visibleStringSortedSet.size() > 0) {
-					throw new TestFailure("The following declared visible string(s) were not found: "
-							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStringSortedSet)));
-				}
-			}
-		} catch (Exception e) {
-			throw new TestFailure(
-					"Visible strings checking failed: " + e.toString()
-							+ ".\nThese are the original and the current visible strings:\n"
-							+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
-							+ TestingUtils.formatVisibleStrings(currentVisibleStrings),
-					"Window image", TestingUtils.saveTestableComponentImage(tester, window), e);
-		}
+		return (Window) delegate.findComponent(tester);
 	}
 
 	@Override
 	public void execute(Component c, Tester tester) {
+		delegate.execute(c, tester);
 	}
 
 	@Override
 	public void validate() throws ValidationError {
-		if (visibleStrings.size() == 0) {
-			throw new ValidationError("The visible strings to check have not been defined");
-		}
+		delegate.validate();
 	}
 
 }

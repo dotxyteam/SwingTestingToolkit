@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -43,7 +44,8 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TesterEditor testerEditor) {
 		return true;
 	}
 
@@ -106,12 +108,12 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return button.name().replace("_",  " ") + " click" + (doubleClick ? " x 2" : "");
+		return button.name().replace("_",  " ") + (doubleClick ? " x 2" : "");
 	}
 
 	@Override
 	public String toString() {
-		return getValueDescription() + " on " + getComponentInformation();
+		return "Click with " + getValueDescription() + " on " + getComponentInformation();
 	}
 
 	public enum ButtonId {

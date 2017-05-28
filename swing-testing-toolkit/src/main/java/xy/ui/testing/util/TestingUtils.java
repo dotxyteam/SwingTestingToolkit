@@ -71,12 +71,6 @@ public class TestingUtils {
 			if (testerEditor.getAllwindows().contains(componentWindow)) {
 				return true;
 			}
-			while (componentWindow.getOwner() != null) {
-				if (isTesterEditorComponent(testerEditor, componentWindow.getOwner())) {
-					return true;
-				}
-				componentWindow = componentWindow.getOwner();
-			}
 		}
 		return false;
 	}
@@ -164,7 +158,7 @@ public class TestingUtils {
 	public static List<Window> getAllTestableWindows(Tester tester) {
 		List<Window> result = new ArrayList<Window>();
 		for (Window w : Window.getWindows()) {
-			if (tester.isTestableWindow(w)) {
+			if (tester.isTestable(w)) {
 				result.add(w);
 			}
 		}
@@ -396,14 +390,19 @@ public class TestingUtils {
 		tester.replayAll();
 	}
 
-	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor) {
+	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor, boolean skipNonVisibleComponents) {
+		if(skipNonVisibleComponents){
+			if(!tester.isVisible(treeRoot)){
+				return true;
+			}
+		}
 		if (!visitor.visit(treeRoot)) {
 			return false;
 		}
 		if (treeRoot instanceof Container) {
 			List<Component> components = tester.getChildrenComponents((Container) treeRoot);
 			for (Component childComponent : components) {
-				if (!visitComponentTree(tester, childComponent, visitor)) {
+				if (!visitComponentTree(tester, childComponent, visitor, skipNonVisibleComponents)) {
 					return false;
 				}
 			}
@@ -422,7 +421,7 @@ public class TestingUtils {
 				}
 				return true;
 			}
-		});
+		}, true);
 		return result;
 	}
 }

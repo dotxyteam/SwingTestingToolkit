@@ -96,7 +96,7 @@ public class TestExtensibility {
 		}
 
 		@Override
-		protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 			/*
 			 * Here you can initialize your action from the state of the
 			 * component it is targeted to.

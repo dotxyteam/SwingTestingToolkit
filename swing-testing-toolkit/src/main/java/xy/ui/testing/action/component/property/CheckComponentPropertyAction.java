@@ -10,6 +10,7 @@ import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ComponentPropertyUtil;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -50,8 +51,8 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
-		return propertyUtil.initializeSpecificProperties(c, event);
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+		return propertyUtil.initializeSpecificProperties(c, introspectionRequestEvent);
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 			throw new TestFailure(
 					"Component property checking failed: Unexpected property value: '" + currentFieldValue
 							+ "'. Expected: '" + expectedFieldValue + "'",
-					"Component", TestingUtils.saveTestableComponentImage(tester, c));
+					"Component image", TestingUtils.saveTestableComponentImage(tester, c));
 		}
 	}
 

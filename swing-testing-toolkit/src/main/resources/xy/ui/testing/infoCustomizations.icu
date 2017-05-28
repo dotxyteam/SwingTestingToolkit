@@ -1658,28 +1658,37 @@
                     <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7db8</uniqueIdentifier>
                         <columnName>componentInformation</columnName>
-                        <hidden>false</hidden>
+                        <hidden>true</hidden>
                     </columnCustomizations>
                     <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7dba</uniqueIdentifier>
                         <columnName>position</columnName>
-                        <hidden>false</hidden>
+                        <hidden>true</hidden>
                     </columnCustomizations>
                     <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7db9</uniqueIdentifier>
                         <columnName>typeName</columnName>
-                        <hidden>false</hidden>
+                        <hidden>true</hidden>
                     </columnCustomizations>
                     <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7db7</uniqueIdentifier>
                         <columnName>valueDescription</columnName>
                         <customCaption>Details</customCaption>
+                        <hidden>true</hidden>
+                    </columnCustomizations>
+                    <columnCustomizations>
+                        <uniqueIdentifier>528ec47b:15c461f75f0:-460c</uniqueIdentifier>
+                        <columnName>toStringValue</columnName>
                         <hidden>false</hidden>
                     </columnCustomizations>
                     <columnsCustomOrder>position</columnsCustomOrder>
                     <columnsCustomOrder>typeName</columnsCustomOrder>
-                    <columnsCustomOrder>componentInformation</columnsCustomOrder>
                     <columnsCustomOrder>valueDescription</columnsCustomOrder>
+                    <columnsCustomOrder>componentInformation</columnsCustomOrder>
+                    <embeddedDetailsAccessMode>
+                        <defaultDetailsAreaOccupationRatio>0.66</defaultDetailsAreaOccupationRatio>
+                        <detailsAreaPosition>RIGHT</detailsAreaPosition>
+                    </embeddedDetailsAccessMode>
                     <editOptions>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7db6</uniqueIdentifier>
                         <itemCreationEnabled>true</itemCreationEnabled>
@@ -1694,7 +1703,7 @@
                     <listSorted>false</listSorted>
                     <listTypeName>[Lxy.ui.testing.action.TestAction;</listTypeName>
                     <positionColumnAdded>false</positionColumnAdded>
-                    <stringValueColumnAdded>false</stringValueColumnAdded>
+                    <stringValueColumnAdded>true</stringValueColumnAdded>
                 </listCustomizations>
                 <typeCustomizations>
                     <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-50b6</uniqueIdentifier>
@@ -2524,6 +2533,31 @@
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-478e</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>boolean isTestable(java.awt.Component)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4777</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4776</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
             <validating>false</validating>
         </methodsCustomizations>
         <typeName>xy.ui.testing.Tester</typeName>
@@ -9288,7 +9322,7 @@
         <customFieldsOrder>completenessChecked</customFieldsOrder>
         <customFieldsOrder>orderChecked</customFieldsOrder>
         <customFieldsOrder>visibleStrings</customFieldsOrder>
-        <customTypeCaption>Check Window Visible Strings</customTypeCaption>
+        <customTypeCaption>Check Whole Window Visible Strings</customTypeCaption>
         <fieldsCustomizations>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7a85</uniqueIdentifier>
             <specificProperties/>
@@ -17770,6 +17804,11 @@
                         <hidden>false</hidden>
                         <itemName>xy.ui.testing.action.SystemExitCallInterceptionAction</itemName>
                     </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-45d7</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>xy.ui.testing.action.component.CheckVisibleStringsAction</itemName>
+                    </itemCustomizations>
                 </enumerationCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
@@ -19595,7 +19634,7 @@
             <detachedReturnValueForced>false</detachedReturnValueForced>
             <duplicateGenerated>false</duplicateGenerated>
             <iconImagePath>
-                <specification>/media/olitank/data/prog/git/SwingTestingToolkit/swing-testing-toolkit/src/main/resources/xy/ui/testing/record.png</specification>
+                <specification>\media\olitank\data\prog\git\SwingTestingToolkit\swing-testing-toolkit\src\main\resources\xy\ui\testing\record.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
             <menu>
@@ -19617,7 +19656,7 @@
             <detachedReturnValueForced>false</detachedReturnValueForced>
             <duplicateGenerated>false</duplicateGenerated>
             <iconImagePath>
-                <specification>/media/olitank/data/prog/git/SwingTestingToolkit/swing-testing-toolkit/src/main/resources/xy/ui/testing/replay.png</specification>
+                <specification>&lt;class-path-resource&gt; xy/ui/testing/replay.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
             <menu>
@@ -19639,7 +19678,7 @@
             <detachedReturnValueForced>false</detachedReturnValueForced>
             <duplicateGenerated>false</duplicateGenerated>
             <iconImagePath>
-                <specification>/media/olitank/data/prog/git/SwingTestingToolkit/swing-testing-toolkit/src/main/resources/xy/ui/testing/inspect.png</specification>
+                <specification>&lt;class-path-resource&gt; xy/ui/testing/inspect.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
             <menu>
@@ -22112,37 +22151,6 @@
         <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
         <customTypeCaption>System Exit Call Interception</customTypeCaption>
         <fieldsCustomizations>
-            <uniqueIdentifier>-6d9f1e03:15c41933ad1:-338b</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <customFieldCaption>Negate</customFieldCaption>
-            <displayedAsSingletonList>false</displayedAsSingletonList>
-            <duplicateGenerated>false</duplicateGenerated>
-            <fieldName>oppposite</fieldName>
-            <formControlCreationForced>false</formControlCreationForced>
-            <formControlEmbeddingForced>false</formControlEmbeddingForced>
-            <getOnlyForced>false</getOnlyForced>
-            <getterGenerated>false</getterGenerated>
-            <nullReplacement>
-                <uniqueIdentifier>-6d9f1e03:15c41933ad1:-338a</uniqueIdentifier>
-            </nullReplacement>
-            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
-            <nullValueDistinctForced>false</nullValueDistinctForced>
-            <setterGenerated>false</setterGenerated>
-            <specificTypeCustomizations>
-                <typeCustomizations>
-                    <uniqueIdentifier>-6d9f1e03:15c41933ad1:-3375</uniqueIdentifier>
-                    <specificProperties/>
-                    <abstractForced>false</abstractForced>
-                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
-                    <immutableForced>false</immutableForced>
-                    <menuModel/>
-                    <typeName>boolean</typeName>
-                    <undoManagementHidden>false</undoManagementHidden>
-                </typeCustomizations>
-            </specificTypeCustomizations>
-        </fieldsCustomizations>
-        <fieldsCustomizations>
             <uniqueIdentifier>-6d9f1e03:15c41933ad1:-3389</uniqueIdentifier>
             <specificProperties/>
             <hidden>true</hidden>
@@ -22171,6 +22179,109 @@
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>11e09334:15c463d4e67:-57b0</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>oppositeOptions</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>11e09334:15c463d4e67:-57af</uniqueIdentifier>
+                <data>rO0ABXNyABNqYXZhLnV0aWwuQXJyYXlMaXN0eIHSHZnHYZ0DAAFJAARzaXpleHAAAAACdwQAAAACc3IAEWphdmEubGFuZy5Cb29sZWFuzSBygNWc+u4CAAFaAAV2YWx1ZXhwAXNxAH4AAgB4</data>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <listCustomizations>
+                    <uniqueIdentifier>11e09334:15c463d4e67:-57ad</uniqueIdentifier>
+                    <columnCustomizations>
+                        <uniqueIdentifier>11e09334:15c463d4e67:-57a8</uniqueIdentifier>
+                        <columnName>toStringValue</columnName>
+                        <hidden>false</hidden>
+                    </columnCustomizations>
+                    <editOptions>
+                        <uniqueIdentifier>11e09334:15c463d4e67:-57ac</uniqueIdentifier>
+                        <itemCreationEnabled>true</itemCreationEnabled>
+                        <itemDeletionEnabled>true</itemDeletionEnabled>
+                        <itemMoveEnabled>true</itemMoveEnabled>
+                    </editOptions>
+                    <fieldColumnsAdded>false</fieldColumnsAdded>
+                    <itemContructorSelectableforced>false</itemContructorSelectableforced>
+                    <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
+                    <itemTypeColumnAdded>false</itemTypeColumnAdded>
+                    <itemTypeName>java.lang.Object</itemTypeName>
+                    <listSorted>false</listSorted>
+                    <listTypeName>java.util.ArrayList</listTypeName>
+                    <positionColumnAdded>false</positionColumnAdded>
+                    <stringValueColumnAdded>false</stringValueColumnAdded>
+                </listCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>11e09334:15c463d4e67:-57ae</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>java.util.ArrayList</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-6d9f1e03:15c41933ad1:-338b</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Action</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>oppposite</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-6d9f1e03:15c41933ad1:-338a</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <enumerationCustomizations>
+                    <uniqueIdentifier>208e2740:15c467dc381:-42b6</uniqueIdentifier>
+                    <dynamicEnumerationForced>false</dynamicEnumerationForced>
+                    <enumerationTypeName>ValueOptions [ownerType=xy.ui.testing.action.SystemExitCallInterceptionAction, field=oppposite]</enumerationTypeName>
+                    <itemCustomizations>
+                        <uniqueIdentifier>208e2740:15c467dc381:-41bf</uniqueIdentifier>
+                        <customCaption>Enable</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=false]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>208e2740:15c467dc381:-3727</uniqueIdentifier>
+                        <customCaption>Disable</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=true]</itemName>
+                    </itemCustomizations>
+                </enumerationCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-6d9f1e03:15c41933ad1:-3375</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+            <valueOptionsFieldName>oppositeOptions</valueOptionsFieldName>
         </fieldsCustomizations>
         <fieldsCustomizations>
             <uniqueIdentifier>-6d9f1e03:15c41933ad1:-3387</uniqueIdentifier>
@@ -22331,6 +22442,14 @@
         </methodsCustomizations>
         <typeName>xy.ui.testing.action.SystemExitCallInterceptionAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
+        <virtualFieldDeclarations>
+            <uniqueIdentifier>11e09334:15c463d4e67:-5885</uniqueIdentifier>
+            <fieldName>oppositeOptions</fieldName>
+            <javaClassBasedTypeInfoFinder>
+                <uniqueIdentifier>11e09334:15c463d4e67:-587f</uniqueIdentifier>
+                <className>java.util.ArrayList</className>
+            </javaClassBasedTypeInfoFinder>
+        </virtualFieldDeclarations>
     </typeCustomizations>
     <typeCustomizations>
         <uniqueIdentifier>-6d9f1e03:15c41933ad1:-3467</uniqueIdentifier>
@@ -22969,6 +23088,556 @@
         <immutableForced>false</immutableForced>
         <menuModel/>
         <typeName>Encapsulation [context=MethodContext [methodSignature=xy.ui.testing.Tester$EditingOptions editingOptions.get(), containingType=xy.ui.testing.Tester], subContext=MethodResult, encapsulatedObjectType=xy.ui.testing.Tester$EditingOptions]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-45ec</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customTypeCaption>Check Visible Strings</customTypeCaption>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443f</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Check Completeness</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>completenessChecked</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443e</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4420</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443d</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Check Order</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>orderChecked</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443c</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-441f</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443b</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>componentInformation</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443a</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-441e</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4439</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>valueDescription</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4438</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-441d</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4437</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>visibleStrings</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4436</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <listCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-441b</uniqueIdentifier>
+                    <columnCustomizations>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4416</uniqueIdentifier>
+                        <columnName>toStringValue</columnName>
+                        <hidden>false</hidden>
+                    </columnCustomizations>
+                    <editOptions>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-441a</uniqueIdentifier>
+                        <itemCreationEnabled>true</itemCreationEnabled>
+                        <itemDeletionEnabled>true</itemDeletionEnabled>
+                        <itemMoveEnabled>true</itemMoveEnabled>
+                    </editOptions>
+                    <fieldColumnsAdded>false</fieldColumnsAdded>
+                    <itemContructorSelectableforced>false</itemContructorSelectableforced>
+                    <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
+                    <itemTypeColumnAdded>false</itemTypeColumnAdded>
+                    <itemTypeName>java.lang.String</itemTypeName>
+                    <listSorted>false</listSorted>
+                    <listTypeName>java.util.List</listTypeName>
+                    <positionColumnAdded>false</positionColumnAdded>
+                    <stringValueColumnAdded>false</stringValueColumnAdded>
+                </listCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-441c</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>java.util.List</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4435</uniqueIdentifier>
+            <specificProperties/>
+            <category>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-2892</uniqueIdentifier>
+                <caption>Component</caption>
+            </category>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>componentFinder</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4434</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4414</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>xy.ui.testing.finder.ComponentFinder</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <iconImagePath>
+            <specification>&lt;class-path-resource&gt; xy/ui/testing/CheckVisibleStringsAction.png</specification>
+        </iconImagePath>
+        <immutableForced>false</immutableForced>
+        <memberCategories>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-2892</uniqueIdentifier>
+            <caption>Component</caption>
+        </memberCategories>
+        <menuModel/>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4433</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void validate()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4432</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>boolean initializeFrom(java.awt.Component, java.awt.AWTEvent, xy.ui.testing.editor.TesterEditor)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-442e</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-442d</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-442c</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-442b</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>introspectionRequestEvent</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-442a</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4429</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>testerEditor</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4431</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void execute(java.awt.Component, xy.ui.testing.Tester)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4428</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4427</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4426</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4425</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>tester</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4430</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void loadVisibleStringsFromText(java.lang.String)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4424</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4423</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>s</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-442f</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>java.awt.Component findComponent(xy.ui.testing.Tester)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4422</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4421</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>tester</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <typeName>xy.ui.testing.action.component.CheckVisibleStringsAction</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-44c1</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-44c0</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-44bf</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-44be</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>xy.ui.testing.action.component.CheckVisibleStringsAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel/>
+        <typeName>Encapsulation [context=FieldContext [fieldName=, containingType=Encapsulation [context=FieldContext [fieldName=testActions, containingType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.CheckVisibleStringsAction]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4443</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4442</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4441</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4440</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>xy.ui.testing.action.component.CheckVisibleStringsAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel/>
+        <typeName>Encapsulation [context=FieldContext [fieldName=, containingType=Encapsulation [context=FieldContext [fieldName=, containingType=Encapsulation [context=FieldContext [fieldName=testActions, containingType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.CheckVisibleStringsAction]], encapsulatedObjectType=xy.ui.testing.action.component.CheckVisibleStringsAction]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4412</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4411</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4410</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <enumerationCustomizations>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-440f</uniqueIdentifier>
+                    <dynamicEnumerationForced>false</dynamicEnumerationForced>
+                    <enumerationTypeName>SubTypesEnumeration [polymorphicType=xy.ui.testing.finder.ComponentFinder]</enumerationTypeName>
+                    <itemCustomizations>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4409</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>xy.ui.testing.finder.DisplayedStringComponentFinder</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4408</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>xy.ui.testing.finder.ClassBasedComponentFinder</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4407</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>xy.ui.testing.finder.PropertyBasedComponentFinder</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4406</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>xy.ui.testing.finder.MenuItemComponentFinder</itemName>
+                    </itemCustomizations>
+                </enumerationCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel/>
+        <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, containingType=xy.ui.testing.action.component.CheckVisibleStringsAction], encapsulatedObjectType=SubTypesEnumeration [polymorphicType=xy.ui.testing.finder.ComponentFinder]]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>11706691:15c4c6dcb00:-456b</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customTypeCaption>Visible String</customTypeCaption>
+        <fieldsCustomizations>
+            <uniqueIdentifier>11706691:15c4c6dcb00:-3129</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>11706691:15c4c6dcb00:-3128</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>11706691:15c4c6dcb00:-3127</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel/>
+        <typeName>Encapsulation [context=FieldContext [fieldName=visibleStrings, containingType=xy.ui.testing.action.component.CheckVisibleStringsAction], subContext=ListItem, encapsulatedObjectType=java.lang.String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>

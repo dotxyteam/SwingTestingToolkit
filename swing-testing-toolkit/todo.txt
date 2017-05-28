@@ -1,3 +1,6 @@
+- add system exit interception option param to record method
+- add test report
+- allow to debug actions
 - intersting links:
 	. http://www.drdobbs.com/windows/a-text-ui-for-the-java-awt/184410274
 - try context menu on list/table/tree

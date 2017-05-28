@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
+import xy.ui.testing.editor.TesterEditor;
 import xy.ui.testing.util.ValidationError;
 
 public class SelectTableRowAction extends TargetComponentTestAction {
@@ -43,12 +44,12 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent event) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
 		if (!(c instanceof JTable)) {
 			return false;
 		}
 		JTable table = (JTable) c;
-		MouseEvent mouseEvt = (MouseEvent) event;
+		MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
 		int rowIndex = table.rowAtPoint(mouseEvt.getPoint());
 		if (rowIndex == -1) {
 			return false;
