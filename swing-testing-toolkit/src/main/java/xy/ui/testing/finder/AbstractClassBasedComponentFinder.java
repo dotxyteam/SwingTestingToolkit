@@ -2,7 +2,7 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ValidationError;
 
 public abstract class AbstractClassBasedComponentFinder extends MatchingComponentFinder {
@@ -30,7 +30,7 @@ public abstract class AbstractClassBasedComponentFinder extends MatchingComponen
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
+	protected boolean initializeSpecificValues(Component c, TestEditor testEditor) {
 		Class<?> componentClass = c.getClass();
 		while (componentClass.isAnonymousClass()) {
 			componentClass = componentClass.getSuperclass();

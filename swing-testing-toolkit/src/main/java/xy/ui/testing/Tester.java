@@ -37,8 +37,9 @@ import javax.swing.tree.TreeModel;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
+import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -114,7 +115,7 @@ public class Tester {
 				break;
 			}
 			final TestAction testAction = toReplay.get(i);
-			log("Replaying: " + testAction);
+			logInfo("Replaying: " + testAction);
 			try {
 				if (beforeEachAction != null) {
 					beforeEachAction.handle(testAction);
@@ -147,9 +148,22 @@ public class Tester {
 		}
 	}
 
-	protected void log(String msg) {
-		System.out.println(SimpleDateFormat.getDateTimeInstance().format(new Date()) + " [" + Tester.this + "] " + msg);
+	protected String formatLogMessage(String msg) {
+		return SimpleDateFormat.getDateTimeInstance().format(new Date()) + " [" + Tester.this + "] " + msg;
 	}
+
+	public void logInfo(String msg) {
+		System.out.println(formatLogMessage("INFO - " + msg));
+	}
+
+	public void logError(String msg) {
+		System.err.println(formatLogMessage("ERROR - " + msg));
+	}
+
+	public void logError(Throwable t) {
+		logError(ReflectionUIUtils.getPrintedStackTrace(t));
+	}
+
 
 	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {
 		Component result = null;
@@ -306,8 +320,8 @@ public class Tester {
 		if (!isVisible(c)) {
 			return false;
 		}
-		for (TesterEditor testerEditor : TestingUtils.getTesterEditors(this)) {
-			if (TestingUtils.isTesterEditorComponent(testerEditor, c)) {
+		for (TestEditor testEditor : TestingUtils.getTestEditors(this)) {
+			if (TestingUtils.isTestEditorComponent(testEditor, c)) {
 				return false;
 			}
 		}

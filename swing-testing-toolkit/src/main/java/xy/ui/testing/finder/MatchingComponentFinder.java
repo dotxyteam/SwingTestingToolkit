@@ -3,7 +3,7 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import java.awt.Window;
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.IComponentTreeVisitor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -17,7 +17,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 
 	protected abstract boolean matchesInContainingWindow(Component c, Tester tester);
 
-	protected abstract boolean initializeSpecificValues(Component c, TesterEditor testerEditor);
+	protected abstract boolean initializeSpecificValues(Component c, TestEditor testEditor);
 
 	public int getWindowIndex() {
 		return windowIndex;
@@ -82,33 +82,33 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	public boolean initializeFrom(final Component c, TesterEditor testerEditor) {
-		if (!initializeSpecificValues(c, testerEditor)) {
+	public boolean initializeFrom(final Component c, TestEditor testEditor) {
+		if (!initializeSpecificValues(c, testEditor)) {
 			return false;
 		}
 		Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-		if (!initializeWindowIndex(componentWindow, testerEditor)) {
+		if (!initializeWindowIndex(componentWindow, testEditor)) {
 			return false;
 		}
-		if (!initializeOccurrencesToSkip(componentWindow, c, testerEditor)) {
+		if (!initializeOccurrencesToSkip(componentWindow, c, testEditor)) {
 			return false;
 		}
 		return true;
 	}
 
 	protected boolean initializeOccurrencesToSkip(Window componentWindow, final Component c,
-			final TesterEditor testerEditor) {
+			final TestEditor testEditor) {
 		occurrencesToSkip = 0;
 		final boolean[] ok = new boolean[] { false };
-		TestingUtils.visitComponentTree(testerEditor.getTester(), componentWindow, new IComponentTreeVisitor() {
+		TestingUtils.visitComponentTree(testEditor.getTester(), componentWindow, new IComponentTreeVisitor() {
 			@Override
 			public boolean visit(Component otherComponent) {
 				if (otherComponent == c) {
 					ok[0] = true;
 					return false;
 				}
-				if (testerEditor.getTester().isVisible(c)) {
-					if (matchesInContainingWindow(otherComponent, testerEditor.getTester())) {
+				if (testEditor.getTester().isVisible(c)) {
+					if (matchesInContainingWindow(otherComponent, testEditor.getTester())) {
 						occurrencesToSkip++;
 					}
 				}
@@ -119,10 +119,10 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 
 	}
 
-	protected boolean initializeWindowIndex(Window componentWindow, TesterEditor testerEditor) {
+	protected boolean initializeWindowIndex(Window componentWindow, TestEditor testEditor) {
 		windowIndex = 0;
 		for (Window window : Window.getWindows()) {
-			if (!testerEditor.getTester().isTestable(window)) {
+			if (!testEditor.getTester().isTestable(window)) {
 				continue;
 			}
 			if (window == componentWindow) {

@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -18,6 +18,15 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 	protected ButtonId button = ButtonId.LEFT_BUTTON;
 	protected boolean doubleClick = false;
 	protected boolean poupTrigger = false;
+	protected int eventsIntervalMilliseconds = 100;
+
+	public int getEventsIntervalMilliseconds() {
+		return eventsIntervalMilliseconds;
+	}
+
+	public void setEventsIntervalMilliseconds(int eventsIntervalMilliseconds) {
+		this.eventsIntervalMilliseconds = eventsIntervalMilliseconds;
+	}
 
 	public ButtonId getButton() {
 		return button;
@@ -45,7 +54,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
-			TesterEditor testerEditor) {
+			TestEditor testEditor) {
 		return true;
 	}
 
@@ -56,6 +65,11 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 			public void run() {
 				click(c);
 				if (doubleClick) {
+					try {
+						Thread.sleep(eventsIntervalMilliseconds);
+					} catch (InterruptedException e) {
+						throw new TestFailure(e);
+					}
 					click(c);
 				}
 			}
@@ -71,7 +85,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 			l.mousePressed(mouseEvent);
 		}
 		try {
-			Thread.sleep(10);
+			Thread.sleep(eventsIntervalMilliseconds);
 		} catch (InterruptedException e) {
 			throw new TestFailure(e);
 		}
@@ -108,7 +122,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return button.name().replace("_",  " ") + (doubleClick ? " x 2" : "");
+		return button.name().replace("_", " ") + (doubleClick ? " x 2" : "");
 	}
 
 	@Override

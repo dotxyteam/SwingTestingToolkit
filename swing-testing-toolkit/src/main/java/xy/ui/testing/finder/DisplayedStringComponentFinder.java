@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ValidationError;
 
 public class DisplayedStringComponentFinder extends MatchingComponentFinder {
@@ -22,8 +22,8 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
-		List<String> visibleStrings = testerEditor.getTester().extractDisplayedStrings(c);
+	protected boolean initializeSpecificValues(Component c, TestEditor testEditor) {
+		List<String> visibleStrings = testEditor.getTester().extractDisplayedStrings(c);
 		if (visibleStrings.size() == 0) {
 			return false;
 		}

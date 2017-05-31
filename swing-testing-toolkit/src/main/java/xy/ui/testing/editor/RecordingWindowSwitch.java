@@ -34,8 +34,8 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	protected boolean recordingInsertedAfterSelection = false;
 	protected RecordingStatus recordingStatus = new RecordingStatus();
 
-	public RecordingWindowSwitch(TesterEditor testerEditor) {
-		super(testerEditor);
+	public RecordingWindowSwitch(TestEditor testEditor) {
+		super(testEditor);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
 					"Do you want to record this window closing event?", title)) {
 				CloseWindowAction closeAction = new CloseWindowAction();
-				closeAction.initializeFrom(window, event, testerEditor);
+				closeAction.initializeFrom(window, event, testEditor);
 				handleNewTestActionInsertionRequest(closeAction, window, false);
 			}
 		} finally {
@@ -85,7 +85,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		try {
 			final JMenuItem menuItem = (JMenuItem) event.getSource();
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
-			testACtion.initializeFrom(menuItem, event, testerEditor);
+			testACtion.initializeFrom(menuItem, event, testEditor);
 			String title = getSwingRenderer().getObjectTitle(getTester());
 			RecordingWindowSwitch.this.getWindow().requestFocus();
 			if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
@@ -144,12 +144,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 				Arrays.asList(getTester().getTestActions()));
 		int insertionIndex = getNewTestActionInsertionIndex();
 		newTestActionList.add(insertionIndex, testAction);
-		testerEditor.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
-		testerEditor.setSelectedActionIndex(insertionIndex);
+		testEditor.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
+		testEditor.setSelectedActionIndex(insertionIndex);
 	}
 
 	public int getNewTestActionInsertionIndex() {
-		int selectionIndex = testerEditor.getSelectedActionIndex();
+		int selectionIndex = testEditor.getSelectedActionIndex();
 		if ((selectionIndex != -1) && recordingInsertedAfterSelection) {
 			return selectionIndex + 1;
 		} else {
@@ -158,11 +158,11 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
-		testerEditor.setComponentFinderInitializationSource(c);
+		testEditor.setComponentFinderInitializationSource(c);
 		StandardEditorBuilder dialogStatus = getSwingRenderer().openObjectDialog(RecordingWindowSwitch.this.getWindow(),
 				testAction, getSwingRenderer().getObjectTitle(testAction),
 				getSwingRenderer().getObjectIconImage(testAction), true, true);
-		testerEditor.setComponentFinderInitializationSource(null);
+		testEditor.setComponentFinderInitializationSource(null);
 		return !dialogStatus.isCancelled();
 	}
 
@@ -182,8 +182,8 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 			@Override
 			protected Container createContentPane(String message) {
-				return TesterEditor.getAlternateWindowDecorationsContentPane(this, super.createContentPane(message),
-						testerEditor);
+				return TestEditor.getAlternateWindowDecorationsContentPane(this, super.createContentPane(message),
+						testEditor);
 			}
 
 		};
@@ -314,14 +314,14 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	protected List<TestAction> getPossibleTestActions(Component c, AWTEvent event) {
 		try {
 			List<TestAction> result = new ArrayList<TestAction>();
-			for (Class<?> testActionClass : testerEditor.getTestActionClasses()) {
+			for (Class<?> testActionClass : testEditor.getTestActionClasses()) {
 				TestAction testAction = (TestAction) testActionClass.newInstance();
 				try {
-					if (testAction.initializeFrom(c, event, testerEditor)) {
+					if (testAction.initializeFrom(c, event, testEditor)) {
 						result.add(testAction);
 					}
 				} catch (Throwable t) {
-					getTesterEditor().logError(new Exception(
+					getTestEditor().logError(new Exception(
 							"Failed to initialize " + testActionClass.getName() + " instance: " + t.toString(), t));
 				}
 			}
@@ -349,7 +349,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			public void actionPerformed(ActionEvent e) {
 				RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(true);
 				try {
-					testerEditor.getComponentInspectionWindowSwitch().openComponentInspector(c,
+					testEditor.getComponentInspectionWindowSwitch().openComponentInspector(c,
 							RecordingWindowSwitch.this.getWindow());
 				} finally {
 					RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(false);

@@ -5,7 +5,7 @@ import java.awt.Component;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -18,7 +18,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 	protected ComponentFinder componentFinder;
 
 	protected abstract boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
-			TesterEditor testerEditor);
+			TestEditor testEditor);
 
 	public ComponentFinder getComponentFinder() {
 		return componentFinder;
@@ -29,15 +29,15 @@ public abstract class TargetComponentTestAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
-		for (Class<?> componentFinderClass : testerEditor.getComponentFinderClasses()) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+		for (Class<?> componentFinderClass : testEditor.getComponentFinderClasses()) {
 			ComponentFinder componentFinderCandidate;
 			try {
 				componentFinderCandidate = (ComponentFinder) componentFinderClass.newInstance();
 			} catch (Exception e) {
 				throw new AssertionError(e);
 			}
-			if (componentFinderCandidate.initializeFrom(c, testerEditor)) {
+			if (componentFinderCandidate.initializeFrom(c, testEditor)) {
 				setComponentFinder(componentFinderCandidate);
 				break;
 			}
@@ -45,7 +45,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 		if (getComponentFinder() == null) {
 			return false;
 		}
-		if (!initializeSpecificProperties(c, introspectionRequestEvent, testerEditor)) {
+		if (!initializeSpecificProperties(c, introspectionRequestEvent, testEditor)) {
 			return false;
 		}
 		return true;

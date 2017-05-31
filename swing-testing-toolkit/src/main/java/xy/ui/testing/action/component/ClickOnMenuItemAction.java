@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
@@ -29,11 +29,11 @@ public class ClickOnMenuItemAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
 		if (!macthesComponent(c)) {
 			return false;
 		}
-		if (!componentFinder.initializeFrom(c, testerEditor)) {
+		if (!componentFinder.initializeFrom(c, testEditor)) {
 			return false;
 		}
 		return true;

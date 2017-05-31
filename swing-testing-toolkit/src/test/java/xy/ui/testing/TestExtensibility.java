@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 import org.junit.Test;
 
 import xy.ui.testing.action.component.TargetComponentTestAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -25,7 +25,7 @@ public class TestExtensibility {
 		Tester tester = new Tester();
 		TestingUtils.purgeSavedImagesDirectory(tester);
 		TestingUtils.assertSuccessfulReplay(tester,
-				TestTesterEditor.class.getResourceAsStream("testExtensibility.stt"));
+				TestTestEditor.class.getResourceAsStream("testExtensibility.stt"));
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -41,10 +41,10 @@ public class TestExtensibility {
 		 * 'TargetComponentTestAction' sub-class below for more information.
 		 * 
 		 * Once your action class is created, you must register it with the
-		 * TesterEditor instance that you will use.
+		 * TestEditor instance that you will use.
 		 */
 		Tester tester = new Tester();
-		TesterEditor testerEditor = new TesterEditor(tester) {
+		TestEditor testEditor = new TestEditor(tester) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -56,9 +56,9 @@ public class TestExtensibility {
 			}
 
 		};
-		testerEditor.setDecorationsBackgroundColor(new Color(68, 61, 205));
-		testerEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
-		testerEditor.open();
+		testEditor.setDecorationsBackgroundColor(new Color(68, 61, 205));
+		testEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
+		testEditor.open();
 
 	}
 
@@ -74,7 +74,7 @@ public class TestExtensibility {
 		/*
 		 * Here are your action settings/properties. IMPORTANT: you must provide
 		 * getters and setters for these properties in order to be able to edit
-		 * them in the TesterEditor.
+		 * them in the TestEditor.
 		 */
 		private boolean propertytoCheckExpectpedValue;
 		private int propertytoChangeNewValue;
@@ -96,7 +96,7 @@ public class TestExtensibility {
 		}
 
 		@Override
-		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
 			/*
 			 * Here you can initialize your action from the state of the
 			 * component it is targeted to.

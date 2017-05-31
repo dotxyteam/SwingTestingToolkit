@@ -13,7 +13,7 @@ import javax.swing.JPopupMenu;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -66,27 +66,27 @@ public class MenuItemComponentFinder extends ComponentFinder {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, TesterEditor testerEditor) {
+	public boolean initializeFrom(Component c, TestEditor testEditor) {
 		if (!(c instanceof JMenuItem)) {
 			return false;
 		}
 		JMenuItem menuItem = (JMenuItem) c;
 		menuItemPath.clear();
-		menuItemPath.add(createMenuItemFinder(menuItem, testerEditor));
+		menuItemPath.add(createMenuItemFinder(menuItem, testEditor));
 		List<JMenuItem> ancestors = TestingUtils.getAncestorMenuItems(menuItem);
 		for (JMenuItem ancestor : ancestors) {
 			if (!(ancestor.getParent() instanceof JPopupMenu)) {
 				break;
 			}
-			menuItemPath.add(0, createMenuItemFinder(ancestor, testerEditor));
+			menuItemPath.add(0, createMenuItemFinder(ancestor, testEditor));
 		}
 		return true;
 	}
 
-	protected PropertyBasedComponentFinder createMenuItemFinder(JMenuItem menuItem, TesterEditor testerEditor) {
+	protected PropertyBasedComponentFinder createMenuItemFinder(JMenuItem menuItem, TestEditor testEditor) {
 		PropertyBasedComponentFinder result = new PropertyBasedComponentFinder();
 		result.setPropertyNames("Text");
-		result.initializeFrom(menuItem, testerEditor);
+		result.initializeFrom(menuItem, testEditor);
 		return result;
 	}
 

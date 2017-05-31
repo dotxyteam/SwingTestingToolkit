@@ -18,8 +18,8 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 
 	protected boolean inspectorOpen = false;
 
-	public ComponentInspectionWindowSwitch(TesterEditor testerEditor) {
-		super(testerEditor);
+	public ComponentInspectionWindowSwitch(TestEditor testEditor) {
+		super(testEditor);
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 	public void openComponentInspector(Component c, Component activatorComponent) {
 		inspectorOpen = true;
 		try {
-			ComponentInspector inspector = new ComponentInspector(c, testerEditor);
+			ComponentInspector inspector = new ComponentInspector(c, testEditor);
 			StandardEditorBuilder inspectorDialogBuilder = getSwingRenderer().getEditorBuilder(activatorComponent,
 					inspector, getSwingRenderer().getObjectTitle(inspector),
 					getSwingRenderer().getObjectIconImage(inspector), false);

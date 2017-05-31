@@ -15,7 +15,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.StandardKey;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
@@ -44,7 +44,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
 		return true;
 	}
 

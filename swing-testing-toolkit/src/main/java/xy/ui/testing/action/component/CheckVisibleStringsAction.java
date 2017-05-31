@@ -11,7 +11,7 @@ import java.util.TreeSet;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -72,8 +72,8 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
-			TesterEditor testerEditor) {
-		visibleStrings.addAll(TestingUtils.extractComponentTreeDisplayedStrings(c, testerEditor.getTester()));
+			TestEditor testEditor) {
+		visibleStrings.addAll(TestingUtils.extractComponentTreeDisplayedStrings(c, testEditor.getTester()));
 		return true;
 	}
 

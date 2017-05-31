@@ -5,14 +5,14 @@ import java.awt.Component;
 import java.io.Serializable;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ValidationError;
 
 public abstract class TestAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public abstract boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor);
+	public abstract boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor);
 
 	public abstract Component findComponent(Tester tester);
 

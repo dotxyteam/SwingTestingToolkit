@@ -34,7 +34,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 
 public class TestingUtils {
 
@@ -65,10 +65,10 @@ public class TestingUtils {
 		return SwingUtilities.getWindowAncestor(c);
 	}
 
-	public static boolean isTesterEditorComponent(TesterEditor testerEditor, Component c) {
-		if (testerEditor != null) {
+	public static boolean isTestEditorComponent(TestEditor testEditor, Component c) {
+		if (testEditor != null) {
 			Window componentWindow = TestingUtils.getWindowAncestorOrSelf(c);
-			if (testerEditor.getAllwindows().contains(componentWindow)) {
+			if (testEditor.getAllWindows().contains(componentWindow)) {
 				return true;
 			}
 		}
@@ -315,9 +315,9 @@ public class TestingUtils {
 		}
 	}
 
-	public static TesterEditor[] getTesterEditors(Tester tester) {
-		List<TesterEditor> result = getKeysFromValue(TesterEditor.TESTER_BY_EDITOR, tester);
-		return result.toArray(new TesterEditor[result.size()]);
+	public static TestEditor[] getTestEditors(Tester tester) {
+		List<TestEditor> result = getKeysFromValue(TestEditor.TESTER_BY_EDITOR, tester);
+		return result.toArray(new TestEditor[result.size()]);
 	}
 
 	public static <K, V> List<K> getKeysFromValue(Map<K, V> map, Object value) {

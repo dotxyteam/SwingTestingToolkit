@@ -7,7 +7,7 @@ import java.awt.Window;
 import java.awt.event.WindowEvent;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ValidationError;
 
 public class CloseWindowAction extends TargetWindowTestAction {
@@ -16,7 +16,7 @@ public class CloseWindowAction extends TargetWindowTestAction {
 
 	
 	@Override
-	protected boolean initializeSpecificProperties(Window w, TesterEditor testerEditor) {
+	protected boolean initializeSpecificProperties(Window w, TestEditor testEditor) {
 		return true;
 	}
 

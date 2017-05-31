@@ -8,7 +8,7 @@ import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -27,10 +27,10 @@ public class ExtensibilityExample {
 		 * 'TargetComponentTestAction' sub-class below for more information.
 		 * 
 		 * Once your action class is created, you must register it with the
-		 * TesterEditor instance that you will use.
+		 * TestEditor instance that you will use.
 		 */
 		Tester tester = new Tester();
-		TesterEditor testerEditor = new TesterEditor(tester) {
+		TestEditor testEditor = new TestEditor(tester) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -42,7 +42,7 @@ public class ExtensibilityExample {
 			}
 
 		};
-		testerEditor.open();
+		testEditor.open();
 
 	}
 
@@ -58,7 +58,7 @@ public class ExtensibilityExample {
 		/*
 		 * Here are your action settings/properties. IMPORTANT: you must provide
 		 * getters and setters for these properties in order to be able to edit
-		 * them in the TesterEditor.
+		 * them in the TestEditor.
 		 */
 		private boolean propertytoCheckExpectpedValue;
 		private int propertytoChangeNewValue;
@@ -80,7 +80,7 @@ public class ExtensibilityExample {
 		}
 
 		@Override
-		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
 			/*
 			 * Here you can initialize your action from the state of the
 			 * component it is targeted to.

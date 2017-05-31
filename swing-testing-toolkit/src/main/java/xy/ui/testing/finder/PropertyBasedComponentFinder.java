@@ -8,7 +8,7 @@ import java.util.List;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
@@ -85,8 +85,8 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 	}
 
 	@Override
-	protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
-		if (!super.initializeSpecificValues(c, testerEditor)) {
+	protected boolean initializeSpecificValues(Component c, TestEditor testEditor) {
+		if (!super.initializeSpecificValues(c, testEditor)) {
 			return false;
 		}
 		LocalComponentPropertyUtil propertyUtil = createPropertyUtil();
@@ -97,7 +97,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 				try {
 					propertyValue.initialize(c);
 				} catch (Throwable t) {
-					testerEditor
+					testEditor
 							.logDebug(new Exception(
 									"Skipping <" + propertyName + "> property of <"
 											+ propertyUtil.getComponentClassName() + "> component: " + t.toString(),

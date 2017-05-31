@@ -19,7 +19,7 @@ import xy.ui.testing.util.TestingUtils;
 @SuppressWarnings("unused")
 public abstract class AbstractWindowSwitch {
 
-	protected TesterEditor testerEditor;
+	protected TestEditor testEditor;
 	protected JFrame controlWindow;
 	protected JPanel statusControlForm;
 	protected StatusControlObject statusControlObject = new StatusControlObject();
@@ -34,8 +34,8 @@ public abstract class AbstractWindowSwitch {
 
 	public abstract String getSwitchTitle();
 
-	public AbstractWindowSwitch(TesterEditor testerEditor) {
-		this.testerEditor = testerEditor;
+	public AbstractWindowSwitch(TestEditor testEditor) {
+		this.testEditor = testEditor;
 	}
 
 	public StatusControlObject getStatusControlObject() {
@@ -43,15 +43,15 @@ public abstract class AbstractWindowSwitch {
 	}
 
 	protected SwingRenderer getSwingRenderer() {
-		return testerEditor.getSwingRenderer();
+		return testEditor.getSwingRenderer();
 	}
 
-	public TesterEditor getTesterEditor() {
-		return testerEditor;
+	public TestEditor getTestEditor() {
+		return testEditor;
 	}
 
 	protected Tester getTester() {
-		return testerEditor.getTester();
+		return testEditor.getTester();
 	}
 
 	public void activate(boolean b) {
@@ -60,7 +60,7 @@ public abstract class AbstractWindowSwitch {
 		}
 		if (b) {
 			controlWindow = new StatusControlWindow();
-			testerEditor.setVisible(false);
+			testEditor.setVisible(false);
 			controlWindow.setVisible(true);
 		} else {
 			TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.controlWindow);
@@ -115,7 +115,7 @@ public abstract class AbstractWindowSwitch {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			statusControlForm = getSwingRenderer().createForm(statusControlObject);
 			getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(),
-					testerEditor.getIconImage());
+					testEditor.getIconImage());
 			setAlwaysOnTop(controlWindowAlwaysOnTopLastly);
 			if (lastBounds != null) {
 				setBounds(lastBounds);
@@ -158,8 +158,8 @@ public abstract class AbstractWindowSwitch {
 			lastBounds = getBounds();
 			super.dispose();
 			AbstractWindowSwitch.this.controlWindow = null;
-			testerEditor.invalidate();
-			testerEditor.setVisible(true);
+			testEditor.invalidate();
+			testEditor.setVisible(true);
 		}
 
 		protected Point getInitialLocation() {

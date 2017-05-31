@@ -98,13 +98,13 @@ import xy.ui.testing.finder.DisplayedStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.TestingUtils;
 
-public class TesterEditor extends JFrame {
+public class TestEditor extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public static final String ALTERNATE_UI_CUSTOMIZATION_FILE_PATH_PROPERTY_KEY = "xy.ui.testing.gui.customizationFile";
-	public static final WeakHashMap<TesterEditor, Tester> TESTER_BY_EDITOR = new WeakHashMap<TesterEditor, Tester>();
+	public static final WeakHashMap<TestEditor, Tester> TESTER_BY_EDITOR = new WeakHashMap<TestEditor, Tester>();
 	public static final boolean DEBUG = Boolean
-			.valueOf(System.getProperty(TesterEditor.class.getName() + ".DEBUG", "false"));
+			.valueOf(System.getProperty(TestEditor.class.getName() + ".DEBUG", "false"));
 
 	public static final Class<?>[] BUILT_IN_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
 			SystemExitCallInterceptionAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
@@ -143,7 +143,7 @@ public class TesterEditor extends JFrame {
 
 	private AWTEventListener modalityChangingListener;
 
-	public TesterEditor(Tester tester) {
+	public TestEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
 		setupRecordingEventHandling();
@@ -181,7 +181,7 @@ public class TesterEditor extends JFrame {
 				if (!c.isShowing()) {
 					return;
 				}
-				if (TestingUtils.isTesterEditorComponent(TesterEditor.this, c)) {
+				if (TestingUtils.isTestEditorComponent(TestEditor.this, c)) {
 					return;
 				}
 				if (isCurrentComponentChangeEvent(event)) {
@@ -272,13 +272,13 @@ public class TesterEditor extends JFrame {
 		return componentInspectionWindowSwitch;
 	}
 
-	public Set<Window> getAllwindows() {
+	public Set<Window> getAllWindows() {
 		return allWindows;
 	}
 
 	public void logDebug(String msg) {
 		if (DEBUG) {
-			System.out.println("[" + TesterEditor.class.getName() + "] DEBUG - " + msg);
+			System.out.println("[" + TestEditor.class.getName() + "] DEBUG - " + msg);
 		}
 	}
 
@@ -287,7 +287,7 @@ public class TesterEditor extends JFrame {
 	}
 
 	public void logError(String msg) {
-		System.out.println("[" + TesterEditor.class.getName() + "] ERROR - " + msg);
+		System.out.println("[" + TestEditor.class.getName() + "] ERROR - " + msg);
 	}
 
 	public void logError(Throwable t) {
@@ -464,15 +464,15 @@ public class TesterEditor extends JFrame {
 	}
 
 	protected SwingRenderer createSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
-		return new TesterEditorSwingRenderer(reflectionUI, infoCustomizations);
+		return new TestEditorSwingRenderer(reflectionUI, infoCustomizations);
 	}
 
 	protected ReflectionUI createTesterReflectionUI() {
-		return new TesterEditorReflectionUI();
+		return new TestEditorReflectionUI();
 	}
 
 	protected static AlternativeWindowDecorationsPanel getAlternateWindowDecorationsContentPane(Window window,
-			Component initialContentPane, final TesterEditor testerEditor) {
+			Component initialContentPane, final TestEditor testEditor) {
 		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(
 				SwingRendererUtils.getWindowTitle(window), window, initialContentPane) {
 
@@ -480,47 +480,47 @@ public class TesterEditor extends JFrame {
 
 			@Override
 			public Color getDecorationsBackgroundColor() {
-				return testerEditor.getDecorationsBackgroundColor();
+				return testEditor.getDecorationsBackgroundColor();
 			}
 
 			@Override
 			public Color getDecorationsForegroundColor() {
-				return testerEditor.getDecorationsForegroundColor();
+				return testEditor.getDecorationsForegroundColor();
 			}
 
 			@Override
 			public void configureWindow(Window window) {
 				super.configureWindow(window);
-				testerEditor.onTesterEditorWindowCreation(window);
+				testEditor.onTestEditorWindowCreation(window);
 			}
 
 		};
 		return result;
 	}
 
-	protected void onTesterEditorWindowCreation(Window window) {
+	protected void onTestEditorWindowCreation(Window window) {
 		allWindows.add(window);
 	}
 
 	public static void main(String[] args) {
-		TesterEditor testerEditor = new TesterEditor(new Tester());
+		TestEditor testEditor = new TestEditor(new Tester());
 		try {
 			if (args.length > 1) {
 				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
 			} else if (args.length == 1) {
 				String fileName = args[0];
-				testerEditor.getTester().loadFromFile(new File(fileName));
-				testerEditor.refreshForm();
+				testEditor.getTester().loadFromFile(new File(fileName));
+				testEditor.refreshForm();
 			}
-			testerEditor.open();
+			testEditor.open();
 		} catch (Throwable t) {
-			testerEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
+			testEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
 		}
 	}
 
-	protected class TesterEditorSwingRenderer extends SwingCustomizer {
+	protected class TestEditorSwingRenderer extends SwingCustomizer {
 
-		public TesterEditorSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
+		public TestEditorSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
 			super(reflectionUI, infoCustomizations, getAlternateCustomizationsFilePath());
 		}
 
@@ -559,7 +559,7 @@ public class TesterEditor extends JFrame {
 		@Override
 		public void setContentPane(Window window, Container contentPane) {
 			super.setContentPane(window,
-					TesterEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TesterEditor.this));
+					TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
 		}
 
 		@Override
@@ -591,7 +591,7 @@ public class TesterEditor extends JFrame {
 			Object result = super.onTypeInstanciationRequest(activatorComponent, type);
 			if (result instanceof ComponentFinder) {
 				if (componentFinderInitializationSource != null) {
-					((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TesterEditor.this);
+					((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TestEditor.this);
 				}
 			}
 			return result;
@@ -599,7 +599,7 @@ public class TesterEditor extends JFrame {
 
 	}
 
-	protected class TesterEditorReflectionUI extends ReflectionUI {
+	protected class TestEditorReflectionUI extends ReflectionUI {
 
 		@Override
 		public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
@@ -612,22 +612,22 @@ public class TesterEditor extends JFrame {
 
 		@Override
 		public void logDebug(String msg) {
-			TesterEditor.this.logDebug(msg);
+			TestEditor.this.logDebug(msg);
 		}
 
 		@Override
 		public void logError(String msg) {
-			TesterEditor.this.logDebug(msg);
+			TestEditor.this.logDebug(msg);
 		}
 
 		@Override
 		public void logError(Throwable t) {
-			TesterEditor.this.logDebug(t);
+			TestEditor.this.logDebug(t);
 		}
 
 		protected class ExtensionsProxyFactory extends TypeInfoProxyFactory {
 
-			protected final Pattern encapsulationTypePattern = Pattern
+			protected final Pattern encapsulationTypeNamePattern = Pattern
 					.compile("^Encapsulation \\[.*, encapsulatedObjectType=(.*)\\]$");
 
 			protected boolean isExtensionTestActionTypeName(String typeName) {
@@ -648,7 +648,7 @@ public class TesterEditor extends JFrame {
 			}
 
 			protected boolean isExtensionTestActionEncapsulationTypeName(String encapsulationTypeName) {
-				Matcher matcher = encapsulationTypePattern.matcher(encapsulationTypeName);
+				Matcher matcher = encapsulationTypeNamePattern.matcher(encapsulationTypeName);
 				if (!matcher.matches()) {
 					return false;
 				}
@@ -742,9 +742,21 @@ public class TesterEditor extends JFrame {
 
 		protected class StandardProxyFactory extends TypeInfoProxyFactory {
 
+			protected final Pattern polymorphicComponentFindeFieldEncapsulationTypeNamePattern = Pattern.compile(
+					"^Encapsulation \\[context=FieldContext \\[fieldName=componentFinder.*\\], subContext=PolymorphicInstance.*\\]$");
+
 			@Override
 			public String toString() {
-				return TesterEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
+				return TestEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
+			}
+
+			@Override
+			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo containingType) {
+				if (polymorphicComponentFindeFieldEncapsulationTypeNamePattern.matcher(containingType.getName())
+						.matches()) {
+					return true;
+				}
+				return super.isFormControlEmbedded(field, containingType);
 			}
 
 			@Override
@@ -778,7 +790,7 @@ public class TesterEditor extends JFrame {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
 					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class));
-					result.add(new ImplicitListFieldInfo(TesterEditor.this.reflectionUI, "propertyValues", type,
+					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
 					return result;

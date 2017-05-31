@@ -6,7 +6,7 @@ import java.util.List;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.CheckVisibleStringsAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
@@ -59,8 +59,8 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	}
 	
 	@Override
-	protected boolean initializeSpecificProperties(Window w, TesterEditor testerEditor) {
-		delegate.setVisibleStrings(TestingUtils.extractComponentTreeDisplayedStrings(w, testerEditor.getTester()));
+	protected boolean initializeSpecificProperties(Window w, TestEditor testEditor) {
+		delegate.setVisibleStrings(TestingUtils.extractComponentTreeDisplayedStrings(w, testEditor.getTester()));
 		return true;
 	}
 

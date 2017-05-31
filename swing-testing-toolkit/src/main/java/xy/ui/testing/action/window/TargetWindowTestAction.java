@@ -6,7 +6,7 @@ import java.awt.Window;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.MatchingComponentFinder;
 import xy.ui.testing.util.TestingUtils;
 
@@ -14,7 +14,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 
 	protected static final long serialVersionUID = 1L;
 
-	protected abstract boolean initializeSpecificProperties(Window w, TesterEditor testerEditor);
+	protected abstract boolean initializeSpecificProperties(Window w, TestEditor testEditor);
 
 	protected MatchingComponentFinder windowFinder = new MatchingComponentFinder() {
 
@@ -26,7 +26,7 @@ public abstract class TargetWindowTestAction extends TestAction {
 		}
 
 		@Override
-		protected boolean initializeSpecificValues(Component c, TesterEditor testerEditor) {
+		protected boolean initializeSpecificValues(Component c, TestEditor testEditor) {
 			return true;
 		}
 	};
@@ -40,12 +40,12 @@ public abstract class TargetWindowTestAction extends TestAction {
 	}
 
 	@Override
-	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TesterEditor testerEditor) {
+	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
 		Window window = TestingUtils.getWindowAncestorOrSelf(c);
-		if (!windowFinder.initializeFrom(window, testerEditor)) {
+		if (!windowFinder.initializeFrom(window, testEditor)) {
 			return false;
 		}
-		initializeSpecificProperties(window, testerEditor);
+		initializeSpecificProperties(window, testEditor);
 		return true;
 	}
 

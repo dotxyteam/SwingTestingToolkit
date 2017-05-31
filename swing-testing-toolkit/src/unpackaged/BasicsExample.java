@@ -1,7 +1,7 @@
 import java.io.File;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestingUtils;
 
 public class BasicsExample {
@@ -18,8 +18,8 @@ public class BasicsExample {
 		/*
 		 * You can then use the GUI (or not) to create your test cases.
 		 */
-		TesterEditor testerEditor = new TesterEditor(tester);
-		testerEditor.open();
+		TestEditor testEditor = new TestEditor(tester);
+		testEditor.open();
 
 		/*
 		 * Once you are done creating and saving your test case to a file, you

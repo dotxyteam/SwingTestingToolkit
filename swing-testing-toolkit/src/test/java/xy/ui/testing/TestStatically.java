@@ -3,15 +3,15 @@ package xy.ui.testing;
 import org.junit.Assert;
 import org.junit.Test;
 
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 
 public class TestStatically {
 
 	@Test
 	public void testClassHierarchy() {
-		assertNoInheritanceBetweenClasses(TesterEditor.BUILT_IN_TEST_ACTION_CLASSES);
-		assertNoInheritanceBetweenClasses(TesterEditor.BUILT_IN_COMPONENT_FINDRER_CLASSES);
-		assertNoInheritanceBetweenClasses(TesterEditor.BUILT_IN_KEYBOARD_INTERACTION_CLASSES);
+		assertNoInheritanceBetweenClasses(TestEditor.BUILT_IN_TEST_ACTION_CLASSES);
+		assertNoInheritanceBetweenClasses(TestEditor.BUILT_IN_COMPONENT_FINDRER_CLASSES);
+		assertNoInheritanceBetweenClasses(TestEditor.BUILT_IN_KEYBOARD_INTERACTION_CLASSES);
 	}
 
 	private void assertNoInheritanceBetweenClasses(Class<?>[] classes) {

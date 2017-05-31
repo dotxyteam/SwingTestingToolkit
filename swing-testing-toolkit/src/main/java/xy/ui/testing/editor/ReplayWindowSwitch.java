@@ -14,8 +14,8 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 	protected ReplayStatus replayStatus = new ReplayStatus();
 	protected String currentActionDescription;
 
-	public ReplayWindowSwitch(TesterEditor testerEditor) {
-		super(testerEditor);
+	public ReplayWindowSwitch(TestEditor testEditor) {
+		super(testEditor);
 	}
 
 	@Override
@@ -35,7 +35,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 
 	@Override
 	protected void onBegining() {
-		replayThread = new Thread(TesterEditor.class.getName() + " Replay Thread") {
+		replayThread = new Thread(TestEditor.class.getName() + " Replay Thread") {
 			@Override
 			public void run() {
 				try {
@@ -46,7 +46,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 							int actionIndex = indexOfActionByReference(testAction);
 							currentActionDescription = (actionIndex + 1) + " - " + currentActionDescription;
 							getSwingRenderer().refreshAllFieldControls(getStatusControlForm(), false);
-							testerEditor.setSelectedActionIndex(actionIndex);
+							testEditor.setSelectedActionIndex(actionIndex);
 						}
 
 					};
@@ -61,6 +61,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
+							getTester().logError(t);
 							getSwingRenderer().handleExceptionsFromDisplayedUI(ReplayWindowSwitch.this.getWindow(), t);
 							getStatusControlObject().stop();
 						}

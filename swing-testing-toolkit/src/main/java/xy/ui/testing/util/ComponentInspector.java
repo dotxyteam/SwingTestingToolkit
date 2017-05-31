@@ -9,7 +9,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.util.ReflectionUIUtils;
-import xy.ui.testing.editor.TesterEditor;
+import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
@@ -18,8 +18,8 @@ public class ComponentInspector {
 
 	private ComponentInspectorNode rootNode;
 
-	public ComponentInspector(Component c, TesterEditor testerEditor) {
-		this.rootNode = new ComponentInspectorNode(c, testerEditor);
+	public ComponentInspector(Component c, TestEditor testEditor) {
+		this.rootNode = new ComponentInspectorNode(c, testEditor);
 	}
 
 	public ComponentInspectorNode getRootNode() {
@@ -61,13 +61,13 @@ public class ComponentInspector {
 		protected List<ComponentInspectorNode> chilren;
 		protected List<String> visibleStrings;
 		protected Component c;
-		protected TesterEditor testerEditor;
+		protected TestEditor testEditor;
 		protected String componentTreeDisplayedStringsSummary;
 
-		public ComponentInspectorNode(Component c, TesterEditor testerEditor) {
+		public ComponentInspectorNode(Component c, TestEditor testEditor) {
 			this.c = c;
-			this.testerEditor = testerEditor;
-			this.visibleStrings = testerEditor.getTester().extractDisplayedStrings(c);
+			this.testEditor = testEditor;
+			this.visibleStrings = testEditor.getTester().extractDisplayedStrings(c);
 			this.visibleStrings.remove("");
 		}
 
@@ -79,12 +79,12 @@ public class ComponentInspector {
 
 					@Override
 					protected boolean initializeOccurrencesToSkip(Window componentWindow, Component c,
-							TesterEditor testerEditor) {
+							TestEditor testEditor) {
 						return true;
 					}
 
 				};
-				util.initializeFrom(c, testerEditor);
+				util.initializeFrom(c, testEditor);
 			}
 			return util;
 		}
@@ -107,8 +107,8 @@ public class ComponentInspector {
 				chilren = new ArrayList<ComponentInspectorNode>();
 				if (c instanceof Container) {
 					Container container = (Container) c;
-					for (Component child : testerEditor.getTester().getChildrenComponents(container)) {
-						chilren.add(new ComponentInspectorNode(child, testerEditor));
+					for (Component child : testEditor.getTester().getChildrenComponents(container)) {
+						chilren.add(new ComponentInspectorNode(child, testEditor));
 					}
 				}
 			}
@@ -156,14 +156,14 @@ public class ComponentInspector {
 
 		public List<ComponentFinder> getCompatibleFinders() {
 			List<ComponentFinder> result = new ArrayList<ComponentFinder>();
-			for (Class<?> finderClass : testerEditor.getComponentFinderClasses()) {
+			for (Class<?> finderClass : testEditor.getComponentFinderClasses()) {
 				ComponentFinder finder;
 				try {
 					finder = (ComponentFinder) finderClass.newInstance();
 				} catch (Exception e) {
 					throw new AssertionError(e);
 				}
-				if (finder.initializeFrom(c, testerEditor)) {
+				if (finder.initializeFrom(c, testEditor)) {
 					result.add(finder);
 				}
 			}
@@ -181,7 +181,7 @@ public class ComponentInspector {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((c == null) ? 0 : c.hashCode());
-			result = prime * result + ((testerEditor == null) ? 0 : testerEditor.hashCode());
+			result = prime * result + ((testEditor == null) ? 0 : testEditor.hashCode());
 			return result;
 		}
 
@@ -199,10 +199,10 @@ public class ComponentInspector {
 					return false;
 			} else if (!c.equals(other.c))
 				return false;
-			if (testerEditor == null) {
-				if (other.testerEditor != null)
+			if (testEditor == null) {
+				if (other.testEditor != null)
 					return false;
-			} else if (!testerEditor.equals(other.testerEditor))
+			} else if (!testEditor.equals(other.testEditor))
 				return false;
 			return true;
 		}
