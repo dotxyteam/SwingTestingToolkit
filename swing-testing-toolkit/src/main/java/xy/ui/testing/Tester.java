@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,6 +51,9 @@ public class Tester {
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightForeground", "235,48,33"));
 	public static final Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
+
+	protected static final MouseListener DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH = new MouseAdapter() {
+	};
 
 	protected final Object CURRENT_COMPONENT_MUTEX = new Object() {
 		@Override
@@ -164,7 +168,6 @@ public class Tester {
 		logError(ReflectionUIUtils.getPrintedStackTrace(t));
 	}
 
-
 	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {
 		Component result = null;
 		int remainingSeconds = maximumSecondsToWaitBetwneenActions - minimumSecondsToWaitBetwneenActions;
@@ -192,6 +195,7 @@ public class Tester {
 	}
 
 	protected void restoreCurrentComponentListeners() {
+		currentComponent.removeMouseListener(DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH);
 		for (MouseListener l : currentComponentMouseListeners) {
 			currentComponent.addMouseListener(l);
 		}
@@ -202,6 +206,7 @@ public class Tester {
 		for (int i = 0; i < currentComponentMouseListeners.length; i++) {
 			currentComponent.removeMouseListener(currentComponentMouseListeners[i]);
 		}
+		currentComponent.addMouseListener(DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH);
 	}
 
 	protected void unhighlightCurrentComponent() {

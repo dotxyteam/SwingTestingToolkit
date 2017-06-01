@@ -146,7 +146,7 @@ public class TestEditor extends JFrame {
 	public TestEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
-		setupRecordingEventHandling();
+		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();
 		reflectionUI = createTesterReflectionUI();
@@ -157,12 +157,14 @@ public class TestEditor extends JFrame {
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
-		cleanupRecordingEventHandling();
+		cleanupWindowSwitchesEventHandling();
 		cleanupDialogApplicationModalityPrevention();
 	}
 
-	protected void setupRecordingEventHandling() {
+	protected void setupWindowSwitchesEventHandling() {
 		recordingListener = new AWTEventListener() {
+			long currentComponentChangeDisabledUntil = 0;
+
 			@Override
 			public void eventDispatched(AWTEvent event) {
 				if (!(recordingWindowSwitch.isActive() && !recordingWindowSwitch.getStatus().isRecordingPaused())
@@ -185,9 +187,16 @@ public class TestEditor extends JFrame {
 					return;
 				}
 				if (isCurrentComponentChangeEvent(event)) {
-					getTester().handleCurrentComponentChange(c);
+					if (System.currentTimeMillis() > currentComponentChangeDisabledUntil) {
+						getTester().handleCurrentComponentChange(c);
+					}
 				}
-				if (c == getTester().getCurrentComponent()) {
+				if (c != getTester().getCurrentComponent()) {
+					if (isGenericRecordingRequestEvent(event)) {
+						getTester().handleCurrentComponentChange(c);
+						currentComponentChangeDisabledUntil = System.currentTimeMillis() + 5000;
+					}
+				} else {
 					if (componentInspectionWindowSwitch.isActive()) {
 						if (isGenericRecordingRequestEvent(event)) {
 							componentInspectionWindowSwitch.getWindow().requestFocus();
@@ -209,9 +218,10 @@ public class TestEditor extends JFrame {
 		};
 		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
 				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
+
 	}
 
-	protected void cleanupRecordingEventHandling() {
+	protected void cleanupWindowSwitchesEventHandling() {
 		SwingRendererUtils.removeAWTEventListener(recordingListener);
 	}
 
