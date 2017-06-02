@@ -12579,6 +12579,7 @@
         <customFieldsOrder>windowIndex</customFieldsOrder>
         <customFieldsOrder>occurrencesToSkip</customFieldsOrder>
         <customFieldsOrder>visibleString</customFieldsOrder>
+        <customFieldsOrder>visibleStringInTree</customFieldsOrder>
         <fieldsCustomizations>
             <uniqueIdentifier>5fa5c56c:15bfcfd23ec:-4bb8</uniqueIdentifier>
             <specificProperties/>
@@ -12665,6 +12666,37 @@
                     <immutableForced>false</immutableForced>
                     <menuModel/>
                     <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-35908574:15c63d10d70:-4478</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Search In Sub-components</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>visibleStringInTree</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-35908574:15c63d10d70:-4477</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-35908574:15c63d10d70:-4476</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificTypeCustomizations>
