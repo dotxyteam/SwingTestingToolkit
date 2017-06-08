@@ -1032,6 +1032,11 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
+							public String getOnlineHelp() {
+								return "Replay selected action(s)";
+							}
+
+							@Override
 							public Object invoke(Object object, InvocationData invocationData) {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
@@ -1082,6 +1087,13 @@ public class TestEditor extends JFrame {
 								public String getCaption() {
 									return "Resume";
 								}
+								
+								@Override
+								public String getOnlineHelp() {
+									return "Replay from selected action to end";
+								}
+
+								
 							});
 						}
 						return result;

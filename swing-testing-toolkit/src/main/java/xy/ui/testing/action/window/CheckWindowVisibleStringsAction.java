@@ -16,10 +16,10 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	protected CheckVisibleStringsAction delegate = new CheckVisibleStringsAction();
 
-	public CheckWindowVisibleStringsAction(){
+	public CheckWindowVisibleStringsAction() {
 		delegate.setComponentFinder(windowFinder);
 	}
-	
+
 	public List<String> getVisibleStrings() {
 		return delegate.getVisibleStrings();
 	}
@@ -54,11 +54,6 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	}
 
 	@Override
-	public String toString() {
-		return delegate.toString();
-	}
-	
-	@Override
 	protected boolean initializeSpecificProperties(Window w, TestEditor testEditor) {
 		delegate.setVisibleStrings(TestingUtils.extractComponentTreeDisplayedStrings(w, testEditor.getTester()));
 		return true;
@@ -77,6 +72,11 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 	@Override
 	public void validate() throws ValidationError {
 		delegate.validate();
+	}
+
+	@Override
+	public String toString() {
+		return "Check " + getValueDescription() + " displayed on " + getComponentInformation();
 	}
 
 }

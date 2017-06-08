@@ -87,7 +87,7 @@ public abstract class AbstractWindowSwitch {
 
 		public boolean isWindowAlwaysOnTop() {
 			if (AbstractWindowSwitch.this.controlWindow == null) {
-				return false;
+				return controlWindowAlwaysOnTopLastly;
 			}
 			return AbstractWindowSwitch.this.controlWindow.isAlwaysOnTop();
 		}
@@ -114,9 +114,7 @@ public abstract class AbstractWindowSwitch {
 		public StatusControlWindow() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			statusControlForm = getSwingRenderer().createForm(statusControlObject);
-			getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(),
-					testEditor.getIconImage());
-			setAlwaysOnTop(controlWindowAlwaysOnTopLastly);
+			getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(), testEditor.getIconImage());
 			if (lastBounds != null) {
 				setBounds(lastBounds);
 			} else {
@@ -125,6 +123,7 @@ public abstract class AbstractWindowSwitch {
 			addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowOpened(WindowEvent e) {
+					setAlwaysOnTop(controlWindowAlwaysOnTopLastly);
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
@@ -141,6 +140,7 @@ public abstract class AbstractWindowSwitch {
 							onEnd();
 						}
 					});
+					controlWindowAlwaysOnTopLastly = isAlwaysOnTop();
 				}
 
 			});
@@ -154,7 +154,6 @@ public abstract class AbstractWindowSwitch {
 				}
 				disposed = true;
 			}
-			controlWindowAlwaysOnTopLastly = isAlwaysOnTop();
 			lastBounds = getBounds();
 			super.dispose();
 			AbstractWindowSwitch.this.controlWindow = null;

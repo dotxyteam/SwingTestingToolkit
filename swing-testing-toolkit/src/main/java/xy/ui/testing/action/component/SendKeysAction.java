@@ -44,7 +44,8 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		return true;
 	}
 
@@ -210,6 +211,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 		@Override
 		public List<KeyEvent> getKeyEvents(Component c) {
 			List<KeyEvent> result = new ArrayList<KeyEvent>();
+			
 			int id = KeyEvent.KEY_PRESSED;
 			long when = System.currentTimeMillis();
 			int modifiers = getModifiers();
@@ -217,12 +219,21 @@ public class SendKeysAction extends TargetComponentTestAction {
 			char keyChar = KeyEvent.CHAR_UNDEFINED;
 			KeyEvent keyEvent = new KeyEvent(c, id, when, modifiers, keyCode, keyChar);
 			result.add(keyEvent);
+
 			StandardKey typedKey = StandardKey.getKeyByKeyCode(keyCode, keyEvent.isShiftDown(), keyEvent.isAltDown());
 			if (typedKey != null) {
-				result.add(new KeyEvent(c, KeyEvent.KEY_TYPED, when, modifiers, KeyEvent.VK_UNDEFINED,
-						typedKey.getCharacter()));
+				id = KeyEvent.KEY_TYPED;
+				keyCode = KeyEvent.VK_UNDEFINED;
+				keyChar = typedKey.getCharacter();
+				keyEvent = new KeyEvent(c, id, when, modifiers, keyCode, keyChar);
+				result.add(keyEvent);
 			}
-			result.add(new KeyEvent(c, KeyEvent.KEY_RELEASED, when, modifiers, keyCode, KeyEvent.CHAR_UNDEFINED));
+
+			id = KeyEvent.KEY_RELEASED;
+			keyCode = getKeyCode(keyName);
+			keyChar = KeyEvent.CHAR_UNDEFINED;
+			keyEvent = new KeyEvent(c, id, when, modifiers, keyCode, keyChar);
+			result.add(keyEvent);
 			return result;
 		}
 

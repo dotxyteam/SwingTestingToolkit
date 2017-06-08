@@ -1,3 +1,7 @@
+- DisplayedStringComponentFinder.searchInDescendants issue:
+	. many component in the same hierarchy will match 
+		=> find a solution
+- cannot send right click event
 - add system exit interception option param to record method
 - add test report
 - allow to debug actions

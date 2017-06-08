@@ -2,6 +2,7 @@ package xy.ui.testing.action.component.specific;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -185,7 +186,9 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	}
 
-	public class Option {
+	public class Option implements Serializable{
+		private static final long serialVersionUID = 1L;
+		
 		private int position;
 		private String label;
 

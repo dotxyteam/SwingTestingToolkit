@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.SwingUtilities;
 
@@ -12,6 +13,7 @@ import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+@SuppressWarnings("unused")
 public abstract class AbstractClickAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
@@ -77,7 +79,9 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 	}
 
 	protected void click(Component c) {
-		MouseEvent mouseEvent = createPressedEvent(c);
+		MouseEvent mouseEvent;
+
+		mouseEvent = createPressedEvent(c);
 		for (MouseListener l : c.getMouseListeners()) {
 			if (mouseEvent.isConsumed()) {
 				break;

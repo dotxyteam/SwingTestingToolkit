@@ -14,6 +14,12 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 
 	protected String visibleString = "";
 	protected boolean visibleStringInTree = false;
+	protected ClassBasedComponentFinder classMatcher = new ClassBasedComponentFinder() {
+		private static final long serialVersionUID = 1L;
+		{
+			this.setComponentClassName(null);
+		}
+	};
 
 	public String getVisibleString() {
 		return visibleString;
@@ -31,6 +37,14 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 		this.visibleStringInTree = visibleStringInTree;
 	}
 
+	public String getComponentClassName() {
+		return classMatcher.getComponentClassName();
+	}
+
+	public void setComponentClassName(String componentClassName) {
+		classMatcher.setComponentClassName(componentClassName);
+	}
+
 	@Override
 	protected boolean initializeSpecificValues(Component c, TestEditor testEditor) {
 		List<String> visibleStrings = testEditor.getTester().extractDisplayedStrings(c);
@@ -42,6 +56,7 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 		if (visibleStrings.size() > 0) {
 			visibleString = visibleStrings.get(0);
 			visibleStringInTree = true;
+			classMatcher.initializeSpecificValues(c, testEditor);
 			return true;
 		}
 		return false;
@@ -56,12 +71,26 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 			visibleStrings = tester.extractDisplayedStrings(c);
 
 		}
-		for (String s : visibleStrings) {
-			if (visibleString.equals(s)) {
-				return true;
+		if (!visibleStrings.contains(visibleString)) {
+			return false;
+		}
+		if (classMatcher.getComponentClassName() != null) {
+			if (!classMatcher.matchesInContainingWindow(c, tester)) {
+				return false;
 			}
 		}
-		return false;
+		return true;
+	}
+
+	@Override
+	public void validate() throws ValidationError {
+		super.validate();
+		if (visibleString == null) {
+			throw new ValidationError("The visible string to find has not been defined");
+		}
+		if (classMatcher.getComponentClassName() != null) {
+			classMatcher.validate();
+		}
 	}
 
 	@Override
@@ -74,14 +103,6 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 		}
 		result = MatchingComponentFinder.appendOccurrenceNumber(result, occurrencesToSkip);
 		return result;
-	}
-
-	@Override
-	public void validate() throws ValidationError {
-		super.validate();
-		if (visibleString == null) {
-			throw new ValidationError("The visible string to find has not been defined");
-		}
 	}
 
 }

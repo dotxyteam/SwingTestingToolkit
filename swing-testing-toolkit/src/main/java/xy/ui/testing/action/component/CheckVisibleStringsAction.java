@@ -66,11 +66,6 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public String toString() {
-		return "Check visible strings of " + getComponentInformation();
-	}
-
-	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 			TestEditor testEditor) {
 		visibleStrings.addAll(TestingUtils.extractComponentTreeDisplayedStrings(c, testEditor.getTester()));
@@ -137,6 +132,11 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 		if (visibleStrings.size() == 0) {
 			throw new ValidationError("The visible strings to check have not been defined");
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Check " + getValueDescription() + " displayed on " + getComponentInformation();
 	}
 
 }
