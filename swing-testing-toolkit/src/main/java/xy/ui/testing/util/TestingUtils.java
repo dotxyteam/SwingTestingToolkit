@@ -34,6 +34,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 
 import xy.ui.testing.Tester;
+import xy.ui.testing.action.SystemExitCallInterceptionAction;
 import xy.ui.testing.editor.TestEditor;
 
 public class TestingUtils {
@@ -385,14 +386,21 @@ public class TestingUtils {
 	}
 
 	public static void assertSuccessfulReplay(Tester tester, InputStream replayStream) throws IOException {
-		tester.loadFromStream(replayStream);
-		closeAllTestableWindows(tester);
-		tester.replayAll();
+		try {
+			tester.loadFromStream(replayStream);
+			tester.replayAll();
+		} finally {
+			if (SystemExitCallInterceptionAction.isInterceptionEnabled()) {
+				SystemExitCallInterceptionAction.disableInterception();
+			}
+			closeAllTestableWindows(tester);
+		}
 	}
 
-	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor, boolean skipNonVisibleComponents) {
-		if(skipNonVisibleComponents){
-			if(!tester.isVisible(treeRoot)){
+	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor,
+			boolean skipNonVisibleComponents) {
+		if (skipNonVisibleComponents) {
+			if (!tester.isVisible(treeRoot)) {
 				return true;
 			}
 		}

@@ -30,26 +30,24 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	@Override
 	public void execute(Component c, Tester tester) {
 		if (oppposite) {
-			System.setSecurityManager(null);
+			enableInterception();
 		} else {
-			System.setSecurityManager(new SecurityManager() {
-				@Override
-				public void checkExit(int status) {
-					throw new SecurityException("System.exit() call intercepted");
-				}
-
-				@Override
-				public void checkPermission(Permission perm) {
-					// allow anything.
-				}
-
-				@Override
-				public void checkPermission(Permission perm, Object context) {
-					// allow anything.
-				}
-			});
+			disableInterception();
 		}
 	}
+
+	public static void enableInterception() {
+		System.setSecurityManager(((NoExitSecurityManager) System.getSecurityManager()).getInitialSecurityManager());
+	}
+
+	public static void disableInterception() {
+		System.setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
+	}
+	
+	public static boolean isInterceptionEnabled() {
+		return System.getSecurityManager() instanceof NoExitSecurityManager;
+	}
+
 
 	@Override
 	public String getValueDescription() {
@@ -77,6 +75,33 @@ public class SystemExitCallInterceptionAction extends TestAction {
 
 	@Override
 	public void validate() throws ValidationError {
+	}
+
+	public static class NoExitSecurityManager extends SecurityManager {
+		protected SecurityManager initialSecurityManager;
+
+		public NoExitSecurityManager(SecurityManager initialSecurityManager) {
+			this.initialSecurityManager = initialSecurityManager;
+		}
+
+		public SecurityManager getInitialSecurityManager() {
+			return initialSecurityManager;
+		}
+
+		@Override
+		public void checkExit(int status) {
+			throw new SecurityException("System.exit() call intercepted");
+		}
+
+		@Override
+		public void checkPermission(Permission perm) {
+			// allow anything.
+		}
+
+		@Override
+		public void checkPermission(Permission perm, Object context) {
+			// allow anything.
+		}
 	}
 
 }

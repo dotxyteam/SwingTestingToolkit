@@ -761,6 +761,20 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
+			protected String toString(ITypeInfo type, Object object) {
+				if (object instanceof TestAction) {
+					TestAction testAction = (TestAction) object;
+					String result = super.toString(type, object);
+					if (testAction.isDisabled()) {
+						result = "[DISABLED] " + result;
+					}
+					return result;
+				} else {
+					return super.toString(type, object);
+				}
+			}
+
+			@Override
 			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo containingType) {
 				if (polymorphicComponentFindeFieldEncapsulationTypeNamePattern.matcher(containingType.getName())
 						.matches()) {
@@ -1087,13 +1101,12 @@ public class TestEditor extends JFrame {
 								public String getCaption() {
 									return "Resume";
 								}
-								
+
 								@Override
 								public String getOnlineHelp() {
 									return "Replay from selected action to end";
 								}
 
-								
 							});
 						}
 						return result;

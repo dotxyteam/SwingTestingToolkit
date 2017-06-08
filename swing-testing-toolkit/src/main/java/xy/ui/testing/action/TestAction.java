@@ -23,5 +23,17 @@ public abstract class TestAction implements Serializable {
 	public abstract String getValueDescription();
 
 	public abstract String getComponentInformation();
+	
+	protected boolean disabled = false;
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+	
+	
 
 }

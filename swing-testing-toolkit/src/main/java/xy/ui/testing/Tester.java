@@ -124,20 +124,24 @@ public class Tester {
 				if (beforeEachAction != null) {
 					beforeEachAction.handle(testAction);
 				}
-				Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
-				testAction.validate();
-				Component c = findComponentImmediatelyOrRetry(testAction);
-				if (c != null) {
-					currentComponent = c;
-					highlightCurrentComponent();
-					try {
-						Thread.sleep(1000);
-					} finally {
-						unhighlightCurrentComponent();
-						currentComponent = null;
+				if (testAction.isDisabled()) {
+					logInfo("Action disabled. Skipping...");
+				} else {
+					Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+					testAction.validate();
+					Component c = findComponentImmediatelyOrRetry(testAction);
+					if (c != null) {
+						currentComponent = c;
+						highlightCurrentComponent();
+						try {
+							Thread.sleep(1000);
+						} finally {
+							unhighlightCurrentComponent();
+							currentComponent = null;
+						}
 					}
+					testAction.execute(c, this);
 				}
-				testAction.execute(c, this);
 			} catch (Throwable t) {
 				if (t instanceof InterruptedException) {
 					break;

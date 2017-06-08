@@ -1655,15 +1655,31 @@
             <specificTypeCustomizations>
                 <listCustomizations>
                     <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7dbc</uniqueIdentifier>
+                    <allowedItemFieldShortcuts>
+                        <uniqueIdentifier>7de0fcaf:15c86ec3fdd:d7f</uniqueIdentifier>
+                        <alwaysShown>false</alwaysShown>
+                        <customFieldCaption>Enable/Disable</customFieldCaption>
+                        <fieldName>disabled</fieldName>
+                    </allowedItemFieldShortcuts>
                     <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7db8</uniqueIdentifier>
                         <columnName>componentInformation</columnName>
                         <hidden>true</hidden>
                     </columnCustomizations>
                     <columnCustomizations>
+                        <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-45ab</uniqueIdentifier>
+                        <columnName>disabled</columnName>
+                        <hidden>true</hidden>
+                    </columnCustomizations>
+                    <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7dba</uniqueIdentifier>
                         <columnName>position</columnName>
                         <hidden>true</hidden>
+                    </columnCustomizations>
+                    <columnCustomizations>
+                        <uniqueIdentifier>528ec47b:15c461f75f0:-460c</uniqueIdentifier>
+                        <columnName>toStringValue</columnName>
+                        <hidden>false</hidden>
                     </columnCustomizations>
                     <columnCustomizations>
                         <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7db9</uniqueIdentifier>
@@ -1675,11 +1691,6 @@
                         <columnName>valueDescription</columnName>
                         <customCaption>Details</customCaption>
                         <hidden>true</hidden>
-                    </columnCustomizations>
-                    <columnCustomizations>
-                        <uniqueIdentifier>528ec47b:15c461f75f0:-460c</uniqueIdentifier>
-                        <columnName>toStringValue</columnName>
-                        <hidden>false</hidden>
                     </columnCustomizations>
                     <columnsCustomOrder>position</columnsCustomOrder>
                     <columnsCustomOrder>typeName</columnsCustomOrder>
@@ -1696,6 +1707,11 @@
                         <itemMoveEnabled>true</itemMoveEnabled>
                     </editOptions>
                     <fieldColumnsAdded>false</fieldColumnsAdded>
+                    <fieldsExcludedFromItemDetails>
+                        <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-40cc</uniqueIdentifier>
+                        <regularExpression>false</regularExpression>
+                        <value>disabled</value>
+                    </fieldsExcludedFromItemDetails>
                     <itemContructorSelectableforced>false</itemContructorSelectableforced>
                     <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
                     <itemTypeColumnAdded>false</itemTypeColumnAdded>
@@ -8147,6 +8163,36 @@
                 </typeCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-416f</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>disabled</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-416e</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-416d</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
         <iconImagePath>
             <specification>&lt;class-path-resource&gt; xy/ui/testing/ClickOnTableCellAction.png</specification>
         </iconImagePath>
@@ -9891,6 +9937,36 @@
             <nullValueDistinctForced>false</nullValueDistinctForced>
             <setterGenerated>false</setterGenerated>
             <specificTypeCustomizations/>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-4470</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>disabled</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-446f</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>7de0fcaf:15c86ec3fdd:-446e</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
         </fieldsCustomizations>
         <iconImagePath>
             <specification>&lt;class-path-resource&gt; xy/ui/testing/SelectTableRowAction.png</specification>
@@ -25027,6 +25103,48 @@
         <immutableForced>false</immutableForced>
         <menuModel/>
         <typeName>Encapsulation [context=FieldContext [fieldName=, containingType=Encapsulation [context=FieldContext [fieldName=compatibleFinders, containingType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.finder.ComponentFinder]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>7de0fcaf:15c86ec3fdd:1151</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customTypeCaption>Enable/Disable Test Action</customTypeCaption>
+        <fieldsCustomizations>
+            <uniqueIdentifier>7de0fcaf:15c86ec3fdd:1152</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Disable</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>7de0fcaf:15c86ec3fdd:1153</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>7de0fcaf:15c86ec3fdd:1154</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel/>
+        <typeName>Encapsulation [context=FieldContext [fieldName=testActions, containingType=xy.ui.testing.Tester], subContext=ListDynamicProperty [name=disabled], encapsulatedObjectType=boolean]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>
