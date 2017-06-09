@@ -39,6 +39,8 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
 import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.ui.testing.TestReport.TestReportStep;
+import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.Listener;
@@ -105,55 +107,74 @@ public class Tester {
 		this.testActions.addAll(Arrays.asList(testActions));
 	}
 
-	public void replayAll() {
-		replayAll(null);
+	public TestReport replayAll() {
+		return replayAll(null);
 	}
 
-	public void replayAll(Listener<TestAction> beforeEachAction) {
-		replay(testActions, beforeEachAction);
+	public TestReport replayAll(Listener<TestAction> beforeEachAction) {
+		return replay(testActions, beforeEachAction);
 	}
 
-	public void replay(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
+	public TestReport replay(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
+		TestReport report = new TestReport(this);
 		for (int i = 0; i < toReplay.size(); i++) {
-			if (Thread.currentThread().isInterrupted()) {
-				break;
-			}
 			final TestAction testAction = toReplay.get(i);
-			logInfo("Replaying: " + testAction);
+			TestReportStep reportStep = report.nextStep(testAction);
+			reportStep.starting();
 			try {
-				if (beforeEachAction != null) {
-					beforeEachAction.handle(testAction);
-				}
-				if (testAction.isDisabled()) {
-					logInfo("Action disabled. Skipping...");
-				} else {
-					Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
-					testAction.validate();
-					Component c = findComponentImmediatelyOrRetry(testAction);
-					if (c != null) {
-						currentComponent = c;
-						highlightCurrentComponent();
-						try {
-							Thread.sleep(1000);
-						} finally {
-							unhighlightCurrentComponent();
-							currentComponent = null;
-						}
-					}
-					testAction.execute(c, this);
-				}
-			} catch (Throwable t) {
-				if (t instanceof InterruptedException) {
+				if (Thread.currentThread().isInterrupted()) {
+					reportStep.setStatus(TestReportStepStatus.CANCELLED);
 					break;
 				}
-				throw new TestFailure("Test Action n°" + (testActions.indexOf(testAction) + 1) + ": " + t.toString(),
-						t);
+				try {
+					if (beforeEachAction != null) {
+						beforeEachAction.handle(testAction);
+					}
+					if (testAction.isDisabled()) {
+						reportStep.setStatus(TestReportStepStatus.SKIPPED);
+					} else {
+						Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+						testAction.validate();
+						Component c;
+						try {
+							c = findComponentImmediatelyOrRetry(testAction);
+						} catch (Throwable t) {
+							reportStep.componentFound(this);
+							throw t;
+						}
+						if (c == null) {
+							reportStep.componentFound(this);
+						} else {
+							currentComponent = c;
+							highlightCurrentComponent();
+							reportStep.componentFound(this);
+							try {
+								Thread.sleep(1000);
+							} finally {
+								unhighlightCurrentComponent();
+								currentComponent = null;
+							}
+						}
+						testAction.execute(c, this);
+						reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
+					}
+				} catch (Throwable t) {
+					if (t instanceof InterruptedException) {
+						reportStep.setStatus(TestReportStepStatus.CANCELLED);
+						break;
+					}
+					reportStep.setStatus(TestReportStepStatus.FAILED);
+					break;
+				}
+			} finally {
+				reportStep.ending();
 			}
 		}
 		try {
 			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
 		} catch (InterruptedException ignore) {
 		}
+		return report;
 	}
 
 	protected String formatLogMessage(String msg) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import xy.ui.testing.TestReport;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.util.Listener;
 
@@ -50,11 +51,14 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 						}
 
 					};
-					getTester().replay(actionsToReplay, listener);
+					TestReport testReport = getTester().replay(actionsToReplay, listener);
+					testEditor.setTestReport(testReport);
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							getStatusControlObject().stop();
+							testEditor.refresh();
+							testEditor.showExecutionReportTab();
+							getStatusControlObject().stop();							
 						}
 					});
 				} catch (final Throwable t) {

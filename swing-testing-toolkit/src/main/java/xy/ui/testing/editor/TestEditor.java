@@ -45,6 +45,7 @@ import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.ResourcePath;
+import xy.reflect.ui.info.ValueReturnMode;
 import xy.reflect.ui.info.custom.InfoCustomizations;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListFieldInfo;
@@ -55,11 +56,13 @@ import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
+import xy.reflect.ui.info.type.factory.ITypeInfoProxyFactory;
 import xy.reflect.ui.info.type.factory.InfoCustomizationsFactory;
 import xy.reflect.ui.info.type.factory.TypeInfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
+import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
 import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.undo.ModificationStack;
@@ -68,6 +71,7 @@ import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
+import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
@@ -122,8 +126,6 @@ public class TestEditor extends JFrame {
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
 			.putImageInCached(TestingUtils.loadImageResource("ExtensionAction.png"));
 
-	protected Tester tester;
-
 	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
 	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
 
@@ -137,7 +139,11 @@ public class TestEditor extends JFrame {
 	protected InfoCustomizations infoCustomizations;
 	protected Component componentFinderInitializationSource;
 
-	protected JPanel testerForm;
+	protected Tester tester;
+	protected TestReport testReport;
+	protected MainObject mainObject = new MainObject();
+	protected JPanel mainForm;
+
 	protected AWTEventListener recordingListener;
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
 
@@ -270,6 +276,14 @@ public class TestEditor extends JFrame {
 		return tester;
 	}
 
+	public TestReport getTestReport() {
+		return testReport;
+	}
+
+	public void setTestReport(TestReport testReport) {
+		this.testReport = testReport;
+	}
+
 	public ReplayWindowSwitch getReplayWindowSwitch() {
 		return replayWindowSwitch;
 	}
@@ -308,11 +322,11 @@ public class TestEditor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		{
-			this.testerForm = getSwingRenderer().createForm(getTester());
+			this.mainForm = getSwingRenderer().createForm(mainObject);
 			String title = getSwingRenderer().getObjectTitle(getTester());
-			List<? extends Component> toolbarControls = getSwingRenderer().createFormCommonToolbarControls(testerForm);
+			List<? extends Component> toolbarControls = getSwingRenderer().createFormCommonToolbarControls(mainForm);
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
-			getSwingRenderer().setupWindow(this, testerForm, toolbarControls, title, iconImage);
+			getSwingRenderer().setupWindow(this, mainForm, toolbarControls, title, iconImage);
 		}
 	}
 
@@ -347,6 +361,7 @@ public class TestEditor extends JFrame {
 	}
 
 	protected ListControl getTestActionsControl() {
+		JPanel testerForm = getTesterForm();
 		if (testerForm == null) {
 			return null;
 		}
@@ -362,17 +377,28 @@ public class TestEditor extends JFrame {
 		return (ListControl) c;
 	}
 
-	public void refreshForm() {
-		getSwingRenderer().refreshAllFieldControls(testerForm, false);
+	protected JPanel getTesterForm() {
+		if (mainForm == null) {
+			return null;
+		}
+		return SwingRendererUtils.findFirstObjectDescendantForm(tester, mainForm, getSwingRenderer());
+	}
+
+	public void refresh() {
+		getSwingRenderer().refreshAllFieldControls(mainForm, false);
+	}
+
+	public void showExecutionReportTab() {
+		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Execution Report", -1);
 	}
 
 	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
-		IFieldInfo testACtionsField = getSwingRenderer().getFieldControlPlaceHolder(testerForm, TEST_ACTIONS_FIELD_NAME)
+		IFieldInfo testACtionsField = getSwingRenderer().getFieldControlPlaceHolder(mainForm, TEST_ACTIONS_FIELD_NAME)
 				.getField();
-		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(testerForm);
+		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(mainForm);
 		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testACtionsField),
 				testActions, modifStack, testACtionsField);
-		refreshForm();
+		refresh();
 	}
 
 	public int getSelectedActionIndex() {
@@ -520,7 +546,7 @@ public class TestEditor extends JFrame {
 			} else if (args.length == 1) {
 				String fileName = args[0];
 				testEditor.getTester().loadFromFile(new File(fileName));
-				testEditor.refreshForm();
+				testEditor.refresh();
 			}
 			testEditor.open();
 		} catch (Throwable t) {
@@ -755,6 +781,19 @@ public class TestEditor extends JFrame {
 			protected final Pattern polymorphicComponentFindeFieldEncapsulationTypeNamePattern = Pattern.compile(
 					"^Encapsulation \\[context=FieldContext \\[fieldName=componentFinder.*\\], subContext=PolymorphicInstance.*\\]$");
 
+			protected boolean isTestActionTypeName(String typeName) {
+				Class<?> clazz;
+				try {
+					clazz = ClassUtils.getCachedClassforName(typeName);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+				if (TestAction.class.isAssignableFrom(clazz)) {
+					return true;
+				}
+				return false;
+			}
+
 			@Override
 			public String toString() {
 				return TestEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
@@ -817,6 +856,15 @@ public class TestEditor extends JFrame {
 					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
+					return result;
+				} else if (isTestActionTypeName(type.getName())) {
+					List<IFieldInfo> result = new ArrayList<IFieldInfo>();
+					for (IFieldInfo field : super.getFields(type)) {
+						if (field.getName().equals("disabled")) {
+							continue;
+						}
+						result.add(field);
+					}
 					return result;
 				} else {
 					return super.getFields(type);
@@ -1115,6 +1163,125 @@ public class TestEditor extends JFrame {
 				return super.getDynamicActions(listType, anyRootListItemPosition, selection);
 			}
 
+			@Override
+			protected List<AbstractListProperty> getDynamicProperties(IListTypeInfo listType,
+					ItemPosition anyRootListItemPosition, final List<? extends ItemPosition> selection) {
+				if ((listType.getItemType() != null)
+						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
+					List<AbstractListProperty> result = new ArrayList<AbstractListProperty>(
+							super.getDynamicProperties(listType, anyRootListItemPosition, selection));
+					if (selection.size() >= 1) {
+						result.add(new AbstractListProperty() {
+
+							String DISABLED = "Disabled";
+							String ENABLED = "Enabled";
+
+							@Override
+							public String getName() {
+								return "disabled";
+							}
+
+							@Override
+							public String getCaption() {
+								return "Enable/Disable";
+							}
+
+							@Override
+							public String getOnlineHelp() {
+								return "Enable/Disable the selected action(s)";
+							}
+
+							@Override
+							public boolean isNullValueDistinct() {
+								return true;
+							}
+
+							@Override
+							public Object[] getValueOptions(Object object) {
+								return new Object[] { ENABLED, DISABLED };
+							}
+
+							@Override
+							public Object getValue(Object object) {
+								Boolean result = null;
+								for (ItemPosition itemPosition : selection) {
+									TestAction testAction = (TestAction) itemPosition.getItem();
+									if (result == null) {
+										result = testAction.isDisabled();
+									} else {
+										if (!result.equals(testAction.isDisabled())) {
+											result = null;
+											break;
+										}
+									}
+								}
+								if (Boolean.TRUE.equals(result)) {
+									return DISABLED;
+								} else if (Boolean.FALSE.equals(result)) {
+									return ENABLED;
+								} else {
+									return null;
+								}
+							}
+
+							@Override
+							public void setValue(Object object, Object value) {
+								Boolean disabled;
+								if (DISABLED.equals(value)) {
+									disabled = true;
+								} else if (ENABLED.equals(value)) {
+									disabled = false;
+								} else {
+									disabled = null;
+								}
+								if (disabled == null) {
+									return;
+								}
+								for (ItemPosition itemPosition : selection) {
+									TestAction testAction = (TestAction) itemPosition.getItem();
+									testAction.setDisabled(disabled);
+								}
+							}
+
+							@Override
+							public boolean isGetOnly() {
+								return false;
+							}
+
+							@Override
+							public ValueReturnMode getValueReturnMode() {
+								return ValueReturnMode.CALCULATED;
+							}
+
+							@Override
+							public ITypeInfoProxyFactory getTypeSpecificities() {
+								return null;
+							}
+
+							@Override
+							public ITypeInfo getType() {
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(String.class));
+							}
+
+						});
+					}
+					return result;
+				}
+				return super.getDynamicProperties(listType, anyRootListItemPosition, selection);
+			}
+
+		}
+
+	}
+
+	protected class MainObject {
+
+		public Tester getSpecification() {
+			return tester;
+		}
+
+		public TestReport getExecutionReport() {
+			return testReport;
 		}
 
 	}
