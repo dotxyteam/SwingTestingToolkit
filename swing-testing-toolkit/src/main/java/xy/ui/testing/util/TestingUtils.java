@@ -248,32 +248,41 @@ public class TestingUtils {
 		return saveTesterImage(tester, joinImages(images));
 	}
 
-	public static BufferedImage joinImages(List<BufferedImage> images) {
+	public static BufferedImage joinImages(List<BufferedImage> images, boolean horizontallyElseVertically) {
 		int width = 0;
 		int height = 0;
 		for (BufferedImage image : images) {
-			width += image.getWidth();
-			height = Math.max(height, image.getHeight());
+			if (horizontallyElseVertically) {
+				width += image.getWidth();
+				height = Math.max(height, image.getHeight());
+			} else {
+				width = Math.max(width, image.getWidth());
+				height += image.getHeight();
+			}
 		}
 		BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = result.createGraphics();
 		int x = 0;
+		int y = 0;
 		for (BufferedImage image : images) {
-			g.drawImage(image, null, x, 0);
-			x += image.getWidth();
+			if (horizontallyElseVertically) {
+				g.drawImage(image, null, x, 0);
+				x += image.getWidth();
+			} else {
+				g.drawImage(image, null, 0, y);
+				y += image.getHeight();
+			}
 		}
 		g.dispose();
 		return result;
 	}
 
+	public static BufferedImage joinImages(List<BufferedImage> images) {
+		return joinImages(images, true);
+	}
+
 	public static File saveTesterImage(Tester tester, BufferedImage image) {
-		checkAllReportsDirectory();
-		File dir = tester.getReportDirectory();
-		if (!dir.exists()) {
-			if (!dir.mkdir()) {
-				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
-			}
-		}
+		File dir = tester.requireReportDirectory();
 		String fileExtension = "png";
 		File outputfile;
 		try {
@@ -308,15 +317,6 @@ public class TestingUtils {
 
 	public static File saveTestableComponentImage(Tester tester, Component c) {
 		return saveTesterImage(tester, getScreenShot(c));
-	}
-
-	public static void checkAllReportsDirectory() {
-		File dir = Tester.getAllReportsDirectory();
-		if (!dir.exists()) {
-			if (!dir.mkdir()) {
-				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath());
-			}
-		}
 	}
 
 	public static void purgeAllReportsDirectory() {
@@ -398,6 +398,7 @@ public class TestingUtils {
 	}
 
 	public static void assertSuccessfulReplay(Tester tester, InputStream replayStream) throws IOException {
+		closeAllTestableWindows(tester);
 		try {
 			tester.loadFromStream(replayStream);
 			TestReport report = tester.replayAll();
@@ -407,10 +408,10 @@ public class TestingUtils {
 								+ tester.getMainReportFile() + "\nLast logs:\n" + report.getLastLogs());
 			}
 		} finally {
+			closeAllTestableWindows(tester);
 			if (SystemExitCallInterceptionAction.isInterceptionEnabled()) {
 				SystemExitCallInterceptionAction.disableInterception();
 			}
-			closeAllTestableWindows(tester);
 		}
 	}
 

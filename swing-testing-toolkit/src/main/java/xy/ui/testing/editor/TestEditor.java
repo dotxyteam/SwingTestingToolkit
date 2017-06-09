@@ -421,9 +421,21 @@ public class TestEditor extends JFrame {
 	public void showReportTab() {
 		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Report", -1);
 		ListControl stepsControl = getTestReportStepsControl();
-		BufferedItemPosition lastStepItemPosition = stepsControl
-				.getRootListItemPosition(stepsControl.getRootListSize() - 1);
-		stepsControl.setSingleSelection(lastStepItemPosition);
+		if (stepsControl.getRootListSize() > 0) {
+			BufferedItemPosition lastStepItemPosition = stepsControl
+					.getRootListItemPosition(stepsControl.getRootListSize() - 1);
+			stepsControl.setSingleSelection(lastStepItemPosition);
+		}
+	}
+
+	public void showSpecificationTab() {
+		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Specification", -1);
+		ListControl testActionsControl = getTestActionsControl();
+		if (testActionsControl.getRootListSize() > 0) {
+			BufferedItemPosition firstActionItemPosition = testActionsControl
+					.getRootListItemPosition(0);
+			testActionsControl.setSingleSelection(firstActionItemPosition);
+		}
 	}
 
 	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
@@ -886,7 +898,7 @@ public class TestEditor extends JFrame {
 				} else if (object instanceof TestReport) {
 					try {
 						((TestReport) object).loadFromStream(in);
-						SwingUtilities.invokeLater(new Runnable() {							
+						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
 								showReportTab();
@@ -1334,6 +1346,16 @@ public class TestEditor extends JFrame {
 
 		public TestReport getExecutionReport() {
 			return testReport;
+		}
+
+		public void loadReportSpecification() throws IOException {
+			tester.loadFromFile(testReport.getSpecificationCopyFile());
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					showSpecificationTab();
+				}
+			});
 		}
 
 	}

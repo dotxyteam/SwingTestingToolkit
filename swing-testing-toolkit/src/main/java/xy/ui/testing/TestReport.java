@@ -19,9 +19,11 @@ public class TestReport {
 
 	protected List<TestReportStep> steps = new ArrayList<TestReport.TestReportStep>();
 	protected int numberOfActions;
+	protected File specificationCopyFile;
 
 	public TestReport(Tester tester) {
 		this.numberOfActions = tester.getTestActions().length;
+		this.specificationCopyFile = tester.getReportSpecificationCopyFile();
 	}
 
 	public TestReportStep nextStep(TestAction testAction) {
@@ -36,6 +38,10 @@ public class TestReport {
 
 	public int getNumberOfActions() {
 		return numberOfActions;
+	}
+
+	public File getSpecificationCopyFile() {
+		return specificationCopyFile;
 	}
 
 	public int getCompletionPercentage() {

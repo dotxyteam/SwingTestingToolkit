@@ -119,6 +119,7 @@ public class Tester {
 	}
 
 	public TestReport replay(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
+		requireReportDirectory();
 		TestReport report = new TestReport(this);
 		for (int i = 0; i < toReplay.size(); i++) {
 			final TestAction testAction = toReplay.get(i);
@@ -185,8 +186,8 @@ public class Tester {
 			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
 		} catch (InterruptedException ignore) {
 		}
-		TestingUtils.checkAllReportsDirectory();
 		try {
+			saveToFile(getReportSpecificationCopyFile());
 			report.saveToFile(getMainReportFile());
 		} catch (IOException e) {
 			throw new AssertionError(e);
@@ -194,8 +195,29 @@ public class Tester {
 		return report;
 	}
 
+	public File requireReportDirectory() {
+		File dir;
+		dir = Tester.getAllReportsDirectory();
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
+				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
+			}
+		}
+		dir = getReportDirectory();
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
+				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
+			}
+		}
+		return dir;
+	}
+
 	public File getMainReportFile() {
 		return new File(getReportDirectory(), "main.str");
+	}
+
+	public File getReportSpecificationCopyFile() {
+		return new File(getReportDirectory(), "copy.stt");
 	}
 
 	protected String formatLogMessage(String msg) {
@@ -546,4 +568,5 @@ public class Tester {
 		}
 
 	}
+
 }
