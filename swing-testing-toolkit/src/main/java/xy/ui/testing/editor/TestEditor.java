@@ -864,6 +864,12 @@ public class TestEditor extends JFrame {
 					} catch (Exception e) {
 						throw new ReflectionUIError(e);
 					}
+				} else if (object instanceof TestReport) {
+					try {
+						((TestReport) object).saveToStream(out);
+					} catch (Exception e) {
+						throw new ReflectionUIError(e);
+					}
 				} else {
 					super.save(type, object, out);
 				}
@@ -874,6 +880,18 @@ public class TestEditor extends JFrame {
 				if (object instanceof Tester) {
 					try {
 						((Tester) object).loadFromStream(in);
+					} catch (Exception e) {
+						throw new ReflectionUIError(e);
+					}
+				} else if (object instanceof TestReport) {
+					try {
+						((TestReport) object).loadFromStream(in);
+						SwingUtilities.invokeLater(new Runnable() {							
+							@Override
+							public void run() {
+								showReportTab();
+							}
+						});
 					} catch (Exception e) {
 						throw new ReflectionUIError(e);
 					}

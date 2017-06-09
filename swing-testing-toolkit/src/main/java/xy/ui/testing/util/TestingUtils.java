@@ -401,10 +401,10 @@ public class TestingUtils {
 		try {
 			tester.loadFromStream(replayStream);
 			TestReport report = tester.replayAll();
-			File reportFile = saveTestReport(report, tester);
 			if (report.getFinalStatus() != TestReportStepStatus.SUCCESSFUL) {
-				throw new TestFailure("The replay was not successful." + "\nLast logs:\n" + report.getLastlogs()
-						+ "\nMore informatyion can be found in this report:" + "\n" + reportFile);
+				throw new TestFailure(
+						"The replay was not successful." + "\nMore informatyion can be found in this report:" + "\n"
+								+ tester.getMainReportFile() + "\nLast logs:\n" + report.getLastLogs());
 			}
 		} finally {
 			if (SystemExitCallInterceptionAction.isInterceptionEnabled()) {
@@ -412,13 +412,6 @@ public class TestingUtils {
 			}
 			closeAllTestableWindows(tester);
 		}
-	}
-
-	public static File saveTestReport(TestReport report, Tester tester) throws IOException {
-		checkAllReportsDirectory();
-		File reportFile = new File(tester.getReportDirectory(), "steps.str");
-		report.saveToFile(reportFile);
-		return reportFile;
 	}
 
 	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor,

@@ -185,7 +185,17 @@ public class Tester {
 			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
 		} catch (InterruptedException ignore) {
 		}
+		TestingUtils.checkAllReportsDirectory();
+		try {
+			report.saveToFile(getMainReportFile());
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
 		return report;
+	}
+
+	public File getMainReportFile() {
+		return new File(getReportDirectory(), "main.str");
 	}
 
 	protected String formatLogMessage(String msg) {

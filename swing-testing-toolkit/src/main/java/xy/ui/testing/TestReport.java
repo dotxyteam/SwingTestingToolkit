@@ -61,7 +61,7 @@ public class TestReport {
 		}
 	}
 
-	public String getLastlogs() {
+	public String getLastLogs() {
 		if (steps.size() == 0) {
 			return null;
 		} else {
