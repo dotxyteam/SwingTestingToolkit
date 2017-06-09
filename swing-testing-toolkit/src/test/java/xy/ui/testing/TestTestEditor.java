@@ -33,7 +33,7 @@ public class TestTestEditor {
 
 	@BeforeClass
 	public static void beforeAllTests() {
-		TestingUtils.purgeSavedImagesDirectory(new Tester());
+		TestingUtils.purgeAllReportsDirectory();
 	}
 
 	@Test

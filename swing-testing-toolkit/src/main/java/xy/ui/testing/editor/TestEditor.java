@@ -60,6 +60,7 @@ import xy.reflect.ui.info.type.factory.ITypeInfoProxyFactory;
 import xy.reflect.ui.info.type.factory.InfoCustomizationsFactory;
 import xy.reflect.ui.info.type.factory.TypeInfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
+import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
@@ -123,6 +124,7 @@ public class TestEditor extends JFrame {
 			SpecialKey.class };
 
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
+	protected static final String TEST_REPORT_STEPS_FIELD_NAME = "steps";
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
 			.putImageInCached(TestingUtils.loadImageResource("ExtensionAction.png"));
 
@@ -152,6 +154,7 @@ public class TestEditor extends JFrame {
 	public TestEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
+		this.testReport = new TestReport(tester);
 		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();
@@ -377,6 +380,23 @@ public class TestEditor extends JFrame {
 		return (ListControl) c;
 	}
 
+	protected ListControl getTestReportStepsControl() {
+		JPanel testReportForm = getTestReportForm();
+		if (testReportForm == null) {
+			return null;
+		}
+		FieldControlPlaceHolder fieldControlPlaceHolder = getSwingRenderer().getFieldControlPlaceHolder(testReportForm,
+				TEST_REPORT_STEPS_FIELD_NAME);
+		if (fieldControlPlaceHolder == null) {
+			return null;
+		}
+		Component c = fieldControlPlaceHolder.getFieldControl();
+		if (c instanceof NullableControl) {
+			c = ((NullableControl) c).getSubControl();
+		}
+		return (ListControl) c;
+	}
+
 	protected JPanel getTesterForm() {
 		if (mainForm == null) {
 			return null;
@@ -384,12 +404,26 @@ public class TestEditor extends JFrame {
 		return SwingRendererUtils.findFirstObjectDescendantForm(tester, mainForm, getSwingRenderer());
 	}
 
+	protected JPanel getTestReportForm() {
+		if (mainForm == null) {
+			return null;
+		}
+		if (testReport == null) {
+			return null;
+		}
+		return SwingRendererUtils.findFirstObjectDescendantForm(testReport, mainForm, getSwingRenderer());
+	}
+
 	public void refresh() {
 		getSwingRenderer().refreshAllFieldControls(mainForm, false);
 	}
 
-	public void showExecutionReportTab() {
-		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Execution Report", -1);
+	public void showReportTab() {
+		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Report", -1);
+		ListControl stepsControl = getTestReportStepsControl();
+		BufferedItemPosition lastStepItemPosition = stepsControl
+				.getRootListItemPosition(stepsControl.getRootListSize() - 1);
+		stepsControl.setSingleSelection(lastStepItemPosition);
 	}
 
 	public void setTestActionsAndUpdateUI(TestAction[] testActions) {

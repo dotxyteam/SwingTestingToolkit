@@ -13,7 +13,6 @@ import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ComponentPropertyUtil;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class CheckComponentPropertyAction extends TargetComponentTestAction {
@@ -63,8 +62,7 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue, expectedFieldValue)) {
 			throw new TestFailure(
 					"Component property checking failed: Unexpected property value: '" + currentFieldValue
-							+ "'. Expected: '" + expectedFieldValue + "'",
-					"Component image", TestingUtils.saveTestableComponentImage(tester, c));
+							+ "'. Expected: '" + expectedFieldValue + "'");
 		}
 	}
 

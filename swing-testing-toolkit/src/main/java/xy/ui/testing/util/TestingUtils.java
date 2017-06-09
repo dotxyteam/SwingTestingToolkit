@@ -33,7 +33,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 
+import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
+import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.SystemExitCallInterceptionAction;
 import xy.ui.testing.editor.TestEditor;
 
@@ -265,7 +267,8 @@ public class TestingUtils {
 	}
 
 	public static File saveTesterImage(Tester tester, BufferedImage image) {
-		File dir = tester.getSavedImagesDirectory();
+		checkAllReportsDirectory();
+		File dir = tester.getReportDirectory();
 		if (!dir.exists()) {
 			if (!dir.mkdir()) {
 				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
@@ -307,8 +310,17 @@ public class TestingUtils {
 		return saveTesterImage(tester, getScreenShot(c));
 	}
 
-	public static void purgeSavedImagesDirectory(Tester tester) {
-		File dir = tester.getSavedImagesDirectory();
+	public static void checkAllReportsDirectory() {
+		File dir = Tester.getAllReportsDirectory();
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
+				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath());
+			}
+		}
+	}
+
+	public static void purgeAllReportsDirectory() {
+		File dir = Tester.getAllReportsDirectory();
 		try {
 			FileUtils.deleteDirectory(dir);
 		} catch (IOException e) {
@@ -388,13 +400,25 @@ public class TestingUtils {
 	public static void assertSuccessfulReplay(Tester tester, InputStream replayStream) throws IOException {
 		try {
 			tester.loadFromStream(replayStream);
-			tester.replayAll();
+			TestReport report = tester.replayAll();
+			File reportFile = saveTestReport(report, tester);
+			if (report.getFinalStatus() != TestReportStepStatus.SUCCESSFUL) {
+				throw new TestFailure("The replay was not successful." + "\nLast logs:\n" + report.getLastlogs()
+						+ "\nMore informatyion can be found in this report:" + "\n" + reportFile);
+			}
 		} finally {
 			if (SystemExitCallInterceptionAction.isInterceptionEnabled()) {
 				SystemExitCallInterceptionAction.disableInterception();
 			}
 			closeAllTestableWindows(tester);
 		}
+	}
+
+	public static File saveTestReport(TestReport report, Tester tester) throws IOException {
+		checkAllReportsDirectory();
+		File reportFile = new File(tester.getReportDirectory(), "steps.str");
+		report.saveToFile(reportFile);
+		return reportFile;
 	}
 
 	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor,

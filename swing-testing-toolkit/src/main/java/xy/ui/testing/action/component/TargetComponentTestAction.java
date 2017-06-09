@@ -8,7 +8,6 @@ import xy.ui.testing.action.TestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public abstract class TargetComponentTestAction extends TestAction {
@@ -58,8 +57,7 @@ public abstract class TargetComponentTestAction extends TestAction {
 		} else {
 			Component c = getComponentFinder().find(tester);
 			if (c == null) {
-				throw new TestFailure("Unable to find " + getComponentFinder().toString(), "Window image",
-						TestingUtils.saveTestableWindowImage(tester, getComponentFinder().getWindowIndex()));
+				throw new TestFailure("Unable to find " + getComponentFinder().toString());
 			}
 			return c;
 		}

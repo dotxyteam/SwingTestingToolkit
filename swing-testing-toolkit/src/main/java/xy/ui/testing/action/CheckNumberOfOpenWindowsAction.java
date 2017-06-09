@@ -7,7 +7,6 @@ import java.awt.Window;
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class CheckNumberOfOpenWindowsAction extends TestAction {
@@ -34,8 +33,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 		int n = countWindows(tester);
 		if (count != n) {
 			throw new TestFailure(
-					"The number of currently open windows (" + n + ") does not match the declared number: " + count,
-					"Found window(s) image", TestingUtils.saveAllTestableWindowImages(tester));
+					"The number of currently open windows (" + n + ") does not match the declared number: " + count);
 		}
 	}
 

@@ -12,7 +12,6 @@ import xy.ui.testing.action.TestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class ClickOnMenuItemAction extends TestAction {
@@ -43,8 +42,7 @@ public class ClickOnMenuItemAction extends TestAction {
 	public Component findComponent(Tester tester) {
 		Component c = componentFinder.find(tester);
 		if (c == null) {
-			throw new TestFailure("Unable to find " + componentFinder.toString(), "Window image",
-					TestingUtils.saveTestableWindowImage(tester, componentFinder.getWindowIndex()));
+			throw new TestFailure("Unable to find " + componentFinder.toString());
 		}
 		return c;
 	}

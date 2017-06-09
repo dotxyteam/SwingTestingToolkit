@@ -41,8 +41,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
 			JMenuItem menuItem = (JMenuItem) menuItemFinder.find(tester);
 			if (menuItem == null) {
-				throw new TestFailure("Unable to find " + menuItemFinder.toString(), "Window image",
-						TestingUtils.saveTestableWindowImage(tester, menuItemFinder.getWindowIndex()));
+				throw new TestFailure("Unable to find " + menuItemFinder.toString());
 			}
 			boolean lastMenuItem = i == (menuItemPath.size() - 1);
 			if (lastMenuItem) {

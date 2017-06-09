@@ -46,7 +46,7 @@ public class BasicsExample {
 		 * generated in a sub-directory of the current directory. You may want
 		 * purge them every time you re-launch your test session.
 		 */
-		TestingUtils.purgeSavedImagesDirectory(tester);
+		TestingUtils.purgeAllReportsDirectory();
 
 	}
 

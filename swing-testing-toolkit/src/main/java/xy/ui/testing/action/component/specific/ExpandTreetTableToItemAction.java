@@ -36,7 +36,8 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		if (!(c instanceof JXTreeTable)) {
 			return false;
 		}
@@ -91,8 +92,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		treeTable.collapseAll();
 		final TreePath treePath = fromIntPathToTreePath(itemPath, treeTable);
 		if (treePath == null) {
-			throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath,
-					"Component image", TestingUtils.saveTestableComponentImage(tester, c));
+			throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

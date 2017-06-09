@@ -57,7 +57,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 						@Override
 						public void run() {
 							testEditor.refresh();
-							testEditor.showExecutionReportTab();
+							testEditor.showReportTab();
 							getStatusControlObject().stop();							
 						}
 					});

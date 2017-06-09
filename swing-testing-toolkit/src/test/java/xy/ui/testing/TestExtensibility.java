@@ -23,7 +23,7 @@ public class TestExtensibility {
 	@Test
 	public void test() throws IOException {
 		Tester tester = new Tester();
-		TestingUtils.purgeSavedImagesDirectory(tester);
+		TestingUtils.purgeAllReportsDirectory();;
 		TestingUtils.assertSuccessfulReplay(tester,
 				TestTestEditor.class.getResourceAsStream("testExtensibility.stt"));
 	}

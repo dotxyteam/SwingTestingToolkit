@@ -39,7 +39,7 @@ public class TestReport {
 	}
 
 	public int getCompletionPercentage() {
-		return Math.round((float) steps.size() / (float) numberOfActions);
+		return Math.round(100 * ((float) steps.size() / (float) numberOfActions));
 	}
 
 	public TestReportStepStatus getFinalStatus() {
@@ -47,10 +47,26 @@ public class TestReport {
 			return null;
 		}
 		TestReportStepStatus result = steps.get(steps.size() - 1).getStatus();
-		if(result == TestReportStepStatus.SKIPPED){
+		if (result == TestReportStepStatus.SKIPPED) {
 			result = TestReportStepStatus.SUCCESSFUL;
 		}
 		return result;
+	}
+
+	public String getSummary() {
+		if (steps.size() == 0) {
+			return "";
+		} else {
+			return getFinalStatus() + "\n" + getCompletionPercentage() + "% Completed";
+		}
+	}
+
+	public String getLastlogs() {
+		if (steps.size() == 0) {
+			return null;
+		} else {
+			return steps.get(steps.size() - 1).getLogs();
+		}
 	}
 
 	protected XStream getXStream() {
@@ -94,9 +110,9 @@ public class TestReport {
 		XStream xstream = getXStream();
 		xstream.toXML(this, output);
 	}
-	
-	public enum TestReportStepStatus{
-		SUCCESSFUL, FAILED, SKIPPED, CANCELLED 
+
+	public enum TestReportStepStatus {
+		SUCCESSFUL, FAILED, SKIPPED, CANCELLED
 	}
 
 	public class TestReportStep {
@@ -106,6 +122,7 @@ public class TestReport {
 		protected long endTimestamp;
 		protected File windowsImageFile;
 		protected String actionSummary;
+		protected List<String> logs = new ArrayList<String>();
 
 		public TestReportStep(TestAction testAction) {
 			actionSummary = testAction.toString();
@@ -135,6 +152,19 @@ public class TestReport {
 			return actionSummary;
 		}
 
+		public String getLogs() {
+			StringBuilder result = new StringBuilder();
+			int i = 0;
+			for (String log : logs) {
+				if (i > 0) {
+					result.append("\n");
+				}
+				result.append("- " + log);
+				i++;
+			}
+			return result.toString();
+		}
+
 		public void starting() {
 			startTimestamp = System.currentTimeMillis();
 		}
@@ -143,8 +173,12 @@ public class TestReport {
 			endTimestamp = System.currentTimeMillis();
 		}
 
-		public void componentFound(Tester tester) {
+		public void duringExecution(Tester tester) {
 			windowsImageFile = TestingUtils.saveAllTestableWindowImages(tester);
+		}
+
+		public void log(String msg) {
+			logs.add(msg);
 		}
 
 	}

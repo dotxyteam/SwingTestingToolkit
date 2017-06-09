@@ -57,6 +57,8 @@ public class Tester {
 	protected static final MouseListener DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH = new MouseAdapter() {
 	};
 
+	private static final String ALL_REPORTS_DIRECTORY_PROPERTY_KEY = "xy.ui.testing.reportsDirectory";
+
 	protected final Object CURRENT_COMPONENT_MUTEX = new Object() {
 		@Override
 		public String toString() {
@@ -74,6 +76,7 @@ public class Tester {
 	protected MouseListener[] currentComponentMouseListeners;
 	protected Border currentComponentBorder;
 	protected EditingOptions editingOptions = new EditingOptions();
+	protected Date instanciationDate = new Date();
 
 	public Tester() {
 	}
@@ -119,10 +122,12 @@ public class Tester {
 		TestReport report = new TestReport(this);
 		for (int i = 0; i < toReplay.size(); i++) {
 			final TestAction testAction = toReplay.get(i);
+			logInfo("Replaying action no" + (i + 1) + ": " + testAction);
 			TestReportStep reportStep = report.nextStep(testAction);
 			reportStep.starting();
 			try {
 				if (Thread.currentThread().isInterrupted()) {
+					logInfo("Action interrupted");
 					reportStep.setStatus(TestReportStepStatus.CANCELLED);
 					break;
 				}
@@ -131,6 +136,8 @@ public class Tester {
 						beforeEachAction.handle(testAction);
 					}
 					if (testAction.isDisabled()) {
+						logInfo("Action disabled. Skipping...");
+						reportStep.log("This action is disabled");
 						reportStep.setStatus(TestReportStepStatus.SKIPPED);
 					} else {
 						Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
@@ -139,15 +146,17 @@ public class Tester {
 						try {
 							c = findComponentImmediatelyOrRetry(testAction);
 						} catch (Throwable t) {
-							reportStep.componentFound(this);
+							reportStep.duringExecution(this);
 							throw t;
 						}
 						if (c == null) {
-							reportStep.componentFound(this);
+							reportStep.log("This action did not search for any component");
+							reportStep.duringExecution(this);
 						} else {
+							reportStep.log("Component found: " + c.toString());
 							currentComponent = c;
 							highlightCurrentComponent();
-							reportStep.componentFound(this);
+							reportStep.duringExecution(this);
 							try {
 								Thread.sleep(1000);
 							} finally {
@@ -163,6 +172,8 @@ public class Tester {
 						reportStep.setStatus(TestReportStepStatus.CANCELLED);
 						break;
 					}
+					logError(t);
+					reportStep.log("An error occured: " + t.toString());
 					reportStep.setStatus(TestReportStepStatus.FAILED);
 					break;
 				}
@@ -280,6 +291,7 @@ public class Tester {
 		testActions = loaded.testActions;
 		minimumSecondsToWaitBetwneenActions = loaded.minimumSecondsToWaitBetwneenActions;
 		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
+		instanciationDate = loaded.instanciationDate;
 	}
 
 	public void saveToFile(File output) throws IOException {
@@ -358,8 +370,14 @@ public class Tester {
 		return true;
 	}
 
-	public File getSavedImagesDirectory() {
-		return new File(Tester.class.getSimpleName().toLowerCase() + "-saved-images");
+	public static File getAllReportsDirectory() {
+		String path = System.getProperty(ALL_REPORTS_DIRECTORY_PROPERTY_KEY, "test-reports");
+		return new File(path);
+	}
+
+	public File getReportDirectory() {
+		String formattedInstanciationDate = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(instanciationDate);
+		return new File(getAllReportsDirectory(), "test-report-" + formattedInstanciationDate + "-" + Tester.this);
 	}
 
 	public List<String> extractDisplayedStrings(Component c) {

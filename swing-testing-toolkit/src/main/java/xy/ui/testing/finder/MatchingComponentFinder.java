@@ -51,10 +51,8 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 			}
 			windowCount++;
 		}
-		throw new TestFailure(
-				"Component not found: Containing window index is out of bounds: " + windowIndex + ": Only "
-						+ windowCount + " window(s) found",
-				"Found window(s) image", TestingUtils.saveAllTestableWindowImages(tester));
+		throw new TestFailure("Component not found: Containing window index is out of bounds: " + windowIndex
+				+ ": Only " + windowCount + " window(s) found");
 	}
 
 	protected Component find(Window containingWindow, final Tester tester) {
