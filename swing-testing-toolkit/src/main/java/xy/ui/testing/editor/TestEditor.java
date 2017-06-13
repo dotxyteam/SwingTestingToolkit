@@ -285,6 +285,7 @@ public class TestEditor extends JFrame {
 
 	public void setTestReport(TestReport testReport) {
 		this.testReport = testReport;
+		refresh();
 	}
 
 	public ReplayWindowSwitch getReplayWindowSwitch() {
@@ -432,8 +433,7 @@ public class TestEditor extends JFrame {
 		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Specification", -1);
 		ListControl testActionsControl = getTestActionsControl();
 		if (testActionsControl.getRootListSize() > 0) {
-			BufferedItemPosition firstActionItemPosition = testActionsControl
-					.getRootListItemPosition(0);
+			BufferedItemPosition firstActionItemPosition = testActionsControl.getRootListItemPosition(0);
 			testActionsControl.setSingleSelection(firstActionItemPosition);
 		}
 	}
@@ -840,9 +840,31 @@ public class TestEditor extends JFrame {
 				return false;
 			}
 
+			protected boolean isTesterOrSubTypeName(String typeName) {
+				Class<?> clazz;
+				try {
+					clazz = ClassUtils.getCachedClassforName(typeName);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+				if (Tester.class.isAssignableFrom(clazz)) {
+					return true;
+				}
+				return false;
+			}
+
 			@Override
 			public String toString() {
 				return TestEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
+			}
+
+			@Override
+			protected String getName(ITypeInfo type) {
+				String result = super.getName(type);
+				if (isTesterOrSubTypeName(result)) {
+					result = Tester.class.getName();
+				}
+				return result;
 			}
 
 			@Override
@@ -895,18 +917,26 @@ public class TestEditor extends JFrame {
 					} catch (Exception e) {
 						throw new ReflectionUIError(e);
 					}
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							refresh();
+							showSpecificationTab();
+						}
+					});
 				} else if (object instanceof TestReport) {
 					try {
 						((TestReport) object).loadFromStream(in);
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								showReportTab();
-							}
-						});
 					} catch (Exception e) {
 						throw new ReflectionUIError(e);
 					}
+					SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							refresh();
+							showReportTab();
+						}
+					});
 				} else {
 					super.load(type, object, in);
 				}
@@ -937,7 +967,7 @@ public class TestEditor extends JFrame {
 
 			@Override
 			protected List<IMethodInfo> getMethods(ITypeInfo type) {
-				if (type.getName().equals(Tester.class.getName())) {
+				if (isTesterOrSubTypeName(type.getName())) {
 					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
 
@@ -1353,6 +1383,7 @@ public class TestEditor extends JFrame {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
+					refresh();
 					showSpecificationTab();
 				}
 			});

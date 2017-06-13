@@ -67,7 +67,7 @@ public abstract class AbstractWindowSwitch {
 		}
 	}
 
-	protected boolean isActive() {
+	public boolean isActive() {
 		return controlWindow != null;
 	}
 

@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +35,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 
+import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
 import xy.ui.testing.TestReport.TestReportStepStatus;
@@ -47,6 +50,11 @@ public class TestingUtils {
 	public static final Image TESTER_IMAGE = loadImageResource("Tester.png");
 	public static final ImageIcon TESTER_ICON = new ImageIcon(
 			TESTER_IMAGE.getScaledInstance(16, 16, Image.SCALE_SMOOTH));
+
+	private static final boolean TEST_EDITOR_HIDDEN_IN_ASSERTIONS = System
+			.getProperty("xy.ui.testing.assertion.editorHidden", "false").equals("true");
+	private static final int FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS = Integer
+			.valueOf(System.getProperty("xy.ui.testing.assertion.fixtureRequestTimeout", "60"));
 
 	public static Color shiftColor(Color color, int redOffset, int greenOffset, int blueOffset) {
 		int red = (color.getRed() + redOffset) % 256;
@@ -78,7 +86,7 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static boolean isDIrectOrIndirectOwner(Window ownerWindow, Window window) {
+	public static boolean isDirectOrIndirectOwner(Window ownerWindow, Window window) {
 		while ((window = window.getOwner()) != null) {
 			if (ownerWindow == window) {
 				return true;
@@ -393,26 +401,176 @@ public class TestingUtils {
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
 	}
 
-	public static void assertSuccessfulReplay(Tester tester, File replayFile) throws IOException {
-		assertSuccessfulReplay(tester, new FileInputStream(replayFile));
+	public static void assertSuccessfulReplay(Tester tester, File specificationFile) throws Exception {
+		assertSuccessfulReplay(tester, specificationFile.exists() ? new FileInputStream(specificationFile) : null);
 	}
 
-	public static void assertSuccessfulReplay(Tester tester, InputStream replayStream) throws IOException {
-		closeAllTestableWindows(tester);
+	public static void assertSuccessfulReplay(TestEditor testEditor, File specificationFile) throws Exception {
+		assertSuccessfulReplay(testEditor, specificationFile.exists() ? new FileInputStream(specificationFile) : null);
+	}
+
+	public static void assertSuccessfulReplay(Tester tester, InputStream specificationStream) throws Exception {
+		assertSuccessfulReplay(new TestEditor(tester), specificationStream);
+	}
+
+	public static void assertSuccessfulReplay(TestEditor testEditor, InputStream specificationStream) throws Exception {
+		final Tester tester = testEditor.getTester();
 		try {
-			tester.loadFromStream(replayStream);
-			TestReport report = tester.replayAll();
-			if (report.getFinalStatus() != TestReportStepStatus.SUCCESSFUL) {
-				throw new TestFailure(
-						"The replay was not successful." + "\nMore informatyion can be found in this report:" + "\n"
-								+ tester.getMainReportFile() + "\nLast logs:\n" + report.getLastLogs());
+			if (TEST_EDITOR_HIDDEN_IN_ASSERTIONS) {
+				assertSuccessfulReplayWithoutTestEditor(tester, specificationStream);
+			} else {
+				assertSuccessfulReplayWithTestEditor(testEditor, specificationStream);
 			}
 		} finally {
-			closeAllTestableWindows(tester);
+			try {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						closeAllTestableWindows(tester);
+					}
+				});
+			} catch (Throwable ignore) {
+			}
 			if (SystemExitCallInterceptionAction.isInterceptionEnabled()) {
 				SystemExitCallInterceptionAction.disableInterception();
 			}
 		}
+	}
+
+	public static void assertSuccessfulReplayWithoutTestEditor(Tester tester, InputStream specificationStream)
+			throws Exception {
+		if (specificationStream == null) {
+			throw new TestFailure("Test specification not found.");
+		}
+		tester.loadFromStream(specificationStream);
+		TestReport report = tester.replayAll();
+		if (report.getFinalStatus() != TestReportStepStatus.SUCCESSFUL) {
+			throw generateTestFailure(tester, report);
+		}
+	}
+
+	public static void assertSuccessfulReplayWithTestEditor(final TestEditor testEditor,
+			InputStream specificationStream) throws Exception {
+		final Tester tester = testEditor.getTester();
+		if (specificationStream == null) {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				@Override
+				public void run() {
+					testEditor.open();
+					testEditor.toFront();
+				}
+			});
+			if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
+					"Test specification not found." + "\nThis test editor window will be automatically closed in "
+							+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
+					testEditor.getSwingRenderer().getObjectTitle(tester), "OK", "Cancel (for fixture)",
+					FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS, true)) {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						testEditor.dispose();
+					}
+				});
+			} else {
+				waitUntilClosed(testEditor);
+			}
+			throw new TestFailure("Test specification not found.");			
+		} else {
+			tester.loadFromStream(specificationStream);
+			final boolean[] started = new boolean[] { false };
+			testEditor.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowOpened(WindowEvent ev) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						throw new AssertionError(e);
+					}
+					testEditor.getReplayWindowSwitch().setActionsToReplay(Arrays.asList(tester.getTestActions()));
+					testEditor.getReplayWindowSwitch().activate(true);
+					started[0] = true;
+				}
+			});
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					testEditor.open();
+					testEditor.refresh();
+				}
+			});
+			while (!started[0] || testEditor.getReplayWindowSwitch().isActive()) {
+				Thread.sleep(1000);
+			}
+			TestReport report = testEditor.getTestReport();
+			if (report.getFinalStatus() == TestReportStepStatus.SUCCESSFUL) {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						testEditor.dispose();
+					}
+				});
+			} else {
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						testEditor.toFront();
+					}
+				});
+				if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
+						"This test editor window will be automatically closed in "
+								+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
+						testEditor.getSwingRenderer().getObjectTitle(tester), "OK", "Cancel (for fixture)",
+						FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS, true)) {
+					SwingUtilities.invokeAndWait(new Runnable() {
+						@Override
+						public void run() {
+							testEditor.dispose();
+						}
+					});
+				} else {
+					waitUntilClosed(testEditor);
+				}
+				throw generateTestFailure(tester, report);
+			}
+		}
+	}
+
+	public static void waitUntilClosed(TestEditor testEditor) {
+		while (testEditor.isDisplayable()) {
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
+	}
+
+	public static boolean askWithTimeout(final SwingRenderer swingRenderer, final Component activatorComponent,
+			final String question, final String title, final String yesCaption, final String noCaption,
+			final int timeoutSeconds, boolean defaultAnswer) {
+		final Boolean[] ok = new Boolean[] { null };
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				ok[0] = swingRenderer.openQuestionDialog(activatorComponent, question, title, yesCaption, noCaption);
+			}
+		});
+		for (int i = 0; i < timeoutSeconds; i++) {
+			if (ok[0] != null) {
+				return ok[0];
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return defaultAnswer;
+	}
+
+	public static Exception generateTestFailure(Tester tester, TestReport report) {
+		return new TestFailure("The replay was not successful." + "\nMore informatyion can be found in this report:"
+				+ "\n" + tester.getMainReportFile() + "\nLast logs:\n" + report.getLastLogs());
 	}
 
 	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor,
@@ -450,4 +608,9 @@ public class TestingUtils {
 		}, true);
 		return result;
 	}
+
+	public static String getOSAgnosticFilePath(String path) {
+		return path.replace(File.separator, "/");
+	}
+
 }

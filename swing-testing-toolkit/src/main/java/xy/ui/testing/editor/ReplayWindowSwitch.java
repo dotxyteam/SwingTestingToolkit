@@ -24,7 +24,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 		return "Replay Control";
 	}
 
-	protected void setActionsToReplay(List<TestAction> actionsToReplay) {
+	public void setActionsToReplay(List<TestAction> actionsToReplay) {
 		this.actionsToReplay = actionsToReplay;
 		currentActionDescription = "<initializing...>";
 	}
@@ -51,12 +51,11 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 						}
 
 					};
-					TestReport testReport = getTester().replay(actionsToReplay, listener);
-					testEditor.setTestReport(testReport);
+					final TestReport testReport = getTester().replay(actionsToReplay, listener);
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							testEditor.refresh();
+							testEditor.setTestReport(testReport);
 							testEditor.showReportTab();
 							getStatusControlObject().stop();							
 						}

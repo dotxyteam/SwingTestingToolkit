@@ -142,22 +142,23 @@ public class Tester {
 						reportStep.setStatus(TestReportStepStatus.SKIPPED);
 					} else {
 						Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+						reportStep.log("Action delayed: " + minimumSecondsToWaitBetwneenActions + " second(s)");
 						testAction.validate();
 						Component c;
 						try {
 							c = findComponentImmediatelyOrRetry(testAction);
 						} catch (Throwable t) {
-							reportStep.duringExecution(this);
+							reportStep.during(this);
 							throw t;
 						}
 						if (c == null) {
 							reportStep.log("This action did not search for any component");
-							reportStep.duringExecution(this);
+							reportStep.during(this);
 						} else {
 							reportStep.log("Component found: " + c.toString());
 							currentComponent = c;
 							highlightCurrentComponent();
-							reportStep.duringExecution(this);
+							reportStep.during(this);
 							try {
 								Thread.sleep(1000);
 							} finally {

@@ -3,7 +3,6 @@ package xy.ui.testing;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +20,7 @@ import xy.ui.testing.util.ValidationError;
 public class TestExtensibility {
 
 	@Test
-	public void test() throws IOException {
+	public void test() throws Exception {
 		Tester tester = new Tester();
 		TestingUtils.purgeAllReportsDirectory();;
 		TestingUtils.assertSuccessfulReplay(tester,

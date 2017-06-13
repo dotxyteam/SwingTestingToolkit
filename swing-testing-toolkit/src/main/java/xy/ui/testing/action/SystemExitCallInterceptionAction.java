@@ -30,24 +30,23 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	@Override
 	public void execute(Component c, Tester tester) {
 		if (oppposite) {
-			enableInterception();
-		} else {
 			disableInterception();
+		} else {
+			enableInterception();
 		}
 	}
 
 	public static void enableInterception() {
-		System.setSecurityManager(((NoExitSecurityManager) System.getSecurityManager()).getInitialSecurityManager());
+		System.setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
 	}
 
 	public static void disableInterception() {
-		System.setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
+		System.setSecurityManager(((NoExitSecurityManager) System.getSecurityManager()).getInitialSecurityManager());
 	}
-	
+
 	public static boolean isInterceptionEnabled() {
 		return System.getSecurityManager() instanceof NoExitSecurityManager;
 	}
-
 
 	@Override
 	public String getValueDescription() {

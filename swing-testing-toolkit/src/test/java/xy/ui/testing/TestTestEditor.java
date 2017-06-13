@@ -47,13 +47,13 @@ public class TestTestEditor {
 	}
 
 	@Test
-	public void testMenus() throws IOException {
+	public void testMenus() throws Exception {
 		Tester tester = new Tester();
 		TestingUtils.assertSuccessfulReplay(tester, TestTestEditor.class.getResourceAsStream("testMenus.stt"));
 	}
 
 	@Test
-	public void testTestEditor() throws IOException {
+	public void testTestEditor() throws Exception {
 		Tester tester = new Tester();
 		TestingUtils.assertSuccessfulReplay(tester, TestTestEditor.class.getResourceAsStream("testTestEditor.stt"));
 	}

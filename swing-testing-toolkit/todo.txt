@@ -1,3 +1,4 @@
+- needs a date/time control for testReportStep start and end times
 - DisplayedStringComponentFinder.searchInDescendants issue:
 	. many component in the same hierarchy will match 
 		=> find a solution

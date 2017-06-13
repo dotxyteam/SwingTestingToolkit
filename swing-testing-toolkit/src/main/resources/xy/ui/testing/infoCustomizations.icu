@@ -1917,6 +1917,14 @@
             <menus>
                 <uniqueIdentifier>6e659517:15bf6e5fb2b:-3dc2</uniqueIdentifier>
                 <name>Edit</name>
+                <undoMenuItem>
+                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3afb</uniqueIdentifier>
+                    <name>Undo</name>
+                </undoMenuItem>
+                <redoMenuItem>
+                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3834</uniqueIdentifier>
+                    <name>Redo</name>
+                </redoMenuItem>
             </menus>
             <menus>
                 <uniqueIdentifier>6e659517:15bf6e5fb2b:-2f70</uniqueIdentifier>
@@ -2590,6 +2598,14 @@
             <menu>
                 <uniqueIdentifier>6e659517:15bf6e5fb2b:-3dc2</uniqueIdentifier>
                 <name>Edit</name>
+                <undoMenuItem>
+                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3afb</uniqueIdentifier>
+                    <name>Undo</name>
+                </undoMenuItem>
+                <redoMenuItem>
+                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3834</uniqueIdentifier>
+                    <name>Redo</name>
+                </redoMenuItem>
             </menu>
             <methodSignature>xy.ui.testing.Tester$EditingOptions editingOptions.get()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
@@ -23751,6 +23767,36 @@
                 </typeCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-3aa82c6b:15c9695974a:-408c</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>interceptionEnabled</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-3aa82c6b:15c9695974a:-408b</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-3aa82c6b:15c9695974a:-4088</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
         <iconImagePath>
             <specification>&lt;class-path-resource&gt; xy/ui/testing/SystemExitCallInterceptionAction.png</specification>
         </iconImagePath>
@@ -23919,6 +23965,34 @@
                 <nullValueDistinctForced>false</nullValueDistinctForced>
                 <parameterName>testEditor</parameterName>
             </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-3aa82c6b:15c9695974a:-408a</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void disableInterception()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-3aa82c6b:15c9695974a:-4089</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void enableInterception()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
             <readOnlyForced>false</readOnlyForced>
             <returnValueFieldGenerated>false</returnValueFieldGenerated>
@@ -25403,14 +25477,6 @@
             <menus>
                 <uniqueIdentifier>731d8169:15c8cb6c69a:-4a11</uniqueIdentifier>
                 <name>Edit</name>
-                <undoMenuItem>
-                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3afb</uniqueIdentifier>
-                    <name>Undo</name>
-                </undoMenuItem>
-                <redoMenuItem>
-                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3834</uniqueIdentifier>
-                    <name>Redo</name>
-                </redoMenuItem>
             </menus>
         </menuModel>
         <methodsCustomizations>
@@ -25786,26 +25852,14 @@
                         <uniqueIdentifier>-761a7c8f:15c8ce6cc1b:4e1d</uniqueIdentifier>
                         <name>Open Report...</name>
                         <fileBrowserConfiguration>
+                            <fileNameFilters>
+<description>Test Report</description>
+<extensions>str</extensions>
+                            </fileNameFilters>
                             <actionTitle>Open</actionTitle>
                             <selectionMode>FILES_ONLY</selectionMode>
                         </fileBrowserConfiguration>
                     </openMenuItem>
-                    <saveMenuItem>
-                        <uniqueIdentifier>-761a7c8f:15c8ce6cc1b:4f66</uniqueIdentifier>
-                        <name>Save Report</name>
-                        <fileBrowserConfiguration>
-                            <actionTitle>Save</actionTitle>
-                            <selectionMode>FILES_ONLY</selectionMode>
-                        </fileBrowserConfiguration>
-                    </saveMenuItem>
-                    <saveAsMenuItem>
-                        <uniqueIdentifier>-761a7c8f:15c8ce6cc1b:50a0</uniqueIdentifier>
-                        <name>Save Report As...</name>
-                        <fileBrowserConfiguration>
-                            <actionTitle>Save</actionTitle>
-                            <selectionMode>FILES_ONLY</selectionMode>
-                        </fileBrowserConfiguration>
-                    </saveAsMenuItem>
                     <name>reportFile</name>
                 </itemCategories>
             </menus>
@@ -25968,10 +26022,11 @@
         <specificProperties/>
         <abstractForced>false</abstractForced>
         <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customFieldsOrder>windowsImageFile</customFieldsOrder>
         <customFieldsOrder>actionSummary</customFieldsOrder>
         <customFieldsOrder>startTimestamp</customFieldsOrder>
         <customFieldsOrder>endTimestamp</customFieldsOrder>
-        <customFieldsOrder>windowsImageFile</customFieldsOrder>
+        <customFieldsOrder>logs</customFieldsOrder>
         <customFieldsOrder>status</customFieldsOrder>
         <fieldsCustomizations>
             <uniqueIdentifier>-777e1da5:15c89828c9e:-66b</uniqueIdentifier>
@@ -26006,7 +26061,8 @@
         <fieldsCustomizations>
             <uniqueIdentifier>-777e1da5:15c89828c9e:-669</uniqueIdentifier>
             <specificProperties/>
-            <hidden>true</hidden>
+            <hidden>false</hidden>
+            <customFieldCaption>Ended At</customFieldCaption>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <duplicateGenerated>false</duplicateGenerated>
             <fieldName>endTimestamp</fieldName>
@@ -26070,9 +26126,40 @@
             </typeConversion>
         </fieldsCustomizations>
         <fieldsCustomizations>
+            <uniqueIdentifier>-13902084:15c8c9d5a2c:5ba</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>logs</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-13902084:15c8c9d5a2c:5bb</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-13902084:15c8c9d5a2c:63e</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
             <uniqueIdentifier>-777e1da5:15c89828c9e:-667</uniqueIdentifier>
             <specificProperties/>
-            <hidden>true</hidden>
+            <hidden>false</hidden>
+            <customFieldCaption>Started At</customFieldCaption>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <duplicateGenerated>false</duplicateGenerated>
             <fieldName>startTimestamp</fieldName>
@@ -26224,36 +26311,6 @@
                 </javaClassBasedTypeInfoFinder>
             </typeConversion>
         </fieldsCustomizations>
-        <fieldsCustomizations>
-            <uniqueIdentifier>-13902084:15c8c9d5a2c:5ba</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <displayedAsSingletonList>false</displayedAsSingletonList>
-            <duplicateGenerated>false</duplicateGenerated>
-            <fieldName>logs</fieldName>
-            <formControlCreationForced>false</formControlCreationForced>
-            <formControlEmbeddingForced>false</formControlEmbeddingForced>
-            <getOnlyForced>false</getOnlyForced>
-            <getterGenerated>false</getterGenerated>
-            <nullReplacement>
-                <uniqueIdentifier>-13902084:15c8c9d5a2c:5bb</uniqueIdentifier>
-            </nullReplacement>
-            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
-            <nullValueDistinctForced>false</nullValueDistinctForced>
-            <setterGenerated>false</setterGenerated>
-            <specificTypeCustomizations>
-                <typeCustomizations>
-                    <uniqueIdentifier>-13902084:15c8c9d5a2c:63e</uniqueIdentifier>
-                    <specificProperties/>
-                    <abstractForced>false</abstractForced>
-                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
-                    <immutableForced>false</immutableForced>
-                    <menuModel/>
-                    <typeName>java.lang.String</typeName>
-                    <undoManagementHidden>false</undoManagementHidden>
-                </typeCustomizations>
-            </specificTypeCustomizations>
-        </fieldsCustomizations>
         <immutableForced>false</immutableForced>
         <menuModel/>
         <methodsCustomizations>
@@ -26347,6 +26404,31 @@
                 <specificProperties/>
                 <defaultValue>
                     <uniqueIdentifier>-13902084:15c8c9d5a2c:5c1</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>tester</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <specificReturnValueTypeCustomizations/>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-700bcb3d:15c97a032ed:-4207</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void during(xy.ui.testing.Tester)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>-700bcb3d:15c97a032ed:-4206</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>-700bcb3d:15c97a032ed:-4205</uniqueIdentifier>
                 </defaultValue>
                 <displayedAsField>false</displayedAsField>
                 <hidden>false</hidden>

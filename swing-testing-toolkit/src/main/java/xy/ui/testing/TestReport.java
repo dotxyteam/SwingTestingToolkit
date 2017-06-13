@@ -19,11 +19,12 @@ public class TestReport {
 
 	protected List<TestReportStep> steps = new ArrayList<TestReport.TestReportStep>();
 	protected int numberOfActions;
-	protected File specificationCopyFile;
+	protected String specificationCopyFilePath;
 
 	public TestReport(Tester tester) {
 		this.numberOfActions = tester.getTestActions().length;
-		this.specificationCopyFile = tester.getReportSpecificationCopyFile();
+		this.specificationCopyFilePath = TestingUtils
+				.getOSAgnosticFilePath(tester.getReportSpecificationCopyFile().getPath());
 	}
 
 	public TestReportStep nextStep(TestAction testAction) {
@@ -41,7 +42,10 @@ public class TestReport {
 	}
 
 	public File getSpecificationCopyFile() {
-		return specificationCopyFile;
+		if (specificationCopyFilePath == null) {
+			return null;
+		}
+		return new File(specificationCopyFilePath);
 	}
 
 	public int getCompletionPercentage() {
@@ -98,6 +102,7 @@ public class TestReport {
 		TestReport loaded = (TestReport) xstream.fromXML(input);
 		steps = loaded.steps;
 		numberOfActions = loaded.numberOfActions;
+		specificationCopyFilePath = loaded.specificationCopyFilePath;
 	}
 
 	public void saveToFile(File output) throws IOException {
@@ -126,7 +131,7 @@ public class TestReport {
 		protected TestReportStepStatus status;
 		protected long startTimestamp;
 		protected long endTimestamp;
-		protected File windowsImageFile;
+		protected String windowsImageFilePath;
 		protected String actionSummary;
 		protected List<String> logs = new ArrayList<String>();
 
@@ -151,7 +156,10 @@ public class TestReport {
 		}
 
 		public File getWindowsImageFile() {
-			return windowsImageFile;
+			if (windowsImageFilePath == null) {
+				return null;
+			}
+			return new File(windowsImageFilePath);
 		}
 
 		public String getActionSummary() {
@@ -179,8 +187,13 @@ public class TestReport {
 			endTimestamp = System.currentTimeMillis();
 		}
 
-		public void duringExecution(Tester tester) {
-			windowsImageFile = TestingUtils.saveAllTestableWindowImages(tester);
+		public void during(Tester tester) {
+			File file = TestingUtils.saveAllTestableWindowImages(tester);
+			if (file == null) {
+				windowsImageFilePath = null;
+			} else {
+				windowsImageFilePath = TestingUtils.getOSAgnosticFilePath(file.getPath());
+			}
 		}
 
 		public void log(String msg) {
