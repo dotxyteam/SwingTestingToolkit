@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.StandardKey;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class SendKeysAction extends TargetComponentTestAction {
@@ -51,7 +50,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				if (requestToFocusOnTheComponent) {

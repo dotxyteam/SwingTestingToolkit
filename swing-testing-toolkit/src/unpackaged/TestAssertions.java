@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.InputStream;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;

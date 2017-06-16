@@ -4,8 +4,6 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.info.field.IFieldInfo;
@@ -13,6 +11,7 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ComponentPropertyUtil;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class ChangeComponentPropertyAction extends TargetComponentTestAction {
@@ -67,7 +66,7 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	public void execute(final Component c, Tester tester) {
 		final IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(newPropertyValue);
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				field.setValue(c, newFieldValue);

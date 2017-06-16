@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import org.junit.Test;
 
 import xy.ui.testing.action.component.TargetComponentTestAction;
@@ -22,9 +20,9 @@ public class TestExtensibility {
 	@Test
 	public void test() throws Exception {
 		Tester tester = new Tester();
-		TestingUtils.purgeAllReportsDirectory();;
-		TestingUtils.assertSuccessfulReplay(tester,
-				TestTestEditor.class.getResourceAsStream("testExtensibility.stt"));
+		TestingUtils.purgeAllReportsDirectory();
+		;
+		TestingUtils.assertSuccessfulReplay(tester, TestTestEditor.class.getResourceAsStream("testExtensibility.stt"));
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -95,7 +93,8 @@ public class TestExtensibility {
 		}
 
 		@Override
-		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+				TestEditor testEditor) {
 			/*
 			 * Here you can initialize your action from the state of the
 			 * component it is targeted to.
@@ -122,11 +121,11 @@ public class TestExtensibility {
 			}
 
 			/*
-			 * Note that actions that may block the replay thread (eg: by
-			 * requiring user input) must be run in the Event Dispatching
-			 * Thread.
+			 * Note that instructions that update the UI must be executed using
+			 * the following utility method to avoid disturbing the replay
+			 * thread.
 			 */
-			SwingUtilities.invokeLater(new Runnable() {
+			TestingUtils.invokeInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					((CustomComponent) c).propertytoChange = propertytoChangeNewValue;

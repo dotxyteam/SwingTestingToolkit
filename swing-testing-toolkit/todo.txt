@@ -1,3 +1,8 @@
+- actions scheduling issue:
+	. invokeLater() in actions allow other actions to start while
+	the previous action is blocked by a ui thread task
+	then followingACtion.findComponent() fails
+	=> must always use invokeANdWait() in actions 
 - needs a date/time control for testReportStep start and end times
 - DisplayedStringComponentFinder.searchInDescendants issue:
 	. many component in the same hierarchy will match 

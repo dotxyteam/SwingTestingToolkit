@@ -3,17 +3,14 @@ package xy.ui.testing.action.component.specific;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 
 import org.jdesktop.swingx.JXTreeTable;
 import org.jdesktop.swingx.treetable.TreeTableModel;
 
-import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
@@ -21,7 +18,6 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-@SuppressWarnings("unused")
 public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -94,7 +90,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		if (treePath == null) {
 			throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 		}
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				treeTable.expandPath(treePath.getParentPath());

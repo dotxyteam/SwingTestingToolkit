@@ -19,6 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,9 +162,34 @@ public class TestingUtils {
 	}
 
 	public static void closeAllTestableWindows(Tester tester) {
-		for (Window w : getAllTestableWindows(tester)) {
-			w.dispose();
+		List<Window> stillOpenWindows;
+		while ((stillOpenWindows = getAllTestableWindows(tester)).size() > 0) {
+			Window firstWindowToClose = stillOpenWindows.get(0);
+			for (int i = 1; i < stillOpenWindows.size(); i++) {
+				Window w = stillOpenWindows.get(i);
+				if (isDirectOrIndirectOwner(firstWindowToClose, w)) {
+					firstWindowToClose = w;
+					i = 0;
+				}
+			}
+			tester.logInfo("Closing " + firstWindowToClose);
+			firstWindowToClose.dispose();
 		}
+	}
+
+	public static void sortWindowsByOwnershipDepth(List<Window> openWindows) {
+		Collections.sort(openWindows, new Comparator<Window>() {
+			@Override
+			public int compare(Window w1, Window w2) {
+				if (isDirectOrIndirectOwner(w1, w2)) {
+					return -1;
+				}
+				if (isDirectOrIndirectOwner(w2, w1)) {
+					return 1;
+				}
+				return 0;
+			}
+		});
 	}
 
 	public static List<Window> getAllTestableWindows(Tester tester) {
@@ -244,7 +270,7 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static File saveAllTestableWindowImages(Tester tester) {
+	public static File saveAllTestableWindowImages(Tester tester, File directory) {
 		List<BufferedImage> images = new ArrayList<BufferedImage>();
 		for (Window w : getAllTestableWindows(tester)) {
 			BufferedImage windowImage = getScreenShot(w);
@@ -253,7 +279,7 @@ public class TestingUtils {
 		if (images.size() == 0) {
 			return null;
 		}
-		return saveTesterImage(tester, joinImages(images));
+		return saveImage(directory, joinImages(images));
 	}
 
 	public static BufferedImage joinImages(List<BufferedImage> images, boolean horizontallyElseVertically) {
@@ -289,15 +315,14 @@ public class TestingUtils {
 		return joinImages(images, true);
 	}
 
-	public static File saveTesterImage(Tester tester, BufferedImage image) {
-		File dir = tester.requireReportDirectory();
+	public static File saveImage(File directory, BufferedImage image) {
 		String fileExtension = "png";
 		File outputfile;
 		try {
-			outputfile = File.createTempFile("image-", "." + fileExtension, dir);
+			outputfile = File.createTempFile("image-", "." + fileExtension, directory);
 		} catch (IOException e1) {
 			throw new AssertionError(
-					"Failed to save image file in the directory: '" + dir.getAbsolutePath() + "': " + e1);
+					"Failed to save image file in the directory: '" + directory.getAbsolutePath() + "': " + e1);
 		}
 		try {
 			ImageIO.write(image, fileExtension, outputfile);
@@ -319,16 +344,16 @@ public class TestingUtils {
 
 	}
 
-	public static File saveTestableWindowImage(Tester tester, int windowIndex) {
-		return saveTesterImage(tester, getScreenShot(getAllTestableWindows(tester).get(windowIndex)));
+	public static File saveTestableWindowImage(Tester tester, int windowIndex, File directory) {
+		return saveImage(directory, getScreenShot(getAllTestableWindows(tester).get(windowIndex)));
 	}
 
-	public static File saveTestableComponentImage(Tester tester, Component c) {
-		return saveTesterImage(tester, getScreenShot(c));
+	public static File saveTestableComponentImage(Tester tester, Component c, File directory) {
+		return saveImage(directory, getScreenShot(c));
 	}
 
 	public static void purgeAllReportsDirectory() {
-		File dir = Tester.getAllReportsDirectory();
+		File dir = TestReport.getAllTestReportsDirectory();
 		try {
 			FileUtils.deleteDirectory(dir);
 		} catch (IOException e) {
@@ -426,18 +451,20 @@ public class TestingUtils {
 				SwingUtilities.invokeAndWait(new Runnable() {
 					@Override
 					public void run() {
+						tester.logInfo("Closing all testable windows");
 						closeAllTestableWindows(tester);
 					}
 				});
 			} catch (Throwable ignore) {
 			}
 			if (SystemExitCallInterceptionAction.isInterceptionEnabled()) {
+				tester.logInfo("Disabling System.exit() call interception");
 				SystemExitCallInterceptionAction.disableInterception();
 			}
 		}
 	}
 
-	public static void assertSuccessfulReplayWithoutTestEditor(Tester tester, InputStream specificationStream)
+	private static void assertSuccessfulReplayWithoutTestEditor(Tester tester, InputStream specificationStream)
 			throws Exception {
 		if (specificationStream == null) {
 			throw new TestFailure("Test specification not found.");
@@ -449,7 +476,7 @@ public class TestingUtils {
 		}
 	}
 
-	public static void assertSuccessfulReplayWithTestEditor(final TestEditor testEditor,
+	private static void assertSuccessfulReplayWithTestEditor(final TestEditor testEditor,
 			InputStream specificationStream) throws Exception {
 		final Tester tester = testEditor.getTester();
 		if (specificationStream == null) {
@@ -463,7 +490,7 @@ public class TestingUtils {
 			if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
 					"Test specification not found." + "\nThis test editor window will be automatically closed in "
 							+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
-					testEditor.getSwingRenderer().getObjectTitle(tester), "OK", "Cancel (for fixture)",
+					testEditor.getSwingRenderer().getObjectTitle(tester), "OK (close now)", "Cancel (for fixture)",
 					FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS, true)) {
 				SwingUtilities.invokeAndWait(new Runnable() {
 					@Override
@@ -474,7 +501,7 @@ public class TestingUtils {
 			} else {
 				waitUntilClosed(testEditor);
 			}
-			throw new TestFailure("Test specification not found.");			
+			throw new TestFailure("Test specification not found.");
 		} else {
 			tester.loadFromStream(specificationStream);
 			final boolean[] started = new boolean[] { false };
@@ -519,7 +546,7 @@ public class TestingUtils {
 				if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
 						"This test editor window will be automatically closed in "
 								+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
-						testEditor.getSwingRenderer().getObjectTitle(tester), "OK", "Cancel (for fixture)",
+						testEditor.getSwingRenderer().getObjectTitle(tester), "OK (close now)", "Cancel (for fixture)",
 						FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS, true)) {
 					SwingUtilities.invokeAndWait(new Runnable() {
 						@Override
@@ -535,7 +562,7 @@ public class TestingUtils {
 		}
 	}
 
-	public static void waitUntilClosed(TestEditor testEditor) {
+	private static void waitUntilClosed(TestEditor testEditor) {
 		while (testEditor.isDisplayable()) {
 			try {
 				Thread.sleep(5000);
@@ -545,7 +572,7 @@ public class TestingUtils {
 		}
 	}
 
-	public static boolean askWithTimeout(final SwingRenderer swingRenderer, final Component activatorComponent,
+	private static boolean askWithTimeout(final SwingRenderer swingRenderer, final Component activatorComponent,
 			final String question, final String title, final String yesCaption, final String noCaption,
 			final int timeoutSeconds, boolean defaultAnswer) {
 		final Boolean[] ok = new Boolean[] { null };
@@ -568,9 +595,9 @@ public class TestingUtils {
 		return defaultAnswer;
 	}
 
-	public static Exception generateTestFailure(Tester tester, TestReport report) {
+	private static Exception generateTestFailure(Tester tester, TestReport report) {
 		return new TestFailure("The replay was not successful." + "\nMore informatyion can be found in this report:"
-				+ "\n" + tester.getMainReportFile() + "\nLast logs:\n" + report.getLastLogs());
+				+ "\n" + report.getMainFile() + "\nLast logs:\n" + report.getLastLogs());
 	}
 
 	public static boolean visitComponentTree(Tester tester, Component treeRoot, IComponentTreeVisitor visitor,
@@ -611,6 +638,27 @@ public class TestingUtils {
 
 	public static String getOSAgnosticFilePath(String path) {
 		return path.replace(File.separator, "/");
+	}
+
+	public static void invokeInUIThread(final Runnable runnable) {
+		if (SwingUtilities.isEventDispatchThread()) {
+			throw new AssertionError("This method cannot be invoked from the UI Thread");
+		}
+		final boolean[] invoked = new boolean[] { false };
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				invoked[0] = true;
+				runnable.run();
+			}
+		});
+		while (!invoked[0]) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+		}
 	}
 
 }

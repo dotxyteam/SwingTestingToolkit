@@ -8,11 +8,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.AbstractClickAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class ClickOnTableCellAction extends AbstractClickAction {
@@ -66,7 +65,7 @@ public class ClickOnTableCellAction extends AbstractClickAction {
 		Point clickPoint = new Point(cellBounds.x + cellBounds.width / 2, cellBounds.y + cellBounds.height / 2);
 		final MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
 				clickPoint.x, clickPoint.y, clickCount, false, getButtonMask());
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				for (MouseListener l : table.getMouseListeners()) {

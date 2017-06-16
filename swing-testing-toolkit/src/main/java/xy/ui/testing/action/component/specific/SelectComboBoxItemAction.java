@@ -11,8 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.util.ReflectionUIError;
@@ -20,6 +18,7 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class SelectComboBoxItemAction extends TargetComponentTestAction {
@@ -138,7 +137,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 					+ "Selection Mode=" + selectionMode + "\n" + "Found items: " + options);
 		}
 		final int finalIndexToSelect = indexToSelect;
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				comboBox.setSelectedIndex(finalIndexToSelect);

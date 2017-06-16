@@ -154,7 +154,7 @@ public class TestEditor extends JFrame {
 	public TestEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
-		this.testReport = new TestReport(tester);
+		this.testReport = new TestReport();
 		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();

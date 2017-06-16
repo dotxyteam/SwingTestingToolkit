@@ -57,8 +57,7 @@ public class Tester {
 	protected static final MouseListener DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH = new MouseAdapter() {
 	};
 
-	private static final String ALL_REPORTS_DIRECTORY_PROPERTY_KEY = "xy.ui.testing.reportsDirectory";
-
+	
 	protected final Object CURRENT_COMPONENT_MUTEX = new Object() {
 		@Override
 		public String toString() {
@@ -76,8 +75,7 @@ public class Tester {
 	protected MouseListener[] currentComponentMouseListeners;
 	protected Border currentComponentBorder;
 	protected EditingOptions editingOptions = new EditingOptions();
-	protected Date instanciationDate = new Date();
-
+	
 	public Tester() {
 	}
 
@@ -119,8 +117,8 @@ public class Tester {
 	}
 
 	public TestReport replay(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
-		requireReportDirectory();
-		TestReport report = new TestReport(this);
+		TestReport report = new TestReport();
+		report.begin(this);
 		for (int i = 0; i < toReplay.size(); i++) {
 			final TestAction testAction = toReplay.get(i);
 			logInfo("Replaying action no" + (i + 1) + ": " + testAction);
@@ -142,7 +140,7 @@ public class Tester {
 						reportStep.setStatus(TestReportStepStatus.SKIPPED);
 					} else {
 						Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
-						reportStep.log("Action delayed: " + minimumSecondsToWaitBetwneenActions + " second(s)");
+						reportStep.log("Action delayed for " + minimumSecondsToWaitBetwneenActions + " second(s)");
 						testAction.validate();
 						Component c;
 						try {
@@ -187,38 +185,8 @@ public class Tester {
 			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
 		} catch (InterruptedException ignore) {
 		}
-		try {
-			saveToFile(getReportSpecificationCopyFile());
-			report.saveToFile(getMainReportFile());
-		} catch (IOException e) {
-			throw new AssertionError(e);
-		}
+		report.end();
 		return report;
-	}
-
-	public File requireReportDirectory() {
-		File dir;
-		dir = Tester.getAllReportsDirectory();
-		if (!dir.exists()) {
-			if (!dir.mkdir()) {
-				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
-			}
-		}
-		dir = getReportDirectory();
-		if (!dir.exists()) {
-			if (!dir.mkdir()) {
-				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
-			}
-		}
-		return dir;
-	}
-
-	public File getMainReportFile() {
-		return new File(getReportDirectory(), "main.str");
-	}
-
-	public File getReportSpecificationCopyFile() {
-		return new File(getReportDirectory(), "copy.stt");
 	}
 
 	protected String formatLogMessage(String msg) {
@@ -324,7 +292,6 @@ public class Tester {
 		testActions = loaded.testActions;
 		minimumSecondsToWaitBetwneenActions = loaded.minimumSecondsToWaitBetwneenActions;
 		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
-		instanciationDate = loaded.instanciationDate;
 	}
 
 	public void saveToFile(File output) throws IOException {
@@ -401,16 +368,6 @@ public class Tester {
 			}
 		}
 		return true;
-	}
-
-	public static File getAllReportsDirectory() {
-		String path = System.getProperty(ALL_REPORTS_DIRECTORY_PROPERTY_KEY, "test-reports");
-		return new File(path);
-	}
-
-	public File getReportDirectory() {
-		String formattedInstanciationDate = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(instanciationDate);
-		return new File(getAllReportsDirectory(), "test-report-" + formattedInstanciationDate + "-" + Tester.this);
 	}
 
 	public List<String> extractDisplayedStrings(Component c) {

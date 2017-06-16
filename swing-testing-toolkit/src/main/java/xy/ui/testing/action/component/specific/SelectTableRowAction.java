@@ -5,11 +5,10 @@ import java.awt.Component;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class SelectTableRowAction extends TargetComponentTestAction {
@@ -62,7 +61,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	@Override
 	public void execute(Component c, Tester tester) {
 		final JTable table = (JTable) c;
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				if (addedToExistingSelection) {

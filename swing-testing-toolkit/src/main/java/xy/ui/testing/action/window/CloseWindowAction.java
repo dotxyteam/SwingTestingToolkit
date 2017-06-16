@@ -14,20 +14,16 @@ public class CloseWindowAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	@Override
 	protected boolean initializeSpecificProperties(Window w, TestEditor testEditor) {
 		return true;
 	}
 
-
 	@Override
 	public void execute(Component c, Tester tester) {
 		Window window = (Window) c;
-		WindowEvent closeEvent = new WindowEvent(window,
-				WindowEvent.WINDOW_CLOSING);
-		Toolkit.getDefaultToolkit().getSystemEventQueue()
-				.postEvent(closeEvent);
+		final WindowEvent closeEvent = new WindowEvent(window, WindowEvent.WINDOW_CLOSING);
+		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
 	}
 
 	@Override
@@ -35,17 +31,14 @@ public class CloseWindowAction extends TargetWindowTestAction {
 		return "";
 	}
 
-
 	@Override
 	public void validate() throws ValidationError {
 	}
-
 
 	@Override
 	public String toString() {
 		return "Close " + getComponentInformation();
 	}
-
 
 	public static boolean matchesEvent(AWTEvent event) {
 		if (event instanceof WindowEvent) {
@@ -56,6 +49,5 @@ public class CloseWindowAction extends TargetWindowTestAction {
 		}
 		return false;
 	}
-	
-	
+
 }

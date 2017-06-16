@@ -4,14 +4,13 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
-
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public class SelectTabAction extends TargetComponentTestAction {
@@ -65,7 +64,7 @@ public class SelectTabAction extends TargetComponentTestAction {
 			throw new TestFailure("Could not select the tab '" + tabToSelect + "': Tab not found");
 		}
 		final int finalIndexToSelect = indexToSelect;
-		SwingUtilities.invokeLater(new Runnable() {
+		TestingUtils.invokeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				tabbedPane.setSelectedIndex(finalIndexToSelect);

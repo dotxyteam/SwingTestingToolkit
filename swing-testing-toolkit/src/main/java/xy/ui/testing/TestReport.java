@@ -6,25 +6,94 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.util.TestingUtils;
 
 public class TestReport {
 
+	protected static final String ALL_REPORTS_DIRECTORY_PROPERTY_KEY = "xy.ui.testing.reportsDirectory";
+
 	protected List<TestReportStep> steps = new ArrayList<TestReport.TestReportStep>();
 	protected int numberOfActions;
-	protected String specificationCopyFilePath;
+	protected Date instantiationDate = new Date();
+	protected String directoryPath;
 
-	public TestReport(Tester tester) {
+	public void begin(Tester tester) {
 		this.numberOfActions = tester.getTestActions().length;
-		this.specificationCopyFilePath = TestingUtils
-				.getOSAgnosticFilePath(tester.getReportSpecificationCopyFile().getPath());
+		this.directoryPath = buildDirectoryPath(tester);
+		requireDirectory();
+		try {
+			tester.saveToFile(getSpecificationCopyFile());
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+	public void end() {
+		try {
+			saveToFile(getMainFile());
+		} catch (IOException e) {
+			throw new AssertionError(e);
+		}
+	}
+
+	protected String buildDirectoryPath(Tester tester) {
+		String formattedInstanciationDate = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(instantiationDate);
+		String fileName = "test-report-" + formattedInstanciationDate + "-" + tester;
+		File file = new File(getAllTestReportsDirectory(), fileName);
+		return TestingUtils.getOSAgnosticFilePath(file.getPath());
+	}
+
+	public static File getAllTestReportsDirectory() {
+		String path = System.getProperty(ALL_REPORTS_DIRECTORY_PROPERTY_KEY, "test-reports");
+		return new File(path);
+	}
+
+	public File getDirectory() {
+		if (directoryPath == null) {
+			return null;
+		} else {
+			return new File(directoryPath);
+		}
+	}
+
+	public void setDirectory(File directory) {
+		if (directory == null) {
+			directoryPath = null;
+		} else {
+			directoryPath = TestingUtils.getOSAgnosticFilePath(directory.getPath());
+		}
+	}
+
+	protected void requireDirectory() {
+		File dir;
+		dir = getAllTestReportsDirectory();
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
+				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
+			}
+		}
+		dir = getDirectory();
+		if (!dir.exists()) {
+			if (!dir.mkdir()) {
+				throw new AssertionError("Failed to create the directory: '" + dir.getAbsolutePath() + "'");
+			}
+		}
+	}
+
+	public File getMainFile() {
+		return new File(getDirectory(), "main.str");
+	}
+
+	public File getSpecificationCopyFile() {
+		return new File(getDirectory(), "copy.stt");
 	}
 
 	public TestReportStep nextStep(TestAction testAction) {
@@ -39,13 +108,6 @@ public class TestReport {
 
 	public int getNumberOfActions() {
 		return numberOfActions;
-	}
-
-	public File getSpecificationCopyFile() {
-		if (specificationCopyFilePath == null) {
-			return null;
-		}
-		return new File(specificationCopyFilePath);
 	}
 
 	public int getCompletionPercentage() {
@@ -81,14 +143,17 @@ public class TestReport {
 
 	protected XStream getXStream() {
 		XStream result = new XStream();
-		result.registerConverter(new JavaBeanConverter(result.getMapper()), -20);
 		return result;
 	}
 
-	public void loadFromFile(File input) throws IOException {
-		FileInputStream stream = new FileInputStream(input);
+	public void loadFromFile(File mainReportFile) throws IOException {
+		FileInputStream stream = new FileInputStream(mainReportFile);
 		try {
 			loadFromStream(stream);
+			directoryPath = mainReportFile.getParent();
+			if (directoryPath == null) {
+				directoryPath = ".";
+			}
 		} finally {
 			try {
 				stream.close();
@@ -102,7 +167,7 @@ public class TestReport {
 		TestReport loaded = (TestReport) xstream.fromXML(input);
 		steps = loaded.steps;
 		numberOfActions = loaded.numberOfActions;
-		specificationCopyFilePath = loaded.specificationCopyFilePath;
+		directoryPath = loaded.directoryPath;
 	}
 
 	public void saveToFile(File output) throws IOException {
@@ -131,7 +196,7 @@ public class TestReport {
 		protected TestReportStepStatus status;
 		protected long startTimestamp;
 		protected long endTimestamp;
-		protected String windowsImageFilePath;
+		protected String windowsImageFileName;
 		protected String actionSummary;
 		protected List<String> logs = new ArrayList<String>();
 
@@ -156,10 +221,10 @@ public class TestReport {
 		}
 
 		public File getWindowsImageFile() {
-			if (windowsImageFilePath == null) {
+			if (windowsImageFileName == null) {
 				return null;
 			}
-			return new File(windowsImageFilePath);
+			return new File(getDirectory(), windowsImageFileName);
 		}
 
 		public String getActionSummary() {
@@ -183,17 +248,17 @@ public class TestReport {
 			startTimestamp = System.currentTimeMillis();
 		}
 
-		public void ending() {
-			endTimestamp = System.currentTimeMillis();
+		public void during(Tester tester) {
+			File file = TestingUtils.saveAllTestableWindowImages(tester, getDirectory());
+			if (file == null) {
+				windowsImageFileName = null;
+			} else {
+				windowsImageFileName = file.getName();
+			}
 		}
 
-		public void during(Tester tester) {
-			File file = TestingUtils.saveAllTestableWindowImages(tester);
-			if (file == null) {
-				windowsImageFilePath = null;
-			} else {
-				windowsImageFilePath = TestingUtils.getOSAgnosticFilePath(file.getPath());
-			}
+		public void ending() {
+			endTimestamp = System.currentTimeMillis();
 		}
 
 		public void log(String msg) {
