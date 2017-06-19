@@ -162,18 +162,15 @@ public class TestingUtils {
 	}
 
 	public static void closeAllTestableWindows(Tester tester) {
-		List<Window> stillOpenWindows;
-		while ((stillOpenWindows = getAllTestableWindows(tester)).size() > 0) {
-			Window firstWindowToClose = stillOpenWindows.get(0);
-			for (int i = 1; i < stillOpenWindows.size(); i++) {
-				Window w = stillOpenWindows.get(i);
-				if (isDirectOrIndirectOwner(firstWindowToClose, w)) {
-					firstWindowToClose = w;
-					i = 0;
-				}
+		List<Window> openWindows = getAllTestableWindows(tester);
+		sortWindowsByOwnershipDepth(openWindows);
+		Collections.reverse(openWindows);
+		for (Window w : openWindows) {
+			if(!w.isVisible()){
+				continue;
 			}
-			tester.logInfo("Closing " + firstWindowToClose);
-			firstWindowToClose.dispose();
+			tester.logInfo("Closing " + w);
+			w.dispose();
 		}
 	}
 
@@ -273,6 +270,9 @@ public class TestingUtils {
 	public static File saveAllTestableWindowImages(Tester tester, File directory) {
 		List<BufferedImage> images = new ArrayList<BufferedImage>();
 		for (Window w : getAllTestableWindows(tester)) {
+			if (!w.isVisible()) {
+				continue;
+			}
 			BufferedImage windowImage = getScreenShot(w);
 			images.add(windowImage);
 		}
@@ -342,10 +342,6 @@ public class TestingUtils {
 			return image;
 		}
 
-	}
-
-	public static File saveTestableWindowImage(Tester tester, int windowIndex, File directory) {
-		return saveImage(directory, getScreenShot(getAllTestableWindows(tester).get(windowIndex)));
 	}
 
 	public static File saveTestableComponentImage(Tester tester, Component c, File directory) {

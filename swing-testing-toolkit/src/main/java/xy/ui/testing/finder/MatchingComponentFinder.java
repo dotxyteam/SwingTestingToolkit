@@ -39,11 +39,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	public Component find(Tester tester) {
 		int windowCount = 0;
 		for (Window window : Window.getWindows()) {
-			boolean testable = true;
-			if (!tester.isTestable(window)) {
-				testable = false;
-			}
-			if (!testable) {
+			if (!tester.isTestable(window) || !tester.isVisible(window)) {
 				continue;
 			}
 			if (windowCount == windowIndex) {
@@ -120,7 +116,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	protected boolean initializeWindowIndex(Window componentWindow, TestEditor testEditor) {
 		windowIndex = 0;
 		for (Window window : Window.getWindows()) {
-			if (!testEditor.getTester().isTestable(window)) {
+			if (!testEditor.getTester().isTestable(window) || !testEditor.getTester().isVisible(window)) {
 				continue;
 			}
 			if (window == componentWindow) {

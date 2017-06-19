@@ -40,7 +40,7 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 	protected int countWindows(Tester tester) {
 		int n = 0;
 		for (Window window : Window.getWindows()) {
-			if (tester.isTestable(window)) {
+			if (tester.isTestable(window) && tester.isVisible(window)) {
 				n++;
 			}
 		}

@@ -359,9 +359,6 @@ public class Tester {
 	}
 
 	public boolean isTestable(Component c) {
-		if (!isVisible(c)) {
-			return false;
-		}
 		for (TestEditor testEditor : TestingUtils.getTestEditors(this)) {
 			if (TestingUtils.isTestEditorComponent(testEditor, c)) {
 				return false;

@@ -243,7 +243,7 @@ public class TestEditor extends JFrame {
 					if ((hierarchyEvent.getChangeFlags() & HierarchyEvent.SHOWING_CHANGED) != 0) {
 						if (event.getSource() instanceof Window) {
 							Window window = (Window) event.getSource();
-							if (tester.isTestable(window)) {
+							if (window.isVisible() && tester.isTestable(window)) {
 								if (tester.getEditingOptions().isTestableWindowsAlwaysOnTopFeatureDisabled()) {
 									if (window.isAlwaysOnTop()) {
 										window.setAlwaysOnTop(false);

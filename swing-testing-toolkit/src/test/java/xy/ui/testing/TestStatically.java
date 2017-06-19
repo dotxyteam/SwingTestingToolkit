@@ -1,5 +1,7 @@
 package xy.ui.testing;
 
+import java.io.IOException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,6 +14,16 @@ public class TestStatically {
 		assertNoInheritanceBetweenClasses(TestEditor.BUILT_IN_TEST_ACTION_CLASSES);
 		assertNoInheritanceBetweenClasses(TestEditor.BUILT_IN_COMPONENT_FINDRER_CLASSES);
 		assertNoInheritanceBetweenClasses(TestEditor.BUILT_IN_KEYBOARD_INTERACTION_CLASSES);
+	}
+
+	@Test
+	public void testComponentFinderOnlyOneEmptyContructor() throws IOException {
+		Tester tester = new Tester();
+		TestEditor testEditor = new TestEditor(tester);
+		for (Class<?> cls : testEditor.getComponentFinderClasses()) {
+			Assert.assertTrue(cls.getConstructors().length == 1);
+			Assert.assertTrue(cls.getConstructors()[0].getParameterTypes().length == 0);
+		}
 	}
 
 	private void assertNoInheritanceBetweenClasses(Class<?>[] classes) {

@@ -22,7 +22,7 @@ public class TestExtensibility {
 		Tester tester = new Tester();
 		TestingUtils.purgeAllReportsDirectory();
 		;
-		TestingUtils.assertSuccessfulReplay(tester, TestTestEditor.class.getResourceAsStream("testExtensibility.stt"));
+		TestingUtils.assertSuccessfulReplay(tester, AutoTests.class.getResourceAsStream("testExtensibility.stt"));
 	}
 
 	public static void main(String[] args) throws Exception {
