@@ -486,7 +486,7 @@ public class TestingUtils {
 			if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
 					"Test specification not found." + "\nThis test editor window will be automatically closed in "
 							+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
-					testEditor.getSwingRenderer().getObjectTitle(tester), "OK (close now)", "Cancel (for fixture)",
+					testEditor.getSwingRenderer().getObjectTitle(tester), "OK", "Cancel",
 					FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS, true)) {
 				SwingUtilities.invokeAndWait(new Runnable() {
 					@Override
@@ -542,7 +542,7 @@ public class TestingUtils {
 				if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
 						"This test editor window will be automatically closed in "
 								+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
-						testEditor.getSwingRenderer().getObjectTitle(tester), "OK (close now)", "Cancel (for fixture)",
+						testEditor.getSwingRenderer().getObjectTitle(tester), "OK", "Cancel",
 						FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS, true)) {
 					SwingUtilities.invokeAndWait(new Runnable() {
 						@Override

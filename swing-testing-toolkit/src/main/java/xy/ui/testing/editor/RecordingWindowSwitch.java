@@ -122,7 +122,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			getTester().handleCurrentComponentChange(null);
 			insertNewTestAction(testAction);
 			if (execute) {
-				SwingUtilities.invokeLater(new Runnable() {
+				new Thread("Executor of: " + testAction) {
 					@Override
 					public void run() {
 						try {
@@ -132,7 +132,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 						}
 						testAction.execute(c, getTester());
 					}
-				});
+				}.start();
 			}
 			return true;
 		}

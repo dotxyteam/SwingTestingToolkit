@@ -438,12 +438,13 @@ public class TestEditor extends JFrame {
 		}
 	}
 
-	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
-		IFieldInfo testACtionsField = getSwingRenderer().getFieldControlPlaceHolder(mainForm, TEST_ACTIONS_FIELD_NAME)
+	public void setTestActionsAndUpdateUI(TestAction[] testActions) {		
+		JPanel testerForm = getTesterForm();
+		IFieldInfo testActionsField = getSwingRenderer().getFieldControlPlaceHolder(testerForm, TEST_ACTIONS_FIELD_NAME)
 				.getField();
-		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(mainForm);
-		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testACtionsField),
-				testActions, modifStack, testACtionsField);
+		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(testerForm);
+		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testActionsField),
+				testActions, modifStack, testActionsField);
 		refresh();
 	}
 
@@ -993,6 +994,11 @@ public class TestEditor extends JFrame {
 						}
 
 						@Override
+						public boolean isReadOnly() {
+							return false;
+						}
+
+						@Override
 						public List<IParameterInfo> getParameters() {
 							List<IParameterInfo> result = new ArrayList<IParameterInfo>();
 							result.add(startPositionParameter);
@@ -1188,6 +1194,11 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
+							public boolean isReadOnly() {
+								return true;
+							}
+
+							@Override
 							public String getOnlineHelp() {
 								return "Replay selected action(s)";
 							}
@@ -1242,6 +1253,11 @@ public class TestEditor extends JFrame {
 								@Override
 								public String getCaption() {
 									return "Resume";
+								}
+
+								@Override
+								public boolean isReadOnly() {
+									return true;
 								}
 
 								@Override
