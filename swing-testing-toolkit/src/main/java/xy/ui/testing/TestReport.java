@@ -170,6 +170,15 @@ public class TestReport {
 		directoryPath = loaded.directoryPath;
 	}
 
+	public void saveToStream(OutputStream output) throws IOException {
+		XStream xstream = getXStream();
+		TestReport toSave = new TestReport();
+		toSave.steps = steps;
+		toSave.numberOfActions = numberOfActions;
+		toSave.directoryPath = directoryPath;
+		xstream.toXML(toSave, output);
+	}
+
 	public void saveToFile(File output) throws IOException {
 		FileOutputStream stream = new FileOutputStream(output);
 		try {
@@ -180,11 +189,6 @@ public class TestReport {
 			} catch (Exception ignore) {
 			}
 		}
-	}
-
-	public void saveToStream(OutputStream output) throws IOException {
-		XStream xstream = getXStream();
-		xstream.toXML(this, output);
 	}
 
 	public enum TestReportStepStatus {

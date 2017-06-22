@@ -32,8 +32,7 @@ import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
 public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 	protected boolean recordingInsertedAfterSelection = false;
-	protected RecordingStatus recordingStatus = new RecordingStatus();
-
+	
 	public RecordingWindowSwitch(TestEditor testEditor) {
 		super(testEditor);
 	}
@@ -45,7 +44,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 	@Override
 	protected void onBegining() {
-		setRecordingPausedAndUpdateUI(false);
+		setPausedAndUpdateUI(false);
 	}
 
 	@Override
@@ -54,8 +53,8 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	}
 
 	@Override
-	public RecordingStatus getStatus() {
-		return recordingStatus;
+	public String getStatus() {
+		return "(Waiting) Click on component to record...";
 	}
 
 	public void setRecordingInsertedAfterSelection(boolean recordingInsertedAfterSelection) {
@@ -63,7 +62,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	}
 
 	public void handleWindowClosingRecordingEvent(AWTEvent event) {
-		setRecordingPausedAndUpdateUI(true);
+		setPausedAndUpdateUI(true);
 		try {
 			WindowEvent windowEvent = (WindowEvent) event;
 			Window window = windowEvent.getWindow();
@@ -76,12 +75,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 				handleNewTestActionInsertionRequest(closeAction, window, false);
 			}
 		} finally {
-			setRecordingPausedAndUpdateUI(false);
+			setPausedAndUpdateUI(false);
 		}
 	}
 
 	public void handleMenuItemClickRecordingEvent(AWTEvent event) {
-		setRecordingPausedAndUpdateUI(true);
+		setPausedAndUpdateUI(true);
 		try {
 			final JMenuItem menuItem = (JMenuItem) event.getSource();
 			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
@@ -93,12 +92,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 				handleNewTestActionInsertionRequest(testACtion, menuItem, true);
 			}
 		} finally {
-			setRecordingPausedAndUpdateUI(false);
+			setPausedAndUpdateUI(false);
 		}
 	}
 
 	public void handleGenericRecordingEvent(AWTEvent event) {
-		setRecordingPausedAndUpdateUI(true);
+		setPausedAndUpdateUI(true);
 		try {
 			RecordingWindowSwitch.this.getWindow().requestFocus();
 			final AbstractAction todo = openTestActionSelectionWindow(event, RecordingWindowSwitch.this.getWindow());
@@ -112,7 +111,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 				}
 			});
 		} finally {
-			setRecordingPausedAndUpdateUI(false);
+			setPausedAndUpdateUI(false);
 		}
 	}
 
@@ -277,11 +276,11 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(true);
+					RecordingWindowSwitch.this.setPausedAndUpdateUI(true);
 					try {
 						handleNewTestActionInsertionRequest(testAction, c, true);
 					} finally {
-						RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(false);
+						RecordingWindowSwitch.this.setPausedAndUpdateUI(false);
 					}
 				}
 
@@ -347,12 +346,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(true);
+				RecordingWindowSwitch.this.setPausedAndUpdateUI(true);
 				try {
 					testEditor.getComponentInspectionWindowSwitch().openComponentInspector(c,
 							RecordingWindowSwitch.this.getWindow());
 				} finally {
-					RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(false);
+					RecordingWindowSwitch.this.setPausedAndUpdateUI(false);
 				}
 			}
 		});
@@ -376,7 +375,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						getTester().handleCurrentComponentChange(null);
-						RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(true);
+						RecordingWindowSwitch.this.setPausedAndUpdateUI(true);
 						new Thread(Tester.class.getSimpleName() + " Restarter") {
 							@Override
 							public void run() {
@@ -385,30 +384,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 								} catch (InterruptedException e) {
 									throw new AssertionError(e);
 								}
-								RecordingWindowSwitch.this.setRecordingPausedAndUpdateUI(false);
+								RecordingWindowSwitch.this.setPausedAndUpdateUI(false);
 							}
 						}.start();
 					}
 				});
 		options.add(pauseItem);
-	}
-
-	public void setRecordingPausedAndUpdateUI(boolean b) {
-		recordingStatus.setRecordingPaused(b);
-		getSwingRenderer().refreshAllFieldControls(statusControlForm, false);
-	}
-
-	public class RecordingStatus {
-		protected boolean recordingPaused = false;
-
-		public boolean isRecordingPaused() {
-			return recordingPaused;
-		}
-
-		public void setRecordingPaused(boolean b) {
-			getTester().handleCurrentComponentChange(null);
-			this.recordingPaused = b;
-		}
 	}
 
 }

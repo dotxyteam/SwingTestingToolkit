@@ -49,16 +49,15 @@ import xy.ui.testing.util.TestingUtils;
 
 public class Tester {
 
-	public static final Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
+	public static final transient Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightForeground", "235,48,33"));
-	public static final Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
+	public static final transient Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
 
-	protected static final MouseListener DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH = new MouseAdapter() {
+	protected static final transient MouseListener DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH = new MouseAdapter() {
 	};
 
-	
-	protected final Object CURRENT_COMPONENT_MUTEX = new Object() {
+	protected final transient Object CURRENT_COMPONENT_MUTEX = new Object() {
 		@Override
 		public String toString() {
 			return Tester.class.getName() + ".CURRENT_COMPONENT_MUTEX";
@@ -68,14 +67,14 @@ public class Tester {
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
 	protected int minimumSecondsToWaitBetwneenActions = 2;
 	protected int maximumSecondsToWaitBetwneenActions = 15;
-
-	protected Component currentComponent;
-	protected Color currentComponentBackground;
-	protected Color currentComponentForeground;
-	protected MouseListener[] currentComponentMouseListeners;
-	protected Border currentComponentBorder;
 	protected EditingOptions editingOptions = new EditingOptions();
-	
+
+	protected transient Component currentComponent;
+	protected transient Color currentComponentBackground;
+	protected transient Color currentComponentForeground;
+	protected transient MouseListener[] currentComponentMouseListeners;
+	protected transient Border currentComponentBorder;
+
 	public Tester() {
 	}
 
@@ -294,6 +293,15 @@ public class Tester {
 		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
 	}
 
+	public void saveToStream(OutputStream output) throws IOException {
+		XStream xstream = getXStream();
+		Tester toSave = new Tester();
+		toSave.testActions = testActions;
+		toSave.minimumSecondsToWaitBetwneenActions = minimumSecondsToWaitBetwneenActions;
+		toSave.maximumSecondsToWaitBetwneenActions = maximumSecondsToWaitBetwneenActions;
+		xstream.toXML(toSave, output);
+	}
+
 	public void saveToFile(File output) throws IOException {
 		FileOutputStream stream = new FileOutputStream(output);
 		try {
@@ -304,11 +312,6 @@ public class Tester {
 			} catch (Exception ignore) {
 			}
 		}
-	}
-
-	public void saveToStream(OutputStream output) throws IOException {
-		XStream xstream = getXStream();
-		xstream.toXML(this, output);
 	}
 
 	protected XStream getXStream() {

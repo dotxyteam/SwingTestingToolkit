@@ -109,7 +109,7 @@ public class TestEditor extends JFrame {
 	public static final String ALTERNATE_UI_CUSTOMIZATION_FILE_PATH_PROPERTY_KEY = "xy.ui.testing.gui.customizationFile";
 	public static final WeakHashMap<TestEditor, Tester> TESTER_BY_EDITOR = new WeakHashMap<TestEditor, Tester>();
 	public static final boolean DEBUG = Boolean
-			.valueOf(System.getProperty(TestEditor.class.getName() + ".DEBUG", "false"));
+			.valueOf(System.getProperty(TestEditor.class.getName() + ".debug", "false"));
 
 	public static final Class<?>[] BUILT_IN_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
 			SystemExitCallInterceptionAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
@@ -176,9 +176,11 @@ public class TestEditor extends JFrame {
 
 			@Override
 			public void eventDispatched(AWTEvent event) {
-				if (!(recordingWindowSwitch.isActive() && !recordingWindowSwitch.getStatus().isRecordingPaused())
-						&& !(componentInspectionWindowSwitch.isActive()
-								&& !componentInspectionWindowSwitch.isInspectorOpen())) {
+				boolean canBeRecordingEvent = recordingWindowSwitch.isActive() && !recordingWindowSwitch.isPaused();
+				boolean canBeInspectingEvent = componentInspectionWindowSwitch.isActive()
+						&& !componentInspectionWindowSwitch.isPaused()
+						&& !componentInspectionWindowSwitch.isInspectorOpen();
+				if (!canBeRecordingEvent && !canBeInspectingEvent) {
 					return;
 				}
 				if (event == null) {
@@ -206,14 +208,14 @@ public class TestEditor extends JFrame {
 						currentComponentChangeDisabledUntil = System.currentTimeMillis() + 5000;
 					}
 				} else {
-					if (componentInspectionWindowSwitch.isActive()) {
+					if (canBeInspectingEvent) {
 						if (isGenericRecordingRequestEvent(event)) {
 							componentInspectionWindowSwitch.getWindow().requestFocus();
 							componentInspectionWindowSwitch.openComponentInspector(c,
 									componentInspectionWindowSwitch.getWindow());
 						}
 					}
-					if (recordingWindowSwitch.isActive()) {
+					if (canBeRecordingEvent) {
 						if (isWindowClosingRecordingRequestEvent(event)) {
 							recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
 						} else if (isMenuItemClickRecordingRequestEvent(event)) {
@@ -438,7 +440,7 @@ public class TestEditor extends JFrame {
 		}
 	}
 
-	public void setTestActionsAndUpdateUI(TestAction[] testActions) {		
+	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
 		JPanel testerForm = getTesterForm();
 		IFieldInfo testActionsField = getSwingRenderer().getFieldControlPlaceHolder(testerForm, TEST_ACTIONS_FIELD_NAME)
 				.getField();
@@ -1017,7 +1019,7 @@ public class TestEditor extends JFrame {
 								} else if (atEndStartOption.equals(startPosition)) {
 									recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
 								} else {
-									return null;
+									throw new AssertionError();
 								}
 							}
 							final CallMainMethodAction mainMethodCall = (CallMainMethodAction) invocationData
@@ -1032,6 +1034,11 @@ public class TestEditor extends JFrame {
 
 						IParameterInfo startPositionParameter = new ParameterInfoProxy(
 								IParameterInfo.NULL_PARAMETER_INFO) {
+
+							@Override
+							public int getPosition() {
+								return 0;
+							}
 
 							@Override
 							public String getName() {
@@ -1062,6 +1069,11 @@ public class TestEditor extends JFrame {
 
 						IParameterInfo mainMethodParameter = new ParameterInfoProxy(
 								IParameterInfo.NULL_PARAMETER_INFO) {
+
+							@Override
+							public int getPosition() {
+								return 1;
+							}
 
 							@Override
 							public String getName() {

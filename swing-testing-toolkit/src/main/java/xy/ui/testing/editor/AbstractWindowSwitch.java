@@ -3,7 +3,6 @@ package xy.ui.testing.editor;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -16,13 +15,15 @@ import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestingUtils;
 
-@SuppressWarnings("unused")
 public abstract class AbstractWindowSwitch {
+
+	protected StatusControlObject statusControlObject = new StatusControlObject();
+	protected boolean paused = false;
 
 	protected TestEditor testEditor;
 	protected JFrame controlWindow;
 	protected JPanel statusControlForm;
-	protected StatusControlObject statusControlObject = new StatusControlObject();
+	
 	protected Rectangle lastBounds;
 	protected boolean controlWindowAlwaysOnTopLastly = true;
 
@@ -36,6 +37,15 @@ public abstract class AbstractWindowSwitch {
 
 	public AbstractWindowSwitch(TestEditor testEditor) {
 		this.testEditor = testEditor;
+	}
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+	public void setPaused(boolean b) {
+		getTester().handleCurrentComponentChange(null);
+		this.paused = b;
 	}
 
 	public StatusControlObject getStatusControlObject() {
@@ -78,8 +88,23 @@ public abstract class AbstractWindowSwitch {
 	public JFrame getWindow() {
 		return controlWindow;
 	}
+	
+	public void setPausedAndUpdateUI(boolean b) {
+		setPaused(b);
+		getSwingRenderer().refreshAllFieldControls(statusControlForm, false);
+	}
+
 
 	public class StatusControlObject {
+
+		public boolean isPaused() {
+			return AbstractWindowSwitch.this.isPaused();
+		}
+
+		public void setPaused(boolean b) {
+			getTester().handleCurrentComponentChange(null);
+			AbstractWindowSwitch.this.setPaused(b);
+		}
 
 		public Object getStatus() {
 			return AbstractWindowSwitch.this.getStatus();

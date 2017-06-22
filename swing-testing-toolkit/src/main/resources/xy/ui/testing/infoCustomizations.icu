@@ -16749,6 +16749,9 @@
         <specificProperties/>
         <abstractForced>false</abstractForced>
         <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customFieldsOrder>paused</customFieldsOrder>
+        <customFieldsOrder>windowAlwaysOnTop</customFieldsOrder>
+        <customFieldsOrder>status</customFieldsOrder>
         <fieldsCustomizations>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7814</uniqueIdentifier>
             <specificProperties/>
@@ -16800,6 +16803,37 @@
             <specificTypeCustomizations>
                 <typeCustomizations>
                     <uniqueIdentifier>371a69a:15c42f9d302:-47d3</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>boolean</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-23d330b1:15ccd1e58d2:-4125</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Pause</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>paused</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-23d330b1:15ccd1e58d2:-4124</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-23d330b1:15ccd1e58d2:-4123</uniqueIdentifier>
                     <specificProperties/>
                     <abstractForced>false</abstractForced>
                     <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
@@ -23313,6 +23347,20 @@
                     <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
                     <immutableForced>false</immutableForced>
                     <menuModel/>
+                    <methodsCustomizations>
+                        <uniqueIdentifier>401e8761:15cccb6b16f:-412b</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <detachedReturnValueForced>false</detachedReturnValueForced>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <ignoredReturnValueForced>false</ignoredReturnValueForced>
+                        <methodSignature>xy.ui.testing.action.CallMainMethodAction ()</methodSignature>
+                        <parametersFormDisplayed>false</parametersFormDisplayed>
+                        <readOnlyForced>false</readOnlyForced>
+                        <returnValueFieldGenerated>false</returnValueFieldGenerated>
+                        <specificReturnValueTypeCustomizations/>
+                        <validating>false</validating>
+                    </methodsCustomizations>
                     <typeName>xy.ui.testing.action.CallMainMethodAction</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
@@ -27202,6 +27250,46 @@
         <immutableForced>false</immutableForced>
         <menuModel/>
         <typeName>Encapsulation [context=FieldContext [fieldName=, containingType=Encapsulation [context=FieldContext [fieldName=testActions, containingType=xy.ui.testing.Tester], subContext=ListDynamicProperty [name=disabled], encapsulatedObjectType=java.lang.String]], subContext=NullableInstance, encapsulatedObjectType=java.lang.String]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>401e8761:15cccb6b16f:-412a</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>401e8761:15cccb6b16f:-4129</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>401e8761:15cccb6b16f:-4128</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>401e8761:15cccb6b16f:-4127</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel/>
+                    <typeName>xy.ui.testing.action.CallMainMethodAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel/>
+        <typeName>Encapsulation [context=FieldContext [fieldName=startCallMainMethodAction, containingType=MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(testActionsRecordingStartOption, xy.ui.testing.action.CallMainMethodAction), containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.Tester], fieldName=buttons]]]], subContext=NullableInstance, encapsulatedObjectType=xy.ui.testing.action.CallMainMethodAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>

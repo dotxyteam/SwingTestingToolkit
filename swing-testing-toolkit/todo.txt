@@ -1,3 +1,4 @@
+- bug when checking "start by calling main method"
 - click on stop button while playing often freezes
 - need busy indicator when click on stop button while playing
 - actions scheduling issue:

@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JList;
 import javax.swing.JTable;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
@@ -43,34 +44,62 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
-		if (!(c instanceof JTable)) {
-			return false;
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
+		if (c instanceof JTable) {
+			JTable table = (JTable) c;
+			MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
+			int rowIndex = table.rowAtPoint(mouseEvt.getPoint());
+			if (rowIndex == -1) {
+				return false;
+			}
+			firstItemToSelect = rowIndex;
+			lastItemToSelect = rowIndex;
+			return true;
 		}
-		JTable table = (JTable) c;
-		MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
-		int rowIndex = table.rowAtPoint(mouseEvt.getPoint());
-		if (rowIndex == -1) {
-			return false;
+		if (c instanceof JList) {
+			JList list = (JList) c;
+			MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
+			int rowIndex = list.locationToIndex(mouseEvt.getPoint());
+			if (rowIndex == -1) {
+				return false;
+			}
+			firstItemToSelect = rowIndex;
+			lastItemToSelect = rowIndex;
+			return true;
 		}
-		firstItemToSelect = rowIndex;
-		lastItemToSelect = rowIndex;
-		return true;
+		return false;
 	}
 
 	@Override
 	public void execute(Component c, Tester tester) {
-		final JTable table = (JTable) c;
-		TestingUtils.invokeInUIThread(new Runnable() {
-			@Override
-			public void run() {
-				if (addedToExistingSelection) {
-					table.getSelectionModel().addSelectionInterval(firstItemToSelect, lastItemToSelect);
-				} else {
-					table.getSelectionModel().setSelectionInterval(firstItemToSelect, lastItemToSelect);
+		if (c instanceof JTable) {
+			final JTable table = (JTable) c;
+			TestingUtils.invokeInUIThread(new Runnable() {
+				@Override
+				public void run() {
+					if (addedToExistingSelection) {
+						table.getSelectionModel().addSelectionInterval(firstItemToSelect, lastItemToSelect);
+					} else {
+						table.getSelectionModel().setSelectionInterval(firstItemToSelect, lastItemToSelect);
+					}
 				}
-			}
-		});
+			});
+		} else if (c instanceof JList) {
+			final JList list = (JList) c;
+			TestingUtils.invokeInUIThread(new Runnable() {
+				@Override
+				public void run() {
+					if (addedToExistingSelection) {
+						list.getSelectionModel().addSelectionInterval(firstItemToSelect, lastItemToSelect);
+					} else {
+						list.getSelectionModel().setSelectionInterval(firstItemToSelect, lastItemToSelect);
+					}
+				}
+			});
+		} else {
+			throw new AssertionError();
+		}
 	}
 
 	@Override
