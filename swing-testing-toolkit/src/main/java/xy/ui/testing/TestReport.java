@@ -253,7 +253,7 @@ public class TestReport {
 		}
 
 		public void during(Tester tester) {
-			File file = TestingUtils.saveAllTestableWindowImages(tester, getDirectory());
+			File file = TestingUtils.saveAllTestableWindowsScreenshot(tester, getDirectory());
 			if (file == null) {
 				windowsImageFileName = null;
 			} else {

@@ -16,10 +16,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -166,7 +168,7 @@ public class TestingUtils {
 		sortWindowsByOwnershipDepth(openWindows);
 		Collections.reverse(openWindows);
 		for (Window w : openWindows) {
-			if(!w.isVisible()){
+			if (!w.isVisible()) {
 				continue;
 			}
 			tester.logInfo("Closing " + w);
@@ -267,7 +269,7 @@ public class TestingUtils {
 		return false;
 	}
 
-	public static File saveAllTestableWindowImages(Tester tester, File directory) {
+	public static File saveAllTestableWindowsScreenshot(Tester tester, File directory) {
 		List<BufferedImage> images = new ArrayList<BufferedImage>();
 		for (Window w : getAllTestableWindows(tester)) {
 			if (!w.isVisible()) {
@@ -279,7 +281,7 @@ public class TestingUtils {
 		if (images.size() == 0) {
 			return null;
 		}
-		return saveImage(directory, joinImages(images));
+		return saveScreenshot(directory, joinImages(images));
 	}
 
 	public static BufferedImage joinImages(List<BufferedImage> images, boolean horizontallyElseVertically) {
@@ -315,14 +317,21 @@ public class TestingUtils {
 		return joinImages(images, true);
 	}
 
-	public static File saveImage(File directory, BufferedImage image) {
+	public static File saveScreenshot(File directory, BufferedImage image) {
 		String fileExtension = "png";
-		File outputfile;
-		try {
-			outputfile = File.createTempFile("image-", "." + fileExtension, directory);
-		} catch (IOException e1) {
-			throw new AssertionError(
-					"Failed to save image file in the directory: '" + directory.getAbsolutePath() + "': " + e1);
+		File outputfile = new File(directory,
+				"screenschot-" + new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(new Date()) + "." + fileExtension);
+		if (outputfile.exists()) {
+			int newOutputFileNameIndex = 0;
+			File newOutputFile;
+			while (true) {
+				newOutputFile = new File(outputfile.getPath().replaceAll("\\." + fileExtension + "$",
+						"-" + newOutputFileNameIndex + "." + fileExtension));
+				if(!newOutputFile.exists()){
+					outputfile = newOutputFile;
+					break;
+				}
+			}
 		}
 		try {
 			ImageIO.write(image, fileExtension, outputfile);
@@ -344,8 +353,8 @@ public class TestingUtils {
 
 	}
 
-	public static File saveTestableComponentImage(Tester tester, Component c, File directory) {
-		return saveImage(directory, getScreenShot(c));
+	public static File saveTestableComponentScreenshot(Tester tester, Component c, File directory) {
+		return saveScreenshot(directory, getScreenShot(c));
 	}
 
 	public static void purgeAllReportsDirectory() {
@@ -483,6 +492,7 @@ public class TestingUtils {
 					testEditor.toFront();
 				}
 			});
+			Toolkit.getDefaultToolkit().beep();
 			if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
 					"Test specification not found." + "\nThis test editor window will be automatically closed in "
 							+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
@@ -539,6 +549,7 @@ public class TestingUtils {
 						testEditor.toFront();
 					}
 				});
+				Toolkit.getDefaultToolkit().beep();
 				if (askWithTimeout(testEditor.getSwingRenderer(), testEditor,
 						"This test editor window will be automatically closed in "
 								+ FAILED_TEST_FIXTURE_REQUEST_TIMEOUT_SECONDS + " seconds.",
@@ -649,6 +660,9 @@ public class TestingUtils {
 			}
 		});
 		while (!invoked[0]) {
+			if (Thread.currentThread().isInterrupted()) {
+				break;
+			}
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

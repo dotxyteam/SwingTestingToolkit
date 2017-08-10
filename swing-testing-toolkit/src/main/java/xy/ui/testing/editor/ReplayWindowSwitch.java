@@ -14,6 +14,8 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 	protected List<TestAction> actionsToReplay;
 	protected ReplayStatus replayStatus = new ReplayStatus();
 	protected String currentActionDescription;
+	protected TestReport lastTestReport;
+	protected Throwable replayThreadError;
 
 	public ReplayWindowSwitch(TestEditor testEditor) {
 		super(testEditor);
@@ -36,7 +38,10 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 
 	@Override
 	protected void onBegining() {
+		lastTestReport = null;
+		replayThreadError = null;
 		replayThread = new Thread(TestEditor.class.getName() + " Replay Thread") {
+
 			@Override
 			public void run() {
 				try {
@@ -48,7 +53,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 							currentActionDescription = (actionIndex + 1) + " - " + currentActionDescription;
 							getSwingRenderer().refreshAllFieldControls(getStatusControlForm(), false);
 							testEditor.setSelectedActionIndex(actionIndex);
-							while(ReplayWindowSwitch.this.isPaused()){
+							while (ReplayWindowSwitch.this.isPaused()) {
 								try {
 									Thread.sleep(1000);
 								} catch (InterruptedException e) {
@@ -58,22 +63,23 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 						}
 
 					};
-					final TestReport testReport = getTester().replay(actionsToReplay, listener);
+					lastTestReport = getTester().replay(actionsToReplay, listener);
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							testEditor.setTestReport(testReport);
-							testEditor.showReportTab();
-							getStatusControlObject().stop();							
+							getStatusControlObject().stop();
 						}
 					});
 				} catch (final Throwable t) {
+					getTester().logError(t);
+					replayThreadError = t;
+				} finally {
 					SwingUtilities.invokeLater(new Runnable() {
 						@Override
 						public void run() {
-							getTester().logError(t);
-							getSwingRenderer().handleExceptionsFromDisplayedUI(ReplayWindowSwitch.this.getWindow(), t);
-							getStatusControlObject().stop();
+							if (ReplayWindowSwitch.this.isActive()) {
+								getStatusControlObject().stop();
+							}
 						}
 					});
 				}
@@ -89,6 +95,13 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 			replayThread.join();
 		} catch (InterruptedException e) {
 			throw new AssertionError(e);
+		}
+		if (replayThreadError != null) {
+			getSwingRenderer().handleExceptionsFromDisplayedUI(ReplayWindowSwitch.this.getWindow(), replayThreadError);
+		}
+		if (lastTestReport != null) {
+			testEditor.setTestReport(lastTestReport);
+			testEditor.showReportTab();
 		}
 	}
 

@@ -8,8 +8,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
@@ -23,7 +21,7 @@ public abstract class AbstractWindowSwitch {
 	protected TestEditor testEditor;
 	protected JFrame controlWindow;
 	protected JPanel statusControlForm;
-	
+
 	protected Rectangle lastBounds;
 	protected boolean controlWindowAlwaysOnTopLastly = true;
 
@@ -88,12 +86,11 @@ public abstract class AbstractWindowSwitch {
 	public JFrame getWindow() {
 		return controlWindow;
 	}
-	
+
 	public void setPausedAndUpdateUI(boolean b) {
 		setPaused(b);
 		getSwingRenderer().refreshAllFieldControls(statusControlForm, false);
 	}
-
 
 	public class StatusControlObject {
 
@@ -149,22 +146,12 @@ public abstract class AbstractWindowSwitch {
 				@Override
 				public void windowOpened(WindowEvent e) {
 					setAlwaysOnTop(controlWindowAlwaysOnTopLastly);
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							onBegining();
-						}
-					});
+					onBegining();
 				}
 
 				@Override
 				public void windowClosing(WindowEvent e) {
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							onEnd();
-						}
-					});
+					onEnd();
 					controlWindowAlwaysOnTopLastly = isAlwaysOnTop();
 				}
 
