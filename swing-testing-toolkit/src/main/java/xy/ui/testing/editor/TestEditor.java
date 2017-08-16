@@ -33,7 +33,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import xy.reflect.ui.ReflectionUI;
+import xy.reflect.ui.CustomizedUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
@@ -57,14 +57,12 @@ import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
 import xy.reflect.ui.info.type.factory.ITypeInfoProxyFactory;
-import xy.reflect.ui.info.type.factory.InfoCustomizationsFactory;
 import xy.reflect.ui.info.type.factory.TypeInfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
-import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.ClassUtils;
@@ -137,7 +135,7 @@ public class TestEditor extends JFrame {
 			this);
 
 	protected SwingRenderer swingRenderer;
-	protected ReflectionUI reflectionUI;
+	protected CustomizedUI reflectionUI;
 	protected InfoCustomizations infoCustomizations;
 	protected Component componentFinderInitializationSource;
 
@@ -158,8 +156,8 @@ public class TestEditor extends JFrame {
 		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();
-		reflectionUI = createTesterReflectionUI();
-		swingRenderer = createSwingRenderer(reflectionUI, infoCustomizations);
+		reflectionUI = createTesterReflectionUI(infoCustomizations);
+		swingRenderer = createSwingRenderer(reflectionUI);
 		createControls();
 	}
 
@@ -548,12 +546,12 @@ public class TestEditor extends JFrame {
 		return BUILT_IN_KEYBOARD_INTERACTION_CLASSES;
 	}
 
-	protected SwingRenderer createSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
-		return new TestEditorSwingRenderer(reflectionUI, infoCustomizations);
+	protected SwingRenderer createSwingRenderer(CustomizedUI reflectionUI) {
+		return new TestEditorSwingRenderer(reflectionUI);
 	}
 
-	protected ReflectionUI createTesterReflectionUI() {
-		return new TestEditorReflectionUI();
+	protected CustomizedUI createTesterReflectionUI(InfoCustomizations infoCustomizations) {
+		return new TestEditorReflectionUI(infoCustomizations);
 	}
 
 	protected static AlternativeWindowDecorationsPanel getAlternateWindowDecorationsContentPane(Window window,
@@ -605,8 +603,8 @@ public class TestEditor extends JFrame {
 
 	protected class TestEditorSwingRenderer extends SwingCustomizer {
 
-		public TestEditorSwingRenderer(ReflectionUI reflectionUI, InfoCustomizations infoCustomizations) {
-			super(reflectionUI, infoCustomizations, getAlternateCustomizationsFilePath());
+		public TestEditorSwingRenderer(CustomizedUI reflectionUI) {
+			super(reflectionUI, getAlternateCustomizationsFilePath());
 		}
 
 		@Override
@@ -684,13 +682,16 @@ public class TestEditor extends JFrame {
 
 	}
 
-	protected class TestEditorReflectionUI extends ReflectionUI {
+	protected class TestEditorReflectionUI extends CustomizedUI {
+
+		public TestEditorReflectionUI(InfoCustomizations infoCustomizations) {
+			super(infoCustomizations);
+		}
 
 		@Override
-		public ITypeInfo getTypeInfo(ITypeInfoSource typeSource) {
-			ITypeInfo result = super.getTypeInfo(typeSource);
+		protected ITypeInfo getTypeInfoBeforeCustomizations(ITypeInfo type) {
+			ITypeInfo result = type;
 			result = new StandardProxyFactory().get(result);
-			result = new InfoCustomizationsFactory(this, infoCustomizations).get(result);
 			result = new ExtensionsProxyFactory().get(result);
 			return result;
 		}
