@@ -19,7 +19,7 @@ public class ComponentInspector {
 	private ComponentInspectorNode rootNode;
 
 	public ComponentInspector(Component c, TestEditor testEditor) {
-		this.rootNode = new ComponentInspectorNode(c, testEditor);
+		this.rootNode = new ComponentInspectorNode(null, c, testEditor);
 	}
 
 	public ComponentInspectorNode getRootNode() {
@@ -58,17 +58,19 @@ public class ComponentInspector {
 	public class ComponentInspectorNode {
 
 		protected PropertyBasedComponentFinder util;
+		protected ComponentInspectorNode parent;
 		protected List<ComponentInspectorNode> chilren;
+		protected List<ComponentInspectorNode> ancestors;
 		protected List<String> visibleStrings;
 		protected Component c;
 		protected TestEditor testEditor;
 		protected String componentTreeDisplayedStringsSummary;
 
-		public ComponentInspectorNode(Component c, TestEditor testEditor) {
+		public ComponentInspectorNode(ComponentInspectorNode parent, Component c, TestEditor testEditor) {
+			this.parent = parent;
 			this.c = c;
 			this.testEditor = testEditor;
 			this.visibleStrings = testEditor.getTester().extractDisplayedStrings(c);
-			this.visibleStrings.remove("");
 		}
 
 		protected PropertyBasedComponentFinder createOrGetUtil() {
@@ -89,12 +91,16 @@ public class ComponentInspector {
 			return util;
 		}
 
+		public ComponentInspectorNode getParent() {
+			return parent;
+		}
+
 		public Component getComponent() {
 			return c;
 		}
 
-		public String getComponentClassName() {
-			return c.getClass().getName();
+		public Class<?> getComponentClass() {
+			return c.getClass();
 		}
 
 		public PropertyValue[] getPropertyValues() {
@@ -108,11 +114,23 @@ public class ComponentInspector {
 				if (c instanceof Container) {
 					Container container = (Container) c;
 					for (Component child : testEditor.getTester().getChildrenComponents(container)) {
-						chilren.add(new ComponentInspectorNode(child, testEditor));
+						chilren.add(new ComponentInspectorNode(this, child, testEditor));
 					}
 				}
 			}
 			return chilren;
+		}
+
+		public List<ComponentInspectorNode> getAncestors() {
+			if (ancestors == null) {
+				ancestors = new ArrayList<ComponentInspectorNode>();
+				ComponentInspectorNode ancestor = parent;
+				while (ancestor != null) {
+					ancestors.add(ancestor);
+					ancestor = ancestor.getParent();
+				}
+			}
+			return ancestors;
 		}
 
 		public List<String> getComponentTreeDisplayedStrings() {
@@ -135,7 +153,6 @@ public class ComponentInspector {
 					stringListReduced = true;
 				}
 				if (allVisibleStrings.size() > 0) {
-					result.append(" (");
 					for (int i = 0; i < allVisibleStrings.size(); i++) {
 						String s = allVisibleStrings.get(i);
 						s = ReflectionUIUtils.truncateNicely(s, MAX_VISIBLE_STRING_LENGTH);
@@ -147,7 +164,6 @@ public class ComponentInspector {
 					if (stringListReduced) {
 						result.append(", ...");
 					}
-					result.append(")");
 				}
 				componentTreeDisplayedStringsSummary = result.toString();
 			}
@@ -172,7 +188,7 @@ public class ComponentInspector {
 
 		@Override
 		public String toString() {
-			return getComponentClassName() + getComponentTreeDisplayedStringsSummary();
+			return getComponentClass().getName() + "(" + getComponentTreeDisplayedStringsSummary() + ")";
 
 		}
 

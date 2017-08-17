@@ -188,7 +188,7 @@ public class TestEditor extends JFrame {
 				if (!(event.getSource() instanceof Component)) {
 					return;
 				}
-				Component c = (Component) event.getSource();
+				Component c = getComponent(event);
 				if (!c.isShowing()) {
 					return;
 				}
@@ -228,6 +228,21 @@ public class TestEditor extends JFrame {
 		Toolkit.getDefaultToolkit().addAWTEventListener(recordingListener, AWTEvent.MOUSE_MOTION_EVENT_MASK
 				+ AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK + AWTEvent.WINDOW_EVENT_MASK);
 
+	}
+
+	protected Component getComponent(AWTEvent event) {
+		Component result =  (Component) event.getSource();
+		if (event instanceof MouseEvent) {
+			MouseEvent mouseEvent = (MouseEvent) event;
+			if (mouseEvent.getID() == MouseEvent.MOUSE_MOVED) {
+				Component actualEventSource = SwingUtilities.getDeepestComponentAt(result, mouseEvent.getX(),
+						mouseEvent.getY());
+				if (actualEventSource != null) {
+					result = actualEventSource;
+				}
+			}
+		}
+		return result;
 	}
 
 	protected void cleanupWindowSwitchesEventHandling() {

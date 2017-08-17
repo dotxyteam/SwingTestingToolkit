@@ -116,7 +116,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 		} catch (Exception e) {
 			throw new TestFailure(
 					"Visible strings checking failed: " + e.toString()
-							+ ".\nThese are the original and the current visible strings:\n"
+							+ ".\nThese are the expected and actual visible strings:\n"
 							+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
 							+ TestingUtils.formatVisibleStrings(currentVisibleStrings), e);
 		}

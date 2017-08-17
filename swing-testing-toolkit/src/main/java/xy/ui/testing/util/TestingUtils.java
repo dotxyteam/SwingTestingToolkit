@@ -327,7 +327,7 @@ public class TestingUtils {
 			while (true) {
 				newOutputFile = new File(outputfile.getPath().replaceAll("\\." + fileExtension + "$",
 						"-" + newOutputFileNameIndex + "." + fileExtension));
-				if(!newOutputFile.exists()){
+				if (!newOutputFile.exists()) {
 					outputfile = newOutputFile;
 					break;
 				}
@@ -631,12 +631,9 @@ public class TestingUtils {
 	public static List<String> extractComponentTreeDisplayedStrings(Component c, final Tester tester) {
 		final List<String> result = new ArrayList<String>();
 		TestingUtils.visitComponentTree(tester, c, new IComponentTreeVisitor() {
-
 			@Override
 			public boolean visit(Component c) {
-				if (tester.isVisible(c)) {
-					result.addAll(tester.extractDisplayedStrings(c));
-				}
+				result.addAll(tester.extractDisplayedStrings(c));
 				return true;
 			}
 		}, true);

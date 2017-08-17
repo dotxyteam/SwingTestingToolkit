@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.CellRendererPane;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JTable;
@@ -337,7 +338,19 @@ public class Tester {
 	}
 
 	public boolean isVisible(Component c) {
+		if (c instanceof CellRendererPane) {
+			return true;
+		}
 		return c.isVisible();
+	}
+
+	public boolean isTestable(Component c) {
+		for (TestEditor testEditor : TestingUtils.getTestEditors(this)) {
+			if (TestingUtils.isTestEditorComponent(testEditor, c)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public List<Component> getChildrenComponents(Container container) {
@@ -359,15 +372,6 @@ public class Tester {
 			}
 		});
 		return result;
-	}
-
-	public boolean isTestable(Component c) {
-		for (TestEditor testEditor : TestingUtils.getTestEditors(this)) {
-			if (TestingUtils.isTestEditorComponent(testEditor, c)) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	public List<String> extractDisplayedStrings(Component c) {
@@ -406,6 +410,7 @@ public class Tester {
 			JList list = (JList) c;
 			result.addAll(extractDisplayedStringsFromList(list));
 		}
+		result.removeAll(Arrays.asList(""));
 		return result;
 	}
 
