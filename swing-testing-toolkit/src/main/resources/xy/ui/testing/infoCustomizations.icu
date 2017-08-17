@@ -10585,6 +10585,7 @@
         <customFieldsOrder>completenessChecked</customFieldsOrder>
         <customFieldsOrder>orderChecked</customFieldsOrder>
         <customFieldsOrder>visibleStrings</customFieldsOrder>
+        <customFieldsOrder>negated</customFieldsOrder>
         <customTypeCaption>Check Whole Window Visible Strings</customTypeCaption>
         <fieldsCustomizations>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7a85</uniqueIdentifier>
@@ -10773,6 +10774,39 @@
                         <uniqueIdentifier>-15ce88ad:15dede02824:-146a</uniqueIdentifier>
                     </menuModel>
                     <typeName>int</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-37dbf736:15deeb03c9d:4fc</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Negate</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>negated</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-37dbf736:15deeb03c9d:4fd</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-37dbf736:15deeb03c9d:500</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-37dbf736:15deeb03c9d:501</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>boolean</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificTypeCustomizations>
@@ -25678,6 +25712,11 @@
         <specificProperties/>
         <abstractForced>false</abstractForced>
         <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customFieldsOrder>completenessChecked</customFieldsOrder>
+        <customFieldsOrder>orderChecked</customFieldsOrder>
+        <customFieldsOrder>visibleStrings</customFieldsOrder>
+        <customFieldsOrder>negated</customFieldsOrder>
+        <customFieldsOrder>componentFinder</customFieldsOrder>
         <customTypeCaption>Check Visible Strings</customTypeCaption>
         <fieldsCustomizations>
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443f</uniqueIdentifier>
@@ -25896,6 +25935,39 @@
                         <uniqueIdentifier>-15ce88ad:15dede02824:-999</uniqueIdentifier>
                     </menuModel>
                     <typeName>xy.ui.testing.finder.ComponentFinder</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-37dbf736:15deeb03c9d:7fd</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption>Negate</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>negated</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-37dbf736:15deeb03c9d:7fe</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldDisplayed>false</nullStatusFieldDisplayed>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-37dbf736:15deeb03c9d:7ff</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-37dbf736:15deeb03c9d:800</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>boolean</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificTypeCustomizations>

@@ -6,16 +6,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import com.thoughtworks.xstream.XStream;
 
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
+@SuppressWarnings("unused")
 public class TestReport {
 
 	protected static final String ALL_REPORTS_DIRECTORY_PROPERTY_KEY = "xy.ui.testing.reportsDirectory";
@@ -252,13 +257,19 @@ public class TestReport {
 			startTimestamp = System.currentTimeMillis();
 		}
 
-		public void during(Tester tester) {
-			File file = TestingUtils.saveAllTestableWindowsScreenshot(tester, getDirectory());
-			if (file == null) {
-				windowsImageFileName = null;
-			} else {
-				windowsImageFileName = file.getName();
-			}
+		public void during(final Tester tester) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					File file = TestingUtils.saveAllTestableWindowsScreenshot(tester, getDirectory());
+					if (file == null) {
+						windowsImageFileName = null;
+					} else {
+						windowsImageFileName = file.getName();
+					}
+				}
+			});
+
 		}
 
 		public void ending() {

@@ -20,6 +20,14 @@ public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 		delegate.setComponentFinder(windowFinder);
 	}
 
+	public boolean isNegated() {
+		return delegate.isNegated();
+	}
+
+	public void setNegated(boolean negated) {
+		delegate.setNegated(negated);
+	}
+
 	public List<String> getVisibleStrings() {
 		return delegate.getVisibleStrings();
 	}

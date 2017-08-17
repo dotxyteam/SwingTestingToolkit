@@ -2,7 +2,6 @@ package xy.ui.testing.action.component;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
-import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
@@ -16,7 +15,6 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-@SuppressWarnings("unused")
 public class CheckVisibleStringsAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +22,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 	protected List<String> visibleStrings = new ArrayList<String>();
 	protected boolean completenessChecked = false;
 	protected boolean orderChecked = false;
+	protected boolean negated = false;
 
 	public List<String> getVisibleStrings() {
 		return visibleStrings;
@@ -35,6 +34,14 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 
 	public void loadVisibleStringsFromText(String s) {
 		visibleStrings = TestingUtils.parseVisibleStrings(s);
+	}
+
+	public boolean isNegated() {
+		return negated;
+	}
+
+	public void setNegated(boolean negated) {
+		this.negated = negated;
 	}
 
 	public boolean isCompletenessChecked() {
@@ -76,50 +83,57 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 	public Component findComponent(Tester tester) {
 		Component c = super.findComponent(tester);
 		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeDisplayedStrings(c, tester);
-		try {
-			if (completenessChecked && orderChecked) {
-				if (!visibleStrings.equals(currentVisibleStrings)) {
-					throw new TestFailure("The visible string(s) have changed");
-				}
-			} else if (completenessChecked && !orderChecked) {
-				{
-					List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-					currentVisibleStrings2.removeAll(visibleStrings);
-					if (currentVisibleStrings.size() > 0) {
-						throw new TestFailure("The following visible string(s) were not declared: "
-								+ TestingUtils.formatVisibleStrings(new ArrayList<String>(currentVisibleStrings2)));
-					}
-				}
-				{
-					List<String> visibleStrings2 = new ArrayList<String>(visibleStrings);
-					visibleStrings2.removeAll(currentVisibleStrings);
-					if (visibleStrings2.size() > 0) {
-						throw new TestFailure("The following declared string(s) are not visible: "
-								+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStrings2)));
-					}
-				}
-			} else if (!completenessChecked && orderChecked) {
+		String checkFailureMessage = null;
+		if (completenessChecked && orderChecked) {
+			if (!visibleStrings.equals(currentVisibleStrings)) {
+				checkFailureMessage = "The visible string(s) have changed";
+			}
+		} else if (completenessChecked && !orderChecked) {
+			{
 				List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-				currentVisibleStrings2.retainAll(visibleStrings);
-				if (!visibleStrings.equals(currentVisibleStrings2)) {
-					throw new TestFailure("The visible strings order or occurences have changed");
-				}
-			} else if (!completenessChecked && !orderChecked) {
-				SortedSet<String> visibleStringSortedSet = new TreeSet<String>(visibleStrings);
-				visibleStringSortedSet.removeAll(currentVisibleStrings);
-				if (visibleStringSortedSet.size() > 0) {
-					throw new TestFailure("The following declared visible string(s) were not found: "
-							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStringSortedSet)));
+				currentVisibleStrings2.removeAll(visibleStrings);
+				if (currentVisibleStrings.size() > 0) {
+					checkFailureMessage = "The following visible string(s) were not declared: "
+							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(currentVisibleStrings2));
 				}
 			}
-			return c;
-		} catch (Exception e) {
-			throw new TestFailure(
-					"Visible strings checking failed: " + e.toString()
-							+ ".\nThese are the expected and actual visible strings:\n"
-							+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
-							+ TestingUtils.formatVisibleStrings(currentVisibleStrings), e);
+			{
+				List<String> visibleStrings2 = new ArrayList<String>(visibleStrings);
+				visibleStrings2.removeAll(currentVisibleStrings);
+				if (visibleStrings2.size() > 0) {
+					checkFailureMessage = "The following declared string(s) are not visible: "
+							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStrings2));
+				}
+			}
+		} else if (!completenessChecked && orderChecked) {
+			List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
+			currentVisibleStrings2.retainAll(visibleStrings);
+			if (!visibleStrings.equals(currentVisibleStrings2)) {
+				checkFailureMessage = "The visible strings order or occurences have changed";
+			}
+		} else if (!completenessChecked && !orderChecked) {
+			SortedSet<String> visibleStringSortedSet = new TreeSet<String>(visibleStrings);
+			visibleStringSortedSet.removeAll(currentVisibleStrings);
+			if (visibleStringSortedSet.size() > 0) {
+				checkFailureMessage = "The following declared visible string(s) were not found: "
+						+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStringSortedSet));
+			}
 		}
+		if (negated) {
+			if (checkFailureMessage == null) {
+				checkFailureMessage = "The check was successful but negated";
+			} else {
+				checkFailureMessage = null;
+			}
+		}
+		if (checkFailureMessage != null) {
+			throw new TestFailure("Visible strings checking failed: " + checkFailureMessage
+					+ ".\nThese are the expected and actual visible strings:\n"
+					+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
+					+ TestingUtils.formatVisibleStrings(currentVisibleStrings));
+		}
+		return c;
+
 	}
 
 	@Override
