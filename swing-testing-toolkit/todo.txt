@@ -1,3 +1,5 @@
+- popup menu window is often a sub component, often a new window
+	(probably when out of bounds of the parent window)
 - titled border visible text not extracted
 - bug when checking "start by calling main method"
 - click on stop button while playing often freezes

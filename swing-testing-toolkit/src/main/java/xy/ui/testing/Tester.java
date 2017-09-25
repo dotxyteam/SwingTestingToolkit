@@ -465,13 +465,13 @@ public class Tester {
 		return result;
 	}
 
-	protected Collection<? extends String> extractDisplayedStringsFromTree(JTree tree) {
+	protected List<String> extractDisplayedStringsFromTree(JTree tree) {
 		List<String> result = new ArrayList<String>();
-		result.addAll(extractVisibleStringsFromTree(0, tree.getModel().getRoot(), tree));
+		result.addAll(extractDisplayedStringsFromTree(0, tree.getModel().getRoot(), tree));
 		return result;
 	}
 
-	protected List<String> extractVisibleStringsFromTree(int currentRow, Object currentNode, JTree tree) {
+	protected List<String> extractDisplayedStringsFromTree(int currentRow, Object currentNode, JTree tree) {
 		List<String> result = new ArrayList<String>();
 		TreeModel model = tree.getModel();
 		try {
@@ -483,7 +483,7 @@ public class Tester {
 		}
 		for (int i = 0; i < model.getChildCount(currentNode); i++) {
 			Object childNode = model.getChild(currentNode, i);
-			result.addAll(extractVisibleStringsFromTree(currentRow + 1, childNode, tree));
+			result.addAll(extractDisplayedStringsFromTree(currentRow + 1, childNode, tree));
 		}
 		return result;
 	}
