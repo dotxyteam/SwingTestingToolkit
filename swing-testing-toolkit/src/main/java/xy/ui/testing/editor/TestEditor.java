@@ -56,8 +56,8 @@ import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
-import xy.reflect.ui.info.type.factory.ITypeInfoProxyFactory;
-import xy.reflect.ui.info.type.factory.TypeInfoProxyFactory;
+import xy.reflect.ui.info.type.factory.IInfoProxyFactory;
+import xy.reflect.ui.info.type.factory.InfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
@@ -706,8 +706,8 @@ public class TestEditor extends JFrame {
 		@Override
 		protected ITypeInfo getTypeInfoBeforeCustomizations(ITypeInfo type) {
 			ITypeInfo result = type;
-			result = new StandardProxyFactory().get(result);
-			result = new ExtensionsProxyFactory().get(result);
+			result = new StandardProxyFactory().wrapType(result);
+			result = new ExtensionsProxyFactory().wrapType(result);
 			return result;
 		}
 
@@ -726,7 +726,7 @@ public class TestEditor extends JFrame {
 			TestEditor.this.logDebug(t);
 		}
 
-		protected class ExtensionsProxyFactory extends TypeInfoProxyFactory {
+		protected class ExtensionsProxyFactory extends InfoProxyFactory {
 
 			protected final Pattern encapsulationTypeNamePattern = Pattern
 					.compile("^Encapsulation \\[.*, encapsulatedObjectType=(.*)\\]$");
@@ -841,7 +841,7 @@ public class TestEditor extends JFrame {
 
 		}
 
-		protected class StandardProxyFactory extends TypeInfoProxyFactory {
+		protected class StandardProxyFactory extends InfoProxyFactory {
 
 			protected final Pattern polymorphicComponentFindeFieldEncapsulationTypeNamePattern = Pattern.compile(
 					"^Encapsulation \\[context=FieldContext \\[fieldName=componentFinder.*\\], subContext=PolymorphicInstance.*\\]$");
@@ -874,7 +874,7 @@ public class TestEditor extends JFrame {
 
 			@Override
 			public String toString() {
-				return TestEditor.class.getName() + TypeInfoProxyFactory.class.getSimpleName();
+				return TestEditor.class.getName() + InfoProxyFactory.class.getSimpleName();
 			}
 
 			@Override
@@ -1392,7 +1392,7 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
-							public ITypeInfoProxyFactory getTypeSpecificities() {
+							public IInfoProxyFactory getTypeSpecificities() {
 								return null;
 							}
 
