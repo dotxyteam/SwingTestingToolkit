@@ -89,7 +89,7 @@ public abstract class AbstractWindowSwitch {
 
 	public void setPausedAndUpdateUI(boolean b) {
 		setPaused(b);
-		getSwingRenderer().refreshAllFieldControls(statusControlForm, false);
+		getSwingRenderer().refreshForm(statusControlForm, false);
 	}
 
 	public class StatusControlObject {

@@ -124,7 +124,7 @@ public class TestEditor extends JFrame {
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
 	protected static final String TEST_REPORT_STEPS_FIELD_NAME = "steps";
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
-			.putImageInCached(TestingUtils.loadImageResource("ExtensionAction.png"));
+			.putImageInCache(TestingUtils.loadImageResource("ExtensionAction.png"));
 
 	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
 	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
@@ -231,7 +231,7 @@ public class TestEditor extends JFrame {
 	}
 
 	protected Component getComponent(AWTEvent event) {
-		Component result =  (Component) event.getSource();
+		Component result = (Component) event.getSource();
 		if (event instanceof MouseEvent) {
 			MouseEvent mouseEvent = (MouseEvent) event;
 			if (mouseEvent.getID() == MouseEvent.MOUSE_MOVED) {
@@ -431,7 +431,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void refresh() {
-		getSwingRenderer().refreshAllFieldControls(mainForm, false);
+		getSwingRenderer().refreshForm(mainForm, false);
 	}
 
 	public void showReportTab() {
@@ -1199,7 +1199,7 @@ public class TestEditor extends JFrame {
 
 			@Override
 			protected List<AbstractListAction> getDynamicActions(IListTypeInfo listType,
-					final ItemPosition anyRootListItemPosition, final List<? extends ItemPosition> selection) {
+					final List<? extends ItemPosition> selection, final Object rootListValue) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
@@ -1236,7 +1236,7 @@ public class TestEditor extends JFrame {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
 									for (ItemPosition itemPosition : selection) {
-										TestAction testAction = (TestAction) itemPosition.getItem();
+										TestAction testAction = (TestAction) itemPosition.getItem(rootListValue);
 										selectedActions.add(testAction);
 									}
 									startReplay(selectedActions);
@@ -1261,9 +1261,9 @@ public class TestEditor extends JFrame {
 										List<TestAction> actionsToReplay = new ArrayList<TestAction>();
 										ItemPosition singleSelection = selection.get(0);
 										for (int i = singleSelection.getIndex(); i < singleSelection
-												.getContainingListSize(); i++) {
+												.getContainingListSize(rootListValue); i++) {
 											TestAction testAction = (TestAction) singleSelection.getSibling(i)
-													.getItem();
+													.getItem(rootListValue);
 											actionsToReplay.add(testAction);
 										}
 										startReplay(actionsToReplay);
@@ -1298,16 +1298,16 @@ public class TestEditor extends JFrame {
 						return result;
 					}
 				}
-				return super.getDynamicActions(listType, anyRootListItemPosition, selection);
+				return super.getDynamicActions(listType, selection, rootListValue);
 			}
 
 			@Override
 			protected List<AbstractListProperty> getDynamicProperties(IListTypeInfo listType,
-					ItemPosition anyRootListItemPosition, final List<? extends ItemPosition> selection) {
+					final List<? extends ItemPosition> selection, final Object rootListValue) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					List<AbstractListProperty> result = new ArrayList<AbstractListProperty>(
-							super.getDynamicProperties(listType, anyRootListItemPosition, selection));
+							super.getDynamicProperties(listType, selection, rootListValue));
 					if (selection.size() >= 1) {
 						result.add(new AbstractListProperty() {
 
@@ -1343,7 +1343,7 @@ public class TestEditor extends JFrame {
 							public Object getValue(Object object) {
 								Boolean result = null;
 								for (ItemPosition itemPosition : selection) {
-									TestAction testAction = (TestAction) itemPosition.getItem();
+									TestAction testAction = (TestAction) itemPosition.getItem(rootListValue);
 									if (result == null) {
 										result = testAction.isDisabled();
 									} else {
@@ -1376,7 +1376,7 @@ public class TestEditor extends JFrame {
 									return;
 								}
 								for (ItemPosition itemPosition : selection) {
-									TestAction testAction = (TestAction) itemPosition.getItem();
+									TestAction testAction = (TestAction) itemPosition.getItem(rootListValue);
 									testAction.setDisabled(disabled);
 								}
 							}
@@ -1405,7 +1405,7 @@ public class TestEditor extends JFrame {
 					}
 					return result;
 				}
-				return super.getDynamicProperties(listType, anyRootListItemPosition, selection);
+				return super.getDynamicProperties(listType, selection, rootListValue);
 			}
 
 		}
