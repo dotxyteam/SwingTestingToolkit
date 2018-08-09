@@ -37,6 +37,7 @@ import xy.reflect.ui.CustomizedUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
+import xy.reflect.ui.control.swing.Form;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
@@ -49,6 +50,7 @@ import xy.reflect.ui.info.ValueReturnMode;
 import xy.reflect.ui.info.custom.InfoCustomizations;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListFieldInfo;
+import xy.reflect.ui.info.filter.IInfoFilter;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.method.InvocationData;
 import xy.reflect.ui.info.method.MethodInfoProxy;
@@ -142,7 +144,7 @@ public class TestEditor extends JFrame {
 	protected Tester tester;
 	protected TestReport testReport;
 	protected MainObject mainObject = new MainObject();
-	protected JPanel mainForm;
+	protected Form mainForm;
 
 	protected AWTEventListener recordingListener;
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
@@ -380,12 +382,12 @@ public class TestEditor extends JFrame {
 	}
 
 	protected ListControl getTestActionsControl() {
-		JPanel testerForm = getTesterForm();
+		Form testerForm = getTesterForm();
 		if (testerForm == null) {
 			return null;
 		}
-		FieldControlPlaceHolder fieldControlPlaceHolder = getSwingRenderer().getFieldControlPlaceHolder(testerForm,
-				TEST_ACTIONS_FIELD_NAME);
+		FieldControlPlaceHolder fieldControlPlaceHolder = testerForm
+				.getFieldControlPlaceHolder(TEST_ACTIONS_FIELD_NAME);
 		if (fieldControlPlaceHolder == null) {
 			return null;
 		}
@@ -397,12 +399,12 @@ public class TestEditor extends JFrame {
 	}
 
 	protected ListControl getTestReportStepsControl() {
-		JPanel testReportForm = getTestReportForm();
+		Form testReportForm = getTestReportForm();
 		if (testReportForm == null) {
 			return null;
 		}
-		FieldControlPlaceHolder fieldControlPlaceHolder = getSwingRenderer().getFieldControlPlaceHolder(testReportForm,
-				TEST_REPORT_STEPS_FIELD_NAME);
+		FieldControlPlaceHolder fieldControlPlaceHolder = testReportForm
+				.getFieldControlPlaceHolder(TEST_REPORT_STEPS_FIELD_NAME);
 		if (fieldControlPlaceHolder == null) {
 			return null;
 		}
@@ -413,14 +415,14 @@ public class TestEditor extends JFrame {
 		return (ListControl) c;
 	}
 
-	protected JPanel getTesterForm() {
+	protected Form getTesterForm() {
 		if (mainForm == null) {
 			return null;
 		}
 		return SwingRendererUtils.findFirstObjectDescendantForm(tester, mainForm, getSwingRenderer());
 	}
 
-	protected JPanel getTestReportForm() {
+	protected Form getTestReportForm() {
 		if (mainForm == null) {
 			return null;
 		}
@@ -431,11 +433,11 @@ public class TestEditor extends JFrame {
 	}
 
 	public void refresh() {
-		getSwingRenderer().refreshForm(mainForm, false);
+		mainForm.refreshForm(false);
 	}
 
 	public void showReportTab() {
-		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Report", -1);
+		mainForm.setDisplayedInfoCategory("Report", -1);
 		ListControl stepsControl = getTestReportStepsControl();
 		if (stepsControl.getRootListSize() > 0) {
 			BufferedItemPosition lastStepItemPosition = stepsControl
@@ -445,7 +447,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void showSpecificationTab() {
-		getSwingRenderer().setDisplayedInfoCategory(mainForm, "Specification", -1);
+		mainForm.setDisplayedInfoCategory("Specification", -1);
 		ListControl testActionsControl = getTestActionsControl();
 		if (testActionsControl.getRootListSize() > 0) {
 			BufferedItemPosition firstActionItemPosition = testActionsControl.getRootListItemPosition(0);
@@ -454,10 +456,9 @@ public class TestEditor extends JFrame {
 	}
 
 	public void setTestActionsAndUpdateUI(TestAction[] testActions) {
-		JPanel testerForm = getTesterForm();
-		IFieldInfo testActionsField = getSwingRenderer().getFieldControlPlaceHolder(testerForm, TEST_ACTIONS_FIELD_NAME)
-				.getField();
-		ModificationStack modifStack = getSwingRenderer().getModificationStackByForm().get(testerForm);
+		Form testerForm = getTesterForm();
+		IFieldInfo testActionsField = testerForm.getFieldControlPlaceHolder(TEST_ACTIONS_FIELD_NAME).getField();
+		ModificationStack modifStack = testerForm.getModificationStack();
 		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testActionsField),
 				testActions, modifStack, testActionsField);
 		refresh();
@@ -623,20 +624,28 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		public CustomizingMethodControlPlaceHolder createMethodControlPlaceHolder(JPanel form, IMethodInfo method) {
-			return new CustomizingMethodControlPlaceHolder(this, form, method) {
+		public CustomizingForm createForm(Object object, IInfoFilter infoFilter) {
+			return new CustomizingForm(swingRenderer, object, infoFilter) {
 
 				private static final long serialVersionUID = 1L;
 
 				@Override
-				public IMethodControlData indicateWhenBusy(IMethodControlData data) {
-					if (method.getName().startsWith("switch")) {
-						return data;
-					} else {
-						return super.indicateWhenBusy(data);
-					}
-				}
+				public CustomizingMethodControlPlaceHolder createMethodControlPlaceHolder(IMethodInfo method) {
+					return new CustomizingMethodControlPlaceHolder((SwingCustomizer) swingRenderer, this, method) {
 
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public IMethodControlData indicateWhenBusy(IMethodControlData data) {
+							if (method.getName().startsWith("switch")) {
+								return data;
+							} else {
+								return super.indicateWhenBusy(data);
+							}
+						}
+
+					};
+				}
 			};
 		}
 

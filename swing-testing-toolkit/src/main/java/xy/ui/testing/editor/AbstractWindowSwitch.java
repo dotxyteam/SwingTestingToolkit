@@ -7,7 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import xy.reflect.ui.control.swing.Form;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
@@ -20,7 +20,7 @@ public abstract class AbstractWindowSwitch {
 
 	protected TestEditor testEditor;
 	protected JFrame controlWindow;
-	protected JPanel statusControlForm;
+	protected Form statusControlForm;
 
 	protected Rectangle lastBounds;
 	protected boolean controlWindowAlwaysOnTopLastly = true;
@@ -79,7 +79,7 @@ public abstract class AbstractWindowSwitch {
 		return controlWindow != null;
 	}
 
-	public JPanel getStatusControlForm() {
+	public Form getStatusControlForm() {
 		return statusControlForm;
 	}
 
@@ -89,7 +89,7 @@ public abstract class AbstractWindowSwitch {
 
 	public void setPausedAndUpdateUI(boolean b) {
 		setPaused(b);
-		getSwingRenderer().refreshForm(statusControlForm, false);
+		statusControlForm.refreshForm(false);
 	}
 
 	public class StatusControlObject {

@@ -4,8 +4,7 @@ import java.awt.Component;
 import java.util.List;
 
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-
+import xy.reflect.ui.control.swing.Form;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
@@ -62,10 +61,10 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 	}
 
 	protected void highlightComponentOnSelection(ComponentInspector inspector, JDialog inspectorDialog) {
-		JPanel inpectorForm = SwingRendererUtils.findFirstObjectDescendantForm(inspector, inspectorDialog,
+		Form inpectorForm = SwingRendererUtils.findFirstObjectDescendantForm(inspector, inspectorDialog,
 				getSwingRenderer());
-		final ListControl componentTreeControl = (ListControl) getSwingRenderer()
-				.getFieldControlPlaceHolder(inpectorForm, "rootNode").getFieldControl();
+		final ListControl componentTreeControl = (ListControl) inpectorForm.getFieldControlPlaceHolder("rootNode")
+				.getFieldControl();
 		componentTreeControl.addListControlSelectionListener(new Listener<List<BufferedItemPosition>>() {
 			@Override
 			public void handle(List<BufferedItemPosition> newSelection) {
