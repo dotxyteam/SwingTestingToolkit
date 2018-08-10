@@ -40,6 +40,7 @@ import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.Form;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.WindowManager;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
@@ -145,6 +146,7 @@ public class TestEditor extends JFrame {
 	protected TestReport testReport;
 	protected MainObject mainObject = new MainObject();
 	protected Form mainForm;
+	protected WindowManager windowManager;
 
 	protected AWTEventListener recordingListener;
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
@@ -345,9 +347,10 @@ public class TestEditor extends JFrame {
 		{
 			this.mainForm = getSwingRenderer().createForm(mainObject);
 			String title = getSwingRenderer().getObjectTitle(getTester());
-			List<? extends Component> toolbarControls = getSwingRenderer().createFormCommonToolbarControls(mainForm);
+			List<? extends Component> toolbarControls = mainForm.createFormToolbarControls();
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
-			getSwingRenderer().setupWindow(this, mainForm, toolbarControls, title, iconImage);
+			this.windowManager = getSwingRenderer().createWindowManager(this);
+			windowManager.set(mainForm, toolbarControls, title, iconImage);
 		}
 	}
 
@@ -624,6 +627,43 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
+		public WindowManager createWindowManager(Window window) {
+			return new WindowManager(this, window) {
+
+				@Override
+				public void layoutContentPane(Container contentPane) {
+					super.layoutContentPane(
+							TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
+				}
+
+				@Override
+				public void layoutMenuBar(JMenuBar menuBar) {
+					getBarsContainer().add(menuBar, BorderLayout.NORTH);
+				}
+
+				@Override
+				public void layoutStatusBar(Component statusBar) {
+					getBarsContainer().add(statusBar, BorderLayout.SOUTH);
+				}
+
+				protected Container getBarsContainer() {
+					AlternativeWindowDecorationsPanel decorationsPanel = (AlternativeWindowDecorationsPanel) SwingRendererUtils
+							.getContentPane(window);
+					Container contentPane = decorationsPanel.getContentPane();
+					JPanel barsContainer = (JPanel) ((BorderLayout) contentPane.getLayout())
+							.getLayoutComponent(BorderLayout.NORTH);
+					if (barsContainer == null) {
+						barsContainer = new JPanel();
+						contentPane.add(barsContainer, BorderLayout.NORTH);
+						barsContainer.setLayout(new BorderLayout());
+					}
+					return barsContainer;
+				}
+
+			};
+		}
+
+		@Override
 		public CustomizingForm createForm(Object object, IInfoFilter infoFilter) {
 			return new CustomizingForm(swingRenderer, object, infoFilter) {
 
@@ -661,36 +701,6 @@ public class TestEditor extends JFrame {
 				}
 
 			};
-		}
-
-		@Override
-		public void setContentPane(Window window, Container contentPane) {
-			super.setContentPane(window,
-					TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
-		}
-
-		@Override
-		public void setMenuBar(Window window, JMenuBar menuBar) {
-			getBarsContainer(window).add(menuBar, BorderLayout.NORTH);
-		}
-
-		@Override
-		public void setStatusBar(Window window, Component statusBar) {
-			getBarsContainer(window).add(statusBar, BorderLayout.SOUTH);
-		}
-
-		protected Container getBarsContainer(Window window) {
-			AlternativeWindowDecorationsPanel decorationsPanel = (AlternativeWindowDecorationsPanel) SwingRendererUtils
-					.getContentPane(window);
-			Container contentPane = decorationsPanel.getContentPane();
-			JPanel barsContainer = (JPanel) ((BorderLayout) contentPane.getLayout())
-					.getLayoutComponent(BorderLayout.NORTH);
-			if (barsContainer == null) {
-				barsContainer = new JPanel();
-				contentPane.add(barsContainer, BorderLayout.NORTH);
-				barsContainer.setLayout(new BorderLayout());
-			}
-			return barsContainer;
 		}
 
 		@Override

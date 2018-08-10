@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import xy.reflect.ui.control.swing.Form;
+import xy.reflect.ui.control.swing.WindowManager;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
@@ -136,7 +137,8 @@ public abstract class AbstractWindowSwitch {
 		public StatusControlWindow() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			statusControlForm = getSwingRenderer().createForm(statusControlObject);
-			getSwingRenderer().setupWindow(this, statusControlForm, null, getSwitchTitle(), testEditor.getIconImage());
+			WindowManager windowManager = getSwingRenderer().createWindowManager(this);
+			windowManager.set(statusControlForm, null, getSwitchTitle(), testEditor.getIconImage());
 			if (lastBounds != null) {
 				setBounds(lastBounds);
 			} else {
