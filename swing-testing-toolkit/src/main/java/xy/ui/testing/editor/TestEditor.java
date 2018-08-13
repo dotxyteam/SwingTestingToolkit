@@ -631,8 +631,8 @@ public class TestEditor extends JFrame {
 			return new WindowManager(this, window) {
 
 				@Override
-				public void layoutContentPane(Container contentPane) {
-					super.layoutContentPane(
+				public void setContentPane(Container contentPane) {
+					super.setContentPane(
 							TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
 				}
 
