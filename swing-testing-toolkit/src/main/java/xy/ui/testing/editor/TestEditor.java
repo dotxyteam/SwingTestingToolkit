@@ -632,6 +632,7 @@ public class TestEditor extends JFrame {
 
 				@Override
 				public void setContentPane(Container contentPane) {
+					((JPanel)contentPane).setOpaque(true);
 					super.setContentPane(
 							TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
 				}
