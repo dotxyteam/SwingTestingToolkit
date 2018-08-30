@@ -4,9 +4,10 @@ import java.awt.Component;
 import java.util.List;
 
 import javax.swing.JDialog;
-import xy.reflect.ui.control.swing.Form;
+
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
+import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.util.Listener;
 import xy.reflect.ui.util.SwingRendererUtils;

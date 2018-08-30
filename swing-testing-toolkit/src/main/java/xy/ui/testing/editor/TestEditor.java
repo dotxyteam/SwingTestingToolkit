@@ -37,14 +37,14 @@ import xy.reflect.ui.CustomizedUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
-import xy.reflect.ui.control.swing.Form;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
-import xy.reflect.ui.control.swing.WindowManager;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
+import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
+import xy.reflect.ui.control.swing.renderer.WindowManager;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.ResourcePath;
 import xy.reflect.ui.info.ValueReturnMode;
@@ -68,6 +68,7 @@ import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.undo.ModificationStack;
+import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
@@ -347,10 +348,10 @@ public class TestEditor extends JFrame {
 		{
 			this.mainForm = getSwingRenderer().createForm(mainObject);
 			String title = getSwingRenderer().getObjectTitle(getTester());
-			List<? extends Component> toolbarControls = mainForm.createFormToolbarControls();
+			List<Component> toolbarControls = mainForm.createFormToolbarControls();
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
 			this.windowManager = getSwingRenderer().createWindowManager(this);
-			windowManager.set(mainForm, toolbarControls, title, iconImage);
+			windowManager.set(mainForm, Accessor.returning(toolbarControls), title, iconImage);
 		}
 	}
 
@@ -726,8 +727,8 @@ public class TestEditor extends JFrame {
 		@Override
 		protected ITypeInfo getTypeInfoBeforeCustomizations(ITypeInfo type) {
 			ITypeInfo result = type;
-			result = new StandardProxyFactory().wrapType(result);
-			result = new ExtensionsProxyFactory().wrapType(result);
+			result = new StandardProxyFactory().wrapTypeInfo(result);
+			result = new ExtensionsProxyFactory().wrapTypeInfo(result);
 			return result;
 		}
 
