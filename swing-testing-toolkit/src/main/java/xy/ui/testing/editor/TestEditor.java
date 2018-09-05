@@ -463,7 +463,8 @@ public class TestEditor extends JFrame {
 		Form testerForm = getTesterForm();
 		IFieldInfo testActionsField = testerForm.getFieldControlPlaceHolder(TEST_ACTIONS_FIELD_NAME).getField();
 		ModificationStack modifStack = testerForm.getModificationStack();
-		ReflectionUIUtils.setValueThroughModificationStack(new DefaultFieldControlData(getTester(), testActionsField),
+		ReflectionUIUtils.setValueThroughModificationStack(
+				new DefaultFieldControlData(getSwingRenderer().getReflectionUI(), getTester(), testActionsField),
 				testActions, modifStack, testActionsField);
 		refresh();
 	}
@@ -633,7 +634,7 @@ public class TestEditor extends JFrame {
 
 				@Override
 				public void setContentPane(Container contentPane) {
-					((JPanel)contentPane).setOpaque(true);
+					((JPanel) contentPane).setOpaque(true);
 					super.setContentPane(
 							TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
 				}
