@@ -1,16 +1,14 @@
 package xy.ui.testing.editor;
 
 import java.awt.AWTEvent;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dialog;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Dialog.ModalityType;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
-import java.awt.Dialog.ModalExclusionType;
-import java.awt.Dialog.ModalityType;
 import java.awt.event.AWTEventListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseEvent;
@@ -29,8 +27,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.CustomizedUI;
@@ -99,9 +95,9 @@ import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
+import xy.ui.testing.finder.DisplayedStringComponentFinder;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
-import xy.ui.testing.finder.DisplayedStringComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.TestingUtils;
 
@@ -465,7 +461,7 @@ public class TestEditor extends JFrame {
 		ModificationStack modifStack = testerForm.getModificationStack();
 		ReflectionUIUtils.setValueThroughModificationStack(
 				new DefaultFieldControlData(getSwingRenderer().getReflectionUI(), getTester(), testActionsField),
-				testActions, modifStack, testActionsField);
+				testActions, modifStack);
 		refresh();
 	}
 
@@ -632,35 +628,9 @@ public class TestEditor extends JFrame {
 		public WindowManager createWindowManager(Window window) {
 			return new WindowManager(this, window) {
 
-				@Override
-				public void setContentPane(Container contentPane) {
-					((JPanel) contentPane).setOpaque(true);
-					super.setContentPane(
-							TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this));
-				}
-
-				@Override
-				public void layoutMenuBar(JMenuBar menuBar) {
-					getBarsContainer().add(menuBar, BorderLayout.NORTH);
-				}
-
-				@Override
-				public void layoutStatusBar(Component statusBar) {
-					getBarsContainer().add(statusBar, BorderLayout.SOUTH);
-				}
-
-				protected Container getBarsContainer() {
-					AlternativeWindowDecorationsPanel decorationsPanel = (AlternativeWindowDecorationsPanel) SwingRendererUtils
-							.getContentPane(window);
-					Container contentPane = decorationsPanel.getContentPane();
-					JPanel barsContainer = (JPanel) ((BorderLayout) contentPane.getLayout())
-							.getLayoutComponent(BorderLayout.NORTH);
-					if (barsContainer == null) {
-						barsContainer = new JPanel();
-						contentPane.add(barsContainer, BorderLayout.NORTH);
-						barsContainer.setLayout(new BorderLayout());
-					}
-					return barsContainer;
+				protected AlternativeWindowDecorationsPanel createAlternativeWindowDecorationsPanel(String windowTitle,
+						Window window, Component windowContent) {
+					return TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this);
 				}
 
 			};
