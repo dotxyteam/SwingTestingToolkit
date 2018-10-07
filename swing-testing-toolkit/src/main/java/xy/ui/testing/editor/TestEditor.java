@@ -25,6 +25,7 @@ import java.util.WeakHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -573,8 +574,11 @@ public class TestEditor extends JFrame {
 
 	protected static AlternativeWindowDecorationsPanel getAlternateWindowDecorationsContentPane(Window window,
 			Component initialContentPane, final TestEditor testEditor) {
-		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(
-				SwingRendererUtils.getWindowTitle(window), window, initialContentPane) {
+		String title = SwingRendererUtils.getWindowTitle(window);
+		Image iconImage = window.getIconImages().get(0);
+		ImageIcon icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
+		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(title, icon, window,
+				initialContentPane) {
 
 			private static final long serialVersionUID = 1L;
 
@@ -586,6 +590,11 @@ public class TestEditor extends JFrame {
 			@Override
 			public Color getDecorationsForegroundColor() {
 				return testEditor.getDecorationsForegroundColor();
+			}
+
+			@Override
+			protected boolean isDecorationsBackgroundPainted() {
+				return true;
 			}
 
 			@Override
@@ -628,8 +637,9 @@ public class TestEditor extends JFrame {
 		public WindowManager createWindowManager(Window window) {
 			return new WindowManager(this, window) {
 
-				protected AlternativeWindowDecorationsPanel createAlternativeWindowDecorationsPanel(String windowTitle,
-						Window window, Component windowContent) {
+				@Override
+				protected AlternativeWindowDecorationsPanel createAlternativeWindowDecorationsPanel(Window window,
+						Component windowContent) {
 					return TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this);
 				}
 
