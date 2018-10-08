@@ -583,7 +583,7 @@ public class TestEditor extends JFrame {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public Color getDecorationsBackgroundColor() {
+			public Color getTitleBarColor() {
 				return testEditor.getDecorationsBackgroundColor();
 			}
 
@@ -593,7 +593,7 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected boolean isDecorationsBackgroundPainted() {
+			protected boolean isTitleBarPainted() {
 				return true;
 			}
 
