@@ -576,7 +576,12 @@ public class TestEditor extends JFrame {
 			Component initialContentPane, final TestEditor testEditor) {
 		String title = SwingRendererUtils.getWindowTitle(window);
 		Image iconImage = window.getIconImages().get(0);
-		ImageIcon icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
+		ImageIcon icon;
+		if (SwingRendererUtils.isNullImage(iconImage)) {
+			icon = null;
+		} else {
+			icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
+		}
 		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(title, icon, window,
 				initialContentPane) {
 
@@ -687,8 +692,8 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type) {
-			Object result = super.onTypeInstanciationRequest(activatorComponent, type);
+		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type, Object parentObject) {
+			Object result = super.onTypeInstanciationRequest(activatorComponent, type, parentObject);
 			if (result instanceof ComponentFinder) {
 				if (componentFinderInitializationSource != null) {
 					((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TestEditor.this);
