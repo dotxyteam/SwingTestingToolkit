@@ -90,11 +90,13 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 
 	@Override
 	protected void onEnd() {
-		replayThread.interrupt();
-		try {
-			replayThread.join();
-		} catch (InterruptedException e) {
-			throw new AssertionError(e);
+		while (replayThread.isAlive()) {
+			replayThread.interrupt();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				throw new AssertionError(e);
+			}
 		}
 		if (replayThreadError != null) {
 			getSwingRenderer().handleExceptionsFromDisplayedUI(ReplayWindowSwitch.this.getWindow(), replayThreadError);

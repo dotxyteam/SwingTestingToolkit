@@ -3,6 +3,7 @@ package xy.ui.testing.editor;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dialog.ModalityType;
@@ -30,6 +31,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import org.jdesktop.swingx.StackLayout;
+
 import xy.reflect.ui.CustomizedUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
@@ -56,8 +59,9 @@ import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
-import xy.reflect.ui.info.type.factory.IInfoProxyFactory;
 import xy.reflect.ui.info.type.factory.InfoProxyFactory;
+import xy.reflect.ui.info.type.iterable.IListAction;
+import xy.reflect.ui.info.type.iterable.IListProperty;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
@@ -575,12 +579,16 @@ public class TestEditor extends JFrame {
 	protected static AlternativeWindowDecorationsPanel getAlternateWindowDecorationsContentPane(Window window,
 			Component initialContentPane, final TestEditor testEditor) {
 		String title = SwingRendererUtils.getWindowTitle(window);
-		Image iconImage = window.getIconImages().get(0);
 		ImageIcon icon;
-		if (SwingRendererUtils.isNullImage(iconImage)) {
+		if (window.getIconImages().size() == 0) {
 			icon = null;
 		} else {
-			icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
+			Image iconImage = window.getIconImages().get(0);
+			if (SwingRendererUtils.isNullImage(iconImage)) {
+				icon = null;
+			} else {
+				icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
+			}
 		}
 		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(title, icon, window,
 				initialContentPane) {
@@ -641,6 +649,12 @@ public class TestEditor extends JFrame {
 		@Override
 		public WindowManager createWindowManager(Window window) {
 			return new WindowManager(this, window) {
+
+				@Override
+				protected void layoutContentPane(Container contentPane) {
+					alternativeDecorationsPanel = createAlternativeWindowDecorationsPanel(window, contentPane);
+					rootPane.add(alternativeDecorationsPanel, StackLayout.TOP);
+				}
 
 				@Override
 				protected AlternativeWindowDecorationsPanel createAlternativeWindowDecorationsPanel(Window window,
@@ -972,7 +986,7 @@ public class TestEditor extends JFrame {
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class));
+					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class, null));
 					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
@@ -1075,7 +1089,8 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(startOptionsEnumFactory.getInstanceTypeInfoSource());
+								return reflectionUI
+										.getTypeInfo(startOptionsEnumFactory.getInstanceTypeInfoSource(null));
 							}
 
 							@Override
@@ -1110,7 +1125,8 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(CallMainMethodAction.class));
+								return reflectionUI
+										.getTypeInfo(new JavaTypeInfoSource(CallMainMethodAction.class, null));
 							}
 
 							@Override
@@ -1169,7 +1185,12 @@ public class TestEditor extends JFrame {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							componentInspectionWindowSwitch.activate(true);
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									componentInspectionWindowSwitch.activate(true);
+								}
+							});
 							return null;
 						}
 					});
@@ -1184,19 +1205,19 @@ public class TestEditor extends JFrame {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getTestActionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(clazz)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(ComponentFinder.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getComponentFinderClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(clazz)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(KeyboardInteraction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getKeyboardInteractionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(clazz)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
 					}
 					return result;
 				} else {
@@ -1205,13 +1226,18 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected List<AbstractListAction> getDynamicActions(IListTypeInfo listType,
+			protected List<IListAction> getDynamicActions(IListTypeInfo listType,
 					final List<? extends ItemPosition> selection, final Object rootListValue) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
-						List<AbstractListAction> result = new ArrayList<AbstractListAction>();
+						List<IListAction> result = new ArrayList<IListAction>();
 						result.add(new AbstractListAction() {
+
+							@Override
+							public Object getRootListValue() {
+								return rootListValue;
+							}
 
 							@Override
 							public boolean isNullReturnValueDistinct() {
@@ -1256,6 +1282,11 @@ public class TestEditor extends JFrame {
 						});
 						if (selection.size() == 1) {
 							result.add(new AbstractListAction() {
+
+								@Override
+								public Object getRootListValue() {
+									return rootListValue;
+								}
 
 								@Override
 								public boolean isNullReturnValueDistinct() {
@@ -1309,17 +1340,22 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected List<AbstractListProperty> getDynamicProperties(IListTypeInfo listType,
+			protected List<IListProperty> getDynamicProperties(IListTypeInfo listType,
 					final List<? extends ItemPosition> selection, final Object rootListValue) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
-					List<AbstractListProperty> result = new ArrayList<AbstractListProperty>(
+					List<IListProperty> result = new ArrayList<IListProperty>(
 							super.getDynamicProperties(listType, selection, rootListValue));
 					if (selection.size() >= 1) {
 						result.add(new AbstractListProperty() {
 
 							String DISABLED = "Disabled";
 							String ENABLED = "Enabled";
+
+							@Override
+							public Object getRootListValue() {
+								return rootListValue;
+							}
 
 							@Override
 							public String getName() {
@@ -1399,13 +1435,8 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
-							public IInfoProxyFactory getTypeSpecificities() {
-								return null;
-							}
-
-							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(String.class));
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(String.class, null));
 							}
 
 						});

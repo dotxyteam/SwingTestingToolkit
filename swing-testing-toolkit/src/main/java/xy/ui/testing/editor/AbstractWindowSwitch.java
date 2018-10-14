@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
@@ -116,18 +117,29 @@ public abstract class AbstractWindowSwitch {
 			return AbstractWindowSwitch.this.controlWindow.isAlwaysOnTop();
 		}
 
-		public void setWindowAlwaysOnTop(boolean b) {
-			if (AbstractWindowSwitch.this.controlWindow == null) {
-				return;
-			}
-			AbstractWindowSwitch.this.controlWindow.setAlwaysOnTop(b);
+		public void setWindowAlwaysOnTop(final boolean b) {
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					if (AbstractWindowSwitch.this.controlWindow == null) {
+						return;
+					}
+					AbstractWindowSwitch.this.controlWindow.setAlwaysOnTop(b);
+				}
+			});
+
 		}
 
 		public void stop() {
-			if (!isActive()) {
+			if (!AbstractWindowSwitch.this.isActive()) {
 				return;
 			}
-			activate(false);
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					AbstractWindowSwitch.this.activate(false);
+				}
+			});
 		}
 	}
 

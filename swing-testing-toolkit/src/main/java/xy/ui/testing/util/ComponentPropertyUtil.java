@@ -80,7 +80,7 @@ public class ComponentPropertyUtil {
 			return null;
 		}
 		try {
-			return introspector.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName)));
+			return introspector.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName), null));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
