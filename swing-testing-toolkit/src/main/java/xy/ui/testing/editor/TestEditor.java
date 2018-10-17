@@ -349,7 +349,7 @@ public class TestEditor extends JFrame {
 		{
 			this.mainForm = getSwingRenderer().createForm(mainObject);
 			String title = getSwingRenderer().getObjectTitle(getTester());
-			List<Component> toolbarControls = mainForm.createFormToolbarControls();
+			List<Component> toolbarControls = mainForm.createToolbarControls();
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
 			this.windowManager = getSwingRenderer().createWindowManager(this);
 			windowManager.set(mainForm, Accessor.returning(toolbarControls), title, iconImage);
@@ -438,11 +438,11 @@ public class TestEditor extends JFrame {
 	}
 
 	public void refresh() {
-		mainForm.refreshForm(false);
+		mainForm.refresh(false);
 	}
 
 	public void showReportTab() {
-		mainForm.setDisplayedInfoCategory("Report", -1);
+		mainForm.setDisplayedCategory("Report", -1);
 		ListControl stepsControl = getTestReportStepsControl();
 		if (stepsControl.getRootListSize() > 0) {
 			BufferedItemPosition lastStepItemPosition = stepsControl
@@ -452,7 +452,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void showSpecificationTab() {
-		mainForm.setDisplayedInfoCategory("Specification", -1);
+		mainForm.setDisplayedCategory("Specification", -1);
 		ListControl testActionsControl = getTestActionsControl();
 		if (testActionsControl.getRootListSize() > 0) {
 			BufferedItemPosition firstActionItemPosition = testActionsControl.getRootListItemPosition(0);

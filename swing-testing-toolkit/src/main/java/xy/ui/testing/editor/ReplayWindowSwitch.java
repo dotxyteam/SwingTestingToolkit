@@ -51,7 +51,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 							currentActionDescription = testAction.toString();
 							int actionIndex = indexOfActionByReference(testAction);
 							currentActionDescription = (actionIndex + 1) + " - " + currentActionDescription;
-							getStatusControlForm().refreshForm(false);
+							getStatusControlForm().refresh(false);
 							testEditor.setSelectedActionIndex(actionIndex);
 							while (ReplayWindowSwitch.this.isPaused()) {
 								try {
