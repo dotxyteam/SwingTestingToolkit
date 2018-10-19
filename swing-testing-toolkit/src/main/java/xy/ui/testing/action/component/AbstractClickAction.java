@@ -132,7 +132,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Click with " + getValueDescription() + " on " + getComponentInformation();
+		return (doubleClick ? "Double-click" : "Click") + " on " + getComponentInformation();
 	}
 
 	public enum ButtonId {

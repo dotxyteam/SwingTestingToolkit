@@ -37,11 +37,6 @@ public class WaitAction extends TestAction {
 	}
 
 	@Override
-	public String getValueDescription() {
-		return secondsToWait + " seconds";
-	}
-
-	@Override
 	public Component findComponent(Tester tester) {
 		return null;
 	}
@@ -49,6 +44,11 @@ public class WaitAction extends TestAction {
 	@Override
 	public String getComponentInformation() {
 		return "";
+	}
+
+	@Override
+	public String getValueDescription() {
+		return secondsToWait + " seconds";
 	}
 
 	@Override

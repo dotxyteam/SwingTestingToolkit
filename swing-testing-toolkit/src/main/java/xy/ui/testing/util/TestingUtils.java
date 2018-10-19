@@ -651,4 +651,11 @@ public class TestingUtils {
 		}
 	}
 
+	public static String appendOccurrenceNumber(String s, int occurrencesToSkip) {
+		if (occurrencesToSkip == 0) {
+			return s;
+		}
+		return s + " (" + (occurrencesToSkip + 1) + ")";
+	}
+
 }

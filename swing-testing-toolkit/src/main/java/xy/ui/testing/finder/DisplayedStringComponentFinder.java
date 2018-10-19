@@ -101,7 +101,7 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 		} else {
 			result += "\"" + StringEscapeUtils.escapeJava(visibleString) + "\"";
 		}
-		result = MatchingComponentFinder.appendOccurrenceNumber(result, occurrencesToSkip);
+		result = TestingUtils.appendOccurrenceNumber(result, occurrencesToSkip);
 		return result;
 	}
 

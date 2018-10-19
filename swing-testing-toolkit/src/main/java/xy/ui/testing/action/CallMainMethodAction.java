@@ -101,7 +101,7 @@ public class CallMainMethodAction extends TestAction {
 
 	@Override
 	public String toString() {
-		return "Call main method of <" + className + ">";
+		return "Run class <" + className +  ">";
 	}
 
 	@Override

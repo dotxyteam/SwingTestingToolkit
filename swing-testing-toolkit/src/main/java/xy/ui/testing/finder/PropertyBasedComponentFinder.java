@@ -145,7 +145,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 			for (PropertyValue value : propertyValues) {
 				propertyValueStrings.add(value.toString());
 			}
-			propertyValuesDescription = " having:";
+			propertyValuesDescription = " having ";
 			for (String s : propertyValueStrings) {
 				propertyValuesDescription += "\n " + s;
 			}

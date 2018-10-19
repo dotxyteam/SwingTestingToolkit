@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dialog.ModalityType;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -29,6 +30,9 @@ import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
 import org.jdesktop.swingx.StackLayout;
@@ -39,6 +43,7 @@ import xy.reflect.ui.control.IMethodControlData;
 import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.customizer.CustomizingFieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
@@ -110,6 +115,7 @@ import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.util.TestingUtils;
 
+@SuppressWarnings("unused")
 public class TestEditor extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -685,6 +691,57 @@ public class TestEditor extends JFrame {
 				private static final long serialVersionUID = 1L;
 
 				@Override
+				public CustomizingFieldControlPlaceHolder createFieldControlPlaceHolder(IFieldInfo field) {
+					return new CustomizingFieldControlPlaceHolder((SwingCustomizer) swingRenderer, this, field) {
+
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public Component createFieldControl() {
+							if ((form.getObject() instanceof Tester)
+									&& field.getName().equals(TEST_ACTIONS_FIELD_NAME)) {
+								return new ListControl(swingRenderer, this) {
+
+									private static final long serialVersionUID = 1L;
+
+									final float BIGGER = 1.3f;
+
+									Font changeFont(Font font) {
+										return new Font(font.getName(), Font.BOLD, Math.round(font.getSize() * BIGGER));
+									}
+
+									@Override
+									protected void initializeTreeTableModelAndControl() {
+										super.initializeTreeTableModelAndControl();
+										treeTableComponent.setRowHeight(
+												Math.round(treeTableComponent.getRowHeight() * BIGGER * 1.2f));
+										treeTableComponent.removeHighlighter(treeTableComponent.getHighlighters()[0]);
+										treeTableComponent.setDefaultRenderer(Object.class,
+												new ItemTableCellRenderer() {
+
+													@Override
+													public Component getTableCellRendererComponent(JTable table,
+															Object value, boolean isSelected, boolean hasFocus, int row,
+															int column) {
+														JLabel result = (JLabel) super.getTableCellRendererComponent(
+																table, value, isSelected, hasFocus, row, column);
+														result.setFont(changeFont(result.getFont()));
+														return result;
+													}
+
+												});
+									}
+
+								};
+							} else {
+								return super.createFieldControl();
+							}
+						}
+
+					};
+				}
+
+				@Override
 				public CustomizingMethodControlPlaceHolder createMethodControlPlaceHolder(IMethodInfo method) {
 					return new CustomizingMethodControlPlaceHolder((SwingCustomizer) swingRenderer, this, method) {
 
@@ -1068,7 +1125,7 @@ public class TestEditor extends JFrame {
 							ListControl testActionsControl = getTestActionsControl();
 							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
 								String startPosition = (String) startOptionsEnumFactory
-										.unwrapInstance(invocationData.getParameterValue(startPositionParameter));
+										.unwrapInstance(invocationData.getParameterValue(startPositionParameter.getPosition()));
 								if (afterSelectionStartOption.equals(startPosition)) {
 									recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
 								} else if (atEndStartOption.equals(startPosition)) {
@@ -1078,7 +1135,7 @@ public class TestEditor extends JFrame {
 								}
 							}
 							final CallMainMethodAction mainMethodCall = (CallMainMethodAction) invocationData
-									.getParameterValue(mainMethodParameter);
+									.getParameterValue(mainMethodParameter.getPosition());
 							if (mainMethodCall != null) {
 								mainMethodCall.execute(null, tester);
 								recordingWindowSwitch.insertNewTestAction(mainMethodCall);

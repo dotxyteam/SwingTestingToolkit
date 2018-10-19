@@ -66,6 +66,14 @@ public class SendKeysAction extends TargetComponentTestAction {
 	}
 
 	@Override
+	public void validate() throws ValidationError {
+		if (keyboardInteractions.size() == 0) {
+			throw new ValidationError("Missing keyboard interactions");
+		}
+		super.validate();
+	};
+
+	@Override
 	public String getValueDescription() {
 		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < keyboardInteractions.size(); i++) {
@@ -79,16 +87,8 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public String toString() {
-		return "Send " + getValueDescription() + " key event(s) to " + getComponentInformation();
+		return "Send keys " + getValueDescription() + " to " + getComponentInformation();
 	}
-
-	@Override
-	public void validate() throws ValidationError {
-		if (keyboardInteractions.size() == 0) {
-			throw new ValidationError("Missing keyboard interactions");
-		}
-		super.validate();
-	};
 
 	public static abstract class KeyboardInteraction implements Serializable {
 
@@ -210,7 +210,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 		@Override
 		public List<KeyEvent> getKeyEvents(Component c) {
 			List<KeyEvent> result = new ArrayList<KeyEvent>();
-			
+
 			int id = KeyEvent.KEY_PRESSED;
 			long when = System.currentTimeMillis();
 			int modifiers = getModifiers();

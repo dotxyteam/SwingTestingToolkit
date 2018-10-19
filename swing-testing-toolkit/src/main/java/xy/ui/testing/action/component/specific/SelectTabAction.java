@@ -4,8 +4,6 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import javax.swing.JTabbedPane;
-import org.apache.commons.lang3.StringEscapeUtils;
-
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
@@ -33,7 +31,8 @@ public class SelectTabAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		if (!(c instanceof JTabbedPane)) {
 			return false;
 		}
@@ -74,7 +73,7 @@ public class SelectTabAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		return "tab " + "\"" + StringEscapeUtils.escapeJava(tabToSelect) + "\"";
+		return "tab '" + ((tabToSelect == null) ? "<unspecified>" : tabToSelect) + "'";
 	}
 
 	@Override
@@ -84,10 +83,8 @@ public class SelectTabAction extends TargetComponentTestAction {
 		}
 	}
 
-
 	@Override
 	public String toString() {
-		String tabToSelectText = (tabToSelect == null) ? "<none>" : tabToSelect;
-		return "Select tab <" + tabToSelectText + "> of " + getComponentInformation();
+		return "Select " + getValueDescription() + " from " + getComponentInformation();
 	}
 }

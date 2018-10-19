@@ -66,9 +66,9 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	@Override
 	public String toString() {
 		if (oppposite) {
-			return "Disable System.exit() call interception";
+			return "Intercept System.exit() calls";
 		} else {
-			return "Enable System.exit() call interception";
+			return "Do not intercept System.exit() calls";
 		}
 	}
 

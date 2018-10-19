@@ -181,18 +181,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	}
 
-	@Override
-	public String getValueDescription() {
-		if (selectionMode == SelectionMode.BY_POSITION) {
-			return "Item n°" + (Integer.valueOf(optionToSelect) + 1);
-		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
-			return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
-		} else {
-			throw new AssertionError();
-		}
-
-	}
-
 	public enum SelectionMode {
 		BY_LABEL_TEXT, BY_POSITION
 
@@ -218,6 +206,23 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			throw new ValidationError("Missing selection mode");
 		}
 
+	}
+
+	@Override
+	public String getValueDescription() {
+		if (selectionMode == SelectionMode.BY_POSITION) {
+			return TestingUtils.appendOccurrenceNumber("item", Integer.valueOf(optionToSelect));
+		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
+			return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
+		} else {
+			return "<unspecified selection mode>";
+		}
+
+	}
+
+	@Override
+	public String toString() {
+		return "Select option  " + getValueDescription() + " from " + getComponentInformation();
 	}
 
 	public class Option implements Serializable {
@@ -256,13 +261,4 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		}
 
 	}
-
-	@Override
-	public String toString() {
-		String optionToSelectText = (optionToSelect == null) ? "<none>" : optionToSelect;
-		String selectionModeText = (selectionMode == null) ? "<unspecified selection mode>"
-				: selectionMode.toString().toLowerCase().replace('_', ' ');
-		return "Select " + selectionModeText + " item <" + optionToSelectText + "> of " + getComponentInformation();
-	}
-
 }

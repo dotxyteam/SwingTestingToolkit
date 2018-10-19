@@ -99,7 +99,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 
 	@Override
 	public String toString() {
-		StringBuilder result = new StringBuilder();
+		StringBuilder result = new StringBuilder("menu ");
 		if (menuItemPath.size() == 0) {
 			result.append(" <unspecified path> ");
 		} else {
@@ -112,7 +112,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 				if (pathEltText == null) {
 					pathEltText = "<unknown item>";
 				} else {
-					pathEltText = "\"" + StringEscapeUtils.escapeJava(pathEltText) + "\"";
+					pathEltText = "\"" + StringEscapeUtils.escapeJava(pathEltText) + "\"";					
 				}
 				result.append(pathEltText);
 			}

@@ -61,18 +61,6 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public String getValueDescription() {
-		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < visibleStrings.size(); i++) {
-			if (i > 0) {
-				result.append(", ");
-			}
-			result.append("\"" + StringEscapeUtils.escapeJava(visibleStrings.get(i)) + "\"");
-		}
-		return result.toString();
-	}
-
-	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 			TestEditor testEditor) {
 		visibleStrings.addAll(TestingUtils.extractComponentTreeDisplayedStrings(c, testEditor.getTester()));
@@ -148,8 +136,20 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 	}
 
 	@Override
+	public String getValueDescription() {
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < visibleStrings.size(); i++) {
+			if (i > 0) {
+				result.append(", ");
+			}
+			result.append("\"" + StringEscapeUtils.escapeJava(visibleStrings.get(i)) + "\"");
+		}
+		return result.toString();
+	}
+
+	@Override
 	public String toString() {
-		return "Check " + getValueDescription() + " displayed on " + getComponentInformation();
+		return "Verify " + getValueDescription();
 	}
 
 }

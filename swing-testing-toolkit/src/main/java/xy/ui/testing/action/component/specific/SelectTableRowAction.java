@@ -103,17 +103,6 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public String getValueDescription() {
-		String result = "";
-		if (firstItemToSelect == lastItemToSelect) {
-			result += "Row" + (firstItemToSelect + 1);
-		} else {
-			result += "Rows n°" + (firstItemToSelect + 1) + " To " + (lastItemToSelect + 1);
-		}
-		return result;
-	}
-
-	@Override
 	public void validate() throws ValidationError {
 		if (firstItemToSelect < 0) {
 			throw new ValidationError("Invalid first selection index: Cannot be < 0");
@@ -125,9 +114,20 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	}
 
 	@Override
+	public String getValueDescription() {
+		String result = "";
+		if (firstItemToSelect == lastItemToSelect) {
+			result += TestingUtils.appendOccurrenceNumber("row", firstItemToSelect);
+		} else {
+			result += TestingUtils.appendOccurrenceNumber("row", firstItemToSelect) + " To "
+					+ TestingUtils.appendOccurrenceNumber("row", lastItemToSelect);
+		}
+		return result;
+	}
+
+	@Override
 	public String toString() {
-		return (addedToExistingSelection ? "Add" : "Set") + " selection from row " + firstItemToSelect + " to row "
-				+ lastItemToSelect + " on " + getComponentInformation();
+		return "Select " + getValueDescription() + " from " + getComponentInformation();
 	}
 
 }

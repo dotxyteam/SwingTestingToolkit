@@ -62,16 +62,6 @@ public class ClickOnMenuItemAction extends TestAction {
 	}
 
 	@Override
-	public String getValueDescription() {
-		return "";
-	}
-
-	@Override
-	public String toString() {
-		return "Click on the " + componentFinder + "\"";
-	}
-
-	@Override
 	public void validate() throws ValidationError {
 		if (componentFinder == null) {
 			throw new ValidationError("Missing component finding information");
@@ -103,5 +93,15 @@ public class ClickOnMenuItemAction extends TestAction {
 		}
 		return false;
 	};
+
+	@Override
+	public String getValueDescription() {
+		return "";
+	}
+
+	@Override
+	public String toString() {
+		return "Click on " + componentFinder + "\"";
+	}
 
 }

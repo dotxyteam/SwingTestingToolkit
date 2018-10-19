@@ -133,19 +133,6 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public String getValueDescription() {
-		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < itemPath.size(); i++) {
-			int index = itemPath.get(i);
-			if (i > 0) {
-				result.append(" / ");
-			}
-			result.append("Item n°" + Integer.toString(index + 1));
-		}
-		return result.toString();
-	}
-
-	@Override
 	public void validate() throws ValidationError {
 		if (itemPath.size() == 0) {
 			throw new ValidationError("Item path not defined");
@@ -153,8 +140,21 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
+	public String getValueDescription() {
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < itemPath.size(); i++) {
+			int index = itemPath.get(i);
+			if (i > 0) {
+				result.append(" / ");
+			}
+			result.append(TestingUtils.appendOccurrenceNumber("item", index));
+		}
+		return result.toString();
+	}
+
+	@Override
 	public String toString() {
-		return "Expand item " + itemPath + " of " + getComponentInformation();
+		return "Expand " + getValueDescription() + " from " + getComponentInformation();
 	}
 
 }

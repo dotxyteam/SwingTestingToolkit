@@ -3,6 +3,7 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 public abstract class AbstractClassBasedComponentFinder extends MatchingComponentFinder {
@@ -45,9 +46,18 @@ public abstract class AbstractClassBasedComponentFinder extends MatchingComponen
 		if (componentClassName == null) {
 			result += "<unspecified class>";
 		} else {
-			result += "<" + componentClassName + ">";
+			try {
+				Class<?> clazz = Class.forName(componentClassName);
+				if (clazz.isAnonymousClass()) {
+					result += "<" + clazz.getName() + ">";
+				} else {
+					result += clazz.getSimpleName();
+				}
+			} catch (ClassNotFoundException e) {
+				result += "<" + componentClassName + ">";
+			}
 		}
-		result = MatchingComponentFinder.appendOccurrenceNumber(result, occurrencesToSkip);
+		result = TestingUtils.appendOccurrenceNumber(result, occurrencesToSkip);
 		return result;
 	}
 
