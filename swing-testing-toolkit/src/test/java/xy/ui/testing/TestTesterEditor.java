@@ -1,10 +1,10 @@
 package xy.ui.testing;
 
 import java.awt.Color;
-import java.io.IOException;
+import java.awt.Component;
+import java.awt.Window;
+import java.io.File;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import xy.reflect.ui.ReflectionUI;
@@ -14,13 +14,39 @@ import xy.ui.testing.util.TestingUtils;
 
 public class TestTesterEditor {
 
+	@Test
+	public void test() throws Exception {
+		Tester tester = new Tester();
+		TestingUtils.assertSuccessfulReplay(tester, new File("test-specifications/testTesterEditor.stt"));
+	}
+
 	public boolean booleanData;
 	public int intData;
 	public String stringData;
 
 	public static void main(String[] args) {
 		if ((args.length == 1) && args[0].equals("TesterEditor frame")) {
-			Tester tester = new Tester();
+			Tester tester = new Tester() {
+
+				@Override
+				public boolean isTestable(Component c) {
+					if (!super.isTestable(c)) {
+						return false;
+					}
+					for (Window w : Window.getWindows()) {
+						if (w instanceof TestEditor) {
+							Tester otherTester = ((TestEditor) w).getTester();
+							if (otherTester != this) {
+								if (!otherTester.isTestable(c)) {
+									return false;
+								}
+							}
+						}
+					}
+					return true;
+				}
+
+			};
 			TestEditor testEditor = new TestEditor(tester);
 			testEditor.setDecorationsBackgroundColor(new Color(68, 61, 205));
 			testEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
@@ -31,30 +57,4 @@ public class TestTesterEditor {
 		}
 	}
 
-	@BeforeClass
-	public static void beforeAllTests() {
-		TestingUtils.purgeAllReportsDirectory();
-	}
-
-	@Test
-	public void testComponentFinderOnlyOneEmptyContructor() throws IOException {
-		Tester tester = new Tester();
-		TestEditor testEditor = new TestEditor(tester);
-		for (Class<?> cls : testEditor.getComponentFinderClasses()) {
-			Assert.assertTrue(cls.getConstructors().length == 1);
-			Assert.assertTrue(cls.getConstructors()[0].getParameterTypes().length == 0);
-		}
-	}
-
-	@Test
-	public void testMenus() throws Exception {
-		Tester tester = new Tester();
-		TestingUtils.assertSuccessfulReplay(tester, TestTesterEditor.class.getResourceAsStream("testMenus.stt"));
-	}
-
-	@Test
-	public void testTestEditor() throws Exception {
-		Tester tester = new Tester();
-		TestingUtils.assertSuccessfulReplay(tester, TestTesterEditor.class.getResourceAsStream("testTestEditor.stt"));
-	}
 }

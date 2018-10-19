@@ -12,9 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -431,25 +429,12 @@ public class TestingUtils {
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
 	}
 
-	public static void assertSuccessfulReplay(Tester tester, File specificationFile) throws Exception {
-		assertSuccessfulReplay(tester, specificationFile.exists() ? new FileInputStream(specificationFile) : null);
-	}
-
-	public static void assertSuccessfulReplay(TestEditor testEditor, File specificationFile) throws Exception {
-		assertSuccessfulReplay(testEditor, specificationFile.exists() ? new FileInputStream(specificationFile) : null);
-	}
-
-	public static void assertSuccessfulReplay(Tester tester, InputStream specificationStream) throws Exception {
-		assertSuccessfulReplay(new TestEditor(tester), specificationStream);
-	}
-
-	public static void assertSuccessfulReplay(TestEditor testEditor, InputStream specificationStream) throws Exception {
-		final Tester tester = testEditor.getTester();
+	public static void assertSuccessfulReplay(final Tester tester, File specificationFile) throws Exception {
 		try {
 			if (TEST_EDITOR_HIDDEN_IN_ASSERTIONS) {
-				assertSuccessfulReplayWithoutTestEditor(tester, specificationStream);
+				assertSuccessfulReplayWithoutTestEditor(tester, specificationFile);
 			} else {
-				assertSuccessfulReplayWithTestEditor(testEditor, specificationStream);
+				assertSuccessfulReplayWithTestEditor(new TestEditor(tester), specificationFile);
 			}
 		} finally {
 			try {
@@ -469,22 +454,20 @@ public class TestingUtils {
 		}
 	}
 
-	private static void assertSuccessfulReplayWithoutTestEditor(Tester tester, InputStream specificationStream)
+	private static void assertSuccessfulReplayWithoutTestEditor(Tester tester, File specificationFile)
 			throws Exception {
-		if (specificationStream == null) {
-			throw new TestFailure("Test specification not found.");
-		}
-		tester.loadFromStream(specificationStream);
+		tester.loadFromFile(specificationFile);
 		TestReport report = tester.replayAll();
 		if (report.getFinalStatus() != TestReportStepStatus.SUCCESSFUL) {
 			throw generateTestFailure(tester, report);
 		}
 	}
 
-	private static void assertSuccessfulReplayWithTestEditor(final TestEditor testEditor,
-			InputStream specificationStream) throws Exception {
+	private static void assertSuccessfulReplayWithTestEditor(final TestEditor testEditor, File specificationFile)
+			throws Exception {
+		testEditor.setLastTesterFile(specificationFile);
 		final Tester tester = testEditor.getTester();
-		if (specificationStream == null) {
+		if (!specificationFile.exists()) {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				@Override
 				public void run() {
@@ -509,7 +492,7 @@ public class TestingUtils {
 			}
 			throw new TestFailure("Test specification not found.");
 		} else {
-			tester.loadFromStream(specificationStream);
+			tester.loadFromFile(specificationFile);
 			final boolean[] started = new boolean[] { false };
 			testEditor.addWindowListener(new WindowAdapter() {
 				@Override
@@ -569,7 +552,7 @@ public class TestingUtils {
 		}
 	}
 
-	private static void waitUntilClosed(TestEditor testEditor) {
+	public static void waitUntilClosed(TestEditor testEditor) {
 		while (testEditor.isDisplayable()) {
 			try {
 				Thread.sleep(5000);

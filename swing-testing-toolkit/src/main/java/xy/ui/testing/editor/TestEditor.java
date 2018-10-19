@@ -52,12 +52,14 @@ import xy.reflect.ui.info.custom.InfoCustomizations;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListFieldInfo;
 import xy.reflect.ui.info.filter.IInfoFilter;
+import xy.reflect.ui.info.menu.builtin.swing.AbstractFileMenuItem;
 import xy.reflect.ui.info.method.IMethodInfo;
 import xy.reflect.ui.info.method.InvocationData;
 import xy.reflect.ui.info.method.MethodInfoProxy;
 import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
+import xy.reflect.ui.info.type.ITypeInfo.CategoriesStyle;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
 import xy.reflect.ui.info.type.factory.InfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListAction;
@@ -68,9 +70,11 @@ import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
+import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ClassUtils;
+import xy.reflect.ui.util.Mapper;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
@@ -153,7 +157,7 @@ public class TestEditor extends JFrame {
 	protected AWTEventListener recordingListener;
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
 
-	private AWTEventListener modalityChangingListener;
+	protected AWTEventListener modalityChangingListener;
 
 	public TestEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
@@ -165,6 +169,15 @@ public class TestEditor extends JFrame {
 		reflectionUI = createTesterReflectionUI(infoCustomizations);
 		swingRenderer = createSwingRenderer(reflectionUI);
 		createControls();
+	}
+
+	public File getLastTesterFile() {
+		return AbstractFileMenuItem.getLastFileByForm().get(mainForm);
+	}
+
+	public void setLastTesterFile(File file) {
+		AbstractFileMenuItem.getLastFileByForm().put(getTesterForm(), file);
+		mainForm.refresh(false);
 	}
 
 	@Override
@@ -899,6 +912,11 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
+			protected CategoriesStyle getCategoriesStyle(ITypeInfo type) {
+				return CategoriesStyle.CLASSIC;
+			}
+
+			@Override
 			protected String getName(ITypeInfo type) {
 				String result = super.getName(type);
 				if (isTesterOrSubTypeName(result)) {
@@ -1227,17 +1245,13 @@ public class TestEditor extends JFrame {
 
 			@Override
 			protected List<IListAction> getDynamicActions(IListTypeInfo listType,
-					final List<? extends ItemPosition> selection, final Object rootListValue) {
+					final List<? extends ItemPosition> selection,
+					final Mapper<ItemPosition, ListModificationFactory> listModificationFactoryAccessor) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
 						List<IListAction> result = new ArrayList<IListAction>();
 						result.add(new AbstractListAction() {
-
-							@Override
-							public Object getRootListValue() {
-								return rootListValue;
-							}
 
 							@Override
 							public boolean isNullReturnValueDistinct() {
@@ -1269,7 +1283,7 @@ public class TestEditor extends JFrame {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
 									for (ItemPosition itemPosition : selection) {
-										TestAction testAction = (TestAction) itemPosition.getItem(rootListValue);
+										TestAction testAction = (TestAction) itemPosition.getItem();
 										selectedActions.add(testAction);
 									}
 									startReplay(selectedActions);
@@ -1284,11 +1298,6 @@ public class TestEditor extends JFrame {
 							result.add(new AbstractListAction() {
 
 								@Override
-								public Object getRootListValue() {
-									return rootListValue;
-								}
-
-								@Override
 								public boolean isNullReturnValueDistinct() {
 									return false;
 								}
@@ -1299,9 +1308,9 @@ public class TestEditor extends JFrame {
 										List<TestAction> actionsToReplay = new ArrayList<TestAction>();
 										ItemPosition singleSelection = selection.get(0);
 										for (int i = singleSelection.getIndex(); i < singleSelection
-												.getContainingListSize(rootListValue); i++) {
+												.getContainingListSize(); i++) {
 											TestAction testAction = (TestAction) singleSelection.getSibling(i)
-													.getItem(rootListValue);
+													.getItem();
 											actionsToReplay.add(testAction);
 										}
 										startReplay(actionsToReplay);
@@ -1336,26 +1345,22 @@ public class TestEditor extends JFrame {
 						return result;
 					}
 				}
-				return super.getDynamicActions(listType, selection, rootListValue);
+				return super.getDynamicActions(listType, selection, listModificationFactoryAccessor);
 			}
 
 			@Override
 			protected List<IListProperty> getDynamicProperties(IListTypeInfo listType,
-					final List<? extends ItemPosition> selection, final Object rootListValue) {
+					final List<? extends ItemPosition> selection,
+					final Mapper<ItemPosition, ListModificationFactory> listModificationFactoryAccessor) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					List<IListProperty> result = new ArrayList<IListProperty>(
-							super.getDynamicProperties(listType, selection, rootListValue));
+							super.getDynamicProperties(listType, selection, listModificationFactoryAccessor));
 					if (selection.size() >= 1) {
 						result.add(new AbstractListProperty() {
 
 							String DISABLED = "Disabled";
 							String ENABLED = "Enabled";
-
-							@Override
-							public Object getRootListValue() {
-								return rootListValue;
-							}
 
 							@Override
 							public String getName() {
@@ -1386,7 +1391,7 @@ public class TestEditor extends JFrame {
 							public Object getValue(Object object) {
 								Boolean result = null;
 								for (ItemPosition itemPosition : selection) {
-									TestAction testAction = (TestAction) itemPosition.getItem(rootListValue);
+									TestAction testAction = (TestAction) itemPosition.getItem();
 									if (result == null) {
 										result = testAction.isDisabled();
 									} else {
@@ -1419,7 +1424,7 @@ public class TestEditor extends JFrame {
 									return;
 								}
 								for (ItemPosition itemPosition : selection) {
-									TestAction testAction = (TestAction) itemPosition.getItem(rootListValue);
+									TestAction testAction = (TestAction) itemPosition.getItem();
 									testAction.setDisabled(disabled);
 								}
 							}
@@ -1443,7 +1448,7 @@ public class TestEditor extends JFrame {
 					}
 					return result;
 				}
-				return super.getDynamicProperties(listType, selection, rootListValue);
+				return super.getDynamicProperties(listType, selection, listModificationFactoryAccessor);
 			}
 
 		}

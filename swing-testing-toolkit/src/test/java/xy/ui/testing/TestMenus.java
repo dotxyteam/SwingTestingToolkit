@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
@@ -21,7 +22,18 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class MenusWindow extends JFrame {
+import org.junit.Test;
+
+import xy.ui.testing.util.TestingUtils;
+
+public class TestMenus extends JFrame {
+
+	@Test
+	public void testMenus() throws Exception {
+		Tester tester = new Tester();
+		TestingUtils.assertSuccessfulReplay(tester, new File("test-specifications/testMenus.stt"));
+	}
+
 	private static final long serialVersionUID = 1L;
 	JTextArea output;
 	JScrollPane scrollPane;
@@ -31,12 +43,12 @@ public class MenusWindow extends JFrame {
 	JRadioButtonMenuItem radioButtonMenuItem;
 	JCheckBoxMenuItem checkBoxMenuItem;
 
-	public MenusWindow() throws HeadlessException {
+	public TestMenus() throws HeadlessException {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setJMenuBar(createMenuBar());
 		setContentPane(createContentPane());
 		setSize(450, 260);
-		
+
 	}
 
 	public JMenuBar createMenuBar() {
@@ -58,8 +70,7 @@ public class MenusWindow extends JFrame {
 
 		ButtonGroup group = new ButtonGroup();
 
-		radioButtonMenuItem = new JRadioButtonMenuItem(
-				"A radio button menu item");
+		radioButtonMenuItem = new JRadioButtonMenuItem("A radio button menu item");
 		addMenuItemAction(radioButtonMenuItem);
 		radioButtonMenuItem.setSelected(true);
 		group.add(radioButtonMenuItem);
@@ -95,8 +106,7 @@ public class MenusWindow extends JFrame {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				output.setText("This menu item was activated: text='"
-						+ menuItem.getText() + "', selected="
+				output.setText("This menu item was activated: text='" + menuItem.getText() + "', selected="
 						+ menuItem.isSelected());
 			}
 		});
@@ -116,7 +126,7 @@ public class MenusWindow extends JFrame {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				MenusWindow frame = new MenusWindow();
+				TestMenus frame = new TestMenus();
 				frame.setVisible(true);
 			}
 		});

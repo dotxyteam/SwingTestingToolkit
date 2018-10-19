@@ -11,6 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import javax.swing.SwingUtilities;
+
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.util.ReflectionUIError;
@@ -63,7 +65,8 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		if (!(c instanceof JComboBox)) {
 			return false;
 		}
@@ -112,6 +115,38 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		return result;
 	}
 
+	protected List<String> getAllOptionsFromUIThread(final JComboBox comboBox) {
+		if (SwingUtilities.isEventDispatchThread()) {
+			throw new AssertionError();
+		}
+		@SuppressWarnings("unchecked")
+		final List<String>[] result = new List[1];
+		final Throwable[] error = new Throwable[1];
+		TestingUtils.invokeInUIThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					result[0] = getAllOptions(comboBox);
+				} catch (Throwable t) {
+					error[0] = t;
+				}
+			}
+		});
+		while (true) {
+			if (result[0] != null) {
+				return result[0];
+			}
+			if (error[0] != null) {
+				throw new TestFailure(error[0]);
+			}
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				throw new AssertionError(e);
+			}
+		}
+	}
+
 	protected String getLabelText(ComboBoxModel model, ListCellRenderer renderer, int i) {
 		Object item = model.getElementAt(i);
 		Component cellRenderer = renderer.getListCellRendererComponent(new JList(), item, 0, false, false);
@@ -124,7 +159,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	@Override
 	public void execute(Component c, Tester tester) {
 		final JComboBox comboBox = (JComboBox) c;
-		List<String> options = getAllOptions(comboBox);
+		List<String> options = getAllOptionsFromUIThread(comboBox);
 		int indexToSelect = -1;
 		for (int i = 0; i < options.size(); i++) {
 			String option = options.get(i);
@@ -185,9 +220,9 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	}
 
-	public class Option implements Serializable{
+	public class Option implements Serializable {
 		private static final long serialVersionUID = 1L;
-		
+
 		private int position;
 		private String label;
 
@@ -222,14 +257,12 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	}
 
-
 	@Override
 	public String toString() {
 		String optionToSelectText = (optionToSelect == null) ? "<none>" : optionToSelect;
 		String selectionModeText = (selectionMode == null) ? "<unspecified selection mode>"
 				: selectionMode.toString().toLowerCase().replace('_', ' ');
-		return "Select " + selectionModeText + " item <" + optionToSelectText + "> of "
-				+ getComponentInformation();
+		return "Select " + selectionModeText + " item <" + optionToSelectText + "> of " + getComponentInformation();
 	}
 
 }

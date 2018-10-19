@@ -107,15 +107,18 @@ public class TestUtils {
 				testEditor.getComponentInspectionWindowSwitch().activate(false);
 			}
 		});
+		Thread.sleep(5000);
 		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
 			public void run() {
 				TestingUtils.closeAllTestableWindows(testEditor.getTester());
+				testEditor.dispose();
 			}
 		});
+		TestingUtils.waitUntilClosed(testEditor);
 		Assert.assertEquals(
 				new ArrayList<Window>(
-						Arrays.<Window> asList(subDialog, subDialog, dialog, subDialog, dialog, rootFrame)),
+						Arrays.<Window>asList(subDialog, subDialog, dialog, subDialog, dialog, rootFrame)),
 				disposeOrder);
 	}
 }

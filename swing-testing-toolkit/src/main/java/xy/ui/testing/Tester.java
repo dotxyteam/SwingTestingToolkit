@@ -26,6 +26,7 @@ import javax.swing.BorderFactory;
 import javax.swing.CellRendererPane;
 import javax.swing.JComponent;
 import javax.swing.JList;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
@@ -388,6 +389,12 @@ public class Tester {
 		s = extractDisplayedStringThroughMethod(c, "getToolTipText");
 		if (s != null) {
 			result.add(s);
+		}
+		if (c instanceof JTabbedPane) {
+			JTabbedPane tabbedPane = (JTabbedPane) c;
+			for (int i = 0; i < tabbedPane.getTabCount(); i++) {
+				result.add(tabbedPane.getTitleAt(i));
+			}
 		}
 		if (c instanceof JComponent) {
 			Border border = ((JComponent) c).getBorder();

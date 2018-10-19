@@ -8,28 +8,24 @@
       </arguments>
       <checkThrownExceptionAfterSeconds>2</checkThrownExceptionAfterSeconds>
       <className>xy.ui.testing.TestTesterEditor</className>
+      <disabled>false</disabled>
     </xy.ui.testing.action.CallMainMethodAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
       <orderChecked>false</orderChecked>
       <visibleStrings>
-        <string>Tester</string>
-        <string>Tester</string>
-        <string>Maximum Seconds To Wait Betwneen Actions: </string>
-        <string>15</string>
-        <string>Minimum Seconds To Wait Betwneen Actions: </string>
-        <string>2</string>
-        <string>Test Actions</string>
-        <string>Type</string>
-        <string>Component</string>
-        <string>Value</string>
-        <string>Load From File...</string>
-        <string>Save To File...</string>
-        <string>Start Recording</string>
+        <string>File</string>
+        <string>Specification</string>
+        <string>Report</string>
+        <string>Record...</string>
         <string>Replay All</string>
-        <string>Undo</string>
-        <string>Redo</string>
-        <string>Reset</string>
+        <string>Inspect</string>
+        <string>Seconds To Wait Between Actions</string>
+        <string>Minimum: </string>
+        <string>Maximum: </string>
+        <string>Actions</string>
       </visibleStrings>
       <windowIndex>0</windowIndex>
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
@@ -47,15 +43,18 @@
         </propertyValueList>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>2</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>xy.ui.testing.TestTesterEditor</text>
@@ -71,21 +70,24 @@
         <propertyValueList>
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
-            <propertyValueExpected>&lt;HTML&gt;Add String...&lt;/HTML&gt;</propertyValueExpected>
+            <propertyValueExpected>&lt;HTML&gt;Add Text...&lt;/HTML&gt;</propertyValueExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>2</windowIndex>
+        <windowIndex>1</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>TestTesterEditor dialog</text>
@@ -98,53 +100,25 @@
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>OK</visibleString>
-        <windowIndex>2</windowIndex>
+        <visibleStringInTree>false</visibleStringInTree>
+        <windowIndex>1</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
-      <completenessChecked>false</completenessChecked>
-      <orderChecked>false</orderChecked>
-      <visibleStrings>
-        <string>Missing class name</string>
-        <string>2</string>
-        <string>Class Name: </string>
-        <string>xy.ui.testing.TestTesterEditor</string>
-        <string>Arguments</string>
-        <string>Undo</string>
-        <string>Redo</string>
-        <string>Reset</string>
-        <string>OK</string>
-        <string>Cancel</string>
-      </visibleStrings>
-      <windowIndex>1</windowIndex>
-    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.PropertyBasedComponentFinder">
-        <componentClassName>javax.swing.JButton</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <propertyValueList>
-          <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
-            <propertyName>Tool Tip Text</propertyName>
-            <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before ...&lt;br/&gt;or&lt;br/&gt;Insert Test Action After ...&lt;/HTML&gt;</propertyValueExpected>
-            <outer-class reference="../../.."/>
-          </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
-        </propertyValueList>
+        <visibleString>&lt;HTML&gt;Insert Test Action Before ...&lt;br/&gt;or&lt;br/&gt;Insert Test Action After ...&lt;/HTML&gt;</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickOnMenuItemAction>
@@ -160,43 +134,48 @@
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
-            <windowIndex>1</windowIndex>
+            <windowIndex>0</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
+      <disabled>false</disabled>
     </xy.ui.testing.action.component.ClickOnMenuItemAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
-      <optionToSelect>Click Action</optionToSelect>
+      <disabled>false</disabled>
+      <optionToSelect>Click</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.specific.SelectTabAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTabbedPane</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <tabToSelect>Component Location</tabToSelect>
     </xy.ui.testing.action.component.specific.SelectTabAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
-        <occurrencesToSkip>2</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
-      <optionToSelect>Visible String Component Finder</optionToSelect>
+      <disabled>false</disabled>
+      <optionToSelect>Displayed String Component Finder</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>2</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>4</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>Boolean Data</text>
@@ -206,16 +185,6 @@
     </xy.ui.testing.action.component.SendKeysAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.PropertyBasedComponentFinder">
         <componentClassName>javax.swing.JButton</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
@@ -228,7 +197,9 @@
         </propertyValueList>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickOnMenuItemAction>
@@ -244,26 +215,38 @@
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
-            <windowIndex>1</windowIndex>
+            <windowIndex>0</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
+      <disabled>false</disabled>
     </xy.ui.testing.action.component.ClickOnMenuItemAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
-      <optionToSelect>Check Component Property Action</optionToSelect>
+      <disabled>false</disabled>
+      <optionToSelect>Check Component Property</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
+    <xy.ui.testing.action.component.specific.SelectTabAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <componentClassName>javax.swing.JTabbedPane</componentClassName>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
+      </componentFinder>
+      <disabled>false</disabled>
+      <tabToSelect>Property Checking</tabToSelect>
+    </xy.ui.testing.action.component.specific.SelectTabAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>2</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>javax.swing.JCheckBox</text>
@@ -275,9 +258,10 @@
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
         <occurrencesToSkip>1</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
-      <optionToSelect>Is Selected</optionToSelect>
+      <disabled>false</disabled>
+      <optionToSelect>Selected</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.ClickAction>
@@ -285,17 +269,20 @@
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JCheckBox</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>3</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>true</text>
@@ -306,17 +293,19 @@
     <xy.ui.testing.action.component.specific.SelectTabAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTabbedPane</componentClassName>
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <tabToSelect>Component Location</tabToSelect>
     </xy.ui.testing.action.component.specific.SelectTabAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
-        <occurrencesToSkip>2</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <optionToSelect>Property Based Component Finder</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -324,8 +313,9 @@
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
         <occurrencesToSkip>4</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>javax.swing.JCheckBox</text>
@@ -345,17 +335,20 @@
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>2</windowIndex>
+        <windowIndex>1</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <optionToSelect>Text</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -364,17 +357,20 @@
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JCheckBox</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>2</windowIndex>
+        <windowIndex>1</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>2</windowIndex>
+        <windowIndex>1</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <keyboardInteractions>
         <xy.ui.testing.action.component.SendKeysAction_-WriteText>
           <text>Boolean Data</text>
@@ -387,19 +383,12 @@
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>OK</visibleString>
-        <windowIndex>2</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>1</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickAction>
@@ -416,7 +405,9 @@
         </propertyValueList>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickOnMenuItemAction>
@@ -432,114 +423,61 @@
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
-            <windowIndex>1</windowIndex>
+            <windowIndex>0</windowIndex>
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
+      <disabled>false</disabled>
     </xy.ui.testing.action.component.ClickOnMenuItemAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
-        <windowIndex>1</windowIndex>
+        <windowIndex>0</windowIndex>
       </componentFinder>
-      <optionToSelect>Close Window Action</optionToSelect>
+      <disabled>false</disabled>
+      <optionToSelect>Close Window</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>OK</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>Replay All</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.WaitAction>
+      <disabled>false</disabled>
       <secondsToWait>30</secondsToWait>
     </xy.ui.testing.action.WaitAction>
-    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+    <xy.ui.testing.action.component.CheckVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
-      <orderChecked>false</orderChecked>
-      <visibleStrings>
-        <string>Action(s) replayed successfully</string>
-      </visibleStrings>
-      <windowIndex>1</windowIndex>
-    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
-    <xy.ui.testing.action.window.CloseWindowAction>
-      <windowIndex>1</windowIndex>
-    </xy.ui.testing.action.window.CloseWindowAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>Save To File...</visibleString>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <componentClassName>javax.swing.JTextArea</componentClassName>
+        <occurrencesToSkip>1</occurrencesToSkip>
         <windowIndex>0</windowIndex>
       </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>Save To File</visibleString>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <doubleClick>false</doubleClick>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
-      <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
       <orderChecked>false</orderChecked>
       <visibleStrings>
-        <string>An Error Occured</string>
-        <string>Missing Value Error</string>
+        <string>SUCCESSFUL
+100% Completed</string>
       </visibleStrings>
-      <windowIndex>2</windowIndex>
-    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+    </xy.ui.testing.action.component.CheckVisibleStringsAction>
     <xy.ui.testing.action.window.CloseWindowAction>
-      <windowIndex>2</windowIndex>
-    </xy.ui.testing.action.window.CloseWindowAction>
-    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
-      <completenessChecked>false</completenessChecked>
-      <orderChecked>false</orderChecked>
-      <visibleStrings>
-        <string>Tester</string>
-        <string>Tester</string>
-        <string>Maximum Seconds To Wait Betwneen Actions: </string>
-        <string>15</string>
-        <string>Minimum Seconds To Wait Betwneen Actions: </string>
-        <string>2</string>
-        <string>Test Actions</string>
-        <string>Type</string>
-        <string>Component</string>
-        <string>Value</string>
-        <string>Call Main Method Action</string>
-        <string>xy.ui.testing.TestTesterEditor &quot;TestTesterEditor dialog&quot;</string>
-        <string>Load From File...</string>
-        <string>Save To File...</string>
-        <string>Start Recording</string>
-        <string>Replay All</string>
-        <string>Undo</string>
-        <string>Redo</string>
-        <string>Reset</string>
-      </visibleStrings>
-      <windowIndex>0</windowIndex>
-    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
-    <xy.ui.testing.action.window.CloseWindowAction>
+      <disabled>false</disabled>
       <windowIndex>0</windowIndex>
     </xy.ui.testing.action.window.CloseWindowAction>
+    <xy.ui.testing.action.CheckNumberOfOpenWindowsAction>
+      <count>0</count>
+      <disabled>false</disabled>
+    </xy.ui.testing.action.CheckNumberOfOpenWindowsAction>
   </testActions>
 </xy.ui.testing.Tester>

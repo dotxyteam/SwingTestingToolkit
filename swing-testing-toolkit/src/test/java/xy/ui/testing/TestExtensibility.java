@@ -3,6 +3,7 @@ package xy.ui.testing;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,25 +21,23 @@ public class TestExtensibility {
 	@Test
 	public void test() throws Exception {
 		Tester tester = new Tester();
-		TestingUtils.purgeAllReportsDirectory();
-		;
-		TestingUtils.assertSuccessfulReplay(tester, AutoTests.class.getResourceAsStream("testExtensibility.stt"));
+		TestingUtils.assertSuccessfulReplay(tester, new File("test-specifications/testExtensibility.stt"));
 	}
 
 	public static void main(String[] args) throws Exception {
 
 		/*
-		 * If you want a specific test action/assertion that is not available in
-		 * the framework, you can extend it. It is very very very ... easy.
+		 * If you want a specific test action/assertion that is not available in the
+		 * framework, you can easily extend it.
 		 * 
-		 * Suppose you have a custom component that you need to manipulate
-		 * during the automatic replay. You first need to create your action
-		 * class by extending the 'TestAction' class. Most of the time it will
-		 * be enough to sub-class 'TargetComponentTestAction'. See the
-		 * 'TargetComponentTestAction' sub-class below for more information.
+		 * Suppose you have a custom component that you need to manipulate during the
+		 * automatic replay. You first need to create your action class by extending the
+		 * 'TestAction' class. Most of the time it will be enough to sub-class
+		 * 'TargetComponentTestAction'. See the 'TargetComponentTestAction' sub-class
+		 * below for more information.
 		 * 
-		 * Once your action class is created, you must register it with the
-		 * TestEditor instance that you will use.
+		 * Once your action class is created, you must register it with the TestEditor
+		 * instance that you will use.
 		 */
 		Tester tester = new Tester();
 		TestEditor testEditor = new TestEditor(tester) {
@@ -60,18 +59,17 @@ public class TestExtensibility {
 	}
 
 	/*
-	 * This is the custom test action class. Usually you would use it either to
-	 * send events, change some properties of some target component (triggering
-	 * action) or check that some stored property values do not change during
-	 * the replay (assertion).
+	 * This is the custom test action class. Usually you would use it either to send
+	 * events, change or check several properties of the target component during the
+	 * replay.
 	 */
 	public static class CustomComponentAssertion extends TargetComponentTestAction {
 		private static final long serialVersionUID = 1L;
 
 		/*
-		 * Here are your action settings/properties. IMPORTANT: you must provide
-		 * getters and setters for these properties in order to be able to edit
-		 * them in the TestEditor.
+		 * Here are your action settings/properties. IMPORTANT: you must provide getters
+		 * and setters for these properties in order to be able to edit them in the
+		 * TestEditor.
 		 */
 		private boolean propertytoCheckExpectpedValue;
 		private int propertytoChangeNewValue;
@@ -96,11 +94,11 @@ public class TestExtensibility {
 		protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 				TestEditor testEditor) {
 			/*
-			 * Here you can initialize your action from the state of the
-			 * component it is targeted to.
+			 * Here you can initialize your action from the state of the component it is
+			 * targeted to.
 			 * 
-			 * Note that the return value is used to indicate that the action
-			 * class can handle (return true) the component passed as argument.
+			 * Note that the return value is used to indicate that the action class can
+			 * handle (return true) the component passed as argument or not (return false).
 			 */
 			if (c instanceof CustomComponent) {
 				propertytoCheckExpectpedValue = ((CustomComponent) c).propertytoCheck;
@@ -121,9 +119,9 @@ public class TestExtensibility {
 			}
 
 			/*
-			 * Note that instructions that update the UI must be executed using
-			 * the following utility method to avoid disturbing the replay
-			 * thread.
+			 * Note that instructions that update the UI must be executed using the
+			 * following utility method (instead of SwingUtilities.invoke*) to avoid
+			 * disturbing the replay thread.
 			 */
 			TestingUtils.invokeInUIThread(new Runnable() {
 				@Override
@@ -136,7 +134,8 @@ public class TestExtensibility {
 		@Override
 		public void validate() throws ValidationError {
 			/*
-			 * Here you can optionally verify your action properties.
+			 * Here you can optionally verify your action properties. The thrown exceptions
+			 * will be displayed in the test editor.
 			 */
 			if (propertytoChangeNewValue < 0) {
 				throw new TestFailure("propertytoChange is not ok");
@@ -146,8 +145,8 @@ public class TestExtensibility {
 		@Override
 		public String getValueDescription() {
 			/*
-			 * Here you should provide informations about your action current
-			 * property values.
+			 * Here you should provide informations about your action current property
+			 * values.
 			 */
 			return "propertytoCheck=" + propertytoCheckExpectpedValue + "; propertytoChange="
 					+ propertytoChangeNewValue;
