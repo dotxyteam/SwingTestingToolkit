@@ -33,7 +33,6 @@ public class TreeSelectionDialog extends JDialog {
 
 	protected static final long serialVersionUID = 1L;
 
-	protected final JPanel contentPanel = new JPanel();
 	protected JTree tree;
 	protected boolean okPressed = false;
 	protected JButton okButton;
@@ -93,18 +92,23 @@ public class TreeSelectionDialog extends JDialog {
 		}
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		initializeTree(treeModel, textAccessor, iconAccessor, selectableAccessor, expandAll);
-		setContentPane(createContentPane(message));
+		layoutContent(createContent(message));
 		pack();
 	}
 
-	protected Container createContentPane(String message) {
-		JPanel contentPane = new JPanel();
+	protected void layoutContent(Container content) {
+		setContentPane(content);
+
+	}
+
+	protected Container createContent(String message) {
+		JPanel contentPane = createContentPane();
 		contentPane.setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BorderLayout(10, 10));
+		JPanel mainPane = createMainPane();
+		contentPane.add(mainPane, BorderLayout.CENTER);
+		mainPane.setLayout(new BorderLayout(10, 10));
 		{
-			contentPanel.add(new JScrollPane(tree));
+			mainPane.add(new JScrollPane(tree));
 		}
 		{
 			messageControl = new JLabel("Choose:");
@@ -112,15 +116,14 @@ public class TreeSelectionDialog extends JDialog {
 			if (message != null) {
 				messageControl.setText(message);
 			}
-			contentPanel.add(messageControl, BorderLayout.NORTH);
+			mainPane.add(messageControl, BorderLayout.NORTH);
 		}
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+			JPanel buttonPane = createButtonPane();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			contentPane.add(buttonPane, BorderLayout.SOUTH);
 			{
-				okButton = new JButton("OK");
+				okButton = createButton("OK");
 				okButton.setEnabled(false);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -132,7 +135,7 @@ public class TreeSelectionDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				cancelButton = new JButton("Cancel");
+				cancelButton = createButton("Cancel");
 				cancelButton.addActionListener(new ActionListener() {
 
 					public void actionPerformed(ActionEvent e) {
@@ -145,6 +148,27 @@ public class TreeSelectionDialog extends JDialog {
 			}
 		}
 		return contentPane;
+	}
+
+	protected JButton createButton(String text) {
+		return new JButton(text);
+	}
+
+	protected JPanel createButtonPane() {
+		JPanel result = new JPanel();
+		result.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		return result;
+	}
+
+	protected JPanel createMainPane() {
+		JPanel result = new JPanel();
+		result.setBorder(new EmptyBorder(5, 5, 5, 5));
+		return result;
+	}
+
+	protected JPanel createContentPane() {
+		JPanel result = new JPanel();
+		return result;
 	}
 
 	protected void initializeTree(TreeModel treeModel, final INodePropertyAccessor<String> textAccessor,

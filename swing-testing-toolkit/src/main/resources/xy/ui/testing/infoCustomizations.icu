@@ -13,12 +13,27 @@
             <green>0</green>
             <red>0</red>
         </buttonBorderColor>
+        <buttonForegroundColor>
+            <blue>0</blue>
+            <green>0</green>
+            <red>0</red>
+        </buttonForegroundColor>
         <mainBackgroundColor>
             <blue>242</blue>
             <green>242</green>
             <red>242</red>
         </mainBackgroundColor>
-        <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+        <systemIntegrationCrossPlatform>true</systemIntegrationCrossPlatform>
+        <titleBackgroundColor>
+            <blue>51</blue>
+            <green>0</green>
+            <red>255</red>
+        </titleBackgroundColor>
+        <titleForegroundColor>
+            <blue>228</blue>
+            <green>228</green>
+            <red>255</red>
+        </titleForegroundColor>
     </appplicationCustomization>
     <enumerationCustomizations>
         <uniqueIdentifier>7504ea5d:1668683f8f7:c5a</uniqueIdentifier>
@@ -1990,6 +2005,50 @@
                         </specificReturnValueTypeCustomizations>
                         <validating>false</validating>
                     </methodsCustomizations>
+                    <methodsCustomizations>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1c38</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <detachedReturnValueForced>false</detachedReturnValueForced>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <ignoredReturnValueForced>false</ignoredReturnValueForced>
+                        <methodSignature>void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction)</methodSignature>
+                        <parametersCustomizations>
+                            <uniqueIdentifier>-2549b32b:16690c3fdd2:1c3a</uniqueIdentifier>
+                            <specificProperties/>
+                            <defaultValue>
+<uniqueIdentifier>-2549b32b:16690c3fdd2:1c3b</uniqueIdentifier>
+                            </defaultValue>
+                            <displayedAsField>false</displayedAsField>
+                            <hidden>false</hidden>
+                            <nullValueDistinctForced>false</nullValueDistinctForced>
+                            <parameterName>insertPosition</parameterName>
+                        </parametersCustomizations>
+                        <parametersCustomizations>
+                            <uniqueIdentifier>-2549b32b:16690c3fdd2:1c3c</uniqueIdentifier>
+                            <specificProperties/>
+                            <defaultValue>
+<uniqueIdentifier>-2549b32b:16690c3fdd2:1c3d</uniqueIdentifier>
+                            </defaultValue>
+                            <displayedAsField>false</displayedAsField>
+                            <hidden>false</hidden>
+                            <nullValueDistinctForced>false</nullValueDistinctForced>
+                            <parameterName>startCallMainMethodAction</parameterName>
+                        </parametersCustomizations>
+                        <parametersFormDisplayed>false</parametersFormDisplayed>
+                        <readOnlyForced>false</readOnlyForced>
+                        <returnValueFieldGenerated>false</returnValueFieldGenerated>
+                        <runWhenObjectHidden>false</runWhenObjectHidden>
+                        <runWhenObjectShown>false</runWhenObjectShown>
+                        <specificReturnValueTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>-2549b32b:16690c3fdd2:1c39</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificReturnValueTypeCustomizations>
+                        <validating>false</validating>
+                    </methodsCustomizations>
                     <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.Tester], fieldName=buttons]</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
@@ -3844,6 +3903,55 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-60f3</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:ba</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customMethodCaption>Record</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>buttons</encapsulationFieldName>
+            <iconImagePath>
+                <specification>&lt;class-path-resource&gt; xy/ui/testing/record.png</specification>
+            </iconImagePath>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:c6</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:c7</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>insertPosition</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:c8</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:c9</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>startCallMainMethodAction</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:bb</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -12093,6 +12201,601 @@
                         <hidden>false</hidden>
                         <itemName>Item[value=Y]</itemName>
                     </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c61</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ABORT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c60</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ALLBITS]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c5f</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Action Command]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c5e</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Alignment X]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c5d</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Alignment Y]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c5c</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Autoscrolls]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c5b</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=BORDER _ PAINTED _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c5a</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=BORDER _ PAINTED _ FLAT _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c59</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=BOTTOM]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c58</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=BOTTOM _ ALIGNMENT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c57</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Background Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c56</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Border Painted]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c55</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Border Painted Flat]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c54</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=CENTER]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c53</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=CENTER _ ALIGNMENT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c52</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=CONTENT _ AREA _ FILLED _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c51</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Component Count]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c50</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Content Area Filled]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c4f</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Cursor Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c4e</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=DISABLED _ ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c4d</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=DISABLED _ SELECTED _ ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c4c</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Debug Graphics Options]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c4b</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Displayable]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c4a</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Displayed Mnemonic Index]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c49</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Double Buffered]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c48</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=EAST]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c47</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ERROR]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c46</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Enabled]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c45</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=FOCUS _ PAINTED _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c44</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=FRAMEBITS]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c43</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c42</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Cycle Root]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c41</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Owner]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c40</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Painted]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c3f</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Traversable]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c3e</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Traversal Keys Enabled]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c3d</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Traversal Policy Provider]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c3c</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focus Traversal Policy Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c3b</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Focusable]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c3a</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Font Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c39</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Foreground Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c38</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=HEIGHT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c37</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=HORIZONTAL]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c36</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=HORIZONTAL _ ALIGNMENT _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c35</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=HORIZONTAL _ TEXT _ POSITION _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c34</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Height]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c33</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Hide Action Text]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c32</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Horizontal Alignment]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c31</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Horizontal Text Position]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c30</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c2f</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Icon Text Gap]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c2e</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Ignore Repaint]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c2d</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Inherits Popup Menu]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c2c</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=LEADING]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c2b</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=LEFT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c2a</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=LEFT _ ALIGNMENT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c29</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Label]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c28</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Lightweight]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c27</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=MARGIN _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c26</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=MNEMONIC _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c25</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=MODEL _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c24</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Managing Focus]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c23</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Maximum Size Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c22</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Minimum Size Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c21</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Mnemonic]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c20</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Multi Click Threshhold]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c1f</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=NEXT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c1e</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=NORTH]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c1d</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=NORTH _ EAST]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c1c</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=NORTH _ WEST]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c1b</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Name]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c1a</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Opaque]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c19</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Optimized Drawing Enabled]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c18</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=PRESSED _ ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c17</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=PREVIOUS]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c16</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=PROPERTIES]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c15</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Painting For Print]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c14</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Painting Tile]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c13</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Preferred Size Set]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c12</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=RIGHT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c11</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=RIGHT _ ALIGNMENT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c10</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ROLLOVER _ ENABLED _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c0f</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ROLLOVER _ ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c0e</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=ROLLOVER _ SELECTED _ ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c0d</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Request Focus Enabled]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c0c</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Rollover Enabled]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c0b</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=SELECTED _ ICON _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c0a</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=SOMEBITS]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c09</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=SOUTH]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c08</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=SOUTH _ EAST]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c07</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=SOUTH _ WEST]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c06</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Selected]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c05</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Showing]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c04</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=TEXT _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c03</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=TOOL _ TIP _ TEXT _ KEY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c02</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=TOP]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c01</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=TOP _ ALIGNMENT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-c00</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=TRAILING]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bff</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Text]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bfe</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Tool Tip Text]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bfd</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=U IClass ID]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bfc</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=UNDEFINED _ CONDITION]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bfb</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=VERTICAL]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bfa</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=VERTICAL _ ALIGNMENT _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf9</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=VERTICAL _ TEXT _ POSITION _ CHANGED _ PROPERTY]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf8</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Valid]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf7</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Validate Root]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf6</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Verify Input When Focus Target]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf5</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Vertical Alignment]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf4</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Vertical Text Position]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf3</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Visible]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf2</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=WEST]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf1</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=WHEN _ ANCESTOR _ OF _ FOCUSED _ COMPONENT]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bf0</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=WHEN _ FOCUSED]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bef</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=WHEN _ IN _ FOCUSED _ WINDOW]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bee</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=WIDTH]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bed</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Width]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-bec</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=X]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-beb</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Y]</itemName>
+                    </itemCustomizations>
                 </enumerationCustomizations>
                 <typeCustomizations>
                     <uniqueIdentifier>5fa5c56c:15bfcfd23ec:-4665</uniqueIdentifier>
@@ -12104,6 +12807,18 @@
                         <uniqueIdentifier>-15ce88ad:15dede02824:-168c</uniqueIdentifier>
                     </menuModel>
                     <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>12924ed9:1668eaba157:-cdb</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-cda</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>ValueOptions [ownerType=xy.ui.testing.action.component.property.CheckComponentPropertyAction, field=propertyName]</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificTypeCustomizations>
@@ -12132,6 +12847,24 @@
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
+                <listCustomizations>
+                    <uniqueIdentifier>12924ed9:1668eaba157:-ce1</uniqueIdentifier>
+                    <editOptions>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-ce0</uniqueIdentifier>
+                        <itemCreationEnabled>true</itemCreationEnabled>
+                        <itemDeletionEnabled>true</itemDeletionEnabled>
+                        <itemMoveEnabled>true</itemMoveEnabled>
+                    </editOptions>
+                    <fieldColumnsAdded>false</fieldColumnsAdded>
+                    <itemContructorSelectableforced>false</itemContructorSelectableforced>
+                    <itemDetailsViewDisabled>false</itemDetailsViewDisabled>
+                    <itemTypeColumnAdded>false</itemTypeColumnAdded>
+                    <itemTypeName>java.lang.String</itemTypeName>
+                    <listSorted>false</listSorted>
+                    <listTypeName>java.util.List</listTypeName>
+                    <positionColumnAdded>false</positionColumnAdded>
+                    <stringValueColumnAdded>false</stringValueColumnAdded>
+                </listCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
         <fieldsCustomizations>
@@ -31830,6 +32563,18 @@
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-5ba64073:16690ea58b7:4f55</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-5ba64073:16690ea58b7:4f56</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.finder.ClassBasedComponentFinder</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
         <immutableForced>false</immutableForced>
@@ -35343,6 +36088,18 @@
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-5ba64073:16690ea58b7:43d0</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-5ba64073:16690ea58b7:43d1</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.finder.ClassBasedComponentFinder</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
         <immutableForced>false</immutableForced>
@@ -40850,6 +41607,54 @@
             </specificReturnValueTypeCustomizations>
             <validating>false</validating>
         </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:1c32</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customMethodCaption>Record</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <iconImagePath>
+                <specification>&lt;class-path-resource&gt; xy/ui/testing/record.png</specification>
+            </iconImagePath>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:1c34</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1c35</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>insertPosition</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:1c36</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1c37</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>startCallMainMethodAction</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1c33</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
         <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.Tester], fieldName=buttons]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -43824,7 +44629,6 @@
             <uniqueIdentifier>61dee1ad:15c3ad8c507:-3e44</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
-            <customFieldCaption></customFieldCaption>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <duplicateGenerated>false</duplicateGenerated>
             <fieldName>insertPosition</fieldName>
@@ -43850,18 +44654,35 @@
                     <enumerationTypeName>testActionsRecordingStartOption</enumerationTypeName>
                     <itemCustomizations>
                         <uniqueIdentifier>61dee1ad:15c3ad8c507:-3e3c</uniqueIdentifier>
+                        <customCaption>After The Current Selection</customCaption>
                         <hidden>false</hidden>
                         <itemName>Item [value=Insert Recordings After The Current Selection Row]</itemName>
                     </itemCustomizations>
                     <itemCustomizations>
                         <uniqueIdentifier>61dee1ad:15c3ad8c507:-3e3b</uniqueIdentifier>
+                        <customCaption>At The End</customCaption>
                         <hidden>false</hidden>
                         <itemName>Item [value=Insert Recordings At The End]</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-220b</uniqueIdentifier>
+                        <customCaption>Over The Current Selection</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>Item [value=Insert Recordings Over The Current Selection Row]</itemName>
                     </itemCustomizations>
                 </enumerationCustomizations>
                 <typeCustomizations>
                     <uniqueIdentifier>-673fad02:1667414d0fb:-5321</uniqueIdentifier>
-                    <specificProperties/>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.swing.plugin.OptionButtonsPlugin</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">rO0ABXNyAFF4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLk9wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uc0NvbmZpZ3VyYXRpb24AAAAAAAAAAQIAAkwACmJ1dHRvblR5cGV0AElMeHkvcmVmbGVjdC91aS9jb250cm9sL3N3aW5nL3BsdWdpbi9PcHRpb25CdXR0b25zUGx1Z2luJE9wdGlvbkJ1dHRvblR5cGU7TAAGbGF5b3V0dABMTHh5L3JlZmxlY3QvdWkvY29udHJvbC9zd2luZy9wbHVnaW4vT3B0aW9uQnV0dG9uc1BsdWdpbiRPcHRpb25CdXR0b25zTGF5b3V0O3hyAF94eS5yZWZsZWN0LnVpLmNvbnRyb2wucGx1Z2luLkFic3RyYWN0U2ltcGxlQ3VzdG9taXphYmxlRmllbGRDb250cm9sUGx1Z2luJEFic3RyYWN0Q29uZmlndXJhdGlvbgAAAAAAAAABAgAAeHB+cgBHeHkucmVmbGVjdC51aS5jb250cm9sLnN3aW5nLnBsdWdpbi5PcHRpb25CdXR0b25zUGx1Z2luJE9wdGlvbkJ1dHRvblR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAVSQURJT35yAEp4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLk9wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uc0xheW91dAAAAAAAAAAAEgAAeHEAfgAGdAANVkVSVElDQUxfRkxPVw==</value>
+                        </entry>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.OptionButtonsPlugin</value>
+                        </entry>
+                    </specificProperties>
                     <abstractForced>false</abstractForced>
                     <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
                     <immutableForced>false</immutableForced>
@@ -47762,17 +48583,18 @@
             <hidden>false</hidden>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>directoryGroup</encapsulationFieldName>
             <fieldName>directory</fieldName>
             <formControlCreationForced>false</formControlCreationForced>
             <formControlEmbeddingForced>false</formControlEmbeddingForced>
-            <getOnlyForced>false</getOnlyForced>
+            <getOnlyForced>true</getOnlyForced>
             <getterGenerated>false</getterGenerated>
             <nullReplacement>
                 <uniqueIdentifier>5259fbec:15cac785078:-4207</uniqueIdentifier>
             </nullReplacement>
             <nullStatusFieldExported>false</nullStatusFieldExported>
             <nullValueDistinctForced>false</nullValueDistinctForced>
-            <setterGenerated>false</setterGenerated>
+            <setterGenerated>true</setterGenerated>
             <specificTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-4a2d</uniqueIdentifier>
@@ -47794,6 +48616,43 @@
                         <uniqueIdentifier>-15ce88ad:15dede02824:-8ca</uniqueIdentifier>
                     </menuModel>
                     <typeName>java.io.File</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-eff71c2:16691af1420:5c03</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <fieldsCustomizations>
+                        <uniqueIdentifier>-eff71c2:16691af1420:5c08</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <displayedAsSingletonList>false</displayedAsSingletonList>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <fieldName>directory</fieldName>
+                        <formControlCreationForced>false</formControlCreationForced>
+                        <formControlEmbeddingForced>false</formControlEmbeddingForced>
+                        <getOnlyForced>false</getOnlyForced>
+                        <getterGenerated>false</getterGenerated>
+                        <nullReplacement>
+                            <uniqueIdentifier>-eff71c2:16691af1420:5c0a</uniqueIdentifier>
+                        </nullReplacement>
+                        <nullStatusFieldExported>false</nullStatusFieldExported>
+                        <nullValueDistinctForced>false</nullValueDistinctForced>
+                        <setterGenerated>false</setterGenerated>
+                        <specificTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>-eff71c2:16691af1420:5c09</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificTypeCustomizations>
+                    </fieldsCustomizations>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-eff71c2:16691af1420:5c04</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directory]</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
             </specificTypeCustomizations>
@@ -48302,6 +49161,189 @@
                 </typeCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-eff71c2:16691af1420:5c20</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>NULL_FIELD_INFO</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-eff71c2:16691af1420:5c22</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-eff71c2:16691af1420:5c21</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-eff71c2:16691af1420:5c23</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-eff71c2:16691af1420:5c24</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.lang.Object</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:445</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>directoryGroup</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>4b3827d4:16691bf7249:447</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:446</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:4e7</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <fieldsCustomizations>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:62a</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <displayedAsSingletonList>false</displayedAsSingletonList>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <fieldName>directory</fieldName>
+                        <formControlCreationForced>false</formControlCreationForced>
+                        <formControlEmbeddingForced>false</formControlEmbeddingForced>
+                        <getOnlyForced>false</getOnlyForced>
+                        <getterGenerated>false</getterGenerated>
+                        <nullReplacement>
+                            <uniqueIdentifier>4b3827d4:16691bf7249:62c</uniqueIdentifier>
+                        </nullReplacement>
+                        <nullStatusFieldExported>false</nullStatusFieldExported>
+                        <nullValueDistinctForced>false</nullValueDistinctForced>
+                        <setterGenerated>false</setterGenerated>
+                        <specificTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>4b3827d4:16691bf7249:62b</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificTypeCustomizations>
+                    </fieldsCustomizations>
+                    <fieldsCustomizations>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:cdb</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <displayedAsSingletonList>false</displayedAsSingletonList>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <fieldName>directoryUpdateGroup</fieldName>
+                        <formControlCreationForced>false</formControlCreationForced>
+                        <formControlEmbeddingForced>false</formControlEmbeddingForced>
+                        <getOnlyForced>false</getOnlyForced>
+                        <getterGenerated>false</getterGenerated>
+                        <nullReplacement>
+                            <uniqueIdentifier>4b3827d4:16691bf7249:cdd</uniqueIdentifier>
+                        </nullReplacement>
+                        <nullStatusFieldExported>false</nullStatusFieldExported>
+                        <nullValueDistinctForced>false</nullValueDistinctForced>
+                        <setterGenerated>false</setterGenerated>
+                        <specificTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>4b3827d4:16691bf7249:cdc</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificTypeCustomizations>
+                    </fieldsCustomizations>
+                    <fieldsCustomizations>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:1fb2</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <displayedAsSingletonList>false</displayedAsSingletonList>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <fieldName>directoryPathGroup</fieldName>
+                        <formControlCreationForced>false</formControlCreationForced>
+                        <formControlEmbeddingForced>false</formControlEmbeddingForced>
+                        <getOnlyForced>false</getOnlyForced>
+                        <getterGenerated>false</getterGenerated>
+                        <nullReplacement>
+                            <uniqueIdentifier>4b3827d4:16691bf7249:1fb4</uniqueIdentifier>
+                        </nullReplacement>
+                        <nullStatusFieldExported>false</nullStatusFieldExported>
+                        <nullValueDistinctForced>false</nullValueDistinctForced>
+                        <setterGenerated>false</setterGenerated>
+                        <specificTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>4b3827d4:16691bf7249:1fb3</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificTypeCustomizations>
+                    </fieldsCustomizations>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:4e8</uniqueIdentifier>
+                    </menuModel>
+                    <methodsCustomizations>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:4ed</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <detachedReturnValueForced>false</detachedReturnValueForced>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <ignoredReturnValueForced>false</ignoredReturnValueForced>
+                        <methodSignature>void directory.set(java.io.File)</methodSignature>
+                        <parametersCustomizations>
+                            <uniqueIdentifier>4b3827d4:16691bf7249:4ef</uniqueIdentifier>
+                            <specificProperties/>
+                            <defaultValue>
+<uniqueIdentifier>4b3827d4:16691bf7249:4f0</uniqueIdentifier>
+                            </defaultValue>
+                            <displayedAsField>false</displayedAsField>
+                            <hidden>false</hidden>
+                            <nullValueDistinctForced>false</nullValueDistinctForced>
+                            <parameterName>directory</parameterName>
+                        </parametersCustomizations>
+                        <parametersFormDisplayed>false</parametersFormDisplayed>
+                        <readOnlyForced>false</readOnlyForced>
+                        <returnValueFieldGenerated>false</returnValueFieldGenerated>
+                        <runWhenObjectHidden>false</runWhenObjectHidden>
+                        <runWhenObjectShown>false</runWhenObjectShown>
+                        <specificReturnValueTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>4b3827d4:16691bf7249:4ee</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificReturnValueTypeCustomizations>
+                        <validating>false</validating>
+                    </methodsCustomizations>
+                    <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
         <immutableForced>false</immutableForced>
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-8c3</uniqueIdentifier>
@@ -48322,6 +49364,18 @@
                             <selectionMode>FILES_ONLY</selectionMode>
                         </fileBrowserConfiguration>
                     </openMenuItem>
+                    <saveMenuItem>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:380f</uniqueIdentifier>
+                        <name>Save Report</name>
+                        <fileBrowserConfiguration>
+                            <fileNameFilters>
+<description>Test Report</description>
+<extensions>str</extensions>
+                            </fileNameFilters>
+                            <actionTitle>Select</actionTitle>
+                            <selectionMode>FILES_ONLY</selectionMode>
+                        </fileBrowserConfiguration>
+                    </saveMenuItem>
                     <name>reportFile</name>
                 </itemCategories>
             </menus>
@@ -48590,6 +49644,40 @@
             </specificReturnValueTypeCustomizations>
             <validating>false</validating>
         </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-eff71c2:16691af1420:5aad</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>directoryGroup</encapsulationFieldName>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void directory.set(java.io.File)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>-eff71c2:16691af1420:5aaf</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>-eff71c2:16691af1420:5ab0</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>directory</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-eff71c2:16691af1420:5aae</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
         <typeName>xy.ui.testing.TestReport</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
@@ -48711,17 +49799,37 @@
                     <typeName>java.util.Date</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-eff71c2:16691af1420:3a8c</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-eff71c2:16691af1420:3a8d</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
             </specificTypeCustomizations>
             <typeConversion>
                 <uniqueIdentifier>-777e1da5:15c89828c9e:156b</uniqueIdentifier>
                 <conversionMethodFinder>
                     <uniqueIdentifier>-55735402:15bef3a82f2:13ef</uniqueIdentifier>
                     <conversionClassName>java.util.Date</conversionClassName>
-                    <conversionMethodSignature>java.util.Date (long)</conversionMethodSignature>
+                    <conversionMethodSignature>java.lang.String toString()</conversionMethodSignature>
                 </conversionMethodFinder>
+                <preMapping>
+                    <uniqueIdentifier>-eff71c2:16691af1420:39b1</uniqueIdentifier>
+                    <conversionMethodFinder>
+                        <uniqueIdentifier>-47b58aa6:15bf32f494f:-1225</uniqueIdentifier>
+                        <conversionClassName>java.util.Date</conversionClassName>
+                        <conversionMethodSignature>java.util.Date (long)</conversionMethodSignature>
+                    </conversionMethodFinder>
+                </preMapping>
                 <javaClassBasedTypeInfoFinder>
                     <uniqueIdentifier>-777e1da5:15c89828c9e:15bf</uniqueIdentifier>
-                    <className>java.util.Date</className>
+                    <className>java.lang.String</className>
                 </javaClassBasedTypeInfoFinder>
                 <nullValueConverted>false</nullValueConverted>
             </typeConversion>
@@ -48816,17 +49924,37 @@
                     <typeName>java.util.Date</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                 </typeCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-eff71c2:16691af1420:35c3</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-eff71c2:16691af1420:35c4</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
             </specificTypeCustomizations>
             <typeConversion>
                 <uniqueIdentifier>-777e1da5:15c89828c9e:208d</uniqueIdentifier>
                 <conversionMethodFinder>
                     <uniqueIdentifier>-55735402:15bef3a82f2:13ef</uniqueIdentifier>
                     <conversionClassName>java.util.Date</conversionClassName>
-                    <conversionMethodSignature>java.util.Date (long)</conversionMethodSignature>
+                    <conversionMethodSignature>java.lang.String toString()</conversionMethodSignature>
                 </conversionMethodFinder>
+                <preMapping>
+                    <uniqueIdentifier>-eff71c2:16691af1420:3472</uniqueIdentifier>
+                    <conversionMethodFinder>
+                        <uniqueIdentifier>-47b58aa6:15bf32f494f:-1225</uniqueIdentifier>
+                        <conversionClassName>java.util.Date</conversionClassName>
+                        <conversionMethodSignature>java.util.Date (long)</conversionMethodSignature>
+                    </conversionMethodFinder>
+                </preMapping>
                 <javaClassBasedTypeInfoFinder>
                     <uniqueIdentifier>-777e1da5:15c89828c9e:20da</uniqueIdentifier>
-                    <className>java.util.Date</className>
+                    <className>java.lang.String</className>
                 </javaClassBasedTypeInfoFinder>
                 <nullValueConverted>false</nullValueConverted>
             </typeConversion>
@@ -61790,6 +62918,751 @@
             <uniqueIdentifier>-1166aed5:16688182be7:3c8c</uniqueIdentifier>
         </menuModel>
         <typeName>Encapsulation [context=FieldContext [fieldName=propertyValueExpected, containingType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue], subContext=NullableInstance, encapsulatedObjectType=java.lang.String]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>12924ed9:1668eaba157:-cee</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>12924ed9:1668eaba157:-ce8</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>12924ed9:1668eaba157:-ce6</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>12924ed9:1668eaba157:-ce7</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>12924ed9:1668eaba157:-ce3</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-ce2</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.action.component.property.CheckComponentPropertyAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>12924ed9:1668eaba157:-ced</uniqueIdentifier>
+        </menuModel>
+        <typeName>Encapsulation [encapsulatedObjectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>12924ed9:1668eaba157:-ac0</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>12924ed9:1668eaba157:-ab7</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>12924ed9:1668eaba157:-ab5</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>12924ed9:1668eaba157:-ab6</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>12924ed9:1668eaba157:-ab2</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>12924ed9:1668eaba157:-ab1</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.action.component.ClickAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>12924ed9:1668eaba157:-abf</uniqueIdentifier>
+        </menuModel>
+        <typeName>Encapsulation [encapsulatedObjectType=xy.ui.testing.action.component.ClickAction]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd1</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd3</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>insertPosition</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd5</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd4</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <enumerationCustomizations>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1fdd</uniqueIdentifier>
+                    <dynamicEnumerationForced>false</dynamicEnumerationForced>
+                    <enumerationTypeName>xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition</enumerationTypeName>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fe6</uniqueIdentifier>
+                        <customCaption>After Last</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>AfterLast</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fe4</uniqueIdentifier>
+                        <customCaption>After Selection</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>AfterSelection</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fe3</uniqueIdentifier>
+                        <customCaption>Before Selection</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>BeforeSelection</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fe5</uniqueIdentifier>
+                        <customCaption>Over Selection</customCaption>
+                        <hidden>false</hidden>
+                        <itemName>OverSelection</itemName>
+                    </itemCustomizations>
+                </enumerationCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1fdb</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.swing.plugin.OptionButtonsPlugin</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">rO0ABXNyAFF4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLk9wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uc0NvbmZpZ3VyYXRpb24AAAAAAAAAAQIAAkwACmJ1dHRvblR5cGV0AElMeHkvcmVmbGVjdC91aS9jb250cm9sL3N3aW5nL3BsdWdpbi9PcHRpb25CdXR0b25zUGx1Z2luJE9wdGlvbkJ1dHRvblR5cGU7TAAGbGF5b3V0dABMTHh5L3JlZmxlY3QvdWkvY29udHJvbC9zd2luZy9wbHVnaW4vT3B0aW9uQnV0dG9uc1BsdWdpbiRPcHRpb25CdXR0b25zTGF5b3V0O3hyAF94eS5yZWZsZWN0LnVpLmNvbnRyb2wucGx1Z2luLkFic3RyYWN0U2ltcGxlQ3VzdG9taXphYmxlRmllbGRDb250cm9sUGx1Z2luJEFic3RyYWN0Q29uZmlndXJhdGlvbgAAAAAAAAABAgAAeHB+cgBHeHkucmVmbGVjdC51aS5jb250cm9sLnN3aW5nLnBsdWdpbi5PcHRpb25CdXR0b25zUGx1Z2luJE9wdGlvbkJ1dHRvblR5cGUAAAAAAAAAABIAAHhyAA5qYXZhLmxhbmcuRW51bQAAAAAAAAAAEgAAeHB0AAVSQURJT35yAEp4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLk9wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uc0xheW91dAAAAAAAAAAAEgAAeHEAfgAGdAANVkVSVElDQUxfRkxPVw==</value>
+                        </entry>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.OptionButtonsPlugin</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fdc</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd6</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>startCallMainMethodAction</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd8</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd7</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:1fe7</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:1fe8</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.action.CallMainMethodAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd2</uniqueIdentifier>
+        </menuModel>
+        <typeName>MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction), containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.Tester], fieldName=buttons]]]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>-2549b32b:16690c3fdd2:536f</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:5375</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-2549b32b:16690c3fdd2:5377</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:5376</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-2549b32b:16690c3fdd2:537a</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-2549b32b:16690c3fdd2:537b</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.action.component.SendKeysAction</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>-2549b32b:16690c3fdd2:5370</uniqueIdentifier>
+        </menuModel>
+        <typeName>Encapsulation [encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>-5ba64073:1669100a491:-6cbf</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-5ba64073:1669100a491:-6cbd</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName></fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-5ba64073:1669100a491:-6cbb</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-5ba64073:1669100a491:-6cbc</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-5ba64073:1669100a491:-6cb8</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-5ba64073:1669100a491:-6cb7</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.finder.ClassBasedComponentFinder</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>-5ba64073:1669100a491:-6cbe</uniqueIdentifier>
+        </menuModel>
+        <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, containingType=xy.ui.testing.action.component.CheckVisibleStringsAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>-eff71c2:16691af1420:5c01</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-eff71c2:16691af1420:5c05</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>directory</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>true</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-eff71c2:16691af1420:5c07</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-eff71c2:16691af1420:5c06</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>-eff71c2:16691af1420:5c02</uniqueIdentifier>
+        </menuModel>
+        <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directory]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>4b3827d4:16691bf7249:4e5</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <customFieldsOrder>directoryUpdateGroup</customFieldsOrder>
+        <customFieldsOrder>directoryPathGroup</customFieldsOrder>
+        <customFieldsOrder>directory</customFieldsOrder>
+        <fieldsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:627</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>directoryPathGroup</encapsulationFieldName>
+            <fieldName>directory</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>true</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>4b3827d4:16691bf7249:629</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:628</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:648</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.FileBrowserPlugin</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:649</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.io.File</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:c4b</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>directoryUpdateGroup</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>4b3827d4:16691bf7249:c4d</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:c4c</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:ccf</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:cd0</uniqueIdentifier>
+                    </menuModel>
+                    <methodsCustomizations>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:cd5</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <detachedReturnValueForced>false</detachedReturnValueForced>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <ignoredReturnValueForced>false</ignoredReturnValueForced>
+                        <methodSignature>void directory.set(java.io.File)</methodSignature>
+                        <parametersCustomizations>
+                            <uniqueIdentifier>4b3827d4:16691bf7249:cd7</uniqueIdentifier>
+                            <specificProperties/>
+                            <defaultValue>
+<uniqueIdentifier>4b3827d4:16691bf7249:cd8</uniqueIdentifier>
+                            </defaultValue>
+                            <displayedAsField>false</displayedAsField>
+                            <hidden>false</hidden>
+                            <nullValueDistinctForced>false</nullValueDistinctForced>
+                            <parameterName>directory</parameterName>
+                        </parametersCustomizations>
+                        <parametersFormDisplayed>false</parametersFormDisplayed>
+                        <readOnlyForced>false</readOnlyForced>
+                        <returnValueFieldGenerated>false</returnValueFieldGenerated>
+                        <runWhenObjectHidden>false</runWhenObjectHidden>
+                        <runWhenObjectShown>false</runWhenObjectShown>
+                        <specificReturnValueTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>4b3827d4:16691bf7249:cd6</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificReturnValueTypeCustomizations>
+                        <validating>false</validating>
+                    </methodsCustomizations>
+                    <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]], fieldName=directoryUpdateGroup]</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:1efd</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayAreaHorizontalWeight>100.0</displayAreaHorizontalWeight>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>directoryPathGroup</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>4b3827d4:16691bf7249:1eff</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:1efe</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:1fa4</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <fieldsCustomizations>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:1fa9</uniqueIdentifier>
+                        <specificProperties/>
+                        <hidden>false</hidden>
+                        <displayedAsSingletonList>false</displayedAsSingletonList>
+                        <duplicateGenerated>false</duplicateGenerated>
+                        <fieldName>directory</fieldName>
+                        <formControlCreationForced>false</formControlCreationForced>
+                        <formControlEmbeddingForced>false</formControlEmbeddingForced>
+                        <getOnlyForced>false</getOnlyForced>
+                        <getterGenerated>false</getterGenerated>
+                        <nullReplacement>
+                            <uniqueIdentifier>4b3827d4:16691bf7249:1fab</uniqueIdentifier>
+                        </nullReplacement>
+                        <nullStatusFieldExported>false</nullStatusFieldExported>
+                        <nullValueDistinctForced>false</nullValueDistinctForced>
+                        <setterGenerated>false</setterGenerated>
+                        <specificTypeCustomizations>
+                            <appplicationCustomization>
+<uniqueIdentifier>4b3827d4:16691bf7249:1faa</uniqueIdentifier>
+<specificProperties/>
+<systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                            </appplicationCustomization>
+                        </specificTypeCustomizations>
+                    </fieldsCustomizations>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:1fa5</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]], fieldName=directoryPathGroup]</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <fieldsLayout>HORIZONTAL_FLOW</fieldsLayout>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>4b3827d4:16691bf7249:4e6</uniqueIdentifier>
+        </menuModel>
+        <methodsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:4e9</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>directoryUpdateGroup</encapsulationFieldName>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void directory.set(java.io.File)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>4b3827d4:16691bf7249:4eb</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:4ec</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>directory</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:4ea</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>4b3827d4:16691bf7249:ccd</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>4b3827d4:16691bf7249:cce</uniqueIdentifier>
+        </menuModel>
+        <methodsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:cd1</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customMethodCaption>Update Resources Location</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void directory.set(java.io.File)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>4b3827d4:16691bf7249:cd3</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:cd4</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>directory</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:cd2</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]], fieldName=directoryUpdateGroup]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>4b3827d4:16691bf7249:1fa2</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:1fa6</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>directory</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>true</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>4b3827d4:16691bf7249:1fa8</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:1fa7</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:1fe8</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.FileBrowserPlugin</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:1fe9</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.io.File</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>4b3827d4:16691bf7249:1fa3</uniqueIdentifier>
+        </menuModel>
+        <typeName>CapsuleFieldType [context=EncapsulationContext [containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]], fieldName=directoryPathGroup]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+    </typeCustomizations>
+    <typeCustomizations>
+        <uniqueIdentifier>4b3827d4:16691bf7249:3486</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <fieldsCustomizations>
+            <uniqueIdentifier>4b3827d4:16691bf7249:3488</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>directory</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>4b3827d4:16691bf7249:348a</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:3489</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>4b3827d4:16691bf7249:348b</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.swing.plugin.FileBrowserPlugin</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">rO0ABXNyAE14eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLkZpbGVCcm93c2VyUGx1Z2luJEZpbGVCcm93c2VyQ29uZmlndXJhdGlvbgAAAAAAAAABAgADTAALYWN0aW9uVGl0bGV0ABJMamF2YS9sYW5nL1N0cmluZztMAA9maWxlTmFtZUZpbHRlcnN0ABBMamF2YS91dGlsL0xpc3Q7TAANc2VsZWN0aW9uTW9kZXQAUUx4eS9yZWZsZWN0L3VpL2NvbnRyb2wvc3dpbmcvcGx1Z2luL0ZpbGVCcm93c2VyUGx1Z2luJFNlbGVjdGlvbk1vZGVDb25maWd1cmF0aW9uO3hyAF94eS5yZWZsZWN0LnVpLmNvbnRyb2wucGx1Z2luLkFic3RyYWN0U2ltcGxlQ3VzdG9taXphYmxlRmllbGRDb250cm9sUGx1Z2luJEFic3RyYWN0Q29uZmlndXJhdGlvbgAAAAAAAAABAgAAeHB0AAZTZWxlY3RzcgATamF2YS51dGlsLkFycmF5TGlzdHiB0h2Zx2GdAwABSQAEc2l6ZXhwAAAAAHcEAAAACnh+cgBPeHkucmVmbGVjdC51aS5jb250cm9sLnN3aW5nLnBsdWdpbi5GaWxlQnJvd3NlclBsdWdpbiRTZWxlY3Rpb25Nb2RlQ29uZmlndXJhdGlvbgAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQAEERJUkVDVE9SSUVTX09OTFk=</value>
+                        </entry>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.FileBrowserPlugin</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>4b3827d4:16691bf7249:348c</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.io.File</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>4b3827d4:16691bf7249:3487</uniqueIdentifier>
+        </menuModel>
+        <typeName>MethodSetupObject [context=MethodContext [methodSignature=void directory.set(java.io.File), containingType=CapsuleFieldType [context=EncapsulationContext [containingType=CapsuleFieldType [context=EncapsulationContext [containingType=xy.ui.testing.TestReport], fieldName=directoryGroup]], fieldName=directoryUpdateGroup]]]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
     </typeCustomizations>
 </infoCustomizations>

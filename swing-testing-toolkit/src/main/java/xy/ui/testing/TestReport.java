@@ -155,33 +155,12 @@ public class TestReport {
 		FileInputStream stream = new FileInputStream(mainReportFile);
 		try {
 			loadFromStream(stream);
-			directoryPath = mainReportFile.getParent();
-			if (directoryPath == null) {
-				directoryPath = ".";
-			}
 		} finally {
 			try {
 				stream.close();
 			} catch (Exception ignore) {
 			}
 		}
-	}
-
-	public void loadFromStream(InputStream input) {
-		XStream xstream = getXStream();
-		TestReport loaded = (TestReport) xstream.fromXML(input);
-		steps = loaded.steps;
-		numberOfActions = loaded.numberOfActions;
-		directoryPath = loaded.directoryPath;
-	}
-
-	public void saveToStream(OutputStream output) throws IOException {
-		XStream xstream = getXStream();
-		TestReport toSave = new TestReport();
-		toSave.steps = steps;
-		toSave.numberOfActions = numberOfActions;
-		toSave.directoryPath = directoryPath;
-		xstream.toXML(toSave, output);
 	}
 
 	public void saveToFile(File output) throws IOException {
@@ -194,6 +173,32 @@ public class TestReport {
 			} catch (Exception ignore) {
 			}
 		}
+	}
+
+	public void loadFromStream(InputStream input) {
+		XStream xstream = getXStream();
+		TestReport loaded = (TestReport) xstream.fromXML(input);
+		steps = new ArrayList<TestReport.TestReportStep>();
+		for (TestReportStep loadedStep : loaded.steps) {
+			TestReportStep step = new TestReportStep(loadedStep.actionSummary);
+			step.startTimestamp = loadedStep.startTimestamp;
+			step.endTimestamp = loadedStep.endTimestamp;
+			step.logs = loadedStep.logs;
+			step.status = loadedStep.status;
+			step.windowsImageFileName = loadedStep.windowsImageFileName;
+			steps.add(step);
+		}
+		numberOfActions = loaded.numberOfActions;
+		directoryPath = loaded.directoryPath;
+	}
+
+	public void saveToStream(OutputStream output) throws IOException {
+		XStream xstream = getXStream();
+		TestReport toSave = new TestReport();
+		toSave.steps = steps;
+		toSave.numberOfActions = numberOfActions;
+		toSave.directoryPath = directoryPath;
+		xstream.toXML(toSave, output);
 	}
 
 	public enum TestReportStepStatus {
@@ -210,7 +215,11 @@ public class TestReport {
 		protected List<String> logs = new ArrayList<String>();
 
 		public TestReportStep(TestAction testAction) {
-			actionSummary = testAction.toString();
+			this(testAction.toString());
+		}
+
+		public TestReportStep(String actionSummary) {
+			this.actionSummary = actionSummary;
 		}
 
 		public TestReportStepStatus getStatus() {

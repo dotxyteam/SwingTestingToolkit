@@ -67,8 +67,8 @@ import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo.CategoriesStyle;
 import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
 import xy.reflect.ui.info.type.factory.InfoProxyFactory;
-import xy.reflect.ui.info.type.iterable.IListAction;
-import xy.reflect.ui.info.type.iterable.IListProperty;
+import xy.reflect.ui.info.type.iterable.IDynamicListAction;
+import xy.reflect.ui.info.type.iterable.IDynamicListProperty;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
@@ -107,6 +107,7 @@ import xy.ui.testing.action.component.specific.SelectTabAction;
 import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
+import xy.ui.testing.editor.RecordingWindowSwitch.InsertPosition;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.DisplayedStringComponentFinder;
@@ -141,8 +142,8 @@ public class TestEditor extends JFrame {
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
 			.putImageInCache(TestingUtils.loadImageResource("ExtensionAction.png"));
 
-	protected Color decorationsForegroundColor = Tester.HIGHLIGHT_BACKGROUND;
-	protected Color decorationsBackgroundColor = Tester.HIGHLIGHT_FOREGROUND;
+	protected Color decorationsForegroundColor;
+	protected Color decorationsBackgroundColor;
 
 	protected ReplayWindowSwitch replayWindowSwitch = new ReplayWindowSwitch(this);
 	protected RecordingWindowSwitch recordingWindowSwitch = new RecordingWindowSwitch(this);
@@ -217,7 +218,7 @@ public class TestEditor extends JFrame {
 				if (!c.isShowing()) {
 					return;
 				}
-				if (TestingUtils.isTestEditorComponent(TestEditor.this, c)) {
+				if (!getTester().isTestable(c)) {
 					return;
 				}
 				if (isCurrentComponentChangeEvent(event)) {
@@ -489,6 +490,15 @@ public class TestEditor extends JFrame {
 		refresh();
 	}
 
+	public List<Integer> getMultipleSelectedActionIndexes() {
+		ListControl testActionsControl = getTestActionsControl();
+		List<Integer> result = new ArrayList<Integer>();
+		for (ItemPosition itemPosition : testActionsControl.getSelection()) {
+			result.add(itemPosition.getIndex());
+		}
+		return result;
+	}
+
 	public int getSelectedActionIndex() {
 		ListControl testActionsControl = getTestActionsControl();
 		ItemPosition result = testActionsControl.getSingleSelection();
@@ -595,50 +605,6 @@ public class TestEditor extends JFrame {
 		return new TestEditorReflectionUI(infoCustomizations);
 	}
 
-	protected static AlternativeWindowDecorationsPanel getAlternateWindowDecorationsContentPane(Window window,
-			Component initialContentPane, final TestEditor testEditor) {
-		String title = SwingRendererUtils.getWindowTitle(window);
-		ImageIcon icon;
-		if (window.getIconImages().size() == 0) {
-			icon = null;
-		} else {
-			Image iconImage = window.getIconImages().get(0);
-			if (SwingRendererUtils.isNullImage(iconImage)) {
-				icon = null;
-			} else {
-				icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
-			}
-		}
-		AlternativeWindowDecorationsPanel result = new AlternativeWindowDecorationsPanel(title, icon, window,
-				initialContentPane) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public Color getTitleBarColor() {
-				return testEditor.getDecorationsBackgroundColor();
-			}
-
-			@Override
-			public Color getDecorationsForegroundColor() {
-				return testEditor.getDecorationsForegroundColor();
-			}
-
-			@Override
-			protected boolean isTitleBarPainted() {
-				return true;
-			}
-
-			@Override
-			public void configureWindow(Window window) {
-				super.configureWindow(window);
-				testEditor.onTestEditorWindowCreation(window);
-			}
-
-		};
-		return result;
-	}
-
 	protected void onTestEditorWindowCreation(Window window) {
 		allWindows.add(window);
 	}
@@ -670,15 +636,59 @@ public class TestEditor extends JFrame {
 			return new WindowManager(this, window) {
 
 				@Override
+				public void set(Component content, Accessor<List<Component>> toolbarControlsAccessor, String title,
+						Image iconImage) {
+					onTestEditorWindowCreation(window);
+					super.set(content, toolbarControlsAccessor, title, iconImage);
+				}
+
+				@Override
 				protected void layoutContentPane(Container contentPane) {
-					alternativeDecorationsPanel = createAlternativeWindowDecorationsPanel(window, contentPane);
-					rootPane.add(alternativeDecorationsPanel, StackLayout.TOP);
+					if ((TestEditor.this.getDecorationsBackgroundColor() != null)
+							|| (TestEditor.this.getDecorationsForegroundColor() != null)) {
+						alternativeDecorationsPanel = createAlternativeWindowDecorationsPanel(window, contentPane);
+						rootPane.add(alternativeDecorationsPanel, StackLayout.TOP);
+					} else {
+						super.layoutContentPane(contentPane);
+					}
 				}
 
 				@Override
 				protected AlternativeWindowDecorationsPanel createAlternativeWindowDecorationsPanel(Window window,
 						Component windowContent) {
-					return TestEditor.getAlternateWindowDecorationsContentPane(window, contentPane, TestEditor.this);
+					String title = SwingRendererUtils.getWindowTitle(window);
+					ImageIcon icon;
+					if (window.getIconImages().size() == 0) {
+						icon = null;
+					} else {
+						Image iconImage = window.getIconImages().get(0);
+						if (SwingRendererUtils.isNullImage(iconImage)) {
+							icon = null;
+						} else {
+							icon = SwingRendererUtils.getSmallIcon(new ImageIcon(iconImage));
+						}
+					}
+					return new CustomWindowDecorationsPanel(title, icon, window, windowContent) {
+
+						private static final long serialVersionUID = 1L;
+
+						@Override
+						public Color getTitleBarColor() {
+							if (TestEditor.this.getDecorationsBackgroundColor() != null) {
+								return TestEditor.this.getDecorationsBackgroundColor();
+							}
+							return super.getTitleBarColor();
+						}
+
+						@Override
+						public Color getDecorationsForegroundColor() {
+							if (TestEditor.this.getDecorationsForegroundColor() != null) {
+								return TestEditor.this.getDecorationsForegroundColor();
+							}
+							return super.getDecorationsForegroundColor();
+						}
+
+					};
 				}
 
 			};
@@ -1086,12 +1096,6 @@ public class TestEditor extends JFrame {
 					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
 					result.add(new MethodInfoProxy(IMethodInfo.NULL_METHOD_INFO) {
 
-						String afterSelectionStartOption = "Insert Recordings After The Current Selection Row";
-						String atEndStartOption = "Insert Recordings At The End";
-						GenericEnumerationFactory startOptionsEnumFactory = new GenericEnumerationFactory(reflectionUI,
-								new Object[] { afterSelectionStartOption, atEndStartOption },
-								"testActionsRecordingStartOption", "");
-
 						@Override
 						public String getName() {
 							return "switchToRecording";
@@ -1124,15 +1128,9 @@ public class TestEditor extends JFrame {
 						public Object invoke(Object object, InvocationData invocationData) {
 							ListControl testActionsControl = getTestActionsControl();
 							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
-								String startPosition = (String) startOptionsEnumFactory
-										.unwrapInstance(invocationData.getParameterValue(startPositionParameter.getPosition()));
-								if (afterSelectionStartOption.equals(startPosition)) {
-									recordingWindowSwitch.setRecordingInsertedAfterSelection(true);
-								} else if (atEndStartOption.equals(startPosition)) {
-									recordingWindowSwitch.setRecordingInsertedAfterSelection(false);
-								} else {
-									throw new AssertionError();
-								}
+								InsertPosition insertPosition = (InsertPosition) invocationData
+										.getParameterValue(startPositionParameter.getPosition());
+								recordingWindowSwitch.setInsertPosition(insertPosition);
 							}
 							final CallMainMethodAction mainMethodCall = (CallMainMethodAction) invocationData
 									.getParameterValue(mainMethodParameter.getPosition());
@@ -1164,13 +1162,12 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI
-										.getTypeInfo(startOptionsEnumFactory.getInstanceTypeInfoSource(null));
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(InsertPosition.class, null));
 							}
 
 							@Override
 							public Object getDefaultValue() {
-								return startOptionsEnumFactory.getInstance(afterSelectionStartOption);
+								return InsertPosition.AfterSelection;
 							}
 
 							@Override
@@ -1301,13 +1298,13 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected List<IListAction> getDynamicActions(IListTypeInfo listType,
+			protected List<IDynamicListAction> getDynamicActions(IListTypeInfo listType,
 					final List<? extends ItemPosition> selection,
 					final Mapper<ItemPosition, ListModificationFactory> listModificationFactoryAccessor) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
-						List<IListAction> result = new ArrayList<IListAction>();
+						List<IDynamicListAction> result = new ArrayList<IDynamicListAction>();
 						result.add(new AbstractListAction() {
 
 							@Override
@@ -1406,12 +1403,12 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected List<IListProperty> getDynamicProperties(IListTypeInfo listType,
+			protected List<IDynamicListProperty> getDynamicProperties(IListTypeInfo listType,
 					final List<? extends ItemPosition> selection,
 					final Mapper<ItemPosition, ListModificationFactory> listModificationFactoryAccessor) {
 				if ((listType.getItemType() != null)
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
-					List<IListProperty> result = new ArrayList<IListProperty>(
+					List<IDynamicListProperty> result = new ArrayList<IDynamicListProperty>(
 							super.getDynamicProperties(listType, selection, listModificationFactoryAccessor));
 					if (selection.size() >= 1) {
 						result.add(new AbstractListProperty() {

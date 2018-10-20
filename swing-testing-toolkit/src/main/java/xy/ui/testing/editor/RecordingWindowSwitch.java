@@ -10,17 +10,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.AbstractAction;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
+import xy.reflect.ui.control.swing.renderer.SwingRenderer;
+import xy.reflect.ui.control.swing.renderer.WindowManager;
+import xy.reflect.ui.util.component.AbstractControlButton;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
@@ -31,8 +37,12 @@ import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
 
 public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
-	protected boolean recordingInsertedAfterSelection = false;
-	
+	public enum InsertPosition {
+		BeforeSelection, AfterSelection, OverSelection, AfterLast
+	}
+
+	protected InsertPosition insertPosition;
+
 	public RecordingWindowSwitch(TestEditor testEditor) {
 		super(testEditor);
 	}
@@ -57,8 +67,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		return "(Waiting) Click on component to record...";
 	}
 
-	public void setRecordingInsertedAfterSelection(boolean recordingInsertedAfterSelection) {
-		this.recordingInsertedAfterSelection = recordingInsertedAfterSelection;
+	public InsertPosition getInsertPosition() {
+		return insertPosition;
+	}
+
+	public void setInsertPosition(InsertPosition insertPosition) {
+		this.insertPosition = insertPosition;
 	}
 
 	public void handleWindowClosingRecordingEvent(AWTEvent event) {
@@ -141,26 +155,44 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	public void insertNewTestAction(TestAction testAction) {
 		final List<TestAction> newTestActionList = new ArrayList<TestAction>(
 				Arrays.asList(getTester().getTestActions()));
-		int insertionIndex = getNewTestActionInsertionIndex();
+
+		List<Integer> selectionIndexes = testEditor.getMultipleSelectedActionIndexes();
+		List<Integer> ascendingSelectionIndexes = new ArrayList<Integer>(selectionIndexes);
+		Collections.sort(ascendingSelectionIndexes);
+		List<Integer> descendingSelectionIndexes = new ArrayList<Integer>(ascendingSelectionIndexes);
+		Collections.reverse(descendingSelectionIndexes);
+
+		int insertionIndex;
+
+		if (selectionIndexes.size() > 0) {
+			if (insertPosition == InsertPosition.OverSelection) {
+				for (int i : descendingSelectionIndexes) {
+					newTestActionList.remove(i);
+				}
+				insertionIndex = ascendingSelectionIndexes.get(0);
+			} else if (insertPosition == InsertPosition.BeforeSelection) {
+				insertionIndex = ascendingSelectionIndexes.get(0);
+			} else if (insertPosition == InsertPosition.AfterSelection) {
+				insertionIndex = descendingSelectionIndexes.get(0) + 1;
+			} else if (insertPosition == InsertPosition.AfterSelection) {
+				insertionIndex = newTestActionList.size();
+			} else {
+				throw new AssertionError();
+			}
+		} else {
+			insertionIndex = newTestActionList.size();
+		}
+
 		newTestActionList.add(insertionIndex, testAction);
 		testEditor.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
 		testEditor.setSelectedActionIndex(insertionIndex);
 	}
 
-	public int getNewTestActionInsertionIndex() {
-		int selectionIndex = testEditor.getSelectedActionIndex();
-		if ((selectionIndex != -1) && recordingInsertedAfterSelection) {
-			return selectionIndex + 1;
-		} else {
-			return getTester().getTestActions().length;
-		}
-	}
-
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
 		testEditor.setComponentFinderInitializationSource(c);
+		String title = "New Test Action - " + getSwingRenderer().getObjectTitle(testAction);
 		StandardEditorBuilder dialogStatus = getSwingRenderer().openObjectDialog(RecordingWindowSwitch.this.getWindow(),
-				testAction, getSwingRenderer().getObjectTitle(testAction),
-				getSwingRenderer().getObjectIconImage(testAction), true, true);
+				testAction, title, getSwingRenderer().getObjectIconImage(testAction), true, true);
 		testEditor.setComponentFinderInitializationSource(null);
 		return !dialogStatus.isCancelled();
 	}
@@ -172,7 +204,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		addStopRecordingOption(options, c);
 		addInspectComponentRecordingOption(options, c);
 		addTestActionCreationRecordingOptions(options, c, event);
-		String title = getSwingRenderer().getObjectTitle(getTester());
+		String title = "New Test Action - Selection";
 		DefaultTreeModel treeModel = new DefaultTreeModel(options);
 		final TreeSelectionDialog dialog = new TreeSelectionDialog(parent, title, null, treeModel,
 				getTestActionMenuItemTextAccessor(), getTestActionMenuItemIconAccessor(),
@@ -180,9 +212,49 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected Container createContentPane(String message) {
-				return TestEditor.getAlternateWindowDecorationsContentPane(this, super.createContentPane(message),
-						testEditor);
+			protected JButton createButton(final String text) {
+				JButton result = new AbstractControlButton() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public String retrieveCaption() {
+						return text;
+					}
+
+					@Override
+					public SwingRenderer getSwingRenderer() {
+						return testEditor.getSwingRenderer();
+					}
+				};
+				return result;
+			}
+
+			@Override
+			protected JPanel createButtonPane() {
+				JPanel result = super.createButtonPane();
+				result.setOpaque(false);
+				return result;
+			}
+
+			@Override
+			protected JPanel createMainPane() {
+				JPanel result = super.createMainPane();
+				result.setOpaque(false);
+				return result;
+			}
+
+			@Override
+			protected JPanel createContentPane() {
+				JPanel result = super.createContentPane();
+				result.setOpaque(false);
+				return result;
+			}
+
+			@Override
+			protected void layoutContent(Container content) {
+				WindowManager windowManager = testEditor.getSwingRenderer().createWindowManager(this);
+				windowManager.set(content, null);
 			}
 
 		};
