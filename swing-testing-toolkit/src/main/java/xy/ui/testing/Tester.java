@@ -519,6 +519,15 @@ public class Tester {
 
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
+		protected ControlsTheme controlsTheme = ControlsTheme.versatile;
+
+		public ControlsTheme getControlsTheme() {
+			return controlsTheme;
+		}
+
+		public void setControlsTheme(ControlsTheme controlsTheme) {
+			this.controlsTheme = controlsTheme;
+		}
 
 		public boolean isTestableWindowsAlwaysOnTopFeatureDisabled() {
 			return testableWindowsAlwaysOnTopFeatureDisabled;
@@ -537,6 +546,10 @@ public class Tester {
 			this.testableModalWindowsForcedToDocumentModality = testableModalWindowsForcedToDocumentModality;
 		}
 
+	}
+
+	public enum ControlsTheme {
+		classic, versatile, cloudy
 	}
 
 }

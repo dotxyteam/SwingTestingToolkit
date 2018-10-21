@@ -18,20 +18,15 @@
             <green>0</green>
             <red>0</red>
         </buttonForegroundColor>
-        <mainBackgroundColor>
-            <blue>242</blue>
-            <green>242</green>
-            <red>242</red>
-        </mainBackgroundColor>
         <systemIntegrationCrossPlatform>true</systemIntegrationCrossPlatform>
         <titleBackgroundColor>
-            <blue>51</blue>
-            <green>0</green>
-            <red>255</red>
+            <blue>56</blue>
+            <green>46</green>
+            <red>158</red>
         </titleBackgroundColor>
         <titleForegroundColor>
-            <blue>228</blue>
-            <green>228</green>
+            <blue>255</blue>
+            <green>255</green>
             <red>255</red>
         </titleForegroundColor>
     </appplicationCustomization>
@@ -2670,6 +2665,63 @@
                 </typeCustomizations>
             </specificTypeCustomizations>
         </fieldsCustomizations>
+        <fieldsCustomizations>
+            <uniqueIdentifier>-33f9025d:166948aa2a1:3c2</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>controlsTheme</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>-33f9025d:166948aa2a1:3c4</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-33f9025d:166948aa2a1:3c3</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <enumerationCustomizations>
+                    <uniqueIdentifier>-33f9025d:166948aa2a1:3f3</uniqueIdentifier>
+                    <dynamicEnumerationForced>false</dynamicEnumerationForced>
+                    <enumerationTypeName>xy.ui.testing.Tester$ControlsTheme</enumerationTypeName>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-33f9025d:166948aa2a1:3f8</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>classic</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-33f9025d:166948aa2a1:3f9</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>versatile</itemName>
+                    </itemCustomizations>
+                    <itemCustomizations>
+                        <uniqueIdentifier>-33f9025d:166948aa2a1:3fa</uniqueIdentifier>
+                        <hidden>false</hidden>
+                        <itemName>cloudy</itemName>
+                    </itemCustomizations>
+                </enumerationCustomizations>
+                <typeCustomizations>
+                    <uniqueIdentifier>-33f9025d:166948aa2a1:3f1</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-33f9025d:166948aa2a1:3f2</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.Tester$ControlsTheme</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificTypeCustomizations>
+        </fieldsCustomizations>
         <iconImagePath>
             <specification>&lt;class-path-resource&gt; xy/ui/testing/Tester.png</specification>
         </iconImagePath>
@@ -2804,6 +2856,86 @@
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
+            <uniqueIdentifier>-76549c4e:15c430dac49:-2fd3</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <customMethodCaption>Options...</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>6e659517:15bf6e5fb2b:-3dc2</uniqueIdentifier>
+                <name>Edit</name>
+                <undoMenuItem>
+                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3afb</uniqueIdentifier>
+                    <name>Undo</name>
+                </undoMenuItem>
+                <redoMenuItem>
+                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3834</uniqueIdentifier>
+                    <name>Redo</name>
+                </redoMenuItem>
+            </menu>
+            <methodSignature>xy.ui.testing.Tester$EditingOptions editingOptions.get()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-6123</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+                <typeCustomizations>
+                    <uniqueIdentifier>-76549c4e:15c430dac49:-2721</uniqueIdentifier>
+                    <specificProperties/>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>-15ce88ad:15dede02824:-1a20</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>xy.ui.testing.Tester$EditingOptions</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                </typeCustomizations>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>3c9a6419:15c42c25512:-4a03</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>java.util.List extractDisplayedStrings(java.awt.Component)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>3c9a6419:15c42c25512:-49ea</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>3c9a6419:15c42c25512:-49e9</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-6129</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7dad</uniqueIdentifier>
             <specificProperties/>
             <hidden>true</hidden>
@@ -2830,6 +2962,50 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-61b2</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a72</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>java.util.List extractVisibleStrings(java.awt.Component, boolean)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a5b</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a5a</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a59</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a58</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>recursively</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-6135</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -2910,10 +3086,6 @@
             <duplicateGenerated>false</duplicateGenerated>
             <encapsulationFieldName>buttons</encapsulationFieldName>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>6e659517:15bf6e5fb2b:-2f70</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
             <methodSignature>void inspectComponents()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
             <readOnlyForced>false</readOnlyForced>
@@ -2923,6 +3095,39 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-61a2</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-478e</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>boolean isTestable(java.awt.Component)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4777</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4776</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-611a</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -2956,6 +3161,39 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-619c</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>3c9a6419:15c42c25512:-4a04</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>boolean isVisible(java.awt.Component)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>3c9a6419:15c42c25512:-49ec</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>3c9a6419:15c42c25512:-49eb</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>c</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-612f</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -3022,6 +3260,105 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-6190</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>634579b0:15c5d4d31fb:-4725</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void logError(java.lang.String)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>634579b0:15c5d4d31fb:-470c</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>634579b0:15c5d4d31fb:-470b</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>msg</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-6114</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>634579b0:15c5d4d31fb:-4723</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void logError(java.lang.Throwable)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>634579b0:15c5d4d31fb:-4708</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>634579b0:15c5d4d31fb:-4707</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>t</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-6108</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>634579b0:15c5d4d31fb:-4724</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void logInfo(java.lang.String)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>634579b0:15c5d4d31fb:-470a</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>634579b0:15c5d4d31fb:-4709</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>msg</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-610e</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -3161,6 +3498,50 @@
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
+            <uniqueIdentifier>1193428d:15c895035cd:-4003</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>xy.ui.testing.TestReport replay(java.util.List, xy.ui.testing.util.Listener)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1193428d:15c895035cd:-3feb</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1193428d:15c895035cd:-3fea</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>toReplay</parameterName>
+            </parametersCustomizations>
+            <parametersCustomizations>
+                <uniqueIdentifier>1193428d:15c895035cd:-3fe9</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1193428d:15c895035cd:-3fe8</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>beforeEachAction</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-60ff</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d91</uniqueIdentifier>
             <specificProperties/>
             <hidden>true</hidden>
@@ -3209,6 +3590,83 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-616f</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>1193428d:15c895035cd:-4002</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>xy.ui.testing.TestReport replayAll(xy.ui.testing.util.Listener)</methodSignature>
+            <parametersCustomizations>
+                <uniqueIdentifier>1193428d:15c895035cd:-3fe7</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>1193428d:15c895035cd:-3fe6</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>beforeEachAction</parameterName>
+            </parametersCustomizations>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-60f9</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-777e1da5:15c89828c9e:-4510</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>xy.ui.testing.TestReport replayAll()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-60f6</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-43746914:15c8ebc3886:-42b0</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>java.io.File requireReportDirectory()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-60f3</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -3311,10 +3769,6 @@
             <duplicateGenerated>false</duplicateGenerated>
             <encapsulationFieldName>buttons</encapsulationFieldName>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>6e659517:15bf6e5fb2b:-2f70</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
             <methodSignature>void switchToRecording()</methodSignature>
             <parametersFormDisplayed>false</parametersFormDisplayed>
             <readOnlyForced>false</readOnlyForced>
@@ -3371,10 +3825,6 @@
             <duplicateGenerated>false</duplicateGenerated>
             <encapsulationFieldName>buttons</encapsulationFieldName>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>6e659517:15bf6e5fb2b:-2f70</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
             <methodSignature>void switchToRecording(xy.ui.testing.action.CallMainMethodAction)</methodSignature>
             <parametersCustomizations>
                 <uniqueIdentifier>-32f0527a:15c383be918:-4a9b</uniqueIdentifier>
@@ -3395,59 +3845,6 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-614f</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>6e659517:15bf6e5fb2b:-507d</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <encapsulationFieldName>buttons</encapsulationFieldName>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>6e659517:15bf6e5fb2b:-2f70</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
-            <methodSignature>void swithToReplay()</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-614b</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7dae</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>6e659517:15bf6e5fb2b:-2f70</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
-            <methodSignature>boolean visitComponentTree(java.awt.Component, xy.ui.testing.util.IComponentTreeVisitor)</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-6147</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -3500,416 +3897,6 @@
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
-            <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a72</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>java.util.List extractVisibleStrings(java.awt.Component, boolean)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a5b</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a5a</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>c</parameterName>
-            </parametersCustomizations>
-            <parametersCustomizations>
-                <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a59</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>dcf3413:15c3d6dac5b:-4a58</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>recursively</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-6135</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>3c9a6419:15c42c25512:-4a04</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>boolean isVisible(java.awt.Component)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>3c9a6419:15c42c25512:-49ec</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>3c9a6419:15c42c25512:-49eb</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>c</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-612f</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>3c9a6419:15c42c25512:-4a03</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>java.util.List extractDisplayedStrings(java.awt.Component)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>3c9a6419:15c42c25512:-49ea</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>3c9a6419:15c42c25512:-49e9</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>c</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-6129</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>-76549c4e:15c430dac49:-2fd3</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <customMethodCaption>Options...</customMethodCaption>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>6e659517:15bf6e5fb2b:-3dc2</uniqueIdentifier>
-                <name>Edit</name>
-                <undoMenuItem>
-                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3afb</uniqueIdentifier>
-                    <name>Undo</name>
-                </undoMenuItem>
-                <redoMenuItem>
-                    <uniqueIdentifier>6e659517:15bf6e5fb2b:-3834</uniqueIdentifier>
-                    <name>Redo</name>
-                </redoMenuItem>
-            </menu>
-            <methodSignature>xy.ui.testing.Tester$EditingOptions editingOptions.get()</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-6123</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-                <typeCustomizations>
-                    <uniqueIdentifier>-76549c4e:15c430dac49:-2721</uniqueIdentifier>
-                    <specificProperties/>
-                    <abstractForced>false</abstractForced>
-                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
-                    <immutableForced>false</immutableForced>
-                    <menuModel>
-                        <uniqueIdentifier>-15ce88ad:15dede02824:-1a20</uniqueIdentifier>
-                    </menuModel>
-                    <typeName>xy.ui.testing.Tester$EditingOptions</typeName>
-                    <undoManagementHidden>false</undoManagementHidden>
-                </typeCustomizations>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>1e87d7c4:15c4ba035b3:-478e</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>boolean isTestable(java.awt.Component)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4777</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4776</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>c</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-611a</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>634579b0:15c5d4d31fb:-4725</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>void logError(java.lang.String)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>634579b0:15c5d4d31fb:-470c</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>634579b0:15c5d4d31fb:-470b</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>msg</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-6114</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>634579b0:15c5d4d31fb:-4724</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>void logInfo(java.lang.String)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>634579b0:15c5d4d31fb:-470a</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>634579b0:15c5d4d31fb:-4709</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>msg</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-610e</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>634579b0:15c5d4d31fb:-4723</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>void logError(java.lang.Throwable)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>634579b0:15c5d4d31fb:-4708</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>634579b0:15c5d4d31fb:-4707</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>t</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-6108</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>1193428d:15c895035cd:-4003</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>xy.ui.testing.TestReport replay(java.util.List, xy.ui.testing.util.Listener)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>1193428d:15c895035cd:-3feb</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>1193428d:15c895035cd:-3fea</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>toReplay</parameterName>
-            </parametersCustomizations>
-            <parametersCustomizations>
-                <uniqueIdentifier>1193428d:15c895035cd:-3fe9</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>1193428d:15c895035cd:-3fe8</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>beforeEachAction</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-60ff</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>1193428d:15c895035cd:-4002</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>xy.ui.testing.TestReport replayAll(xy.ui.testing.util.Listener)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>1193428d:15c895035cd:-3fe7</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>1193428d:15c895035cd:-3fe6</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>beforeEachAction</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-60f9</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>-777e1da5:15c89828c9e:-4510</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>xy.ui.testing.TestReport replayAll()</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-60f6</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>-43746914:15c8ebc3886:-42b0</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>true</hidden>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <methodSignature>java.io.File requireReportDirectory()</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-60f3</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
             <uniqueIdentifier>-2549b32b:16690c3fdd2:ba</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
@@ -3952,6 +3939,51 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-2549b32b:16690c3fdd2:bb</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>6e659517:15bf6e5fb2b:-507d</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>buttons</encapsulationFieldName>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>void swithToReplay()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-614b</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7dae</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>true</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <methodSignature>boolean visitComponentTree(java.awt.Component, xy.ui.testing.util.IComponentTreeVisitor)</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-6147</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -41392,66 +41424,6 @@
             </menus>
         </menuModel>
         <methodsCustomizations>
-            <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cb</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <customMethodCaption>Record</customMethodCaption>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <iconImagePath>
-                <specification>\media\olitank\data\prog\git\SwingTestingToolkit\swing-testing-toolkit\src\main\resources\xy\ui\testing\record.png</specification>
-            </iconImagePath>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
-            <methodSignature>void switchToRecording()</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-4ee1</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cc</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <customMethodCaption>Replay All</customMethodCaption>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <iconImagePath>
-                <specification>&lt;class-path-resource&gt; xy/ui/testing/replay.png</specification>
-            </iconImagePath>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
-            <methodSignature>void swithToReplay()</methodSignature>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-4edd</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
             <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cd</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
@@ -41475,6 +41447,36 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-4ed9</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cb</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customMethodCaption>Record</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <iconImagePath>
+                <specification>\media\olitank\data\prog\git\SwingTestingToolkit\swing-testing-toolkit\src\main\resources\xy\ui\testing\record.png</specification>
+            </iconImagePath>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
+                <name>Run</name>
+            </menu>
+            <methodSignature>void switchToRecording()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-4ee1</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>
@@ -41515,99 +41517,6 @@
             <validating>false</validating>
         </methodsCustomizations>
         <methodsCustomizations>
-            <uniqueIdentifier>-32f0527a:15c383be918:-35f6</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <customMethodCaption>Record</customMethodCaption>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <iconImagePath>
-                <specification>&lt;class-path-resource&gt; xy/ui/testing/record.png</specification>
-            </iconImagePath>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
-            <methodSignature>void switchToRecording(xy.ui.testing.action.CallMainMethodAction)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>-32f0527a:15c383be918:-35f5</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>-32f0527a:15c383be918:-35f4</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>NULL_PARAMETER_INFO</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-4ecc</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
-            <uniqueIdentifier>61dee1ad:15c3ad8c507:-4715</uniqueIdentifier>
-            <specificProperties/>
-            <hidden>false</hidden>
-            <customMethodCaption>Record</customMethodCaption>
-            <detachedReturnValueForced>false</detachedReturnValueForced>
-            <duplicateGenerated>false</duplicateGenerated>
-            <iconImagePath>
-                <specification>&lt;class-path-resource&gt; xy/ui/testing/record.png</specification>
-            </iconImagePath>
-            <ignoredReturnValueForced>false</ignoredReturnValueForced>
-            <menu>
-                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
-                <name>Run</name>
-            </menu>
-            <methodSignature>void switchToRecording(testActionsRecordingStartOption, xy.ui.testing.action.CallMainMethodAction)</methodSignature>
-            <parametersCustomizations>
-                <uniqueIdentifier>61dee1ad:15c3ad8c507:-4714</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>61dee1ad:15c3ad8c507:-4713</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>insertPosition</parameterName>
-            </parametersCustomizations>
-            <parametersCustomizations>
-                <uniqueIdentifier>61dee1ad:15c3ad8c507:-4712</uniqueIdentifier>
-                <specificProperties/>
-                <defaultValue>
-                    <uniqueIdentifier>61dee1ad:15c3ad8c507:-4711</uniqueIdentifier>
-                </defaultValue>
-                <displayedAsField>false</displayedAsField>
-                <hidden>false</hidden>
-                <nullValueDistinctForced>false</nullValueDistinctForced>
-                <parameterName>startCallMainMethodAction</parameterName>
-            </parametersCustomizations>
-            <parametersFormDisplayed>false</parametersFormDisplayed>
-            <readOnlyForced>false</readOnlyForced>
-            <returnValueFieldGenerated>false</returnValueFieldGenerated>
-            <runWhenObjectHidden>false</runWhenObjectHidden>
-            <runWhenObjectShown>false</runWhenObjectShown>
-            <specificReturnValueTypeCustomizations>
-                <appplicationCustomization>
-                    <uniqueIdentifier>-673fad02:1667413d169:-4ec2</uniqueIdentifier>
-                    <specificProperties/>
-                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
-                </appplicationCustomization>
-            </specificReturnValueTypeCustomizations>
-            <validating>false</validating>
-        </methodsCustomizations>
-        <methodsCustomizations>
             <uniqueIdentifier>-2549b32b:16690c3fdd2:1c32</uniqueIdentifier>
             <specificProperties/>
             <hidden>false</hidden>
@@ -41618,6 +41527,10 @@
                 <specification>&lt;class-path-resource&gt; xy/ui/testing/record.png</specification>
             </iconImagePath>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
+                <name>Run</name>
+            </menu>
             <methodSignature>void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction)</methodSignature>
             <parametersCustomizations>
                 <uniqueIdentifier>-2549b32b:16690c3fdd2:1c34</uniqueIdentifier>
@@ -41649,6 +41562,36 @@
             <specificReturnValueTypeCustomizations>
                 <appplicationCustomization>
                     <uniqueIdentifier>-2549b32b:16690c3fdd2:1c33</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </appplicationCustomization>
+            </specificReturnValueTypeCustomizations>
+            <validating>false</validating>
+        </methodsCustomizations>
+        <methodsCustomizations>
+            <uniqueIdentifier>-4401a91a:15bf6fe7e93:57cc</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customMethodCaption>Replay All</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <iconImagePath>
+                <specification>&lt;class-path-resource&gt; xy/ui/testing/replay.png</specification>
+            </iconImagePath>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <menu>
+                <uniqueIdentifier>-4401a91a:15bf739eb72:-4d87</uniqueIdentifier>
+                <name>Run</name>
+            </menu>
+            <methodSignature>void swithToReplay()</methodSignature>
+            <parametersFormDisplayed>false</parametersFormDisplayed>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <specificReturnValueTypeCustomizations>
+                <appplicationCustomization>
+                    <uniqueIdentifier>-673fad02:1667413d169:-4edd</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </appplicationCustomization>

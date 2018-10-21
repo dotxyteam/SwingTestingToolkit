@@ -53,6 +53,7 @@ import xy.reflect.ui.control.swing.renderer.WindowManager;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.ResourcePath;
 import xy.reflect.ui.info.ValueReturnMode;
+import xy.reflect.ui.info.app.IApplicationInfo;
 import xy.reflect.ui.info.custom.InfoCustomizations;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.field.ImplicitListFieldInfo;
@@ -75,6 +76,8 @@ import xy.reflect.ui.info.type.iterable.item.ItemPosition;
 import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
 import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
+import xy.reflect.ui.undo.AbstractSimpleModificationListener;
+import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.util.Accessor;
@@ -86,6 +89,7 @@ import xy.reflect.ui.util.SwingRendererUtils;
 import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
+import xy.ui.testing.Tester.ControlsTheme;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.SystemExitCallInterceptionAction;
@@ -114,6 +118,7 @@ import xy.ui.testing.finder.DisplayedStringComponentFinder;
 import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
+import xy.ui.testing.theme.ClassInThemePackage;
 import xy.ui.testing.util.TestingUtils;
 
 @SuppressWarnings("unused")
@@ -176,6 +181,17 @@ public class TestEditor extends JFrame {
 		reflectionUI = createTesterReflectionUI(infoCustomizations);
 		swingRenderer = createSwingRenderer(reflectionUI);
 		createControls();
+		refreshBackgroundImageOnModification();
+	}
+
+	private void refreshBackgroundImageOnModification() {
+		mainForm.getModificationStack().addListener(new AbstractSimpleModificationListener() {
+			@Override
+			protected void handleAnyEvent(IModification modification) {
+				windowManager.refreshWindowStructure();
+			}
+		});
+
 	}
 
 	public File getLastTesterFile() {
@@ -813,6 +829,14 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
+		public IApplicationInfo getApplicationInfo() {
+			IApplicationInfo result = super.getApplicationInfo();
+			result = new StandardProxyFactory().wrapApplicationInfo(result);
+			result = new ExtensionsProxyFactory().wrapApplicationInfo(result);
+			return result;
+		}
+
+		@Override
 		public void logDebug(String msg) {
 			TestEditor.this.logDebug(msg);
 		}
@@ -976,6 +1000,16 @@ public class TestEditor extends JFrame {
 			@Override
 			public String toString() {
 				return TestEditor.class.getName() + InfoProxyFactory.class.getSimpleName();
+			}
+
+			@Override
+			protected ResourcePath getMainBackgroundImagePath(IApplicationInfo appInfo) {
+				ControlsTheme theme = TestEditor.this.tester.getEditingOptions().getControlsTheme();
+				if (theme == ControlsTheme.classic) {
+					return null;
+				} else {
+					return new ResourcePath(ClassInThemePackage.class, theme.name() + "-background.png");
+				}
 			}
 
 			@Override
