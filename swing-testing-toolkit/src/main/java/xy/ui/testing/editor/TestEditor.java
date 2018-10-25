@@ -1200,7 +1200,7 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
-							public Object getDefaultValue() {
+							public Object getDefaultValue(Object object) {
 								return InsertPosition.AfterSelection;
 							}
 
@@ -1236,7 +1236,7 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
-							public Object getDefaultValue() {
+							public Object getDefaultValue(Object object) {
 								return null;
 							}
 
