@@ -774,7 +774,7 @@ public class TestEditor extends JFrame {
 						private static final long serialVersionUID = 1L;
 
 						@Override
-						public IMethodControlData indicateWhenBusy(IMethodControlData data) {
+						protected IMethodControlData indicateWhenBusy(IMethodControlData data) {
 							if (method.getName().startsWith("switch")) {
 								return data;
 							} else {

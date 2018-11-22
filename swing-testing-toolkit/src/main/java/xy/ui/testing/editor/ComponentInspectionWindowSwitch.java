@@ -52,7 +52,7 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 			StandardEditorBuilder inspectorDialogBuilder = getSwingRenderer().getEditorBuilder(activatorComponent,
 					inspector, getSwingRenderer().getObjectTitle(inspector),
 					getSwingRenderer().getObjectIconImage(inspector), false);
-			JDialog inspectorDialog = inspectorDialogBuilder.createAndShowDialog();
+			JDialog inspectorDialog = inspectorDialogBuilder.createDialog();
 			highlightComponentOnSelectionFromInspectorDialog(inspector, inspectorDialog);
 			getSwingRenderer().showDialog(inspectorDialog, true);
 		} finally {
