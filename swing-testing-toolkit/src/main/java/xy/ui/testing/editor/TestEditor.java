@@ -32,7 +32,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 
 import org.jdesktop.swingx.StackLayout;
@@ -66,7 +65,6 @@ import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo.CategoriesStyle;
-import xy.reflect.ui.info.type.factory.GenericEnumerationFactory;
 import xy.reflect.ui.info.type.factory.InfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
@@ -121,8 +119,24 @@ import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.theme.ClassInThemePackage;
 import xy.ui.testing.util.TestingUtils;
 
-@SuppressWarnings("unused")
 public class TestEditor extends JFrame {
+
+	public static void main(String[] args) {
+		TestEditor testEditor = new TestEditor(new Tester());
+		try {
+			if (args.length > 1) {
+				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
+			} else if (args.length == 1) {
+				String fileName = args[0];
+				testEditor.getTester().loadFromFile(new File(fileName));
+				testEditor.refresh();
+			}
+			testEditor.open();
+		} catch (Throwable t) {
+			testEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
+		}
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	public static final String ALTERNATE_UI_CUSTOMIZATION_FILE_PATH_PROPERTY_KEY = "xy.ui.testing.gui.customizationFile";
@@ -623,22 +637,6 @@ public class TestEditor extends JFrame {
 
 	protected void onTestEditorWindowCreation(Window window) {
 		allWindows.add(window);
-	}
-
-	public static void main(String[] args) {
-		TestEditor testEditor = new TestEditor(new Tester());
-		try {
-			if (args.length > 1) {
-				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
-			} else if (args.length == 1) {
-				String fileName = args[0];
-				testEditor.getTester().loadFromFile(new File(fileName));
-				testEditor.refresh();
-			}
-			testEditor.open();
-		} catch (Throwable t) {
-			testEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
-		}
 	}
 
 	protected class TestEditorSwingRenderer extends SwingCustomizer {
