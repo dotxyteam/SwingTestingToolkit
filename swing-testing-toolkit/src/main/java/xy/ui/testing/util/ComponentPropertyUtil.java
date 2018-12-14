@@ -16,7 +16,7 @@ import xy.reflect.ui.util.ReflectionUIUtils;
 
 public class ComponentPropertyUtil {
 
-	protected static ReflectionUI introspector = new ReflectionUI();
+	protected static ReflectionUI introspector = ReflectionUIUtils.STANDARD_REFLECTION;
 
 	protected String propertyName;
 	protected String componentClassName;

@@ -399,7 +399,7 @@ public class TestEditor extends JFrame {
 		{
 			this.mainForm = getSwingRenderer().createForm(mainObject);
 			String title = getSwingRenderer().getObjectTitle(getTester());
-			List<Component> toolbarControls = mainForm.createToolbarControls();
+			List<Component> toolbarControls = mainForm.createButtonBarControls();
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
 			this.windowManager = getSwingRenderer().createWindowManager(this);
 			windowManager.set(mainForm, Accessor.returning(toolbarControls), title, iconImage);
