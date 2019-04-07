@@ -549,7 +549,7 @@ public class Tester {
 	}
 
 	public enum ControlsTheme {
-		classic, versatile, cloudy
+		classic, versatile, cloudy, gradient
 	}
 
 }
