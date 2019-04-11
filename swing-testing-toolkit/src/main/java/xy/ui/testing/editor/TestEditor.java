@@ -498,6 +498,7 @@ public class TestEditor extends JFrame {
 			BufferedItemPosition lastStepItemPosition = stepsControl
 					.getRootListItemPosition(stepsControl.getRootListSize() - 1);
 			stepsControl.setSingleSelection(lastStepItemPosition);
+			stepsControl.scrollTo(lastStepItemPosition);
 		}
 	}
 
@@ -507,6 +508,7 @@ public class TestEditor extends JFrame {
 		if (testActionsControl.getRootListSize() > 0) {
 			BufferedItemPosition firstActionItemPosition = testActionsControl.getRootListItemPosition(0);
 			testActionsControl.setSingleSelection(firstActionItemPosition);
+			testActionsControl.scrollTo(firstActionItemPosition);
 		}
 	}
 
@@ -543,7 +545,9 @@ public class TestEditor extends JFrame {
 		if (testActionsControl == null) {
 			return;
 		}
-		testActionsControl.setSingleSelection(testActionsControl.getRootListItemPosition(index));
+		BufferedItemPosition itemPosition = testActionsControl.getRootListItemPosition(index);
+		testActionsControl.setSingleSelection(itemPosition);
+		testActionsControl.scrollTo(itemPosition);
 	}
 
 	protected void startRecording() {
