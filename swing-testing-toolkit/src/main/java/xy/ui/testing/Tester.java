@@ -519,7 +519,7 @@ public class Tester {
 
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
-		protected ControlsTheme controlsTheme = ControlsTheme.versatile;
+		protected ControlsTheme controlsTheme = ControlsTheme.cloudy;
 
 		public ControlsTheme getControlsTheme() {
 			return controlsTheme;
