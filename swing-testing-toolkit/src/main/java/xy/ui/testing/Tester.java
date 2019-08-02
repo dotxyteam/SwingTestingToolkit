@@ -293,6 +293,7 @@ public class Tester {
 		testActions = loaded.testActions;
 		minimumSecondsToWaitBetwneenActions = loaded.minimumSecondsToWaitBetwneenActions;
 		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
+		editingOptions = loaded.editingOptions;
 	}
 
 	public void saveToStream(OutputStream output) throws IOException {
@@ -301,6 +302,7 @@ public class Tester {
 		toSave.testActions = testActions;
 		toSave.minimumSecondsToWaitBetwneenActions = minimumSecondsToWaitBetwneenActions;
 		toSave.maximumSecondsToWaitBetwneenActions = maximumSecondsToWaitBetwneenActions;
+		toSave.editingOptions = editingOptions;
 		xstream.toXML(toSave, output);
 	}
 
@@ -515,11 +517,16 @@ public class Tester {
 		return editingOptions;
 	}
 
+	public void setEditingOptions(EditingOptions editingOptions) {
+		this.editingOptions = editingOptions;
+	}
+
 	public static class EditingOptions {
 
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
 		protected ControlsTheme controlsTheme = ControlsTheme.cloudy;
+		private boolean analyticsEnabled = true;
 
 		public ControlsTheme getControlsTheme() {
 			return controlsTheme;
@@ -544,6 +551,14 @@ public class Tester {
 		public void setTestableModalWindowsForcedToDocumentModality(
 				boolean testableModalWindowsForcedToDocumentModality) {
 			this.testableModalWindowsForcedToDocumentModality = testableModalWindowsForcedToDocumentModality;
+		}
+
+		public boolean isAnalyticsEnabled() {
+			return analyticsEnabled;
+		}
+
+		public void setAnalyticsEnabled(boolean analyticsEnabled) {
+			this.analyticsEnabled = analyticsEnabled;
 		}
 
 	}

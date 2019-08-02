@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="deploy" name="phoyo">
+
+	<property name="ftpUserid" value="" />
+	<property name="ftpPassword" value="" />
+
+	<property name="project.artifactId" value="swing-testing-toolkit" />
+	<property name="project.version" value="1.3.5" />
+
+	<target name="deploy">
+
+		<copy file="${basedir}/target/${project.artifactId}-${project.version}-dist.zip" tofile="${basedir}/misc/web/binaries-history/current/${project.artifactId}-dist.zip" overwrite="yes" />
+
+
+		<ftp action="send" remotedir="/www/otksoftware/custom/downloads" verbose="yes" passive="yes" server="ftp.cluster011.ovh.net" userid="${ftpUserid}" password="${ftpPassword}">
+			<fileset dir="${basedir}/misc/web/binaries-history/current">
+				<include name="${project.artifactId}-dist.zip" />
+			</fileset>
+		</ftp>
+
+	</target>
+
+</project>

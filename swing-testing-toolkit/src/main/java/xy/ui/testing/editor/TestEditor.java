@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -117,6 +118,7 @@ import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.theme.ClassInThemePackage;
+import xy.ui.testing.util.Analytics;
 import xy.ui.testing.util.TestingUtils;
 
 public class TestEditor extends JFrame {
@@ -184,8 +186,25 @@ public class TestEditor extends JFrame {
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
 
 	protected AWTEventListener modalityChangingListener;
+	protected Analytics analytics = new Analytics() {
+
+		@Override
+		public void sendTracking(Date when, String used, String... details) {
+			if (!tester.getEditingOptions().isAnalyticsEnabled()) {
+				return;
+			}
+			super.sendTracking(when, used, details);
+		}
+
+		@Override
+		protected void logInfo(String s) {
+		}
+
+	};
 
 	public TestEditor(Tester tester) {
+		analytics.initialize();
+		analytics.track("Initializing test editor...", "tester=" + tester);
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
 		this.testReport = new TestReport();
@@ -198,6 +217,15 @@ public class TestEditor extends JFrame {
 		refreshBackgroundImageOnModification();
 	}
 
+	@Override
+	public void dispose() {
+		cleanupWindowSwitchesEventHandling();
+		cleanupDialogApplicationModalityPrevention();
+		super.dispose();
+		analytics.track("Finalizing test editor...", "tester=" + tester);
+		analytics.shutdown();
+	}
+
 	private void refreshBackgroundImageOnModification() {
 		mainForm.getModificationStack().addListener(new AbstractSimpleModificationListener() {
 			@Override
@@ -205,7 +233,6 @@ public class TestEditor extends JFrame {
 				windowManager.refreshWindowStructure();
 			}
 		});
-
 	}
 
 	public File getLastTesterFile() {
@@ -215,13 +242,6 @@ public class TestEditor extends JFrame {
 	public void setLastTesterFile(File file) {
 		AbstractFileMenuItem.getLastFileByForm().put(getTesterForm(), file);
 		mainForm.refresh(false);
-	}
-
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		cleanupWindowSwitchesEventHandling();
-		cleanupDialogApplicationModalityPrevention();
 	}
 
 	protected void setupWindowSwitchesEventHandling() {
@@ -972,6 +992,25 @@ public class TestEditor extends JFrame {
 
 			protected final Pattern polymorphicComponentFindeFieldEncapsulationTypeNamePattern = Pattern.compile(
 					"^Encapsulation \\[context=FieldContext \\[fieldName=componentFinder.*\\], subContext=PolymorphicInstance.*\\]$");
+
+			@Override
+			protected void setValue(Object object, Object value, IFieldInfo field, ITypeInfo containingType) {
+				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
+						|| (object instanceof ComponentFinder)) {
+					analytics.track("Setting(" + object + " - " + field.getName() + ")", String.valueOf(value));
+				}
+				super.setValue(object, value, field, containingType);
+			}
+
+			@Override
+			protected Object invoke(Object object, InvocationData invocationData, IMethodInfo method,
+					ITypeInfo containingType) {
+				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
+						|| (object instanceof ComponentFinder)) {
+					analytics.track("Invoking " + method.getName() + "(", invocationData.toString() + ") on " + object);
+				}
+				return super.invoke(object, invocationData, method, containingType);
+			}
 
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;

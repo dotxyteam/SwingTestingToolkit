@@ -1,1 +1,2 @@
-TODO: https://stackoverflow.com/questions/3086607/unit-test-for-java-swing-application
+TO FOLLOW: https://stackoverflow.com/questions/3086607/unit-test-for-java-swing-application
+TO FOLLOW: https://sqa.stackexchange.com/questions/18554/open-source-tools-for-automation-of-java-gui-application-testing/40291#40291
