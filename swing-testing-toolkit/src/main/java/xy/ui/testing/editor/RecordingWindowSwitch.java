@@ -174,7 +174,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 				insertionIndex = ascendingSelectionIndexes.get(0);
 			} else if (insertPosition == InsertPosition.AfterSelection) {
 				insertionIndex = descendingSelectionIndexes.get(0) + 1;
-			} else if (insertPosition == InsertPosition.AfterSelection) {
+			} else if (insertPosition == InsertPosition.AfterLast) {
 				insertionIndex = newTestActionList.size();
 			} else {
 				throw new AssertionError();

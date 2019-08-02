@@ -226,7 +226,7 @@ public class TestEditor extends JFrame {
 		analytics.shutdown();
 	}
 
-	private void refreshBackgroundImageOnModification() {
+	protected void refreshBackgroundImageOnModification() {
 		mainForm.getModificationStack().addListener(new AbstractSimpleModificationListener() {
 			@Override
 			protected void handleAnyEvent(IModification modification) {
@@ -277,7 +277,9 @@ public class TestEditor extends JFrame {
 					}
 				}
 				if (c != getTester().getCurrentComponent()) {
-					if (isGenericRecordingRequestEvent(event)) {
+					if (isWindowClosingRecordingRequestEvent(event)) {
+						recordingWindowSwitch.handleWindowClosingRecordingEvent(event);
+					} else if (isGenericRecordingRequestEvent(event)) {
 						getTester().handleCurrentComponentChange(c);
 						currentComponentChangeDisabledUntil = System.currentTimeMillis() + 5000;
 					}
@@ -1201,12 +1203,15 @@ public class TestEditor extends JFrame {
 
 						@Override
 						public Object invoke(Object object, InvocationData invocationData) {
-							ListControl testActionsControl = getTestActionsControl();
-							if ((testActionsControl != null) && (testActionsControl.getSelection().size() == 1)) {
-								InsertPosition insertPosition = (InsertPosition) invocationData
+							InsertPosition insertPosition;
+							if (!invocationData.getProvidedParameterValues()
+									.containsKey(startPositionParameter.getPosition())) {
+								insertPosition = (InsertPosition) startPositionParameter.getDefaultValue(object);
+							} else {
+								insertPosition = (InsertPosition) invocationData
 										.getParameterValue(startPositionParameter.getPosition());
-								recordingWindowSwitch.setInsertPosition(insertPosition);
 							}
+							recordingWindowSwitch.setInsertPosition(insertPosition);
 							final CallMainMethodAction mainMethodCall = (CallMainMethodAction) invocationData
 									.getParameterValue(mainMethodParameter.getPosition());
 							if (mainMethodCall != null) {
