@@ -429,6 +429,11 @@ public class TestingUtils {
 		Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
 	}
 
+	public static void assertSuccessfulReplay(File specificationFile) throws Exception {
+		Tester tester = new Tester();
+		assertSuccessfulReplay(tester, specificationFile);
+	}
+
 	public static void assertSuccessfulReplay(final Tester tester, File specificationFile) throws Exception {
 		try {
 			if (TEST_EDITOR_HIDDEN_IN_ASSERTIONS) {

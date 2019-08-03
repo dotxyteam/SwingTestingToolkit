@@ -30,8 +30,7 @@ public class TestMenus extends JFrame {
 
 	@Test
 	public void testMenus() throws Exception {
-		Tester tester = new Tester();
-		TestingUtils.assertSuccessfulReplay(tester, new File("test-specifications/testMenus.stt"));
+		TestingUtils.assertSuccessfulReplay(new File("test-specifications/testMenus.stt"));
 	}
 
 	private static final long serialVersionUID = 1L;

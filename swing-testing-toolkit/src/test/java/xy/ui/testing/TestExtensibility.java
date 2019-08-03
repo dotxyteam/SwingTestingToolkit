@@ -20,8 +20,7 @@ public class TestExtensibility {
 
 	@Test
 	public void test() throws Exception {
-		Tester tester = new Tester();
-		TestingUtils.assertSuccessfulReplay(tester, new File("test-specifications/testExtensibility.stt"));
+		TestingUtils.assertSuccessfulReplay(new File("test-specifications/testExtensibility.stt"));
 	}
 
 	public static void main(String[] args) throws Exception {

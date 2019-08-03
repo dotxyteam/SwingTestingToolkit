@@ -16,8 +16,7 @@ public class TestTesterEditor {
 
 	@Test
 	public void test() throws Exception {
-		Tester tester = new Tester();
-		TestingUtils.assertSuccessfulReplay(tester, new File("test-specifications/testTesterEditor.stt"));
+		TestingUtils.assertSuccessfulReplay(new File("test-specifications/testTesterEditor.stt"));
 	}
 
 	public boolean booleanData;
