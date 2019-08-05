@@ -1,2 +1,4 @@
 TO FOLLOW: https://stackoverflow.com/questions/3086607/unit-test-for-java-swing-application
 TO FOLLOW: https://sqa.stackexchange.com/questions/18554/open-source-tools-for-automation-of-java-gui-application-testing/40291#40291
+TO FOLLOW: https://stackoverflow.com/questions/5939749/swing-ui-testing-library-comparisons-fest-windowtester-pro-etc/57356956#57356956
+TO FOLLOW: https://tuhrig.de/automated-ui-testing-with-swing-fest/#comment-7874
