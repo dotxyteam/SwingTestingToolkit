@@ -514,7 +514,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void showReportTab() {
-		mainForm.setDisplayedCategory("Report", -1);
+		mainForm.setDisplayedCategory(new InfoCategory("Report", -1, null));
 		ListControl stepsControl = getTestReportStepsControl();
 		if (stepsControl.getRootListSize() > 0) {
 			BufferedItemPosition lastStepItemPosition = stepsControl
@@ -525,7 +525,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void showSpecificationTab() {
-		mainForm.setDisplayedCategory("Specification", -1);
+		mainForm.setDisplayedCategory(new InfoCategory("Specification", -1, null));
 		ListControl testActionsControl = getTestActionsControl();
 		if (testActionsControl.getRootListSize() > 0) {
 			BufferedItemPosition firstActionItemPosition = testActionsControl.getRootListItemPosition(0);
@@ -973,7 +973,7 @@ public class TestEditor extends JFrame {
 			protected InfoCategory getCategory(IFieldInfo field, ITypeInfo containingType) {
 				if (isExtensionTestActionTypeName(containingType.getName())) {
 					if (field.getName().equals("componentFinder")) {
-						return new InfoCategory("Component Location", 1);
+						return new InfoCategory("Component Location", 1, null);
 					}
 				}
 				return super.getCategory(field, containingType);
