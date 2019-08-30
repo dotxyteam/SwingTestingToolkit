@@ -1,4 +1,10 @@
 <xy.ui.testing.Tester>
+  <editingOptions>
+    <analyticsEnabled>true</analyticsEnabled>
+    <controlsTheme>cloudy</controlsTheme>
+    <testableModalWindowsForcedToDocumentModality>true</testableModalWindowsForcedToDocumentModality>
+    <testableWindowsAlwaysOnTopFeatureDisabled>true</testableWindowsAlwaysOnTopFeatureDisabled>
+  </editingOptions>
   <maximumSecondsToWaitBetwneenActions>15</maximumSecondsToWaitBetwneenActions>
   <minimumSecondsToWaitBetwneenActions>2</minimumSecondsToWaitBetwneenActions>
   <testActions>
@@ -150,15 +156,17 @@
       <optionToSelect>Click</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
-    <xy.ui.testing.action.component.specific.SelectTabAction>
+    <xy.ui.testing.action.component.specific.SelectTableRowAction>
+      <addedToExistingSelection>false</addedToExistingSelection>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JTabbedPane</componentClassName>
+        <componentClassName>javax.swing.JList</componentClassName>
         <occurrencesToSkip>1</occurrencesToSkip>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
-      <tabToSelect>Component Location</tabToSelect>
-    </xy.ui.testing.action.component.specific.SelectTabAction>
+      <firstItemToSelect>0</firstItemToSelect>
+      <lastItemToSelect>0</lastItemToSelect>
+    </xy.ui.testing.action.component.specific.SelectTableRowAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>
@@ -231,15 +239,17 @@
       <optionToSelect>Check Component Property</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
-    <xy.ui.testing.action.component.specific.SelectTabAction>
+    <xy.ui.testing.action.component.specific.SelectTableRowAction>
+      <addedToExistingSelection>false</addedToExistingSelection>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JTabbedPane</componentClassName>
+        <componentClassName>javax.swing.JList</componentClassName>
         <occurrencesToSkip>1</occurrencesToSkip>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
-      <tabToSelect>Property Checking</tabToSelect>
-    </xy.ui.testing.action.component.specific.SelectTabAction>
+      <firstItemToSelect>1</firstItemToSelect>
+      <lastItemToSelect>1</lastItemToSelect>
+    </xy.ui.testing.action.component.specific.SelectTableRowAction>
     <xy.ui.testing.action.component.SendKeysAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JTextArea</componentClassName>
@@ -290,15 +300,17 @@
       </keyboardInteractions>
       <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
     </xy.ui.testing.action.component.SendKeysAction>
-    <xy.ui.testing.action.component.specific.SelectTabAction>
+    <xy.ui.testing.action.component.specific.SelectTableRowAction>
+      <addedToExistingSelection>false</addedToExistingSelection>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JTabbedPane</componentClassName>
+        <componentClassName>javax.swing.JList</componentClassName>
         <occurrencesToSkip>1</occurrencesToSkip>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
-      <tabToSelect>Component Location</tabToSelect>
-    </xy.ui.testing.action.component.specific.SelectTabAction>
+      <firstItemToSelect>0</firstItemToSelect>
+      <lastItemToSelect>0</lastItemToSelect>
+    </xy.ui.testing.action.component.specific.SelectTableRowAction>
     <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
         <componentClassName>javax.swing.JComboBox</componentClassName>

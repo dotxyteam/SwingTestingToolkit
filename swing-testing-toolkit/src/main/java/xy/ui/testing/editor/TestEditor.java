@@ -763,7 +763,6 @@ public class TestEditor extends JFrame {
 										super.initializeTreeTableModelAndControl();
 										treeTableComponent.setRowHeight(
 												Math.round(treeTableComponent.getRowHeight() * BIGGER * 1.2f));
-										treeTableComponent.removeHighlighter(treeTableComponent.getHighlighters()[0]);
 										treeTableComponent.setDefaultRenderer(Object.class,
 												new ItemTableCellRenderer() {
 

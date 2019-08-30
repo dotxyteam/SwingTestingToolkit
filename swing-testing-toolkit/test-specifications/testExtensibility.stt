@@ -1,4 +1,10 @@
 <xy.ui.testing.Tester>
+  <editingOptions>
+    <analyticsEnabled>true</analyticsEnabled>
+    <controlsTheme>cloudy</controlsTheme>
+    <testableModalWindowsForcedToDocumentModality>true</testableModalWindowsForcedToDocumentModality>
+    <testableWindowsAlwaysOnTopFeatureDisabled>true</testableWindowsAlwaysOnTopFeatureDisabled>
+  </editingOptions>
   <maximumSecondsToWaitBetwneenActions>15</maximumSecondsToWaitBetwneenActions>
   <minimumSecondsToWaitBetwneenActions>2</minimumSecondsToWaitBetwneenActions>
   <testActions>
@@ -64,15 +70,17 @@
       </visibleStrings>
       <windowIndex>0</windowIndex>
     </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
-    <xy.ui.testing.action.component.specific.SelectTabAction>
+    <xy.ui.testing.action.component.specific.SelectTableRowAction>
+      <addedToExistingSelection>false</addedToExistingSelection>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JTabbedPane</componentClassName>
+        <componentClassName>javax.swing.JList</componentClassName>
         <occurrencesToSkip>1</occurrencesToSkip>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
-      <tabToSelect>Component Location</tabToSelect>
-    </xy.ui.testing.action.component.specific.SelectTabAction>
+      <firstItemToSelect>1</firstItemToSelect>
+      <lastItemToSelect>1</lastItemToSelect>
+    </xy.ui.testing.action.component.specific.SelectTableRowAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
       <disabled>false</disabled>
