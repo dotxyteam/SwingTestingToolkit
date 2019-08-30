@@ -79,7 +79,6 @@ import xy.reflect.ui.undo.AbstractSimpleModificationListener;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
-import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.Mapper;
 import xy.reflect.ui.util.ReflectionUIError;
@@ -230,7 +229,7 @@ public class TestEditor extends JFrame {
 		mainForm.getModificationStack().addListener(new AbstractSimpleModificationListener() {
 			@Override
 			protected void handleAnyEvent(IModification modification) {
-				windowManager.refreshWindowStructure();
+				windowManager.refreshWindowStructureAsMuchAsPossible();
 			}
 		});
 	}
@@ -424,7 +423,7 @@ public class TestEditor extends JFrame {
 			List<Component> toolbarControls = mainForm.createButtonBarControls();
 			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
 			this.windowManager = getSwingRenderer().createWindowManager(this);
-			windowManager.set(mainForm, Accessor.returning(toolbarControls), title, iconImage);
+			windowManager.set(mainForm, toolbarControls, title, iconImage);
 		}
 	}
 
@@ -676,10 +675,9 @@ public class TestEditor extends JFrame {
 			return new WindowManager(this, window) {
 
 				@Override
-				public void set(Component content, Accessor<List<Component>> toolbarControlsAccessor, String title,
-						Image iconImage) {
+				public void set(Component content, List<Component> toolbarControls, String title, Image iconImage) {
 					onTestEditorWindowCreation(window);
-					super.set(content, toolbarControlsAccessor, title, iconImage);
+					super.set(content, toolbarControls, title, iconImage);
 				}
 
 				@Override
@@ -1057,7 +1055,7 @@ public class TestEditor extends JFrame {
 
 			@Override
 			protected CategoriesStyle getCategoriesStyle(ITypeInfo type) {
-				return CategoriesStyle.CLASSIC;
+				return CategoriesStyle.MODERN;
 			}
 
 			@Override

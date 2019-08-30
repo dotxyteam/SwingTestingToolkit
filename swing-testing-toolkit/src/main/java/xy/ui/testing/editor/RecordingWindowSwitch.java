@@ -1,6 +1,7 @@
 package xy.ui.testing.editor;
 
 import java.awt.AWTEvent;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Image;
@@ -23,9 +24,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.renderer.WindowManager;
+import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.reflect.ui.util.SwingRendererUtils;
 import xy.reflect.ui.util.component.AbstractControlButton;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
@@ -213,6 +217,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 			@Override
 			protected JButton createButton(final String text) {
+				final ReflectionUI reflectionUI = testEditor.getSwingRenderer().getReflectionUI();
 				JButton result = new AbstractControlButton() {
 
 					private static final long serialVersionUID = 1L;
@@ -225,6 +230,43 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 					@Override
 					public SwingRenderer getSwingRenderer() {
 						return testEditor.getSwingRenderer();
+					}
+
+					@Override
+					public Image retrieveBackgroundImage() {
+						if (reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath() != null) {
+							return SwingRendererUtils.loadImageThroughCache(
+									reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath(),
+									ReflectionUIUtils.getErrorLogListener(reflectionUI));
+						}
+						return null;
+					}
+
+					@Override
+					public Color retrieveBackgroundColor() {
+						if (reflectionUI.getApplicationInfo().getMainButtonBackgroundColor() != null) {
+							return SwingRendererUtils
+									.getColor(reflectionUI.getApplicationInfo().getMainButtonBackgroundColor());
+						}
+						return null;
+					}
+
+					@Override
+					public Color retrieveForegroundColor() {
+						if (reflectionUI.getApplicationInfo().getMainButtonForegroundColor() != null) {
+							return SwingRendererUtils
+									.getColor(reflectionUI.getApplicationInfo().getMainButtonForegroundColor());
+						}
+						return null;
+					}
+
+					@Override
+					public Color retrieveBorderColor() {
+						if (reflectionUI.getApplicationInfo().getMainButtonBorderColor() != null) {
+							return SwingRendererUtils
+									.getColor(reflectionUI.getApplicationInfo().getMainButtonBorderColor());
+						}
+						return null;
 					}
 				};
 				return result;

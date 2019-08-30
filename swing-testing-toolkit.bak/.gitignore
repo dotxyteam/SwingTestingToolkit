@@ -1,0 +1,9 @@
+/bin
+/target
+/.classpath
+/.settings
+/.project
+/tmp
+/tester-saved-images
+/unpackaged-classes/
+/test-reports/

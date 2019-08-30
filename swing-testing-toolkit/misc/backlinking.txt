@@ -1,5 +1,5 @@
-TO FOLLOW: https://stackoverflow.com/questions/3086607/unit-test-for-java-swing-application
-TO FOLLOW: https://sqa.stackexchange.com/questions/18554/open-source-tools-for-automation-of-java-gui-application-testing/40291#40291
-TO FOLLOW: https://stackoverflow.com/questions/5939749/swing-ui-testing-library-comparisons-fest-windowtester-pro-etc/57356956#57356956
-TO FOLLOW: https://tuhrig.de/automated-ui-testing-with-swing-fest/#comment-7874
-TO FOLLOW: https://blog.testproject.io/2016/12/22/open-source-test-automation-tools-for-desktop-applications/#comment-451
+PUBLISHED: https://stackoverflow.com/questions/3086607/unit-test-for-java-swing-application
+PUBLISHED: https://sqa.stackexchange.com/questions/18554/open-source-tools-for-automation-of-java-gui-application-testing/40291#40291
+PUBLISHED: https://stackoverflow.com/questions/5939749/swing-ui-testing-library-comparisons-fest-windowtester-pro-etc/57356956#57356956
+PUBLISHED: https://tuhrig.de/automated-ui-testing-with-swing-fest/#comment-7874
+REJECTED: https://blog.testproject.io/2016/12/22/open-source-test-automation-tools-for-desktop-applications/#comment-451

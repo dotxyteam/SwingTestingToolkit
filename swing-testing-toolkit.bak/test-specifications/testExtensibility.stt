@@ -1,0 +1,95 @@
+<xy.ui.testing.Tester>
+  <maximumSecondsToWaitBetwneenActions>15</maximumSecondsToWaitBetwneenActions>
+  <minimumSecondsToWaitBetwneenActions>2</minimumSecondsToWaitBetwneenActions>
+  <testActions>
+    <xy.ui.testing.action.CallMainMethodAction>
+      <arguments/>
+      <checkThrownExceptionAfterSeconds>2</checkThrownExceptionAfterSeconds>
+      <className>xy.ui.testing.TestExtensibility</className>
+      <disabled>false</disabled>
+    </xy.ui.testing.action.CallMainMethodAction>
+    <xy.ui.testing.action.component.ClickAction>
+      <button>LEFT_BUTTON</button>
+      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <visibleString>&lt;HTML&gt;Add Test Action...&lt;/HTML&gt;</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
+        <windowIndex>0</windowIndex>
+      </componentFinder>
+      <disabled>false</disabled>
+      <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
+      <poupTrigger>false</poupTrigger>
+    </xy.ui.testing.action.component.ClickAction>
+    <xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <componentClassName>javax.swing.JComboBox</componentClassName>
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
+      </componentFinder>
+      <disabled>false</disabled>
+      <optionToSelect>Custom Component Assertion</optionToSelect>
+      <selectionMode>BY_LABEL_TEXT</selectionMode>
+    </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
+    <xy.ui.testing.action.component.SendKeysAction>
+      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
+        <occurrencesToSkip>0</occurrencesToSkip>
+        <visibleString>0</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
+        <windowIndex>0</windowIndex>
+      </componentFinder>
+      <disabled>false</disabled>
+      <keyboardInteractions>
+        <xy.ui.testing.action.component.SendKeysAction_-SpecialKey_-CtrlA>
+          <altDown>false</altDown>
+          <altGrtDown>false</altGrtDown>
+          <ctrlDown>true</ctrlDown>
+          <keyName>KEY_A</keyName>
+          <metaDown>false</metaDown>
+          <shiftDown>false</shiftDown>
+        </xy.ui.testing.action.component.SendKeysAction_-SpecialKey_-CtrlA>
+        <xy.ui.testing.action.component.SendKeysAction_-WriteText>
+          <text>-1</text>
+        </xy.ui.testing.action.component.SendKeysAction_-WriteText>
+      </keyboardInteractions>
+      <requestToFocusOnTheComponent>true</requestToFocusOnTheComponent>
+    </xy.ui.testing.action.component.SendKeysAction>
+    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+      <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
+      <orderChecked>false</orderChecked>
+      <visibleStrings>
+        <string>Test Failure: propertytoChange is not ok</string>
+      </visibleStrings>
+      <windowIndex>0</windowIndex>
+    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+    <xy.ui.testing.action.component.specific.SelectTabAction>
+      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
+        <componentClassName>javax.swing.JTabbedPane</componentClassName>
+        <occurrencesToSkip>1</occurrencesToSkip>
+        <windowIndex>0</windowIndex>
+      </componentFinder>
+      <disabled>false</disabled>
+      <tabToSelect>Component Location</tabToSelect>
+    </xy.ui.testing.action.component.specific.SelectTabAction>
+    <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+      <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
+      <orderChecked>false</orderChecked>
+      <visibleStrings>
+        <string>Custom Component Assertion</string>
+      </visibleStrings>
+      <windowIndex>0</windowIndex>
+    </xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
+    <xy.ui.testing.action.window.CloseWindowAction>
+      <disabled>false</disabled>
+      <windowIndex>0</windowIndex>
+    </xy.ui.testing.action.window.CloseWindowAction>
+    <xy.ui.testing.action.CheckNumberOfOpenWindowsAction>
+      <count>0</count>
+      <disabled>false</disabled>
+    </xy.ui.testing.action.CheckNumberOfOpenWindowsAction>
+  </testActions>
+</xy.ui.testing.Tester>
