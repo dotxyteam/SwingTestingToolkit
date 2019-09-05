@@ -1004,9 +1004,12 @@ public class TestEditor extends JFrame {
 			@Override
 			protected Object invoke(Object object, InvocationData invocationData, IMethodInfo method,
 					ITypeInfo containingType) {
-				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
-						|| (object instanceof ComponentFinder)) {
-					analytics.track("Invoking " + method.getName() + "(", invocationData.toString() + ") on " + object);
+				if (!method.getName().equals("validate")) {
+					if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
+							|| (object instanceof ComponentFinder)) {
+						analytics.track("Invoking " + method.getName() + "(",
+								invocationData.toString() + ") on " + object);
+					}
 				}
 				return super.invoke(object, invocationData, method, containingType);
 			}
