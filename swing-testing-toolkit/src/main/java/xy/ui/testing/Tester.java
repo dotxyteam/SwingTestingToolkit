@@ -525,7 +525,7 @@ public class Tester {
 
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
-		protected ControlsTheme controlsTheme = ControlsTheme.cloudy;
+		protected ControlsTheme controlsTheme = ControlsTheme.classic;
 		private boolean analyticsEnabled = true;
 
 		public ControlsTheme getControlsTheme() {
