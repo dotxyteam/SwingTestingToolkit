@@ -1569,6 +1569,11 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
+							public boolean isTransient() {
+								return false;
+							}
+
+							@Override
 							public ValueReturnMode getValueReturnMode() {
 								return ValueReturnMode.CALCULATED;
 							}
