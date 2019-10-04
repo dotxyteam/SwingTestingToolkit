@@ -67,8 +67,8 @@ public class Tester {
 	};
 
 	protected List<TestAction> testActions = new ArrayList<TestAction>();
-	protected int minimumSecondsToWaitBetwneenActions = 2;
-	protected int maximumSecondsToWaitBetwneenActions = 15;
+	protected double minimumSecondsToWaitBetwneenActions = 0.1;
+	protected double maximumSecondsToWaitBetwneenActions = 15.0;
 	protected EditingOptions editingOptions = new EditingOptions();
 
 	protected transient Component currentComponent;
@@ -84,19 +84,19 @@ public class Tester {
 		return currentComponent;
 	}
 
-	public int getMinimumSecondsToWaitBetwneenActions() {
+	public double getMinimumSecondsToWaitBetwneenActions() {
 		return minimumSecondsToWaitBetwneenActions;
 	}
 
-	public void setMinimumSecondsToWaitBetwneenActions(int minimumSecondsToWaitBetwneenActions) {
+	public void setMinimumSecondsToWaitBetwneenActions(double minimumSecondsToWaitBetwneenActions) {
 		this.minimumSecondsToWaitBetwneenActions = minimumSecondsToWaitBetwneenActions;
 	}
 
-	public int getMaximumSecondsToWaitBetwneenActions() {
+	public double getMaximumSecondsToWaitBetwneenActions() {
 		return maximumSecondsToWaitBetwneenActions;
 	}
 
-	public void setMaximumSecondsToWaitBetwneenActions(int maximumSecondsToWaitBetwneenActions) {
+	public void setMaximumSecondsToWaitBetwneenActions(double maximumSecondsToWaitBetwneenActions) {
 		this.maximumSecondsToWaitBetwneenActions = maximumSecondsToWaitBetwneenActions;
 	}
 
@@ -140,8 +140,6 @@ public class Tester {
 						reportStep.log("This action is disabled");
 						reportStep.setStatus(TestReportStepStatus.SKIPPED);
 					} else {
-						Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
-						reportStep.log("Action delayed for " + minimumSecondsToWaitBetwneenActions + " second(s)");
 						testAction.validate();
 						Component c;
 						try {
@@ -153,13 +151,18 @@ public class Tester {
 						if (c == null) {
 							reportStep.log("This action did not search for any component");
 							reportStep.during(this);
+							reportStep.log("Following action delayed for " + minimumSecondsToWaitBetwneenActions
+									+ " second(s)");
+							Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
 						} else {
 							reportStep.log("Component found: " + c.toString());
 							currentComponent = c;
 							highlightCurrentComponent();
 							reportStep.during(this);
 							try {
-								Thread.sleep(1000);
+								reportStep.log("Following action delayed for " + minimumSecondsToWaitBetwneenActions
+										+ " second(s)");
+								Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
 							} finally {
 								unhighlightCurrentComponent();
 								currentComponent = null;
@@ -183,7 +186,7 @@ public class Tester {
 			}
 		}
 		try {
-			Thread.sleep(minimumSecondsToWaitBetwneenActions * 1000);
+			Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
 		} catch (InterruptedException ignore) {
 		}
 		report.end();
@@ -208,19 +211,20 @@ public class Tester {
 
 	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {
 		Component result = null;
-		int remainingSeconds = maximumSecondsToWaitBetwneenActions - minimumSecondsToWaitBetwneenActions;
+		double remainingSeconds = maximumSecondsToWaitBetwneenActions - minimumSecondsToWaitBetwneenActions;
+		double secondsToWaitBeforeRetrying = 0.1;
 		while (true) {
 			try {
 				result = testAction.findComponent(this);
 				break;
 			} catch (TestFailure e) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(Math.round(secondsToWaitBeforeRetrying * 1000));
 				} catch (InterruptedException ignore) {
 					throw e;
 				}
-				remainingSeconds--;
-				if (remainingSeconds == 0) {
+				remainingSeconds -= secondsToWaitBeforeRetrying;
+				if (remainingSeconds <= 0.0) {
 					throw e;
 				}
 			}

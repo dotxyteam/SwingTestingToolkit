@@ -13,7 +13,7 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 
 	protected String visibleString = "";
-	protected boolean visibleStringInTree = false;
+	protected boolean visibleStringInTree = false;// useful only if the component class name is set
 	protected ClassBasedComponentFinder classMatcher = new ClassBasedComponentFinder() {
 		private static final long serialVersionUID = 1L;
 		{

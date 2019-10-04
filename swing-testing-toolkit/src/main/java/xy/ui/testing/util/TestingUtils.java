@@ -329,6 +329,7 @@ public class TestingUtils {
 					outputfile = newOutputFile;
 					break;
 				}
+				newOutputFileNameIndex++;
 			}
 		}
 		try {

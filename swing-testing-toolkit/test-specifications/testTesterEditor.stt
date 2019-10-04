@@ -5,8 +5,8 @@
     <testableModalWindowsForcedToDocumentModality>true</testableModalWindowsForcedToDocumentModality>
     <testableWindowsAlwaysOnTopFeatureDisabled>true</testableWindowsAlwaysOnTopFeatureDisabled>
   </editingOptions>
-  <maximumSecondsToWaitBetwneenActions>15</maximumSecondsToWaitBetwneenActions>
-  <minimumSecondsToWaitBetwneenActions>2</minimumSecondsToWaitBetwneenActions>
+  <maximumSecondsToWaitBetwneenActions>15.0</maximumSecondsToWaitBetwneenActions>
+  <minimumSecondsToWaitBetwneenActions>0.1</minimumSecondsToWaitBetwneenActions>
   <testActions>
     <xy.ui.testing.action.CallMainMethodAction>
       <arguments>
@@ -28,7 +28,6 @@
         <string>Record...</string>
         <string>Replay All</string>
         <string>Inspect</string>
-        <string>Seconds To Wait Between Actions</string>
         <string>Minimum: </string>
         <string>Maximum: </string>
         <string>Actions</string>
@@ -466,7 +465,7 @@
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.WaitAction>
       <disabled>false</disabled>
-      <secondsToWait>30</secondsToWait>
+      <secondsToWait>10</secondsToWait>
     </xy.ui.testing.action.WaitAction>
     <xy.ui.testing.action.component.CheckVisibleStringsAction>
       <completenessChecked>false</completenessChecked>

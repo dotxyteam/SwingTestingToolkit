@@ -1,19 +1,30 @@
 <xy.ui.testing.Tester>
-  <maximumSecondsToWaitBetwneenActions>15</maximumSecondsToWaitBetwneenActions>
-  <minimumSecondsToWaitBetwneenActions>1</minimumSecondsToWaitBetwneenActions>
+  <editingOptions>
+    <analyticsEnabled>true</analyticsEnabled>
+    <controlsTheme>classic</controlsTheme>
+    <testableModalWindowsForcedToDocumentModality>true</testableModalWindowsForcedToDocumentModality>
+    <testableWindowsAlwaysOnTopFeatureDisabled>true</testableWindowsAlwaysOnTopFeatureDisabled>
+  </editingOptions>
+  <maximumSecondsToWaitBetwneenActions>15.0</maximumSecondsToWaitBetwneenActions>
+  <minimumSecondsToWaitBetwneenActions>0.1</minimumSecondsToWaitBetwneenActions>
   <testActions>
     <xy.ui.testing.action.CallMainMethodAction>
+      <arguments/>
       <checkThrownExceptionAfterSeconds>2</checkThrownExceptionAfterSeconds>
       <className>xy.ui.testing.TestMenus</className>
+      <disabled>false</disabled>
     </xy.ui.testing.action.CallMainMethodAction>
     <xy.ui.testing.action.component.ClickAction>
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>A Menu</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickOnMenuItemAction>
@@ -45,9 +56,12 @@
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
+      <disabled>false</disabled>
     </xy.ui.testing.action.component.ClickOnMenuItemAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
       <orderChecked>false</orderChecked>
       <visibleStrings>
         <string>This menu item was activated: text=&apos;An item in the submenu&apos;, selected=false</string>
@@ -59,9 +73,12 @@
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>This menu item was activated: text=&apos;An item in the submenu&apos;, selected=false</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>true</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickOnMenuItemAction>
@@ -93,9 +110,12 @@
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
+      <disabled>false</disabled>
     </xy.ui.testing.action.component.ClickOnMenuItemAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
       <orderChecked>false</orderChecked>
       <visibleStrings>
         <string>This menu item was activated: text=&apos;Another item&apos;, selected=false</string>
@@ -107,9 +127,12 @@
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
         <visibleString>A Menu</visibleString>
+        <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>
+      <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <poupTrigger>false</poupTrigger>
     </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.component.ClickOnMenuItemAction>
@@ -129,9 +152,12 @@
           </xy.ui.testing.finder.PropertyBasedComponentFinder>
         </menuItemPath>
       </componentFinder>
+      <disabled>false</disabled>
     </xy.ui.testing.action.component.ClickOnMenuItemAction>
     <xy.ui.testing.action.window.CheckWindowVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
+      <disabled>false</disabled>
+      <negated>false</negated>
       <orderChecked>false</orderChecked>
       <visibleStrings>
         <string>This menu item was activated: text=&apos;A check box menu item&apos;, selected=true</string>
