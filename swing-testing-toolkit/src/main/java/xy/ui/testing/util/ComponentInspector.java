@@ -188,7 +188,7 @@ public class ComponentInspector {
 
 		@Override
 		public String toString() {
-			return getComponentClass().getName() + "(" + getComponentTreeDisplayedStringsSummary() + ")";
+			return getComponentClass().getName() + " (" + getComponentTreeDisplayedStringsSummary() + ")";
 
 		}
 

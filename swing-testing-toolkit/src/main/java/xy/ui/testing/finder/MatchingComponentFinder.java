@@ -2,6 +2,7 @@ package xy.ui.testing.finder;
 
 import java.awt.Component;
 import java.awt.Window;
+
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.IComponentTreeVisitor;

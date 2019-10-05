@@ -68,7 +68,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 	@Override
 	public String getStatus() {
-		return "(Waiting) Click on component to record...";
+		return "(Waiting) Click on a component to record...";
 	}
 
 	public InsertPosition getInsertPosition() {

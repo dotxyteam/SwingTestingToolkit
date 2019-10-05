@@ -21,13 +21,13 @@ public abstract class AbstractClassBasedComponentFinder extends MatchingComponen
 
 	@Override
 	protected boolean matchesInContainingWindow(Component c, Tester tester) {
-		Class<?> expecteClass;
+		Class<?> expectedClass;
 		try {
-			expecteClass = Class.forName(componentClassName);
+			expectedClass = Class.forName(componentClassName);
 		} catch (ClassNotFoundException e) {
 			throw new AssertionError(e);
 		}
-		return expecteClass.isInstance(c);
+		return expectedClass.isInstance(c);
 	}
 
 	@Override

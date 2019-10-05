@@ -50,7 +50,8 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		return propertyUtil.initializeSpecificProperties(c, introspectionRequestEvent);
 	}
 
@@ -60,19 +61,24 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		Object currentFieldValue = field.getValue(c);
 		Object expectedFieldValue = propertyUtil.propertyValueToFieldValue(propertyValueExpected);
 		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue, expectedFieldValue)) {
-			throw new TestFailure(
-					"Component property checking failed: Unexpected property value: '" + currentFieldValue
-							+ "'. Expected: '" + expectedFieldValue + "'");
+			throw new TestFailure("Component property checking failed: Unexpected property value: '" + currentFieldValue
+					+ "'. Expected: '" + expectedFieldValue + "'");
 		}
 	}
 
 	@Override
 	public String getValueDescription() {
 		String propertyNameText = (getPropertyName() == null) ? "<unspecified-property>" : getPropertyName();
-		String propertyValueText = (propertyValueExpected == null) ? "<null>" : propertyValueExpected;
-		IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
-		if ((propertyFieldInfo == null) || String.class.getName().equals(propertyFieldInfo.getType().getName())) {
-			propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
+		String propertyValueText;
+		if (propertyValueExpected == null) {
+			propertyValueText = "<null>";
+		} else {
+			IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
+			if ((propertyFieldInfo != null) && String.class.getName().equals(propertyFieldInfo.getType().getName())) {
+				propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
+			}else {
+				propertyValueText = propertyValueExpected;
+			}			
 		}
 		return propertyNameText + " = " + propertyValueText;
 	}

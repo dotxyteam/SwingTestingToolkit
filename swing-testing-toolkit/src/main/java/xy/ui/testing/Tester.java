@@ -3,9 +3,9 @@ package xy.ui.testing;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
+import java.awt.geom.Point2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -369,12 +369,14 @@ public class Tester {
 		Collections.sort(result, new Comparator<Component>() {
 			@Override
 			public int compare(Component c1, Component c2) {
-				Point location1 = c1.getLocation();
-				Point location2 = c2.getLocation();
-				int result = new Integer(location1.y).compareTo(new Integer(location2.y));
-				if (result == 0) {
-					result = new Integer(location1.x).compareTo(new Integer(location2.x));
+				Point2D.Double location1 = new Point2D.Double(c1.getBounds().getCenterX(), c1.getBounds().getCenterY());
+				Point2D.Double location2 = new Point2D.Double(c2.getBounds().getCenterX(), c2.getBounds().getCenterY());
+				int result = 0;
+				result = new Double(location1.y).compareTo(new Double(location2.y));
+				if (result != 0) {
+					return result;
 				}
+				result = new Double(location1.x).compareTo(new Double(location2.x));
 				return result;
 			}
 		});
