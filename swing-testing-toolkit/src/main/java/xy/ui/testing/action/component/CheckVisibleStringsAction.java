@@ -121,7 +121,6 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 					+ TestingUtils.formatVisibleStrings(currentVisibleStrings));
 		}
 		return c;
-
 	}
 
 	@Override

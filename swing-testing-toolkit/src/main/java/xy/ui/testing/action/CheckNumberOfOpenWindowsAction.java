@@ -25,16 +25,12 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 
 	@Override
 	public boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
-		return false;
+		count = countWindows(testEditor.getTester());
+		return true;
 	}
 
 	@Override
 	public void execute(Component c, Tester tester) {
-		int n = countWindows(tester);
-		if (count != n) {
-			throw new TestFailure(
-					"The number of currently open windows (" + n + ") does not match the declared number: " + count);
-		}
 	}
 
 	protected int countWindows(Tester tester) {
@@ -54,6 +50,11 @@ public class CheckNumberOfOpenWindowsAction extends TestAction {
 
 	@Override
 	public Component findComponent(Tester tester) {
+		int n = countWindows(tester);
+		if (count != n) {
+			throw new TestFailure(
+					"The number of currently open windows (" + n + ") does not match the declared number: " + count);
+		}
 		return null;
 	}
 
