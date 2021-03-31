@@ -67,6 +67,7 @@ import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo.CategoriesStyle;
 import xy.reflect.ui.info.type.factory.InfoProxyFactory;
+import xy.reflect.ui.info.type.factory.InvocationDataObjectFactory.Instance;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
@@ -1515,7 +1516,12 @@ public class TestEditor extends JFrame {
 							public boolean isNullValueDistinct() {
 								return true;
 							}
+							@Override
+							public boolean hasValueOptions(Object object) {
+								return true;
+							}
 
+							
 							@Override
 							public Object[] getValueOptions(Object object) {
 								return new Object[] { ENABLED, DISABLED };
