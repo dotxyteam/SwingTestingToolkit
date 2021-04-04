@@ -422,6 +422,7 @@ public class Tester {
 			result.addAll(extractDisplayedStringsFromTree(tree));
 		}
 		if (c instanceof JList) {
+			@SuppressWarnings("rawtypes")
 			JList list = (JList) c;
 			result.addAll(extractDisplayedStringsFromList(list));
 		}
@@ -439,6 +440,7 @@ public class Tester {
 		return null;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Collection<String> extractDisplayedStringsFromList(JList list) {
 		List<String> result = new ArrayList<String>();
 		ListModel model = list.getModel();

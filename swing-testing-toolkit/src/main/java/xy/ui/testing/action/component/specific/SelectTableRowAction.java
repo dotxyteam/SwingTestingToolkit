@@ -12,6 +12,7 @@ import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+@SuppressWarnings("rawtypes")
 public class SelectTableRowAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;

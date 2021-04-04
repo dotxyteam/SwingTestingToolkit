@@ -23,6 +23,7 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -119,7 +120,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		if (SwingUtilities.isEventDispatchThread()) {
 			throw new AssertionError();
 		}
-		@SuppressWarnings("unchecked")
 		final List<String>[] result = new List[1];
 		final Throwable[] error = new Throwable[1];
 		TestingUtils.invokeInUIThread(new Runnable() {
