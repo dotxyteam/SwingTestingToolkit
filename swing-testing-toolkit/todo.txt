@@ -1,8 +1,5 @@
 - components order is determined by their location that 
 current component highlighting changes. How to do???
-- load test specs from files instead of stream during junit execution
-(will allow to edit efficiently the file on failure)
-Maybe advice to not store the specs as resources  
 - popup menu window is often a sub component, often a new window
 	(probably when out of bounds of the parent window)
 - titled border visible text not extracted
