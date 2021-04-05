@@ -34,6 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
+import javax.swing.table.TableCellRenderer;
 
 import org.jdesktop.swingx.StackLayout;
 
@@ -752,10 +753,27 @@ public class TestEditor extends JFrame {
 
 									private static final long serialVersionUID = 1L;
 
-									final float BIGGER = 1.3f;
+									final float BIGGER = 1.1f;
 
-									Font changeFont(Font font) {
-										return new Font(font.getName(), Font.BOLD, Math.round(font.getSize() * BIGGER));
+									@Override
+									protected TableCellRenderer createTableCellRenderer() {
+										return new ItemTableCellRenderer() {
+
+											Font changeFont(Font font) {
+												return new Font(font.getName(), Font.BOLD,
+														Math.round(font.getSize() * BIGGER));
+											}
+
+											@Override
+											public Component getTableCellRendererComponent(JTable table, Object value,
+													boolean isSelected, boolean hasFocus, int row, int column) {
+												JLabel result = (JLabel) super.getTableCellRendererComponent(table,
+														value, isSelected, hasFocus, row, column);
+												result.setFont(changeFont(result.getFont()));
+												return result;
+											}
+
+										};
 									}
 
 									@Override
@@ -763,20 +781,6 @@ public class TestEditor extends JFrame {
 										super.initializeTreeTableModelAndControl();
 										treeTableComponent.setRowHeight(
 												Math.round(treeTableComponent.getRowHeight() * BIGGER * 1.2f));
-										treeTableComponent.setDefaultRenderer(Object.class,
-												new ItemTableCellRenderer() {
-
-													@Override
-													public Component getTableCellRendererComponent(JTable table,
-															Object value, boolean isSelected, boolean hasFocus, int row,
-															int column) {
-														JLabel result = (JLabel) super.getTableCellRendererComponent(
-																table, value, isSelected, hasFocus, row, column);
-														result.setFont(changeFont(result.getFont()));
-														return result;
-													}
-
-												});
 									}
 
 								};
@@ -1515,12 +1519,12 @@ public class TestEditor extends JFrame {
 							public boolean isNullValueDistinct() {
 								return true;
 							}
+
 							@Override
 							public boolean hasValueOptions(Object object) {
 								return true;
 							}
 
-							
 							@Override
 							public Object[] getValueOptions(Object object) {
 								return new Object[] { ENABLED, DISABLED };

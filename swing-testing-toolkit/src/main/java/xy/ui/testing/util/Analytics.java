@@ -42,18 +42,16 @@ import java.util.Map;
  */
 public class Analytics {
 
-	public  final String WEBSITE_URL = "http://otksoftware.com";
-	public  final String TRACKINGS_DELIVERY_URL = WEBSITE_URL
-			+ "/custom/analytics/forward-http-to-google-analytics.php";
-	public  final int TRACKINGS_TRANSMISSION_PACKET_SIZE = 1000;
-	public  final String[] NEW_LINE_SEQUENCES = new String[] { "\r\n", "\n", "\r" };
-	public  final Object TRACKING_CATEGORY_PREFIX = "SwingTestingToolkit";
+	public final String TRACKINGS_DELIVERY_URL = System.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
+	public final int TRACKINGS_TRANSMISSION_PACKET_SIZE = 1000;
+	public final String[] NEW_LINE_SEQUENCES = new String[] { "\r\n", "\n", "\r" };
+	public final Object TRACKING_CATEGORY_PREFIX = "SwingTestingToolkit";
 
-	private  Thread regularSender;
-	private  boolean initialized;
-	private  List<Tracking> trackings = Collections.synchronizedList(new ArrayList<Tracking>());
+	private Thread regularSender;
+	private boolean initialized;
+	private List<Tracking> trackings = Collections.synchronizedList(new ArrayList<Tracking>());
 
-	public  void initialize() {
+	public void initialize() {
 		if (initialized) {
 			return;
 		}
@@ -61,7 +59,7 @@ public class Analytics {
 		initialized = true;
 	}
 
-	public  void shutdown() {
+	public void shutdown() {
 		if (!initialized) {
 			return;
 		}
@@ -79,7 +77,7 @@ public class Analytics {
 		initialized = false;
 	}
 
-	public  void sleepSafely(long durationMilliseconds) {
+	public void sleepSafely(long durationMilliseconds) {
 		try {
 			Thread.sleep(durationMilliseconds);
 		} catch (InterruptedException e) {
@@ -87,7 +85,7 @@ public class Analytics {
 		}
 	}
 
-	private  void startRegularSender() {
+	private void startRegularSender() {
 		regularSender = new Thread(Analytics.class.getName() + "RegularSender") {
 			@Override
 			public synchronized void run() {
@@ -107,7 +105,7 @@ public class Analytics {
 		regularSender.start();
 	}
 
-	public  String escapeNewLines(String s) {
+	public String escapeNewLines(String s) {
 		StringBuilder result = new StringBuilder();
 		char lastC = 0;
 		for (char currentC : s.toCharArray()) {
@@ -129,7 +127,7 @@ public class Analytics {
 		return result.toString();
 	}
 
-	public  char standardizeNewLineSequences(char lastC, char c) {
+	public char standardizeNewLineSequences(char lastC, char c) {
 		for (String newLineSequence : NEW_LINE_SEQUENCES) {
 			if (newLineSequence.equals("" + lastC + c)) {
 				return 0;
@@ -143,7 +141,7 @@ public class Analytics {
 		return c;
 	}
 
-	public  void track(String event, String... details) {
+	public void track(String event, String... details) {
 		for (int i = 0; i < details.length; i++) {
 			details[i] = escapeNewLines(details[i]);
 		}
@@ -151,15 +149,15 @@ public class Analytics {
 		trackings.add(new Tracking(new Date(), event, details));
 	}
 
-	protected  void logInfo(String s) {
+	protected void logInfo(String s) {
 		System.out.println(s);
 	}
 
-	protected  void logError(Throwable t) {
+	protected void logError(Throwable t) {
 		System.err.println(t);
 	}
 
-	public synchronized  void sendAllTrackings() {
+	public synchronized void sendAllTrackings() {
 		logInfo("Delivering trackings");
 		try {
 			for (Tracking tracking : trackings) {
@@ -172,7 +170,7 @@ public class Analytics {
 		}
 	}
 
-	public  void sendTracking(Date when, String used, String... details) {
+	public void sendTracking(Date when, String used, String... details) {
 		used = anonymize(used);
 		for (int i = 0; i < details.length; i++) {
 			details[i] = anonymize(details[i]);
@@ -196,13 +194,15 @@ public class Analytics {
 			arguments.put("cid", "UnknownHost");
 		}
 		try {
-			sendHttpPost(new URL(TRACKINGS_DELIVERY_URL), arguments);
+			if (TRACKINGS_DELIVERY_URL != null) {
+				sendHttpPost(new URL(TRACKINGS_DELIVERY_URL), arguments);
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public  InputStream sendHttpPost(URL url, Map<String, String> arguments) throws IOException {
+	public InputStream sendHttpPost(URL url, Map<String, String> arguments) throws IOException {
 		URLConnection con = url.openConnection();
 		HttpURLConnection http = (HttpURLConnection) con;
 		http.setRequestMethod("POST");
@@ -222,7 +222,7 @@ public class Analytics {
 		return http.getInputStream();
 	}
 
-	public  String stringJoin(Collection<?> col, String delim) {
+	public String stringJoin(Collection<?> col, String delim) {
 		StringBuilder sb = new StringBuilder();
 		Iterator<?> iter = col.iterator();
 		if (iter.hasNext())
@@ -234,7 +234,7 @@ public class Analytics {
 		return sb.toString();
 	}
 
-	private  String hexEncode(String s) {
+	private String hexEncode(String s) {
 		StringBuilder result = new StringBuilder();
 		for (byte b : s.getBytes()) {
 			result.append(Integer.toHexString(unsignedByte(b)));
@@ -242,18 +242,18 @@ public class Analytics {
 		return result.toString();
 	}
 
-	public  int unsignedByte(byte b) {
+	public int unsignedByte(byte b) {
 		return 0xFF & (int) b;
 	}
 
-	public  String anonymize(String message) {
+	public String anonymize(String message) {
 		message = message.replaceAll("([Pp]assword)=.*", "$1=**********");
 		message = message.replaceAll("([Ll]ogin)=.*", "$1=**********");
 		message = message.replaceAll("(user\\..*)=.*", "$1=**********");
 		return message;
 	}
 
-	public  class Tracking implements Serializable {
+	public class Tracking implements Serializable {
 
 		private static final long serialVersionUID = 1L;
 
