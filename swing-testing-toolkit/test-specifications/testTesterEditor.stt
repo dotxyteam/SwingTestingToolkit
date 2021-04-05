@@ -42,7 +42,7 @@
         <propertyValueList>
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
-            <propertyValueExpected>&lt;HTML&gt;Add Test Action...&lt;/HTML&gt;</propertyValueExpected>
+            <propertyValueExpected>&lt;HTML&gt;Add Test Action&lt;/HTML&gt;</propertyValueExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -117,7 +117,7 @@
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>&lt;HTML&gt;Insert Test Action Before ...&lt;br/&gt;or&lt;br/&gt;Insert Test Action After ...&lt;/HTML&gt;</visibleString>
+        <visibleString>&lt;HTML&gt;Insert Test Action Before&lt;br/&gt;or&lt;br/&gt;Insert Test Action After&lt;/HTML&gt;</visibleString>
         <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>
@@ -135,7 +135,7 @@
             <propertyValueList>
               <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
-                <propertyValueExpected>Insert Test Action After ...</propertyValueExpected>
+                <propertyValueExpected>Insert Test Action After</propertyValueExpected>
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
@@ -198,7 +198,7 @@
         <propertyValueList>
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
-            <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before ...&lt;br/&gt;or&lt;br/&gt;Insert Test Action After ...&lt;/HTML&gt;</propertyValueExpected>
+            <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before&lt;br/&gt;or&lt;br/&gt;Insert Test Action After&lt;/HTML&gt;</propertyValueExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -218,7 +218,7 @@
             <propertyValueList>
               <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
-                <propertyValueExpected>Insert Test Action After ...</propertyValueExpected>
+                <propertyValueExpected>Insert Test Action After</propertyValueExpected>
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
@@ -410,7 +410,7 @@
         <propertyValueList>
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
-            <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before ...&lt;br/&gt;or&lt;br/&gt;Insert Test Action After ...&lt;/HTML&gt;</propertyValueExpected>
+            <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before&lt;br/&gt;or&lt;br/&gt;Insert Test Action After&lt;/HTML&gt;</propertyValueExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -430,7 +430,7 @@
             <propertyValueList>
               <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
-                <propertyValueExpected>Insert Test Action After ...</propertyValueExpected>
+                <propertyValueExpected>Insert Test Action After</propertyValueExpected>
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>

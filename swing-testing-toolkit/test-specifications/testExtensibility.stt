@@ -18,7 +18,7 @@
       <button>LEFT_BUTTON</button>
       <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
         <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>&lt;HTML&gt;Add Test Action...&lt;/HTML&gt;</visibleString>
+        <visibleString>&lt;HTML&gt;Add Test Action&lt;/HTML&gt;</visibleString>
         <visibleStringInTree>false</visibleStringInTree>
         <windowIndex>0</windowIndex>
       </componentFinder>

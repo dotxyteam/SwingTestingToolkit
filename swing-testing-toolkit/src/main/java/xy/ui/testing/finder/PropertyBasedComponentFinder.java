@@ -1,7 +1,6 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,11 +96,8 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 				try {
 					propertyValue.initialize(c);
 				} catch (Throwable t) {
-					testEditor
-							.logDebug(new Exception(
-									"Skipping <" + propertyName + "> property of <"
-											+ propertyUtil.getComponentClassName() + "> component: " + t.toString(),
-									t));
+					testEditor.logDebug(new Exception("Skipping <" + propertyName + "> property of <"
+							+ propertyUtil.getComponentClassName() + "> component: " + t.toString(), t));
 					continue;
 				}
 				propertyValues.add(propertyValue);
@@ -161,9 +157,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 		}
 	}
 
-	public class PropertyValue implements Serializable {
-
-		private static final long serialVersionUID = 1L;
+	public class PropertyValue {
 
 		protected String propertyName;
 		protected String propertyValueExpected;
