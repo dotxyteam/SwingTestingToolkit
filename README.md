@@ -7,3 +7,4 @@ Learn how to extend [here](swing-testing-toolkit/src/unpackaged/ExtensibilityExa
 
 More information here: http://otksoftware.com/swing-testing-toolkit/
 
+![alt text](https://raw.githubusercontent.com/dotxyteam/SwingTestingToolkit/blob/master/swing-testing-toolkit/misc/screenshots/specification.png)
