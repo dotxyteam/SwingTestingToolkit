@@ -50,12 +50,12 @@ public class StandardKey implements Comparable<StandardKey> {
 
 			new StandardKey('?', VK_A, false, true), new StandardKey('?', VK_C, false, true),
 			new StandardKey('?', VK_E, false, true), new StandardKey('?', VK_L, false, true),
-			new StandardKey('?', VK_N, false, true), new StandardKey('ó', VK_O, false, true),
+			new StandardKey('?', VK_N, false, true), new StandardKey('Ã³', VK_O, false, true),
 			new StandardKey('?', VK_S, false, true), new StandardKey('?', VK_X, false, true),
 			new StandardKey('?', VK_Z, false, true), new StandardKey('?', VK_A, true, true),
 			new StandardKey('?', VK_C, true, true), new StandardKey('?', VK_E, true, true),
 			new StandardKey('?', VK_L, true, true), new StandardKey('?', VK_N, true, true),
-			new StandardKey('Ó', VK_O, true, true), new StandardKey('?', VK_S, true, true),
+			new StandardKey('Ã“', VK_O, true, true), new StandardKey('?', VK_S, true, true),
 			new StandardKey('?', VK_X, true, true), new StandardKey('?', VK_Z, true, true) };
 
 	static {
