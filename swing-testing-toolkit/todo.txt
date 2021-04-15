@@ -1,5 +1,3 @@
-- bug displayed: "Value options field 'propertyNameOptions': returned <null>!"
-in property value dialog. It happens when the component class name is not set.
 - components order is determined by their location that 
 current component highlighting changes. How to do???
 - popup menu window is often a sub component, often a new window

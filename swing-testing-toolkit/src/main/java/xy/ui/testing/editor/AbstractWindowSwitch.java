@@ -9,9 +9,9 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import xy.reflect.ui.control.swing.editor.WindowManager;
 import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
-import xy.reflect.ui.control.swing.renderer.WindowManager;
 import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestingUtils;

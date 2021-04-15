@@ -44,7 +44,7 @@ public class ComponentPropertyUtil {
 	public List<String> getPropertyNameOptions() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
-			return null;
+			return Collections.emptyList();
 		}
 		List<String> result = new ArrayList<String>();
 		for (IFieldInfo field : componentType.getFields()) {

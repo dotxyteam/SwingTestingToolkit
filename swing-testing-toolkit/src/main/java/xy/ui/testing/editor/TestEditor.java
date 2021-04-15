@@ -41,17 +41,17 @@ import org.jdesktop.swingx.StackLayout;
 import xy.reflect.ui.CustomizedUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
-import xy.reflect.ui.control.swing.DialogBuilder;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.customizer.CustomizingFieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
+import xy.reflect.ui.control.swing.editor.DialogBuilder;
+import xy.reflect.ui.control.swing.editor.WindowManager;
 import xy.reflect.ui.control.swing.menu.AbstractFileMenuItem;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
-import xy.reflect.ui.control.swing.renderer.WindowManager;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.ResourcePath;
 import xy.reflect.ui.info.ValueReturnMode;
@@ -814,7 +814,7 @@ public class TestEditor extends JFrame {
 
 		@Override
 		public DialogBuilder getDialogBuilder(Component activatorComponent) {
-			return new DialogBuilder(this, activatorComponent) {
+			return new ApplicationDialogBuilder(activatorComponent) {
 
 				@Override
 				public JDialog createDialog() {
