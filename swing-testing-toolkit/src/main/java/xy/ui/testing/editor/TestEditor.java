@@ -85,7 +85,7 @@ import xy.reflect.ui.util.Mapper;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
-import xy.reflect.ui.util.component.AlternativeWindowDecorationsPanel;
+import xy.reflect.ui.util.swing.AlternativeWindowDecorationsPanel;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
 import xy.ui.testing.Tester.ControlsTheme;

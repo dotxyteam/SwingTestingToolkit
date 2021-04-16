@@ -30,7 +30,7 @@ import xy.reflect.ui.control.swing.editor.WindowManager;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.reflect.ui.util.SwingRendererUtils;
-import xy.reflect.ui.util.component.AbstractControlButton;
+import xy.reflect.ui.util.swing.AbstractControlButton;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
