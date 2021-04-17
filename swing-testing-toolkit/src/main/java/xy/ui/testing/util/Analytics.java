@@ -145,7 +145,7 @@ public class Analytics {
 		for (int i = 0; i < details.length; i++) {
 			details[i] = escapeNewLines(details[i]);
 		}
-		logInfo("Tracking: " + event);
+		logInfo("Event: " + event);
 		trackings.add(new Tracking(new Date(), event, details));
 	}
 
@@ -158,10 +158,12 @@ public class Analytics {
 	}
 
 	public synchronized void sendAllTrackings() {
-		logInfo("Delivering trackings");
 		try {
-			for (Tracking tracking : trackings) {
-				sendTracking(tracking.getDateTime(), tracking.getUsed(), tracking.getDetails());
+			if (TRACKINGS_DELIVERY_URL != null) {
+				logInfo("Delivering trackings");
+				for (Tracking tracking : trackings) {
+					sendTracking(tracking.getDateTime(), tracking.getUsed(), tracking.getDetails());
+				}
 			}
 		} catch (Exception e) {
 			logError(e);
@@ -171,6 +173,9 @@ public class Analytics {
 	}
 
 	public void sendTracking(Date when, String used, String... details) {
+		if (TRACKINGS_DELIVERY_URL == null) {
+			throw new UnsupportedOperationException();
+		}
 		used = anonymize(used);
 		for (int i = 0; i < details.length; i++) {
 			details[i] = anonymize(details[i]);
@@ -194,9 +199,7 @@ public class Analytics {
 			arguments.put("cid", "UnknownHost");
 		}
 		try {
-			if (TRACKINGS_DELIVERY_URL != null) {
-				sendHttpPost(new URL(TRACKINGS_DELIVERY_URL), arguments);
-			}
+			sendHttpPost(new URL(TRACKINGS_DELIVERY_URL), arguments);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

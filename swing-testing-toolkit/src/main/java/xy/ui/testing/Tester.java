@@ -325,6 +325,7 @@ public class Tester {
 	protected XStream getXStream() {
 		XStream result = new XStream();
 		result.registerConverter(new JavaBeanConverter(result.getMapper()), -20);
+		result.omitField(EditingOptions.class, "analyticsEnabled");
 		return result;
 	}
 
@@ -534,8 +535,7 @@ public class Tester {
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
 		protected ControlsTheme controlsTheme = ControlsTheme.classic;
-		private boolean analyticsEnabled = true;
-
+		
 		public ControlsTheme getControlsTheme() {
 			return controlsTheme;
 		}
@@ -559,14 +559,6 @@ public class Tester {
 		public void setTestableModalWindowsForcedToDocumentModality(
 				boolean testableModalWindowsForcedToDocumentModality) {
 			this.testableModalWindowsForcedToDocumentModality = testableModalWindowsForcedToDocumentModality;
-		}
-
-		public boolean isAnalyticsEnabled() {
-			return analyticsEnabled;
-		}
-
-		public void setAnalyticsEnabled(boolean analyticsEnabled) {
-			this.analyticsEnabled = analyticsEnabled;
 		}
 
 	}

@@ -21,7 +21,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -186,21 +185,7 @@ public class TestEditor extends JFrame {
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
 
 	protected AWTEventListener modalityChangingListener;
-	protected Analytics analytics = new Analytics() {
-
-		@Override
-		public void sendTracking(Date when, String used, String... details) {
-			if (!tester.getEditingOptions().isAnalyticsEnabled()) {
-				return;
-			}
-			super.sendTracking(when, used, details);
-		}
-
-		@Override
-		protected void logInfo(String s) {
-		}
-
-	};
+	protected Analytics analytics = new Analytics();
 
 	public TestEditor(Tester tester) {
 		analytics.initialize();
@@ -1011,8 +996,8 @@ public class TestEditor extends JFrame {
 				if (!method.getName().equals("validate")) {
 					if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
 							|| (object instanceof ComponentFinder)) {
-						analytics.track("Invoking " + method.getName() + "(",
-								invocationData.toString() + ") on " + object);
+						analytics.track(
+								"Invoking " + method.getName() + "(" + invocationData.toString() + ") on " + object);
 					}
 				}
 				return super.invoke(object, invocationData, method, containingType);
