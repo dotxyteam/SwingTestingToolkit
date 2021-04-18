@@ -8,9 +8,9 @@ import javax.swing.JDialog;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
 import xy.reflect.ui.control.swing.renderer.Form;
+import xy.reflect.ui.control.swing.util.SwingRendererUtils;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.util.Listener;
-import xy.reflect.ui.util.SwingRendererUtils;
 import xy.ui.testing.util.ComponentInspector;
 import xy.ui.testing.util.ComponentInspector.ComponentInspectorNode;
 
