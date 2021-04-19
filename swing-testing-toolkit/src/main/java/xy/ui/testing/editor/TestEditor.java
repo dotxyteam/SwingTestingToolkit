@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -88,6 +89,7 @@ import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
 import xy.ui.testing.Tester.ControlsTheme;
+import xy.ui.testing.Tester.EditingOptions;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.SystemExitCallInterceptionAction;
@@ -185,7 +187,17 @@ public class TestEditor extends JFrame {
 	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
 
 	protected AWTEventListener modalityChangingListener;
-	protected Analytics analytics = new Analytics();
+	protected Analytics analytics = new Analytics() {
+
+		@Override
+		public void sendTracking(Date when, String used, String... details) {
+			if (!tester.getEditingOptions().isAnalyticsEnabled()) {
+				return;
+			}
+			super.sendTracking(when, used, details);
+		}
+
+	};
 
 	public TestEditor(Tester tester) {
 		analytics.initialize();
@@ -1154,6 +1166,18 @@ public class TestEditor extends JFrame {
 				} else {
 					return super.getFields(type);
 				}
+			}
+
+			@Override
+			protected boolean isHidden(IFieldInfo field, ITypeInfo containingType) {
+				if (Analytics.TRACKINGS_DELIVERY_URL == null) {
+					if (containingType.getName().equals(EditingOptions.class.getName())) {
+						if (field.getName().equals("analyticsEnabled")) {
+							return true;
+						}
+					}
+				}
+				return super.isHidden(field, containingType);
 			}
 
 			@Override

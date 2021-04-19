@@ -42,10 +42,10 @@ import java.util.Map;
  */
 public class Analytics {
 
-	public final String TRACKINGS_DELIVERY_URL = System.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
-	public final int TRACKINGS_TRANSMISSION_PACKET_SIZE = 1000;
-	public final String[] NEW_LINE_SEQUENCES = new String[] { "\r\n", "\n", "\r" };
-	public final Object TRACKING_CATEGORY_PREFIX = "SwingTestingToolkit";
+	public static final String TRACKINGS_DELIVERY_URL = System.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
+	public static final int TRACKINGS_TRANSMISSION_PACKET_SIZE = 1000;
+	public static final String[] NEW_LINE_SEQUENCES = new String[] { "\r\n", "\n", "\r" };
+	public static final Object TRACKING_CATEGORY_PREFIX = "SwingTestingToolkit";
 
 	private Thread regularSender;
 	private boolean initialized;
