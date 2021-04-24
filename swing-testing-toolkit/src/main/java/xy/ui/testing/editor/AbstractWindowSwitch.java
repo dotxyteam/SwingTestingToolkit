@@ -16,6 +16,13 @@ import xy.reflect.ui.control.swing.util.SwingRendererUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestingUtils;
 
+/**
+ * Base class of helper objects that replace temporarily the test editor by the
+ * small status window.
+ * 
+ * @author olitank
+ *
+ */
 public abstract class AbstractWindowSwitch {
 
 	protected StatusControlObject statusControlObject = new StatusControlObject();

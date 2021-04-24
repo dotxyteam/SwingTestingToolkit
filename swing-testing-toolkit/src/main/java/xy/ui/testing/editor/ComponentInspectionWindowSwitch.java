@@ -14,6 +14,13 @@ import xy.reflect.ui.util.Listener;
 import xy.ui.testing.util.ComponentInspector;
 import xy.ui.testing.util.ComponentInspector.ComponentInspectorNode;
 
+/**
+ * Helper class that replaces temporarily the test editor by the small status
+ * window to allow component inspection.
+ * 
+ * @author olitank
+ *
+ */
 public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 
 	protected boolean inspectorOpen = false;

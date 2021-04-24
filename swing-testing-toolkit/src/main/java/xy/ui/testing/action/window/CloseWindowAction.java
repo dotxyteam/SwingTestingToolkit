@@ -10,6 +10,12 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that closes a window.
+ * 
+ * @author olitank
+ *
+ */
 public class CloseWindowAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;

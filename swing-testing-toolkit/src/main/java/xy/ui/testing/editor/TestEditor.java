@@ -120,8 +120,14 @@ import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.theme.ClassInThemePackage;
 import xy.ui.testing.util.Analytics;
-import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.MiscUtils;
 
+/**
+ * The main window that allows to edit and execute test specifications.
+ * 
+ * @author olitank
+ *
+ */
 public class TestEditor extends JFrame {
 
 	public static void main(String[] args) {
@@ -162,7 +168,7 @@ public class TestEditor extends JFrame {
 	protected static final String TEST_ACTIONS_FIELD_NAME = "testActions";
 	protected static final String TEST_REPORT_STEPS_FIELD_NAME = "steps";
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
-			.putImageInCache(TestingUtils.loadImageResource("ExtensionAction.png"));
+			.putImageInCache(MiscUtils.loadImageResource("ExtensionAction.png"));
 
 	protected Color decorationsForegroundColor;
 	protected Color decorationsBackgroundColor;

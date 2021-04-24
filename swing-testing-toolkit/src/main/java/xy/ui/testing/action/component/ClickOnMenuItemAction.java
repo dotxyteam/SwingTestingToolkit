@@ -14,6 +14,12 @@ import xy.ui.testing.finder.MenuItemComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that sends a mouse-click event on a menu item.
+ * 
+ * @author olitank
+ *
+ */
 public class ClickOnMenuItemAction extends TestAction {
 	private static final long serialVersionUID = 1L;
 

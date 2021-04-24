@@ -29,6 +29,12 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
+/**
+ * A dialog allowing to select an item in a tree.
+ * 
+ * @author olitank
+ *
+ */
 public class TreeSelectionDialog extends JDialog {
 
 	protected static final long serialVersionUID = 1L;

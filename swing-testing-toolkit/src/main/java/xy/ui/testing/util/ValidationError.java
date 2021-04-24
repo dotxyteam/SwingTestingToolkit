@@ -1,5 +1,11 @@
 package xy.ui.testing.util;
 
+/**
+ * Validation error exception class.
+ * 
+ * @author olitank
+ *
+ */
 public class ValidationError extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

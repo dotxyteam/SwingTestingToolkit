@@ -7,10 +7,16 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that just calls the main method of a class.
+ * 
+ * @author olitank
+ *
+ */
 public class CallMainMethodAction extends TestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -55,7 +61,7 @@ public class CallMainMethodAction extends TestAction {
 			@Override
 			public void run() {
 				try {
-					TestingUtils.launchClassMainMethod(className, arguments);
+					MiscUtils.launchClassMainMethod(className, arguments);
 				} catch (Throwable e) {
 					error[0] = new TestFailure("Failed to run the main method of '" + className + "': " + e.toString(),
 							e);
@@ -101,7 +107,7 @@ public class CallMainMethodAction extends TestAction {
 
 	@Override
 	public String toString() {
-		return "Run class <" + className +  ">";
+		return "Run class <" + className + ">";
 	}
 
 	@Override

@@ -11,6 +11,12 @@ import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Component finder that can use any properties to find a component.
+ * 
+ * @author olitank
+ *
+ */
 public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFinder {
 	private static final long serialVersionUID = 1L;
 

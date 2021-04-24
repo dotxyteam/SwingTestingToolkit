@@ -8,6 +8,12 @@ import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that just pauses the test execution for the specified duration.
+ * 
+ * @author olitank
+ *
+ */
 public class WaitAction extends TestAction {
 
 	private static final long serialVersionUID = 1L;

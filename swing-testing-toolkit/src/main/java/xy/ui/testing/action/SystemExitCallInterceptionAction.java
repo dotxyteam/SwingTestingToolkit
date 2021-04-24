@@ -8,6 +8,13 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that intercepts calls to {@link System#exit(int)} to prevent the
+ * JVM from shutting down during a test execution.
+ * 
+ * @author olitank
+ *
+ */
 public class SystemExitCallInterceptionAction extends TestAction {
 
 	private static final long serialVersionUID = 1L;

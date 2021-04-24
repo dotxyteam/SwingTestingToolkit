@@ -3,6 +3,7 @@ package xy.ui.testing;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -45,15 +46,29 @@ import xy.ui.testing.TestReport.TestReportStep;
 import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.Analytics;
 import xy.ui.testing.util.Listener;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 
+/**
+ * This class is the test specification and execution class.
+ * 
+ * @author olitank
+ *
+ */
 public class Tester {
 
-	public static final transient Color HIGHLIGHT_FOREGROUND = TestingUtils.stringToColor(
+	/**
+	 * The foreground color that will be set to the current component being tested.
+	 */
+	public static final transient Color HIGHLIGHT_FOREGROUND = MiscUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightForeground", "235,48,33"));
-	public static final transient Color HIGHLIGHT_BACKGROUND = TestingUtils.stringToColor(
+	/**
+	 * The background color that will be set to the current component being tested.
+	 */
+	public static final transient Color HIGHLIGHT_BACKGROUND = MiscUtils.stringToColor(
 			System.getProperty(Tester.class.getPackage().getName() + ".highlightBackground", "245,216,214"));
 
 	protected static final transient MouseListener DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH = new MouseAdapter() {
@@ -77,46 +92,100 @@ public class Tester {
 	protected transient MouseListener[] currentComponentMouseListeners;
 	protected transient Border currentComponentBorder;
 
+	/**
+	 * The default constructor. Builds an empty (0 actions) instance.
+	 */
 	public Tester() {
 	}
 
+	/**
+	 * @return The component being tested at the moment of this method call.
+	 */
 	public Component getCurrentComponent() {
 		return currentComponent;
 	}
 
+	/**
+	 * @return The minimum time (seconds) to wait between actions when executing the
+	 *         test specification.
+	 */
 	public double getMinimumSecondsToWaitBetwneenActions() {
 		return minimumSecondsToWaitBetwneenActions;
 	}
 
+	/**
+	 * Updates the minimum time (seconds) to wait between actions when executing the
+	 * test specification.
+	 * 
+	 * @param minimumSecondsToWaitBetwneenActions The new value (seconds).
+	 */
 	public void setMinimumSecondsToWaitBetwneenActions(double minimumSecondsToWaitBetwneenActions) {
 		this.minimumSecondsToWaitBetwneenActions = minimumSecondsToWaitBetwneenActions;
 	}
 
+	/**
+	 * @return The maximum time (seconds) to wait between actions when executing the
+	 *         test specification.
+	 */
 	public double getMaximumSecondsToWaitBetwneenActions() {
 		return maximumSecondsToWaitBetwneenActions;
 	}
 
+	/**
+	 * Updates the maximum time (seconds) to wait between actions when executing the
+	 * test specification.
+	 * 
+	 * @param maximumSecondsToWaitBetwneenActions The new value (seconds).
+	 */
 	public void setMaximumSecondsToWaitBetwneenActions(double maximumSecondsToWaitBetwneenActions) {
 		this.maximumSecondsToWaitBetwneenActions = maximumSecondsToWaitBetwneenActions;
 	}
 
+	/**
+	 * @return The list of test actions.
+	 */
 	public TestAction[] getTestActions() {
 		return testActions.toArray(new TestAction[testActions.size()]);
 	}
 
+	/**
+	 * Updates the list of test actions.
+	 * 
+	 * @param testActions The new list.
+	 */
 	public void setTestActions(TestAction[] testActions) {
 		this.testActions.clear();
 		this.testActions.addAll(Arrays.asList(testActions));
 	}
 
+	/**
+	 * Replays all test actions.
+	 * 
+	 * @return The execution report.
+	 */
 	public TestReport replayAll() {
 		return replayAll(null);
 	}
 
+	/**
+	 * Replays all test actions.
+	 * 
+	 * @param beforeEachAction An action to be executed before each test action or
+	 *                         null.
+	 * @return The execution report.
+	 */
 	public TestReport replayAll(Listener<TestAction> beforeEachAction) {
 		return replay(testActions, beforeEachAction);
 	}
 
+	/**
+	 * Replays only the given list of test actions.
+	 * 
+	 * @param toReplay         The list of test actions that will be executed.
+	 * @param beforeEachAction An action to be executed before each test action or
+	 *                         null.
+	 * @return The execution report.
+	 */
 	public TestReport replay(final List<TestAction> toReplay, Listener<TestAction> beforeEachAction) {
 		TestReport report = new TestReport();
 		report.begin(this);
@@ -197,14 +266,29 @@ public class Tester {
 		return SimpleDateFormat.getDateTimeInstance().format(new Date()) + " [" + Tester.this + "] " + msg;
 	}
 
+	/**
+	 * Logs the given information message to the console output stream by default.
+	 * 
+	 * @param msg The message.
+	 */
 	public void logInfo(String msg) {
 		System.out.println(formatLogMessage("INFO - " + msg));
 	}
 
+	/**
+	 * Logs the given error message to the console error stream by default.
+	 * 
+	 * @param msg The message.
+	 */
 	public void logError(String msg) {
 		System.err.println(formatLogMessage("ERROR - " + msg));
 	}
 
+	/**
+	 * Logs the given exception to the console error stream by default.
+	 * 
+	 * @param t The exception.
+	 */
 	public void logError(Throwable t) {
 		logError(ReflectionUIUtils.getPrintedStackTrace(t));
 	}
@@ -279,6 +363,12 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * Loads a test specification file.
+	 * 
+	 * @param input The input file.
+	 * @throws IOException If an error occurs during the loading process.
+	 */
 	public void loadFromFile(File input) throws IOException {
 		FileInputStream stream = new FileInputStream(input);
 		try {
@@ -291,6 +381,11 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * Loads the test specification from a stream.
+	 * 
+	 * @param input The input stream.
+	 */
 	public void loadFromStream(InputStream input) {
 		XStream xstream = getXStream();
 		Tester loaded = (Tester) xstream.fromXML(input);
@@ -300,6 +395,12 @@ public class Tester {
 		editingOptions = loaded.editingOptions;
 	}
 
+	/**
+	 * Saves the test specification to a stream.
+	 * 
+	 * @param output The output stream.
+	 * @throws IOException If an error occurs during the saving process.
+	 */
 	public void saveToStream(OutputStream output) throws IOException {
 		XStream xstream = getXStream();
 		Tester toSave = new Tester();
@@ -310,6 +411,12 @@ public class Tester {
 		xstream.toXML(toSave, output);
 	}
 
+	/**
+	 * Saves the test specification to a file.
+	 * 
+	 * @param output The output file.
+	 * @throws IOException If an error occurs during the saving process.
+	 */
 	public void saveToFile(File output) throws IOException {
 		FileOutputStream stream = new FileOutputStream(output);
 		try {
@@ -328,6 +435,13 @@ public class Tester {
 		return result;
 	}
 
+	/**
+	 * Prepares the given component for action/assertion (highlights it, adaps its
+	 * event management) and sets it as the currently tested component. It also
+	 * means that it restores the previous component state if there is any,
+	 * 
+	 * @param c The component that will be tested.
+	 */
 	public void handleCurrentComponentChange(Component c) {
 		synchronized (CURRENT_COMPONENT_MUTEX) {
 			if (currentComponent != null) {
@@ -344,6 +458,14 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * @param c The tested component.
+	 * @return Whether a component is considered as visible or not during the
+	 *         execution of test actions. This method is used instead of
+	 *         {@link Component#isVisible()} by test actions. Can then be overriden
+	 *         typically when testing custom components that need custom testing
+	 *         behavior.
+	 */
 	public boolean isVisible(Component c) {
 		if (c instanceof CellRendererPane) {
 			return true;
@@ -351,6 +473,14 @@ public class Tester {
 		return c.isVisible();
 	}
 
+	/**
+	 * @param c The tested component.
+	 * @return Whether a component is considered as testable or not. Normally all
+	 *         components that are not part or owned by the test editor are
+	 *         testable. This method is used by test actions. Can then be overriden
+	 *         typically when testing custom components that need custom testing
+	 *         behavior.
+	 */
 	public boolean isTestable(Component c) {
 		for (TestEditor testEditor : TestingUtils.getTestEditors(this)) {
 			if (TestingUtils.isTestEditorComponent(testEditor, c)) {
@@ -360,12 +490,14 @@ public class Tester {
 		return true;
 	}
 
+	/**
+	 * @param container The inspected container.
+	 * @return The sorted list of children components of the given container. Note that
+	 *         the position of a component among similar ones (needed by test
+	 *         actions) is computed with this method.
+	 */
 	public List<Component> getChildrenComponents(Container container) {
-		List<Component> result = new ArrayList<Component>();
-		for (Component c : container.getComponents()) {
-			result.add(c);
-		}
-		result = new ArrayList<Component>(result);
+		List<Component> result = new ArrayList<Component>(Arrays.asList(container.getComponents()));
 		Collections.sort(result, new Comparator<Component>() {
 			@Override
 			public int compare(Component c1, Component c2) {
@@ -383,6 +515,13 @@ public class Tester {
 		return result;
 	}
 
+	/**
+	 * @param c The inspected component.
+	 * @return The list of strings displayed on the given component. This method is
+	 *         used by test actions that depend on visible strings. Can then be
+	 *         overriden typically when testing custom components that need custom
+	 *         testing behavior.
+	 */
 	public List<String> extractDisplayedStrings(Component c) {
 		List<String> result = new ArrayList<String>();
 		String s;
@@ -521,14 +660,28 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * @return The global options object.
+	 */
 	public EditingOptions getEditingOptions() {
 		return editingOptions;
 	}
 
+	/**
+	 * Updates the global options object.
+	 * 
+	 * @param editingOptions The new global options object.
+	 */
 	public void setEditingOptions(EditingOptions editingOptions) {
 		this.editingOptions = editingOptions;
 	}
 
+	/**
+	 * Global options about test specification and execution.
+	 * 
+	 * @author olitank
+	 *
+	 */
 	public static class EditingOptions {
 
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
@@ -536,41 +689,91 @@ public class Tester {
 		protected ControlsTheme controlsTheme = ControlsTheme.classic;
 		private boolean analyticsEnabled = true;
 
+		/**
+		 * @return The current test editor window theme.
+		 */
 		public ControlsTheme getControlsTheme() {
 			return controlsTheme;
 		}
 
+		/**
+		 * Updates the test editor window theme.
+		 * 
+		 * @param controlsTheme The new theme.
+		 */
 		public void setControlsTheme(ControlsTheme controlsTheme) {
 			this.controlsTheme = controlsTheme;
 		}
 
+		/**
+		 * @return Whether the "always on top" feature should be disabled on testable
+		 *         windows (all windows except the tester windows) during a test
+		 *         execution.
+		 */
 		public boolean isTestableWindowsAlwaysOnTopFeatureDisabled() {
 			return testableWindowsAlwaysOnTopFeatureDisabled;
 		}
 
+		/**
+		 * Updates whether the "always on top" feature should be disabled on testable
+		 * windows (all windows except the tester windows) during a test execution.
+		 * 
+		 * @param testableWindowsAlwaysOnTopFeatureDisabled The new flag.
+		 */
 		public void setTestableWindowsAlwaysOnTopFeatureDisabled(boolean testableWindowsAlwaysOnTopFeatureDisabled) {
 			this.testableWindowsAlwaysOnTopFeatureDisabled = testableWindowsAlwaysOnTopFeatureDisabled;
 		}
 
+		/**
+		 * @return Whether the modality type should be set to
+		 *         {@link ModalityType#DOCUMENT_MODAL} on testable dialogs (all dialogs
+		 *         except the tester dialogs) during a test execution.
+		 */
 		public boolean isTestableModalWindowsForcedToDocumentModality() {
 			return testableModalWindowsForcedToDocumentModality;
 		}
 
+		/**
+		 * Updates whether the modality type should be set to
+		 * {@link ModalityType#DOCUMENT_MODAL} on testable dialogs (all dialogs except
+		 * the tester dialogs) during a test execution.
+		 * 
+		 * @param testableModalWindowsForcedToDocumentModality The new flag.
+		 */
 		public void setTestableModalWindowsForcedToDocumentModality(
 				boolean testableModalWindowsForcedToDocumentModality) {
 			this.testableModalWindowsForcedToDocumentModality = testableModalWindowsForcedToDocumentModality;
 		}
 
+		/**
+		 * @return Whether some logs are sent to help improve the toolkit. Note that the
+		 *         target URL must be specified (see @link
+		 *         {@link Analytics#TRACKINGS_DELIVERY_URL}) for this feature to be
+		 *         available.
+		 */
 		public boolean isAnalyticsEnabled() {
 			return analyticsEnabled;
 		}
 
+		/**
+		 * Updates whether some logs are sent to help improve the toolkit. Note that the
+		 * target URL must be specified (see @link
+		 * {@link Analytics#TRACKINGS_DELIVERY_URL}) for this feature to be available.
+		 * 
+		 * @param analyticsEnabled The new flag.
+		 */
 		public void setAnalyticsEnabled(boolean analyticsEnabled) {
 			this.analyticsEnabled = analyticsEnabled;
 		}
 
 	}
 
+	/**
+	 * Available themes.
+	 * 
+	 * @author olitank
+	 *
+	 */
 	public enum ControlsTheme {
 		classic, versatile, cloudy, gradient
 	}

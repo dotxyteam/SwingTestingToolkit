@@ -6,12 +6,19 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JList;
 import javax.swing.JTable;
+
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
-import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that selects a {@link JTable} row.
+ * 
+ * @author olitank
+ *
+ */
 @SuppressWarnings("rawtypes")
 public class SelectTableRowAction extends TargetComponentTestAction {
 
@@ -76,7 +83,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	public void execute(Component c, Tester tester) {
 		if (c instanceof JTable) {
 			final JTable table = (JTable) c;
-			TestingUtils.invokeInUIThread(new Runnable() {
+			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					if (addedToExistingSelection) {
@@ -88,7 +95,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 			});
 		} else if (c instanceof JList) {
 			final JList list = (JList) c;
-			TestingUtils.invokeInUIThread(new Runnable() {
+			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					if (addedToExistingSelection) {
@@ -118,10 +125,10 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	public String getValueDescription() {
 		String result = "";
 		if (firstItemToSelect == lastItemToSelect) {
-			result += TestingUtils.appendOccurrenceNumber("row", firstItemToSelect);
+			result += MiscUtils.formatOccurrence("row", firstItemToSelect);
 		} else {
-			result += TestingUtils.appendOccurrenceNumber("row", firstItemToSelect) + " To "
-					+ TestingUtils.appendOccurrenceNumber("row", lastItemToSelect);
+			result += MiscUtils.formatOccurrence("row", firstItemToSelect) + " To "
+					+ MiscUtils.formatOccurrence("row", lastItemToSelect);
 		}
 		return result;
 	}

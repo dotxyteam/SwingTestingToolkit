@@ -10,6 +10,12 @@ import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that checks the strings displayed on a window.
+ * 
+ * @author olitank
+ *
+ */
 public class CheckWindowVisibleStringsAction extends TargetWindowTestAction {
 
 	private static final long serialVersionUID = 1L;

@@ -19,10 +19,16 @@ import xy.reflect.ui.util.ReflectionUIError;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that selects a {@link JComboBox} item.
+ * 
+ * @author olitank
+ *
+ */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
@@ -122,7 +128,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		}
 		final List<String>[] result = new List[1];
 		final Throwable[] error = new Throwable[1];
-		TestingUtils.invokeInUIThread(new Runnable() {
+		MiscUtils.ensureStartedInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				try {
@@ -172,7 +178,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 					+ "Selection Mode=" + selectionMode + "\n" + "Found items: " + options);
 		}
 		final int finalIndexToSelect = indexToSelect;
-		TestingUtils.invokeInUIThread(new Runnable() {
+		MiscUtils.ensureStartedInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				comboBox.setSelectedIndex(finalIndexToSelect);
@@ -211,7 +217,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	@Override
 	public String getValueDescription() {
 		if (selectionMode == SelectionMode.BY_POSITION) {
-			return TestingUtils.appendOccurrenceNumber("item", Integer.valueOf(optionToSelect));
+			return MiscUtils.formatOccurrence("item", Integer.valueOf(optionToSelect));
 		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
 			return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
 		} else {

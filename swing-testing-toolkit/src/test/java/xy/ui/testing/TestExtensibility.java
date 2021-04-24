@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -122,7 +123,7 @@ public class TestExtensibility {
 			 * following utility method (instead of SwingUtilities.invoke*) to avoid
 			 * disturbing the replay thread.
 			 */
-			TestingUtils.invokeInUIThread(new Runnable() {
+			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					((CustomComponent) c).propertytoChange = propertytoChangeNewValue;

@@ -6,9 +6,16 @@ import java.util.List;
 import org.apache.commons.lang3.StringEscapeUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Component finder that finds the components by comparing displayed strings.
+ * 
+ * @author olitank
+ *
+ */
 public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 
@@ -101,7 +108,7 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 		} else {
 			result += "\"" + StringEscapeUtils.escapeJava(visibleString) + "\"";
 		}
-		result = TestingUtils.appendOccurrenceNumber(result, occurrencesToSkip);
+		result = MiscUtils.formatOccurrence(result, occurrencesToSkip);
 		return result;
 	}
 

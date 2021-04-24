@@ -11,10 +11,17 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that checks the strings displayed on a component.
+ * 
+ * @author olitank
+ *
+ */
 public class CheckVisibleStringsAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +40,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 	}
 
 	public void loadVisibleStringsFromText(String s) {
-		visibleStrings = TestingUtils.parseVisibleStrings(s);
+		visibleStrings = MiscUtils.parseStringList(s);
 	}
 
 	public boolean isNegated() {
@@ -82,7 +89,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 				currentVisibleStrings2.removeAll(visibleStrings);
 				if (currentVisibleStrings.size() > 0) {
 					checkFailureMessage = "The following visible string(s) were not declared: "
-							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(currentVisibleStrings2));
+							+ MiscUtils.formatStringList(new ArrayList<String>(currentVisibleStrings2));
 				}
 			}
 			{
@@ -90,7 +97,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 				visibleStrings2.removeAll(currentVisibleStrings);
 				if (visibleStrings2.size() > 0) {
 					checkFailureMessage = "The following declared string(s) are not visible: "
-							+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStrings2));
+							+ MiscUtils.formatStringList(new ArrayList<String>(visibleStrings2));
 				}
 			}
 		} else if (!completenessChecked && orderChecked) {
@@ -104,7 +111,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 			visibleStringSortedSet.removeAll(currentVisibleStrings);
 			if (visibleStringSortedSet.size() > 0) {
 				checkFailureMessage = "The following declared visible string(s) were not found: "
-						+ TestingUtils.formatVisibleStrings(new ArrayList<String>(visibleStringSortedSet));
+						+ MiscUtils.formatStringList(new ArrayList<String>(visibleStringSortedSet));
 			}
 		}
 		if (negated) {
@@ -117,8 +124,8 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 		if (checkFailureMessage != null) {
 			throw new TestFailure("Visible strings checking failed: " + checkFailureMessage
 					+ ".\nThese are the expected and actual visible strings:\n"
-					+ TestingUtils.formatVisibleStrings(visibleStrings) + "\n"
-					+ TestingUtils.formatVisibleStrings(currentVisibleStrings));
+					+ MiscUtils.formatStringList(visibleStrings) + "\n"
+					+ MiscUtils.formatStringList(currentVisibleStrings));
 		}
 		return c;
 	}

@@ -1,2 +1,2 @@
 More information here:
-http://otksoftware.com/swing-testing-toolkit/
+https://github.com/dotxyteam/SwingTestingToolkit

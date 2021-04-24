@@ -14,6 +14,12 @@ import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
 
+/**
+ * This class allows to infer component properties from the class name.
+ * 
+ * @author olitank
+ *
+ */
 public class ComponentPropertyUtil {
 
 	protected static ReflectionUI introspector = ReflectionUIUtils.STANDARD_REFLECTION;

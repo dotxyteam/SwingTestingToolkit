@@ -18,6 +18,12 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Component finder that can handle a menu or sub-menu item.
+ * 
+ * @author olitank
+ *
+ */
 public class MenuItemComponentFinder extends ComponentFinder {
 
 	private static final long serialVersionUID = 1L;
@@ -112,7 +118,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 				if (pathEltText == null) {
 					pathEltText = "<unknown item>";
 				} else {
-					pathEltText = "\"" + StringEscapeUtils.escapeJava(pathEltText) + "\"";					
+					pathEltText = "\"" + StringEscapeUtils.escapeJava(pathEltText) + "\"";
 				}
 				result.append(pathEltText);
 			}

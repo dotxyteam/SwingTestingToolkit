@@ -11,16 +11,20 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import org.jdesktop.swingx.JXTreeTable;
-import org.jdesktop.swingx.treetable.TreeTableModel;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-@SuppressWarnings("unused")
+/**
+ * Test action that expands a {@link JXTreeTable} node.
+ * 
+ * @author olitank
+ *
+ */
 public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -106,7 +110,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (treePath == null) {
 				throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 			}
-			TestingUtils.invokeInUIThread(new Runnable() {
+			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					treeTable.expandPath(treePath.getParentPath());
@@ -121,7 +125,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (treePath == null) {
 				throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 			}
-			TestingUtils.invokeInUIThread(new Runnable() {
+			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					tree.expandPath(treePath.getParentPath());
@@ -147,7 +151,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (i > 0) {
 				result.append(" / ");
 			}
-			result.append(TestingUtils.appendOccurrenceNumber("item", index));
+			result.append(MiscUtils.formatOccurrence("item", index));
 		}
 		return result.toString();
 	}

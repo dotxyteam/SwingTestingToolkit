@@ -10,6 +10,12 @@ import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Base class of test actions that target a component.
+ * 
+ * @author olitank
+ *
+ */
 public abstract class TargetComponentTestAction extends TestAction {
 
 	private static final long serialVersionUID = 1L;

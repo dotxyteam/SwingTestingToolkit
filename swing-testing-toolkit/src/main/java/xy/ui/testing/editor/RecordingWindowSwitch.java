@@ -39,6 +39,12 @@ import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
 import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
 
+/**
+ * Helper class that replaces temporarily the test editor by the small status
+ * window to allow test actions "recording".
+ * 
+ * @author olitank
+ */
 public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 	public enum InsertPosition {
@@ -101,13 +107,13 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		setPausedAndUpdateUI(true);
 		try {
 			final JMenuItem menuItem = (JMenuItem) event.getSource();
-			ClickOnMenuItemAction testACtion = new ClickOnMenuItemAction();
-			testACtion.initializeFrom(menuItem, event, testEditor);
+			ClickOnMenuItemAction testAction = new ClickOnMenuItemAction();
+			testAction.initializeFrom(menuItem, event, testEditor);
 			String title = getSwingRenderer().getObjectTitle(getTester());
 			RecordingWindowSwitch.this.getWindow().requestFocus();
 			if (getSwingRenderer().openQuestionDialog(RecordingWindowSwitch.this.getWindow(),
 					"Do you want to record this menu item activation event?", title)) {
-				handleNewTestActionInsertionRequest(testACtion, menuItem, true);
+				handleNewTestActionInsertionRequest(testAction, menuItem, true);
 			}
 		} finally {
 			setPausedAndUpdateUI(false);

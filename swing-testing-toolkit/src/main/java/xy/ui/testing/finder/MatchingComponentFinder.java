@@ -10,6 +10,13 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * The base class of component finders that can handle similarities between
+ * multiple components.
+ * 
+ * @author olitank
+ *
+ */
 public abstract class MatchingComponentFinder extends ComponentFinder {
 	private static final long serialVersionUID = 1L;
 

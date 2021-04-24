@@ -3,9 +3,16 @@ package xy.ui.testing.finder;
 import java.awt.Component;
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
-import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * The base class of component finders that use class information to find the
+ * components.
+ * 
+ * @author olitank
+ *
+ */
 public abstract class AbstractClassBasedComponentFinder extends MatchingComponentFinder {
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +64,7 @@ public abstract class AbstractClassBasedComponentFinder extends MatchingComponen
 				result += "<" + componentClassName + ">";
 			}
 		}
-		result = TestingUtils.appendOccurrenceNumber(result, occurrencesToSkip);
+		result = MiscUtils.formatOccurrence(result, occurrencesToSkip);
 		return result;
 	}
 

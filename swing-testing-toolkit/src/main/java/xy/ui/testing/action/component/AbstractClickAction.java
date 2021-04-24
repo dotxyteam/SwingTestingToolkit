@@ -4,17 +4,19 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-
-import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
-@SuppressWarnings("unused")
+/**
+ * Base class of mouse-click test actions.
+ * 
+ * @author olitank
+ *
+ */
 public abstract class AbstractClickAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
@@ -63,7 +65,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		TestingUtils.invokeInUIThread(new Runnable() {
+		MiscUtils.ensureStartedInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				click(c);

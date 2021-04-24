@@ -8,6 +8,12 @@ import xy.ui.testing.TestReport;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.util.Listener;
 
+/**
+ * Helper class that replaces temporarily the test editor by the small status
+ * window to allow test actions execution.
+ * 
+ * @author olitank
+ */
 public class ReplayWindowSwitch extends AbstractWindowSwitch {
 
 	protected Thread replayThread;

@@ -17,7 +17,7 @@
 package xy.ui.testing.util;
 
 /**
- * This class holds informations about the version of the application.
+ * This class holds information about the version of the toolkit.
  * 
  * @author olitank
  *

@@ -4,15 +4,20 @@ import java.awt.event.KeyEvent;
 import static java.awt.event.KeyEvent.*;
 import java.util.Arrays;
 
+/**
+ * This class allows to map keyboard events to characters.
+ * 
+ * @author olitank
+ *
+ */
 public class StandardKey implements Comparable<StandardKey> {
 	private final Character character;
 	private final Integer keyCode;
 	private final boolean shiftDown;
 	private final boolean altDown;
 
-	private final static StandardKey[] KEYS = { 
-												
-												
+	private final static StandardKey[] KEYS = {
+
 			new StandardKey('a', VK_A), new StandardKey('b', VK_B), new StandardKey('c', VK_C),
 			new StandardKey('d', VK_D), new StandardKey('e', VK_E), new StandardKey('f', VK_F),
 			new StandardKey('g', VK_G), new StandardKey('h', VK_H), new StandardKey('i', VK_I),

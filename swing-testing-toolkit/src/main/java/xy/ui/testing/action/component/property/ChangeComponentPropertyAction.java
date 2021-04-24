@@ -11,9 +11,15 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.ComponentPropertyUtil;
-import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that can change any property of a component.
+ * 
+ * @author olitank
+ *
+ */
 public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +64,8 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		return propertyUtil.initializeSpecificProperties(c, introspectionRequestEvent);
 	}
 
@@ -66,7 +73,7 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	public void execute(final Component c, Tester tester) {
 		final IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(newPropertyValue);
-		TestingUtils.invokeInUIThread(new Runnable() {
+		MiscUtils.ensureStartedInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				field.setValue(c, newFieldValue);

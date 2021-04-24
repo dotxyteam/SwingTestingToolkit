@@ -8,8 +8,15 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.MatchingComponentFinder;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestingUtils;
 
+/**
+ * Base class of test actions that target a window.
+ * 
+ * @author olitank
+ *
+ */
 public abstract class TargetWindowTestAction extends TestAction {
 
 	protected static final long serialVersionUID = 1L;
@@ -57,6 +64,6 @@ public abstract class TargetWindowTestAction extends TestAction {
 
 	@Override
 	public String getComponentInformation() {
-		return TestingUtils.appendOccurrenceNumber("<window>", getWindowIndex());
+		return MiscUtils.formatOccurrence("<window>", getWindowIndex());
 	}
 }

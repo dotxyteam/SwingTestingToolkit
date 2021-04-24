@@ -4,13 +4,20 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 
 import javax.swing.JTabbedPane;
+
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that selects a {@link JTabbedPane} tab.
+ * 
+ * @author olitank
+ *
+ */
 public class SelectTabAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
@@ -63,7 +70,7 @@ public class SelectTabAction extends TargetComponentTestAction {
 			throw new TestFailure("Could not select the tab '" + tabToSelect + "': Tab not found");
 		}
 		final int finalIndexToSelect = indexToSelect;
-		TestingUtils.invokeInUIThread(new Runnable() {
+		MiscUtils.ensureStartedInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				tabbedPane.setSelectedIndex(finalIndexToSelect);

@@ -35,14 +35,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class allows to optionally gather the application usage statistics.
+ * This class allows to optionally gather the toolkit usage statistics.
  * 
  * @author olitank
  *
  */
 public class Analytics {
 
-	public static final String TRACKINGS_DELIVERY_URL = System.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
+	public static final String TRACKINGS_DELIVERY_URL = System
+			.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
 	public static final int TRACKINGS_TRANSMISSION_PACKET_SIZE = 1000;
 	public static final String[] NEW_LINE_SEQUENCES = new String[] { "\r\n", "\n", "\r" };
 	public static final Object TRACKING_CATEGORY_PREFIX = "SwingTestingToolkit";

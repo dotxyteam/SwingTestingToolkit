@@ -15,6 +15,12 @@ import xy.ui.testing.util.ComponentPropertyUtil;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that can check any property of a component.
+ * 
+ * @author olitank
+ *
+ */
 public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
@@ -76,9 +82,9 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 			IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
 			if ((propertyFieldInfo != null) && String.class.getName().equals(propertyFieldInfo.getType().getName())) {
 				propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
-			}else {
+			} else {
 				propertyValueText = propertyValueExpected;
-			}			
+			}
 		}
 		return propertyNameText + " = " + propertyValueText;
 	}

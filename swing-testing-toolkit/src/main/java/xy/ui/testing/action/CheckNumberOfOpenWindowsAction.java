@@ -9,6 +9,12 @@ import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that just checks the number of open windows.
+ * 
+ * @author olitank
+ *
+ */
 public class CheckNumberOfOpenWindowsAction extends TestAction {
 
 	private static final long serialVersionUID = 1L;

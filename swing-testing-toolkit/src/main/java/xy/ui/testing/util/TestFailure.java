@@ -1,5 +1,11 @@
 package xy.ui.testing.util;
 
+/**
+ * Test execution failure exception.
+ * 
+ * @author olitank
+ *
+ */
 public class TestFailure extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

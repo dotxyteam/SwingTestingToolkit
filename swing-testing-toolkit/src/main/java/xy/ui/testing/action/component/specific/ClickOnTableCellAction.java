@@ -11,9 +11,15 @@ import javax.swing.JTable;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.AbstractClickAction;
 import xy.ui.testing.editor.TestEditor;
-import xy.ui.testing.util.TestingUtils;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * Test action that sends mouse-click events on a {@link JTable} cell.
+ * 
+ * @author olitank
+ *
+ */
 public class ClickOnTableCellAction extends AbstractClickAction {
 
 	private static final long serialVersionUID = 1L;
@@ -37,7 +43,8 @@ public class ClickOnTableCellAction extends AbstractClickAction {
 	}
 
 	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor) {
+	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
+			TestEditor testEditor) {
 		if (!super.initializeSpecificProperties(c, introspectionRequestEvent, testEditor)) {
 			return false;
 		}
@@ -65,7 +72,7 @@ public class ClickOnTableCellAction extends AbstractClickAction {
 		Point clickPoint = new Point(cellBounds.x + cellBounds.width / 2, cellBounds.y + cellBounds.height / 2);
 		final MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
 				clickPoint.x, clickPoint.y, clickCount, false, getButtonMask());
-		TestingUtils.invokeInUIThread(new Runnable() {
+		MiscUtils.ensureStartedInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				for (MouseListener l : table.getMouseListeners()) {

@@ -14,6 +14,13 @@ import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 
+/**
+ * This class allows to inspect a component properties, hierarchical structure,
+ * displayed strings, etc.
+ * 
+ * @author olitank
+ *
+ */
 public class ComponentInspector {
 
 	private ComponentInspectorNode rootNode;
