@@ -492,8 +492,8 @@ public class Tester {
 
 	/**
 	 * @param container The inspected container.
-	 * @return The sorted list of children components of the given container. Note that
-	 *         the position of a component among similar ones (needed by test
+	 * @return The sorted list of children components of the given container. Note
+	 *         that the position of a component among similar ones (needed by test
 	 *         actions) is computed with this method.
 	 */
 	public List<Component> getChildrenComponents(Container container) {
@@ -687,7 +687,7 @@ public class Tester {
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
 		protected ControlsTheme controlsTheme = ControlsTheme.classic;
-		private boolean analyticsEnabled = true;
+		protected boolean analyticsEnabled = true;
 
 		/**
 		 * @return The current test editor window theme.
@@ -708,7 +708,8 @@ public class Tester {
 		/**
 		 * @return Whether the "always on top" feature should be disabled on testable
 		 *         windows (all windows except the tester windows) during a test
-		 *         execution.
+		 *         execution. Note that this feature may cause some issues during the
+		 *         test execution.
 		 */
 		public boolean isTestableWindowsAlwaysOnTopFeatureDisabled() {
 			return testableWindowsAlwaysOnTopFeatureDisabled;
@@ -716,7 +717,8 @@ public class Tester {
 
 		/**
 		 * Updates whether the "always on top" feature should be disabled on testable
-		 * windows (all windows except the tester windows) during a test execution.
+		 * windows (all windows except the tester windows) during a test execution. Note
+		 * that this feature may cause some issues during the test execution.
 		 * 
 		 * @param testableWindowsAlwaysOnTopFeatureDisabled The new flag.
 		 */
@@ -727,7 +729,8 @@ public class Tester {
 		/**
 		 * @return Whether the modality type should be set to
 		 *         {@link ModalityType#DOCUMENT_MODAL} on testable dialogs (all dialogs
-		 *         except the tester dialogs) during a test execution.
+		 *         except the tester dialogs) during a test execution. Note that other
+		 *         modality types may cause some issues during the test execution.
 		 */
 		public boolean isTestableModalWindowsForcedToDocumentModality() {
 			return testableModalWindowsForcedToDocumentModality;
@@ -736,7 +739,8 @@ public class Tester {
 		/**
 		 * Updates whether the modality type should be set to
 		 * {@link ModalityType#DOCUMENT_MODAL} on testable dialogs (all dialogs except
-		 * the tester dialogs) during a test execution.
+		 * the tester dialogs) during a test execution. Note that other modality types
+		 * may cause some issues during the test execution.
 		 * 
 		 * @param testableModalWindowsForcedToDocumentModality The new flag.
 		 */
