@@ -26,10 +26,10 @@ import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
-import xy.reflect.ui.control.swing.editor.WindowManager;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.util.AbstractControlButton;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
+import xy.reflect.ui.control.swing.util.WindowManager;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
