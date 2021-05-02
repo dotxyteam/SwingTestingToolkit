@@ -70,9 +70,9 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 
 	protected void highlightComponentOnSelectionFromInspectorDialog(ComponentInspector inspector,
 			JDialog inspectorDialog) {
-		Form inpectorForm = SwingRendererUtils.findFirstObjectDescendantForm(inspector, inspectorDialog,
+		Form inspectorForm = SwingRendererUtils.findFirstObjectDescendantForm(inspector, inspectorDialog,
 				getSwingRenderer());
-		final ListControl componentTreeControl = (ListControl) inpectorForm.getFieldControlPlaceHolder("rootNode")
+		final ListControl componentTreeControl = (ListControl) inspectorForm.getFieldControlPlaceHolder("rootNode")
 				.getFieldControl();
 		componentTreeControl.addListControlSelectionListener(new Listener<List<BufferedItemPosition>>() {
 			@Override
