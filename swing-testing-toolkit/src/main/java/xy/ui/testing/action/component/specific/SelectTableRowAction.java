@@ -11,6 +11,7 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.MiscUtils;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
 /**
@@ -83,6 +84,12 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 	public void execute(Component c, Tester tester) {
 		if (c instanceof JTable) {
 			final JTable table = (JTable) c;
+			if ((firstItemToSelect >= table.getModel().getRowCount())
+					|| (lastItemToSelect >= table.getModel().getRowCount())) {
+				throw new TestFailure("Could not select from row (index) " + firstItemToSelect + " to "
+						+ lastItemToSelect + ": Invalid row index(es). Maximum row index: "
+						+ (table.getModel().getRowCount() - 1));
+			}
 			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
@@ -95,6 +102,12 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 			});
 		} else if (c instanceof JList) {
 			final JList list = (JList) c;
+			if ((firstItemToSelect >= list.getModel().getSize())
+					|| (lastItemToSelect >= list.getModel().getSize())) {
+				throw new TestFailure("Could not select from row (index) " + firstItemToSelect + " to "
+						+ lastItemToSelect + ": Invalid row index(es). Maximum row index: "
+						+ (list.getModel().getSize() - 1));
+			}
 			MiscUtils.ensureStartedInUIThread(new Runnable() {
 				@Override
 				public void run() {
