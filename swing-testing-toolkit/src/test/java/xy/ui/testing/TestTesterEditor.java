@@ -16,7 +16,8 @@ public class TestTesterEditor {
 
 	@Test
 	public void test() throws Exception {
-		TestingUtils.assertSuccessfulReplay(new File("test-specifications/testTesterEditor.stt"));
+		TestingUtils.assertSuccessfulReplay(new File(System.getProperty("swing-testing-toolkit.project.directory", "./")
+				+ "test-specifications/testTesterEditor.stt"));
 	}
 
 	public boolean booleanData;

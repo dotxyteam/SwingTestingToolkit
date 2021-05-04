@@ -21,7 +21,8 @@ public class TestExtensibility {
 
 	@Test
 	public void test() throws Exception {
-		TestingUtils.assertSuccessfulReplay(new File("test-specifications/testExtensibility.stt"));
+		TestingUtils.assertSuccessfulReplay(new File(System.getProperty("swing-testing-toolkit.project.directory", "./")
+				+ "test-specifications/testExtensibility.stt"));
 	}
 
 	public static void main(String[] args) throws Exception {
