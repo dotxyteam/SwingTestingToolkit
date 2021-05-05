@@ -450,7 +450,7 @@ public class TestingUtils {
 	 *         the given test report.
 	 */
 	public static Exception generateTestFailure(Tester tester, TestReport report) {
-		return new TestFailure("The replay was not successful." + "\nMore informatyion can be found in this report:"
+		return new TestFailure("The replay was not successful." + "\nMore information can be found in this report:"
 				+ "\n" + report.getMainFile() + "\nLast logs:\n" + report.getLastLogs());
 	}
 
