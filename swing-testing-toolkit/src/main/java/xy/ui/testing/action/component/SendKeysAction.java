@@ -56,7 +56,7 @@ public class SendKeysAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				if (requestToFocusOnTheComponent) {

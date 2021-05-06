@@ -51,14 +51,19 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 			@Override
 			public void run() {
 				try {
-					Listener<TestAction> listener = new Listener<TestAction>() {
+					lastTestReport = getTester().replay(actionsToReplay, new Listener<TestAction>() {
 						@Override
 						public void handle(TestAction testAction) {
 							currentActionDescription = testAction.toString();
 							int actionIndex = indexOfActionByReference(testAction);
 							currentActionDescription = (actionIndex + 1) + " - " + currentActionDescription;
-							getStatusControlForm().refresh(false);
-							testEditor.setSelectedActionIndex(actionIndex);
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									getStatusControlForm().refresh(false);
+									testEditor.setSelectedActionIndex(actionIndex);
+								}
+							});
 							while (ReplayWindowSwitch.this.isPaused()) {
 								try {
 									Thread.sleep(1000);
@@ -68,26 +73,14 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 							}
 						}
 
-					};
-					lastTestReport = getTester().replay(actionsToReplay, listener);
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							getStatusControlObject().stop();
-						}
 					});
 				} catch (final Throwable t) {
 					getTester().logError(t);
 					replayThreadError = t;
 				} finally {
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							if (ReplayWindowSwitch.this.isActive()) {
-								getStatusControlObject().stop();
-							}
-						}
-					});
+					if (ReplayWindowSwitch.this.isActive()) {
+						getStatusControlObject().stop();
+					}
 				}
 			}
 		};

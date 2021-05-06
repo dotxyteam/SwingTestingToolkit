@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
-import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
@@ -120,16 +119,11 @@ public class TestExtensibility {
 			}
 
 			/*
-			 * Note that instructions that update the UI must be executed using the
-			 * following utility method (instead of SwingUtilities.invoke*) to avoid
-			 * disturbing the replay thread.
+			 * Note that the current thread is the UI thread. Then it is safe here to
+			 * execute instructions that updates the UI. No need to use
+			 * SwingUtilities.invoke* methods.
 			 */
-			MiscUtils.ensureStartedInUIThread(new Runnable() {
-				@Override
-				public void run() {
-					((CustomComponent) c).propertytoChange = propertytoChangeNewValue;
-				}
-			});
+			((CustomComponent) c).propertytoChange = propertytoChangeNewValue;
 		}
 
 		@Override

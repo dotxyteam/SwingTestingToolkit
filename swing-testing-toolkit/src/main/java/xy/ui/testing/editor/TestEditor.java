@@ -514,6 +514,7 @@ public class TestEditor extends JFrame {
 
 	public void refresh() {
 		mainForm.refresh(false);
+		windowManager.refreshWindowStructureAsMuchAsPossible();
 	}
 
 	public void showReportTab() {

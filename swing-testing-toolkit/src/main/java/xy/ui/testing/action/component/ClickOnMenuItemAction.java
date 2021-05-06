@@ -107,7 +107,7 @@ public class ClickOnMenuItemAction extends TestAction {
 
 	@Override
 	public String toString() {
-		return "Click on " + componentFinder + "\"";
+		return "Click on " + componentFinder;
 	}
 
 }

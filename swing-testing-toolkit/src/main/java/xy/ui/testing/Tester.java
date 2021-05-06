@@ -32,6 +32,7 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellRenderer;
@@ -196,7 +197,7 @@ public class Tester {
 			reportStep.starting();
 			try {
 				if (Thread.currentThread().isInterrupted()) {
-					logInfo("Action interrupted");
+					logInfo("Replay interrupted");
 					reportStep.setStatus(TestReportStepStatus.CANCELLED);
 					break;
 				}
@@ -209,36 +210,18 @@ public class Tester {
 						reportStep.log("This action is disabled");
 						reportStep.setStatus(TestReportStepStatus.SKIPPED);
 					} else {
+						reportStep.log("Action delayed for " + minimumSecondsToWaitBetwneenActions + " second(s)");
+						Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
 						testAction.validate();
-						Component c;
-						try {
-							c = findComponentImmediatelyOrRetry(testAction);
-						} catch (Throwable t) {
-							reportStep.during(this);
-							throw t;
+						boolean[] done = new boolean[] { false };
+						TestFailure[] error = new TestFailure[1];
+						findComponentAndExecuteAction(testAction, reportStep, System.currentTimeMillis(), done, error);
+						while (!done[0]) {
+							Thread.sleep(100);
 						}
-						if (c == null) {
-							reportStep.log("This action did not search for any component");
-							reportStep.during(this);
-							reportStep.log("Following action delayed for " + minimumSecondsToWaitBetwneenActions
-									+ " second(s)");
-							Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
-						} else {
-							reportStep.log("Component found: " + c.toString());
-							currentComponent = c;
-							highlightCurrentComponent();
-							reportStep.during(this);
-							try {
-								reportStep.log("Following action delayed for " + minimumSecondsToWaitBetwneenActions
-										+ " second(s)");
-								Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
-							} finally {
-								unhighlightCurrentComponent();
-								currentComponent = null;
-							}
+						if (error[0] != null) {
+							throw error[0];
 						}
-						testAction.execute(c, this);
-						reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
 					}
 				} catch (Throwable t) {
 					if (t instanceof InterruptedException) {
@@ -260,6 +243,86 @@ public class Tester {
 		}
 		report.end();
 		return report;
+	}
+
+	protected void findComponentAndExecuteAction(TestAction testAction, TestReportStep reportStep, long startTime,
+			final boolean[] done, final TestFailure[] error) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				Component c;
+				try {
+					c = testAction.findComponent(Tester.this);
+				} catch (Throwable t) {
+					double elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
+					double remainingSeconds = (maximumSecondsToWaitBetwneenActions
+							- minimumSecondsToWaitBetwneenActions) - elapsedSeconds;
+					if (remainingSeconds > 0) {
+						new Thread("RetryExecutor [tester=" + Tester.this + ", action=" + testAction
+								+ ", remainingSeconds=" + remainingSeconds + "]") {
+							@Override
+							public void run() {
+								try {
+									Thread.sleep(Math.round(getSecondsToWaitBeforeRetryingToFindComponent() * 1000));
+								} catch (InterruptedException e) {
+									throw new AssertionError(e);
+								}
+								findComponentAndExecuteAction(testAction, reportStep, startTime, done, error);
+							}
+						}.start();
+					} else {
+						reportStep.during(Tester.this);
+						if (t instanceof TestFailure) {
+							error[0] = (TestFailure) t;
+						} else {
+							error[0] = new TestFailure(t);
+						}
+						done[0] = true;
+					}
+					return;
+				}
+				if (c == null) {
+					reportStep.log("This action did not search for any component");
+					reportStep.during(Tester.this);
+				} else {
+					reportStep.log("Component found: " + c.toString());
+					currentComponent = c;
+					highlightCurrentComponent();
+					try {
+						reportStep.during(Tester.this);
+						try {
+							Thread.sleep(getComponentHighlightingDurationMilliseconds());
+						} catch (InterruptedException ignore) {
+						}
+					} finally {
+						unhighlightCurrentComponent();
+						currentComponent = null;
+					}
+				}
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						if (error[0] == null) {
+							reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
+						}
+						done[0] = true;
+					}
+				});
+				try {
+					testAction.execute(c, Tester.this);
+				} catch (Throwable t) {
+					if (t instanceof TestFailure) {
+						error[0] = (TestFailure) t;
+					} else {
+						error[0] = new TestFailure(t);
+					}
+				}
+			}
+		});
+	}
+
+	protected double getSecondsToWaitBeforeRetryingToFindComponent() {
+		return 0.5;
 	}
 
 	protected String formatLogMessage(String msg) {
@@ -291,29 +354,6 @@ public class Tester {
 	 */
 	public void logError(Throwable t) {
 		logError(ReflectionUIUtils.getPrintedStackTrace(t));
-	}
-
-	protected Component findComponentImmediatelyOrRetry(TestAction testAction) {
-		Component result = null;
-		double remainingSeconds = maximumSecondsToWaitBetwneenActions - minimumSecondsToWaitBetwneenActions;
-		double secondsToWaitBeforeRetrying = 0.1;
-		while (true) {
-			try {
-				result = testAction.findComponent(this);
-				break;
-			} catch (TestFailure e) {
-				try {
-					Thread.sleep(Math.round(secondsToWaitBeforeRetrying * 1000));
-				} catch (InterruptedException ignore) {
-					throw e;
-				}
-				remainingSeconds -= secondsToWaitBeforeRetrying;
-				if (remainingSeconds <= 0.0) {
-					throw e;
-				}
-			}
-		}
-		return result;
 	}
 
 	protected String getComponentSelectionActionTitle() {
@@ -361,6 +401,10 @@ public class Tester {
 			} catch (Throwable ignore) {
 			}
 		}
+	}
+
+	protected long getComponentHighlightingDurationMilliseconds() {
+		return 250;
 	}
 
 	/**

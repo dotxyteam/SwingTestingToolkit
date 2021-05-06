@@ -72,7 +72,7 @@ public class ClickOnTableCellAction extends AbstractClickAction {
 		Point clickPoint = new Point(cellBounds.x + cellBounds.width / 2, cellBounds.y + cellBounds.height / 2);
 		final MouseEvent clickEvent = new MouseEvent(table, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0,
 				clickPoint.x, clickPoint.y, clickCount, false, getButtonMask());
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				for (MouseListener l : table.getMouseListeners()) {

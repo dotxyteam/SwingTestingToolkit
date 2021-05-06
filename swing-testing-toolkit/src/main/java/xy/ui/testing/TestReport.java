@@ -443,7 +443,7 @@ public class TestReport {
 		 * @param msg The log message.
 		 */
 		public void log(String msg) {
-			logs.add(msg);
+			logs.add(SimpleDateFormat.getDateTimeInstance().format(new Date()) + " - " + msg);
 		}
 
 	}

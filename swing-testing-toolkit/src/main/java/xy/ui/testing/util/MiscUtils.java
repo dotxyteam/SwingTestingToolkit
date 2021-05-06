@@ -170,35 +170,73 @@ public class MiscUtils {
 		return defaultAnswer;
 	}
 
-	public static void ensureStartedInUIThread(final Runnable runnable) {
+	/**
+	 * Checks that the current thread is the UI thread and executes the specified
+	 * action.
+	 * 
+	 * @param runnable The action to execute.
+	 */
+	public static void expectingToBeInUIThread(final Runnable runnable) {
+		if (!SwingUtilities.isEventDispatchThread()) {
+			throw new AssertionError("This method must be invoked from the UI Thread");
+		}
+		runnable.run();
+	}
+
+	/**
+	 * Schedules the specified action to be executed in the UI thread and waits
+	 * until the execution end. This method must be used by test actions to avoid
+	 * that the replay thread gets ahead according the state of the components (may
+	 * happen when using {@link SwingUtilities#invokeLater(Runnable)}) or blocks
+	 * while waiting for user interactions that it should simulate itself (may
+	 * happen when using {@link SwingUtilities#invokeAndWait(Runnable)}).
+	 * 
+	 * @param runnable The action to execute.
+	 */
+	public static void executeSafelyInUIThread(final Runnable runnable) {
 		if (SwingUtilities.isEventDispatchThread()) {
 			throw new AssertionError("This method cannot be invoked from the UI Thread");
 		}
-		final boolean[] started = new boolean[] { false };
+		final Throwable[] runnableError = new Throwable[1];
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				started[0] = true;
-				runnable.run();
+				try {
+					runnable.run();
+				} catch (Throwable t) {
+					runnableError[0] = t;
+				}
 			}
 		});
-		while (!started[0]) {
+		final boolean[] runnableEnded = new boolean[] { false };
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				runnableEnded[0] = true;
+			}
+		});
+		while (!runnableEnded[0]) {
 			if (Thread.currentThread().isInterrupted()) {
 				break;
 			}
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
+			}
+		}
+
+		if (runnableError[0] != null) {
+			if (runnableError[0] instanceof TestFailure) {
+				throw (TestFailure) runnableError[0];
+			} else {
+				throw new TestFailure(runnableError[0]);
 			}
 		}
 	}
 
 	public static String formatOccurrence(String s, int index) {
-		if (index == 0) {
-			return s;
-		}
-		return s + " (" + (index + 1) + ")";
+		return s + "[" + index + "]";
 	}
 
 	/**

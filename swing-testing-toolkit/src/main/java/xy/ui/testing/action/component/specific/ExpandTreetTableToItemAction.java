@@ -110,7 +110,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (treePath == null) {
 				throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 			}
-			MiscUtils.ensureStartedInUIThread(new Runnable() {
+			MiscUtils.expectingToBeInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					treeTable.expandPath(treePath.getParentPath());
@@ -125,7 +125,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (treePath == null) {
 				throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 			}
-			MiscUtils.ensureStartedInUIThread(new Runnable() {
+			MiscUtils.expectingToBeInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					tree.expandPath(treePath.getParentPath());

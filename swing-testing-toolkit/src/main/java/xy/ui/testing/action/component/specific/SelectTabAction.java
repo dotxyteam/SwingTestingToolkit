@@ -70,7 +70,7 @@ public class SelectTabAction extends TargetComponentTestAction {
 			throw new TestFailure("Could not select the tab '" + tabToSelect + "': Tab not found");
 		}
 		final int finalIndexToSelect = indexToSelect;
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				tabbedPane.setSelectedIndex(finalIndexToSelect);

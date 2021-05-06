@@ -90,7 +90,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 						+ lastItemToSelect + ": Invalid row index(es). Maximum row index: "
 						+ (table.getModel().getRowCount() - 1));
 			}
-			MiscUtils.ensureStartedInUIThread(new Runnable() {
+			MiscUtils.expectingToBeInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					if (addedToExistingSelection) {
@@ -108,7 +108,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 						+ lastItemToSelect + ": Invalid row index(es). Maximum row index: "
 						+ (list.getModel().getSize() - 1));
 			}
-			MiscUtils.ensureStartedInUIThread(new Runnable() {
+			MiscUtils.expectingToBeInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					if (addedToExistingSelection) {

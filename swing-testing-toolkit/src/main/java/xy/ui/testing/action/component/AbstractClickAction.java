@@ -65,7 +65,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				click(c);
@@ -82,9 +82,7 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 	}
 
 	protected void click(Component c) {
-		MouseEvent mouseEvent;
-
-		mouseEvent = createPressedEvent(c);
+		MouseEvent mouseEvent = createPressedEvent(c);
 		for (MouseListener l : c.getMouseListeners()) {
 			if (mouseEvent.isConsumed()) {
 				break;

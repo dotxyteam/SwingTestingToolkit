@@ -34,11 +34,13 @@ public class TestTesterEditor {
 						return false;
 					}
 					for (Window w : Window.getWindows()) {
-						if (w instanceof TestEditor) {
-							Tester otherTester = ((TestEditor) w).getTester();
-							if (otherTester != this) {
-								if (!otherTester.isTestable(c)) {
-									return false;
+						if (w.isDisplayable()) {
+							if (w instanceof TestEditor) {
+								Tester otherTester = ((TestEditor) w).getTester();
+								if (otherTester != this) {
+									if (!otherTester.isTestable(c)) {
+										return false;
+									}
 								}
 							}
 						}

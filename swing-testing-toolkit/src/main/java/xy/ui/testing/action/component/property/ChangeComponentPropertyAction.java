@@ -73,7 +73,7 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	public void execute(final Component c, Tester tester) {
 		final IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(newPropertyValue);
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				field.setValue(c, newFieldValue);

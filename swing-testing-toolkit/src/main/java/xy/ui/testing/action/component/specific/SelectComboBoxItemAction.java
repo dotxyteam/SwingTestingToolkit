@@ -11,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -123,34 +122,14 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	protected List<String> getAllOptionsFromUIThread(final JComboBox comboBox) {
-		if (SwingUtilities.isEventDispatchThread()) {
-			throw new AssertionError();
-		}
 		final List<String>[] result = new List[1];
-		final Throwable[] error = new Throwable[1];
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					result[0] = getAllOptions(comboBox);
-				} catch (Throwable t) {
-					error[0] = t;
-				}
+				result[0] = getAllOptions(comboBox);
 			}
 		});
-		while (true) {
-			if (result[0] != null) {
-				return result[0];
-			}
-			if (error[0] != null) {
-				throw new TestFailure(error[0]);
-			}
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				throw new AssertionError(e);
-			}
-		}
+		return result[0];
 	}
 
 	protected String getLabelText(ComboBoxModel model, ListCellRenderer renderer, int i) {
@@ -178,7 +157,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 					+ "Selection Mode=" + selectionMode + "\n" + "Found items: " + options);
 		}
 		final int finalIndexToSelect = indexToSelect;
-		MiscUtils.ensureStartedInUIThread(new Runnable() {
+		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
 				comboBox.setSelectedIndex(finalIndexToSelect);

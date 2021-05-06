@@ -143,7 +143,6 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			boolean execute) {
 		if (openRecordingSettingsWindow(testAction, c)) {
 			getTester().handleCurrentComponentChange(null);
-			insertNewTestAction(testAction);
 			if (execute) {
 				new Thread("Executor of: " + testAction) {
 					@Override
@@ -153,9 +152,17 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 						} catch (InterruptedException e) {
 							throw new AssertionError(e);
 						}
-						testAction.execute(c, getTester());
+						try {
+							testAction.execute(c, getTester());
+						} catch (Throwable t) {
+							getSwingRenderer().openErrorDetailsDialog(c, t);
+							return;
+						}
+						insertNewTestAction(testAction);
 					}
 				}.start();
+			} else {
+				insertNewTestAction(testAction);
 			}
 			return true;
 		}

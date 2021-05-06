@@ -40,9 +40,11 @@ public abstract class TestAction implements Serializable {
 	/**
 	 * @param tester The test specification and execution object.
 	 * @return The reference to the component on which this test action should be
-	 *         executed.
+	 *         executed or null if the action is not intended to be executed on a
+	 *         component.
+	 * @throws Throwable If the component was searched for but could not be found.
 	 */
-	public abstract Component findComponent(Tester tester);
+	public abstract Component findComponent(Tester tester) throws Throwable;
 
 	/**
 	 * Executes the current action on the given component.
