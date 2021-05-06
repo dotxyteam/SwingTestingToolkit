@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog.ModalityType;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -32,7 +34,6 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellRenderer;
@@ -212,26 +213,18 @@ public class Tester {
 					} else {
 						reportStep.log("Action delayed for " + minimumSecondsToWaitBetwneenActions + " second(s)");
 						Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
-						testAction.validate();
-						boolean[] done = new boolean[] { false };
-						TestFailure[] error = new TestFailure[1];
-						findComponentAndExecuteAction(testAction, reportStep, System.currentTimeMillis(), done, error);
-						while (!done[0]) {
-							Thread.sleep(100);
-						}
-						if (error[0] != null) {
-							throw error[0];
-						}
+						orchestrateTestAction(testAction, reportStep);
+						reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
 					}
 				} catch (Throwable t) {
 					if (t instanceof InterruptedException) {
-						reportStep.setStatus(TestReportStepStatus.CANCELLED);
+						Thread.currentThread().interrupt();
+					} else {
+						logError(t);
+						reportStep.log("An error occured: " + t.toString());
+						reportStep.setStatus(TestReportStepStatus.FAILED);
 						break;
 					}
-					logError(t);
-					reportStep.log("An error occured: " + t.toString());
-					reportStep.setStatus(TestReportStepStatus.FAILED);
-					break;
 				}
 			} finally {
 				reportStep.ending();
@@ -245,84 +238,125 @@ public class Tester {
 		return report;
 	}
 
-	protected void findComponentAndExecuteAction(TestAction testAction, TestReportStep reportStep, long startTime,
-			final boolean[] done, final TestFailure[] error) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				Component c;
-				try {
-					c = testAction.findComponent(Tester.this);
-				} catch (Throwable t) {
-					double elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
-					double remainingSeconds = (maximumSecondsToWaitBetwneenActions
-							- minimumSecondsToWaitBetwneenActions) - elapsedSeconds;
-					if (remainingSeconds > 0) {
-						new Thread("RetryExecutor [tester=" + Tester.this + ", action=" + testAction
-								+ ", remainingSeconds=" + remainingSeconds + "]") {
-							@Override
-							public void run() {
-								try {
-									Thread.sleep(Math.round(getSecondsToWaitBeforeRetryingToFindComponent() * 1000));
-								} catch (InterruptedException e) {
-									throw new AssertionError(e);
-								}
-								findComponentAndExecuteAction(testAction, reportStep, startTime, done, error);
-							}
-						}.start();
-					} else {
-						reportStep.during(Tester.this);
-						if (t instanceof TestFailure) {
-							error[0] = (TestFailure) t;
-						} else {
-							error[0] = new TestFailure(t);
-						}
-						done[0] = true;
-					}
-					return;
-				}
-				if (c == null) {
-					reportStep.log("This action did not search for any component");
-					reportStep.during(Tester.this);
-				} else {
-					reportStep.log("Component found: " + c.toString());
-					currentComponent = c;
-					highlightCurrentComponent();
-					try {
-						reportStep.during(Tester.this);
-						try {
-							Thread.sleep(getComponentHighlightingDurationMilliseconds());
-						} catch (InterruptedException ignore) {
-						}
-					} finally {
-						unhighlightCurrentComponent();
-						currentComponent = null;
-					}
-				}
-				SwingUtilities.invokeLater(new Runnable() {
+	protected void orchestrateTestAction(TestAction testAction, TestReportStep reportStep) throws Throwable {
+		testAction.validate();
+		final long startTime = System.currentTimeMillis();
+		final Throwable[] error = new Throwable[1];
+		while (true) {
+			error[0] = null;
+			try {
+				testAction.prepare(Tester.this);
+			} catch (Throwable t) {
+				error[0] = t;
+			}
+			if (error[0] == null) {
+				MiscUtils.executeSafelyInUIThread(new Runnable() {
 					@Override
 					public void run() {
-						if (error[0] == null) {
-							reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
+						try {
+							Component c = testAction.findComponent(Tester.this);
+							withSimulatedFocusEvents(c, new Runnable() {
+								@Override
+								public void run() {
+									try {
+										if (c == null) {
+											reportStep.log("This action did not search for any component");
+											reportStep.during(Tester.this);
+										} else {
+											reportStep.log("Component found: " + c.toString());
+											orchestrateComponentHighlighting(c, reportStep);
+										}
+										testAction.execute(c, Tester.this);
+									} catch (Throwable t) {
+										error[0] = t;
+									}
+								}
+							});
+						} catch (Throwable t) {
+							error[0] = t;
 						}
-						done[0] = true;
 					}
 				});
-				try {
-					testAction.execute(c, Tester.this);
-				} catch (Throwable t) {
-					if (t instanceof TestFailure) {
-						error[0] = (TestFailure) t;
-					} else {
-						error[0] = new TestFailure(t);
-					}
+				if (error[0] == null) {
+					break;
+				} else {
+					reportStep.log("The action execution failed");
 				}
 			}
-		});
+			if (Thread.currentThread().isInterrupted()) {
+				break;
+			}
+			if (error[0] instanceof InterruptedException) {
+				break;
+			}
+			if ((error[0] != null) && !(error[0] instanceof TestFailure)) {
+				break;
+			}
+			double elapsedSeconds = (System.currentTimeMillis() - startTime) / 1000.0;
+			double remainingSeconds = (maximumSecondsToWaitBetwneenActions - minimumSecondsToWaitBetwneenActions)
+					- elapsedSeconds;
+			if (remainingSeconds <= 0) {
+				break;
+			}
+			try {
+				Thread.sleep(Math.round(getSecondsToWaitBeforeRetryingToFindComponent() * 1000));
+			} catch (InterruptedException e) {
+				throw new AssertionError(e);
+			}
+		}
+		if (error[0] != null) {
+			reportStep.during(Tester.this);
+			throw error[0];
+		}
+	}
+
+	/**
+	 * {@link Component#requestFocus()} does not trigger the 'focus lost' event in
+	 * the same UI task. When the focus is done manually the 'focus lost' event
+	 * happens in the same UI task. This difference causes issues with components
+	 * that rely on the focus management to update their state.
+	 * 
+	 * @param c
+	 * @param runnable
+	 */
+	protected void withSimulatedFocusEvents(Component c, Runnable runnable) {
+		if (c == null) {
+			runnable.run();
+		} else {
+			for (FocusListener l : c.getFocusListeners()) {
+				l.focusGained(new FocusEvent(c, FocusEvent.FOCUS_GAINED));
+			}
+			try {
+				runnable.run();
+			} finally {
+				for (FocusListener l : c.getFocusListeners()) {
+					l.focusLost(new FocusEvent(c, FocusEvent.FOCUS_LOST));
+				}
+			}
+		}
+	}
+
+	protected void orchestrateComponentHighlighting(Component c, TestReportStep reportStep)
+			throws InterruptedException {
+		currentComponent = c;
+		highlightCurrentComponent();
+		if (c instanceof JComponent) {
+			MiscUtils.repaintImmediately((JComponent) c);
+		}
+		try {
+			reportStep.during(Tester.this);
+			Thread.sleep(Math.round(getComponentHighlightingDurationSeconds() * 1000));
+		} finally {
+			unhighlightCurrentComponent();
+			if (c instanceof JComponent) {
+				MiscUtils.repaintImmediately((JComponent) c);
+			}
+			currentComponent = null;
+		}
 	}
 
 	protected double getSecondsToWaitBeforeRetryingToFindComponent() {
-		return 0.5;
+		return 1.0;
 	}
 
 	protected String formatLogMessage(String msg) {
@@ -403,8 +437,8 @@ public class Tester {
 		}
 	}
 
-	protected long getComponentHighlightingDurationMilliseconds() {
-		return 250;
+	protected double getComponentHighlightingDurationSeconds() {
+		return 0.25;
 	}
 
 	/**

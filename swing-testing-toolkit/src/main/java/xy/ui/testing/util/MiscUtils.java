@@ -20,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -185,15 +186,16 @@ public class MiscUtils {
 
 	/**
 	 * Schedules the specified action to be executed in the UI thread and waits
-	 * until the execution end. This method must be used by test actions to avoid
-	 * that the replay thread gets ahead according the state of the components (may
-	 * happen when using {@link SwingUtilities#invokeLater(Runnable)}) or blocks
-	 * while waiting for user interactions that it should simulate itself (may
-	 * happen when using {@link SwingUtilities#invokeAndWait(Runnable)}).
+	 * until the execution end. This method allows to avoid that the calling thread
+	 * runs too fast according to the state of the UI components that it modifies
+	 * (may happen when using {@link SwingUtilities#invokeLater(Runnable)}) or
+	 * blocks while waiting for user interactions (may happen when using
+	 * {@link SwingUtilities#invokeAndWait(Runnable)}).
 	 * 
 	 * @param runnable The action to execute.
+	 * @throws Throwable If the action throws an exception (rethrows).
 	 */
-	public static void executeSafelyInUIThread(final Runnable runnable) {
+	public static void executeSafelyInUIThread(final Runnable runnable) throws Throwable {
 		if (SwingUtilities.isEventDispatchThread()) {
 			throw new AssertionError("This method cannot be invoked from the UI Thread");
 		}
@@ -227,11 +229,7 @@ public class MiscUtils {
 		}
 
 		if (runnableError[0] != null) {
-			if (runnableError[0] instanceof TestFailure) {
-				throw (TestFailure) runnableError[0];
-			} else {
-				throw new TestFailure(runnableError[0]);
-			}
+			throw runnableError[0];
 		}
 	}
 
@@ -293,6 +291,10 @@ public class MiscUtils {
 			result.add(s);
 		}
 		return result;
+	}
+
+	public static void repaintImmediately(JComponent c) {
+		c.paintImmediately(0, 0, c.getWidth(), c.getHeight());
 	}
 
 }
