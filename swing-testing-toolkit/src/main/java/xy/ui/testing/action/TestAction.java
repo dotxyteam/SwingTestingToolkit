@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
 /**
@@ -38,22 +39,33 @@ public abstract class TestAction implements Serializable {
 	public abstract boolean initializeFrom(Component c, AWTEvent introspectionRequestEvent, TestEditor testEditor);
 
 	/**
+	 * Searches for the component on which this test action should be executed. Note
+	 * that this method is called from the UI thread.
+	 * 
 	 * @param tester The test specification and execution object.
 	 * @return The reference to the component on which this test action should be
 	 *         executed or null if the action is not intended to be executed on a
 	 *         component.
-	 * @throws Throwable If the component was searched for but could not be found.
+	 * @throws TestFailure If the component was searched for but could not be found.
+	 *                     Note that throwing this exception may cause the test
+	 *                     action to be retried. Throwing another type of exception
+	 *                     will interrupt the replay.
 	 */
-	public abstract Component findComponent(Tester tester) throws Throwable;
+	public abstract Component findComponent(Tester tester) throws TestFailure;
 
 	/**
-	 * Executes the current action on the given component.
+	 * Executes the current action on the given component. Note that this method is
+	 * called from the UI thread.
 	 * 
 	 * @param c      The component reference that should have been retrieved by
 	 *               calling {@link #findComponent(Tester)}.
 	 * @param tester The test specification and execution object.
+	 * @throws TestFailure If the action was not executed successfully. Note that
+	 *                     throwing this exception may cause the test action to be
+	 *                     retried. Throwing another type of exception will
+	 *                     interrupt the replay.
 	 */
-	public abstract void execute(Component c, Tester tester);
+	public abstract void execute(Component c, Tester tester) throws TestFailure;
 
 	/**
 	 * ALlows to check the configuration of the current test action.
@@ -91,6 +103,20 @@ public abstract class TestAction implements Serializable {
 	 */
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
+	}
+
+	/**
+	 * This method is called before {@link #findComponent(Tester)} and
+	 * {@link #execute(Component, Tester)} to eventually setup the action. Note that
+	 * this method is not called from the UI thread.
+	 * 
+	 * @param tester The test specification and execution object.
+	 * @throws TestFailure If the action was not prepared successfully. Note that
+	 *                     throwing this exception may cause the test action to be
+	 *                     retried. Throwing another type of exception will
+	 *                     interrupt the replay.
+	 */
+	public void prepare(Tester tester) throws TestFailure {
 	}
 
 }

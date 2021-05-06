@@ -1188,6 +1188,17 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
+			protected boolean isHidden(IMethodInfo method, ITypeInfo containingType) {
+				if (isTestActionTypeName(containingType.getName())) {
+					if (method.getSignature().equals(ReflectionUIUtils.buildMethodSignature("void", "prepare",
+							Arrays.asList(Tester.class.getName())))) {
+						return true;
+					}
+				}
+				return super.isHidden(method, containingType);
+			}
+
+			@Override
 			protected List<IMethodInfo> getMethods(ITypeInfo type) {
 				if (isTesterOrSubTypeName(type.getName())) {
 					List<IMethodInfo> result = new ArrayList<IMethodInfo>(super.getMethods(type));
