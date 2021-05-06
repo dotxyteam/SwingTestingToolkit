@@ -34,12 +34,16 @@ public class WaitAction extends TestAction {
 	}
 
 	@Override
-	public void execute(Component c, Tester tester) {
+	public void prepare(Tester tester) throws TestFailure {
 		try {
 			Thread.sleep(secondsToWait * 1000);
 		} catch (InterruptedException e) {
 			throw new TestFailure(e);
 		}
+	}
+
+	@Override
+	public void execute(Component c, Tester tester) {
 	}
 
 	@Override
