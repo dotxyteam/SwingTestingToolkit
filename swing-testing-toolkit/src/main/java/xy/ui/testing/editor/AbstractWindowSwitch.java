@@ -196,7 +196,7 @@ public abstract class AbstractWindowSwitch {
 		}
 
 		protected Point getInitialLocation() {
-			Rectangle screenBounds = SwingRendererUtils.getScreenBounds(this);
+			Rectangle screenBounds = SwingRendererUtils.getScreenBounds(testEditor);
 			Dimension currentSize = getSize();
 			int x = screenBounds.x + screenBounds.width - currentSize.width;
 			int y = screenBounds.y + screenBounds.height - currentSize.height;
