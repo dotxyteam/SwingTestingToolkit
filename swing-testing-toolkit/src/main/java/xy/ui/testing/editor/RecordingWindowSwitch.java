@@ -35,6 +35,7 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
 import xy.ui.testing.action.window.CloseWindowAction;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.TreeSelectionDialog;
 import xy.ui.testing.util.TreeSelectionDialog.INodePropertyAccessor;
@@ -153,7 +154,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 							throw new AssertionError(e);
 						}
 						try {
-							testAction.execute(c, getTester());
+							MiscUtils.executeSafelyInUIThread(new Runnable() {
+								@Override
+								public void run() {
+									testAction.execute(c, getTester());
+								}
+							});
 						} catch (Throwable t) {
 							getSwingRenderer().openErrorDetailsDialog(c, t);
 							return;

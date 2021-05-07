@@ -98,6 +98,7 @@ import xy.ui.testing.action.WaitAction;
 import xy.ui.testing.action.component.CheckVisibleStringsAction;
 import xy.ui.testing.action.component.ClickAction;
 import xy.ui.testing.action.component.ClickOnMenuItemAction;
+import xy.ui.testing.action.component.FocusAction;
 import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
@@ -157,8 +158,9 @@ public class TestEditor extends JFrame {
 			SystemExitCallInterceptionAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
 			SelectComboBoxItemAction.class, SelectTableRowAction.class, SelectTabAction.class,
 			ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class,
-			CheckVisibleStringsAction.class, CheckWindowVisibleStringsAction.class, ChangeComponentPropertyAction.class,
-			CheckComponentPropertyAction.class, CloseWindowAction.class, CheckNumberOfOpenWindowsAction.class };
+			FocusAction.class, CheckVisibleStringsAction.class, CheckWindowVisibleStringsAction.class,
+			ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class, CloseWindowAction.class,
+			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] {
 			DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class,
 			MenuItemComponentFinder.class };

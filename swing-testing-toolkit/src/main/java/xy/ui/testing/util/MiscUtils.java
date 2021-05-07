@@ -221,11 +221,7 @@ public class MiscUtils {
 			if (Thread.currentThread().isInterrupted()) {
 				break;
 			}
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				Thread.currentThread().interrupt();
-			}
+			Thread.sleep(100);
 		}
 
 		if (runnableError[0] != null) {

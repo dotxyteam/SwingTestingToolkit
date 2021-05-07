@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog.ModalityType;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -214,6 +212,10 @@ public class Tester {
 						reportStep.log("Action delayed for " + minimumSecondsToWaitBetwneenActions + " second(s)");
 						Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
 						orchestrateTestAction(testAction, reportStep);
+						if (Thread.currentThread().isInterrupted()) {
+							throw new InterruptedException();
+						}
+						reportStep.log("Action executed successfully");
 						reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
 					}
 				} catch (Throwable t) {
@@ -238,6 +240,17 @@ public class Tester {
 		return report;
 	}
 
+	/**
+	 * Executes the phases (preparation, component search, execution) of a test
+	 * action. Multiple attempts (period given by
+	 * {@link #getSecondsToWaitBeforeRetryingToFindComponent()}) are made when there
+	 * are failures.
+	 * 
+	 * @param testAction The current test action.
+	 * @param reportStep The execution report step associated with the test action.
+	 * @throws Throwable If despite of the multiple attempts the test action still
+	 *                   throws an exception (which is rethrown).
+	 */
 	protected void orchestrateTestAction(TestAction testAction, TestReportStep reportStep) throws Throwable {
 		testAction.validate();
 		final long startTime = System.currentTimeMillis();
@@ -255,23 +268,14 @@ public class Tester {
 					public void run() {
 						try {
 							Component c = testAction.findComponent(Tester.this);
-							withSimulatedFocusEvents(c, new Runnable() {
-								@Override
-								public void run() {
-									try {
-										if (c == null) {
-											reportStep.log("This action did not search for any component");
-											reportStep.during(Tester.this);
-										} else {
-											reportStep.log("Component found: " + c.toString());
-											orchestrateComponentHighlighting(c, reportStep);
-										}
-										testAction.execute(c, Tester.this);
-									} catch (Throwable t) {
-										error[0] = t;
-									}
-								}
-							});
+							if (c == null) {
+								reportStep.log("This action did not search for any component");
+								reportStep.during(Tester.this);
+							} else {
+								reportStep.log("Component found: " + c.toString());
+								orchestrateComponentHighlighting(c, reportStep);
+							}
+							testAction.execute(c, Tester.this);
 						} catch (Throwable t) {
 							error[0] = t;
 						}
@@ -311,31 +315,14 @@ public class Tester {
 	}
 
 	/**
-	 * {@link Component#requestFocus()} does not trigger the 'focus lost' event in
-	 * the same UI task. When the focus is done manually the 'focus lost' event
-	 * happens in the same UI task. This difference causes issues with components
-	 * that rely on the focus management to update their state.
+	 * Highlight the given component for a short period (depends on
+	 * {@link #getComponentHighlightingDurationSeconds()}).
 	 * 
-	 * @param c
-	 * @param runnable
+	 * @param c          The component to highlight.
+	 * @param reportStep The execution report step associated with the current test
+	 *                   action.
+	 * @throws InterruptedException If the current thread is interrupted.
 	 */
-	protected void withSimulatedFocusEvents(Component c, Runnable runnable) {
-		if (c == null) {
-			runnable.run();
-		} else {
-			for (FocusListener l : c.getFocusListeners()) {
-				l.focusGained(new FocusEvent(c, FocusEvent.FOCUS_GAINED));
-			}
-			try {
-				runnable.run();
-			} finally {
-				for (FocusListener l : c.getFocusListeners()) {
-					l.focusLost(new FocusEvent(c, FocusEvent.FOCUS_LOST));
-				}
-			}
-		}
-	}
-
 	protected void orchestrateComponentHighlighting(Component c, TestReportStep reportStep)
 			throws InterruptedException {
 		currentComponent = c;
@@ -355,10 +342,26 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * @return The duration of component highlighting during a replay.
+	 */
+	protected double getComponentHighlightingDurationSeconds() {
+		return 0.25;
+	}
+
+	/**
+	 * @return The delay between each attempt to execute a test action.
+	 */
 	protected double getSecondsToWaitBeforeRetryingToFindComponent() {
 		return 1.0;
 	}
 
+	/**
+	 * Formats the given message (used for logging).
+	 * 
+	 * @param msg The message to format.
+	 * @return A formatted message.
+	 */
 	protected String formatLogMessage(String msg) {
 		return SimpleDateFormat.getDateTimeInstance().format(new Date()) + " [" + Tester.this + "] " + msg;
 	}
@@ -390,10 +393,11 @@ public class Tester {
 		logError(ReflectionUIUtils.getPrintedStackTrace(t));
 	}
 
-	protected String getComponentSelectionActionTitle() {
-		return "Left Click";
-	}
-
+	/**
+	 * Restores the listeners removed by
+	 * {@link #disableCurrentComponentListeners()}. Useful for the current component
+	 * ({@link #getCurrentComponent()}) action/assertion recording or inspection.
+	 */
 	protected void restoreCurrentComponentListeners() {
 		currentComponent.removeMouseListener(DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH);
 		for (MouseListener l : currentComponentMouseListeners) {
@@ -401,6 +405,11 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * Disables the listeners of the current component
+	 * ({@link #getCurrentComponent()}). Useful for the current component
+	 * action/assertion recording or inspection.
+	 */
 	protected void disableCurrentComponentListeners() {
 		currentComponentMouseListeners = currentComponent.getMouseListeners();
 		for (int i = 0; i < currentComponentMouseListeners.length; i++) {
@@ -409,6 +418,9 @@ public class Tester {
 		currentComponent.addMouseListener(DUMMY_MOUSE_LISTENER_TO_ENSURE_EVENT_DISPATCH);
 	}
 
+	/**
+	 * Highlights the current component ({@link #getCurrentComponent()}).
+	 */
 	protected void unhighlightCurrentComponent() {
 		currentComponent.setBackground(currentComponentBackground);
 		currentComponent.setForeground(currentComponentForeground);
@@ -420,6 +432,10 @@ public class Tester {
 		}
 	}
 
+	/**
+	 * Remove the highlighting of the current component
+	 * ({@link #getCurrentComponent()}).
+	 */
 	protected void highlightCurrentComponent() {
 		currentComponentBackground = currentComponent.getBackground();
 		currentComponent.setBackground(HIGHLIGHT_BACKGROUND);
@@ -435,10 +451,6 @@ public class Tester {
 			} catch (Throwable ignore) {
 			}
 		}
-	}
-
-	protected double getComponentHighlightingDurationSeconds() {
-		return 0.25;
 	}
 
 	/**
@@ -514,11 +526,11 @@ public class Tester {
 	}
 
 	/**
-	 * Prepares the given component for action/assertion (highlights it, adaps its
-	 * event management) and sets it as the currently tested component. It also
-	 * means that it restores the previous component state if there is any,
+	 * Prepares the given component for action/assertion recording or inspection
+	 * (highlights it, adapts its event management) and sets it as the current
+	 * component. It also restores the previous component state if there is any,
 	 * 
-	 * @param c The component that will be tested.
+	 * @param c The target component.
 	 */
 	public void handleCurrentComponentChange(Component c) {
 		synchronized (CURRENT_COMPONENT_MUTEX) {
