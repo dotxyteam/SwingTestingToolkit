@@ -25,7 +25,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
-import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
+import xy.reflect.ui.control.swing.builder.StandardEditorBuilder;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.util.AbstractControlButton;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
@@ -315,7 +315,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			@Override
 			protected void layoutContent(Container content) {
 				WindowManager windowManager = testEditor.getSwingRenderer().createWindowManager(this);
-				windowManager.set(content, null);
+				windowManager.install(content, null);
 			}
 
 		};

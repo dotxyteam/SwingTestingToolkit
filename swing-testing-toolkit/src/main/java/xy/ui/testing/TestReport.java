@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import com.thoughtworks.xstream.XStream;
 
 import xy.ui.testing.action.TestAction;
@@ -415,8 +413,14 @@ public class TestReport {
 			startTimestamp = System.currentTimeMillis();
 		}
 
+		/**
+		 * Must be called during the processing (by the UI thread) of the UI event that
+		 * executes the test action.
+		 * 
+		 * @param tester The object responsible for the test execution.
+		 */
 		public void during(final Tester tester) {
-			SwingUtilities.invokeLater(new Runnable() {
+			MiscUtils.expectingToBeInUIThread(new Runnable() {
 				@Override
 				public void run() {
 					File file = TestingUtils.saveAllTestableWindowsScreenshot(tester, getDirectory());

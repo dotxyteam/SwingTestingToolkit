@@ -293,4 +293,11 @@ public class MiscUtils {
 		c.paintImmediately(0, 0, c.getWidth(), c.getHeight());
 	}
 
+	public static String truncateNicely(String s, int length) {
+		if (s.length() > length) {
+			s = s.substring(0, length - 3) + "...";
+		}
+		return s;
+	}
+
 }

@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.reflect.ui.info.field.IFieldInfo;
-import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.reflect.ui.util.MiscUtils;
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
@@ -66,7 +66,7 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 		Object currentFieldValue = field.getValue(c);
 		Object expectedFieldValue = propertyUtil.propertyValueToFieldValue(propertyValueExpected);
-		if (!ReflectionUIUtils.equalsOrBothNull(currentFieldValue, expectedFieldValue)) {
+		if (!MiscUtils.equalsOrBothNull(currentFieldValue, expectedFieldValue)) {
 			throw new TestFailure("Component property checking failed: Unexpected property value: '" + currentFieldValue
 					+ "'. Expected: '" + expectedFieldValue + "'");
 		}

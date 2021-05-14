@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.reflect.ui.util.MiscUtils;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
@@ -162,7 +162,7 @@ public class ComponentInspector {
 				if (allVisibleStrings.size() > 0) {
 					for (int i = 0; i < allVisibleStrings.size(); i++) {
 						String s = allVisibleStrings.get(i);
-						s = ReflectionUIUtils.truncateNicely(s, MAX_VISIBLE_STRING_LENGTH);
+						s = MiscUtils.truncateNicely(s, MAX_VISIBLE_STRING_LENGTH);
 						if (i > 0) {
 							result.append(", ");
 						}

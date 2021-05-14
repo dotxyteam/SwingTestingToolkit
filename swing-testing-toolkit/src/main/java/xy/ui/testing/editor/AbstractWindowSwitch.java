@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -17,7 +18,7 @@ import xy.ui.testing.Tester;
 import xy.ui.testing.util.TestingUtils;
 
 /**
- * Base class of helper objects that replace temporarily the test editor by the
+ * Base class of helper objects that replace temporarily the test editor by a
  * small status window.
  * 
  * @author olitank
@@ -29,11 +30,11 @@ public abstract class AbstractWindowSwitch {
 	protected boolean paused = false;
 
 	protected TestEditor testEditor;
-	protected JFrame controlWindow;
-	protected Form statusControlForm;
 
-	protected Rectangle lastBounds;
-	protected boolean controlWindowAlwaysOnTopLastly = true;
+	protected JFrame statusControlWindow;
+	protected Form statusControlForm;
+	protected Rectangle laststatusControlWindowBounds;
+	protected boolean statusControlWindowAlwaysOnTopLastly = true;
 
 	protected abstract void onBegining();
 
@@ -77,16 +78,16 @@ public abstract class AbstractWindowSwitch {
 			return;
 		}
 		if (b) {
-			controlWindow = new StatusControlWindow();
-			testEditor.setVisible(false);
-			controlWindow.setVisible(true);
+			statusControlWindow = new StatusControlWindow();
+			statusControlWindow.setVisible(true);
 		} else {
-			TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.controlWindow);
+			TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.statusControlWindow);
+			AbstractWindowSwitch.this.statusControlWindow = null;
 		}
 	}
 
 	public boolean isActive() {
-		return controlWindow != null;
+		return statusControlWindow != null;
 	}
 
 	public Form getStatusControlForm() {
@@ -94,7 +95,7 @@ public abstract class AbstractWindowSwitch {
 	}
 
 	public JFrame getWindow() {
-		return controlWindow;
+		return statusControlWindow;
 	}
 
 	public void setPausedAndUpdateUI(boolean b) {
@@ -117,26 +118,6 @@ public abstract class AbstractWindowSwitch {
 			return AbstractWindowSwitch.this.getStatus();
 		}
 
-		public boolean isWindowAlwaysOnTop() {
-			if (AbstractWindowSwitch.this.controlWindow == null) {
-				return controlWindowAlwaysOnTopLastly;
-			}
-			return AbstractWindowSwitch.this.controlWindow.isAlwaysOnTop();
-		}
-
-		public void setWindowAlwaysOnTop(final boolean b) {
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					if (AbstractWindowSwitch.this.controlWindow == null) {
-						return;
-					}
-					AbstractWindowSwitch.this.controlWindow.setAlwaysOnTop(b);
-				}
-			});
-
-		}
-
 		public void stop() {
 			if (!AbstractWindowSwitch.this.isActive()) {
 				return;
@@ -152,45 +133,57 @@ public abstract class AbstractWindowSwitch {
 
 	public class StatusControlWindow extends JFrame {
 		private static final long serialVersionUID = 1L;
-		boolean disposed = false;
+
+		protected boolean disposed = false;
+		protected WindowManager windowManager;
+		protected WindowListener windowListener = new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				setAlwaysOnTop(statusControlWindowAlwaysOnTopLastly);
+				onBegining();
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				onEnd();
+				statusControlWindowAlwaysOnTopLastly = isAlwaysOnTop();
+			}
+
+		};
 
 		public StatusControlWindow() {
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			statusControlForm = getSwingRenderer().createForm(statusControlObject);
-			WindowManager windowManager = getSwingRenderer().createWindowManager(this);
-			windowManager.set(statusControlForm, null, getSwitchTitle(), testEditor.getIconImage());
-			if (lastBounds != null) {
-				setBounds(lastBounds);
+			windowManager = getSwingRenderer().createWindowManager(this);
+			windowManager.install(statusControlForm, null, getSwitchTitle(), testEditor.getIconImage());
+			if (laststatusControlWindowBounds != null) {
+				setBounds(laststatusControlWindowBounds);
 			} else {
 				setLocation(getInitialLocation());
 			}
-			addWindowListener(new WindowAdapter() {
-				@Override
-				public void windowOpened(WindowEvent e) {
-					setAlwaysOnTop(controlWindowAlwaysOnTopLastly);
-					onBegining();
-				}
-
-				@Override
-				public void windowClosing(WindowEvent e) {
-					onEnd();
-					controlWindowAlwaysOnTopLastly = isAlwaysOnTop();
-				}
-
-			});
+			addWindowListener(windowListener);
+			hideParent();
 		}
 
 		@Override
 		public void dispose() {
-			synchronized (this) {
-				if (disposed) {
-					return;
-				}
-				disposed = true;
+			if (disposed) {
+				return;
 			}
-			lastBounds = getBounds();
+			disposed = true;
+			removeWindowListener(windowListener);
+			laststatusControlWindowBounds = getBounds();
+			windowManager.uninstall();
+			statusControlForm = null;
 			super.dispose();
-			AbstractWindowSwitch.this.controlWindow = null;
+			showParent();
+		}
+
+		protected void hideParent() {
+			testEditor.setVisible(false);
+		}
+
+		protected void showParent() {
 			testEditor.invalidate();
 			testEditor.setVisible(true);
 		}

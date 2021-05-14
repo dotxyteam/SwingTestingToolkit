@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.JDialog;
 
 import xy.reflect.ui.control.swing.ListControl;
-import xy.reflect.ui.control.swing.editor.StandardEditorBuilder;
+import xy.reflect.ui.control.swing.builder.StandardEditorBuilder;
 import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
@@ -56,7 +56,7 @@ public class ComponentInspectionWindowSwitch extends AbstractWindowSwitch {
 		inspectorOpen = true;
 		try {
 			ComponentInspector inspector = new ComponentInspector(c, testEditor);
-			StandardEditorBuilder inspectorDialogBuilder = getSwingRenderer().getEditorBuilder(activatorComponent,
+			StandardEditorBuilder inspectorDialogBuilder = getSwingRenderer().createEditorBuilder(activatorComponent,
 					inspector, getSwingRenderer().getObjectTitle(inspector),
 					getSwingRenderer().getObjectIconImage(inspector), false);
 			JDialog inspectorDialog = inspectorDialogBuilder.createDialog();

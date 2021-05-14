@@ -20,8 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
@@ -29,7 +29,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -43,6 +42,7 @@ import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
 import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
+import xy.reflect.ui.control.swing.builder.DialogBuilder;
 import xy.reflect.ui.control.swing.customizer.CustomizingFieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
@@ -51,7 +51,6 @@ import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.Form;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.util.AlternativeWindowDecorationsPanel;
-import xy.reflect.ui.control.swing.util.DialogBuilder;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
 import xy.reflect.ui.control.swing.util.WindowManager;
 import xy.reflect.ui.info.InfoCategory;
@@ -80,9 +79,10 @@ import xy.reflect.ui.info.type.iterable.util.IDynamicListProperty;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.undo.AbstractSimpleModificationListener;
 import xy.reflect.ui.undo.IModification;
+import xy.reflect.ui.undo.IModificationListener;
 import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
-import xy.reflect.ui.util.ClassUtils;
+import xy.reflect.ui.util.ReflectionUtils;
 import xy.reflect.ui.util.Mapper;
 import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
@@ -192,7 +192,7 @@ public class TestEditor extends JFrame {
 	protected WindowManager windowManager;
 
 	protected AWTEventListener recordingListener;
-	protected Set<Window> allWindows = Collections.newSetFromMap(new WeakHashMap<Window, Boolean>());
+	protected Set<Window> allWindows = new HashSet<Window>();
 
 	protected AWTEventListener modalityChangingListener;
 	protected Analytics analytics = new Analytics() {
@@ -206,38 +206,60 @@ public class TestEditor extends JFrame {
 		}
 
 	};
+	protected IModificationListener backgroundImageUpdater = new AbstractSimpleModificationListener() {
+		@Override
+		protected void handleAnyEvent(IModification modification) {
+			windowManager.refreshWindowStructureAsMuchAsPossible();
+		}
+	};
 
 	public TestEditor(Tester tester) {
-		analytics.initialize();
-		analytics.track("Initializing test editor...", "tester=" + tester);
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
 		this.testReport = new TestReport();
+		analytics.initialize();
+		analytics.track("Initializing test editor...", "tester=" + tester);
 		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();
 		reflectionUI = createTesterReflectionUI(infoCustomizations);
 		swingRenderer = createSwingRenderer(reflectionUI);
-		createControls();
-		refreshBackgroundImageOnModification();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		addComponents();
 	}
 
 	@Override
 	public void dispose() {
+		removeComponents();
 		cleanupWindowSwitchesEventHandling();
 		cleanupDialogApplicationModalityPrevention();
-		super.dispose();
+		swingRenderer = null;
+		reflectionUI = null;
+		infoCustomizations = null;
 		analytics.track("Finalizing test editor...", "tester=" + tester);
 		analytics.shutdown();
+		this.tester = null;
+		this.testReport = null;
+		TESTER_BY_EDITOR.remove(this);
+		super.dispose();
 	}
 
-	protected void refreshBackgroundImageOnModification() {
-		mainForm.getModificationStack().addListener(new AbstractSimpleModificationListener() {
-			@Override
-			protected void handleAnyEvent(IModification modification) {
-				windowManager.refreshWindowStructureAsMuchAsPossible();
-			}
-		});
+	protected void addComponents() {
+		this.mainForm = getSwingRenderer().createForm(mainObject);
+		String title = getSwingRenderer().getObjectTitle(getTester());
+		List<Component> toolbarControls = mainForm.createButtonBarControls();
+		Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
+		this.windowManager = getSwingRenderer().createWindowManager(this);
+		windowManager.install(mainForm, toolbarControls, title, iconImage);
+		mainForm.getModificationStack().addListener(backgroundImageUpdater);
+	}
+
+	protected void removeComponents() {
+		mainForm.getModificationStack().removeListener(backgroundImageUpdater);
+		this.windowManager.uninstall();
+		this.mainForm = null;
+		this.windowManager = null;
 	}
 
 	public File getLastTesterFile() {
@@ -313,6 +335,10 @@ public class TestEditor extends JFrame {
 
 	}
 
+	protected void cleanupWindowSwitchesEventHandling() {
+		SwingRendererUtils.removeAWTEventListener(recordingListener);
+	}
+
 	protected Component getComponent(AWTEvent event) {
 		Component result = (Component) event.getSource();
 		if (event instanceof MouseEvent) {
@@ -326,10 +352,6 @@ public class TestEditor extends JFrame {
 			}
 		}
 		return result;
-	}
-
-	protected void cleanupWindowSwitchesEventHandling() {
-		SwingRendererUtils.removeAWTEventListener(recordingListener);
 	}
 
 	protected void preventDialogApplicationModality() {
@@ -409,7 +431,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void logDebug(Throwable t) {
-		logDebug(ReflectionUIUtils.getPrintedStackTrace(t));
+		logDebug(xy.reflect.ui.util.MiscUtils.getPrintedStackTrace(t));
 	}
 
 	public void logError(String msg) {
@@ -417,20 +439,7 @@ public class TestEditor extends JFrame {
 	}
 
 	public void logError(Throwable t) {
-		logError(ReflectionUIUtils.getPrintedStackTrace(t));
-	}
-
-	protected void createControls() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		{
-			this.mainForm = getSwingRenderer().createForm(mainObject);
-			String title = getSwingRenderer().getObjectTitle(getTester());
-			List<Component> toolbarControls = mainForm.createButtonBarControls();
-			Image iconImage = getSwingRenderer().getObjectIconImage(getTester());
-			this.windowManager = getSwingRenderer().createWindowManager(this);
-			windowManager.set(mainForm, toolbarControls, title, iconImage);
-		}
+		logError(xy.reflect.ui.util.MiscUtils.getPrintedStackTrace(t));
 	}
 
 	public boolean isMenuItemClickRecordingRequestEvent(AWTEvent event) {
@@ -671,6 +680,10 @@ public class TestEditor extends JFrame {
 		allWindows.add(window);
 	}
 
+	protected void onTestEditorWindowDestruction(Window window) {
+		allWindows.remove(window);
+	}
+
 	protected class TestEditorSwingRenderer extends SwingCustomizer {
 
 		public TestEditorSwingRenderer(CustomizedUI reflectionUI) {
@@ -682,9 +695,15 @@ public class TestEditor extends JFrame {
 			return new WindowManager(this, window) {
 
 				@Override
-				public void set(Component content, List<Component> toolbarControls, String title, Image iconImage) {
+				public void install(Component content, List<Component> toolbarControls, String title, Image iconImage) {
 					onTestEditorWindowCreation(window);
-					super.set(content, toolbarControls, title, iconImage);
+					super.install(content, toolbarControls, title, iconImage);
+				}
+
+				@Override
+				public void uninstall() {
+					onTestEditorWindowDestruction(window);
+					super.uninstall();
 				}
 
 				@Override
@@ -819,12 +838,12 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		public DialogBuilder getDialogBuilder(Component activatorComponent) {
+		public DialogBuilder createDialogBuilder(Component activatorComponent) {
 			return new ApplicationDialogBuilder(activatorComponent) {
 
 				@Override
-				public JDialog createDialog() {
-					JDialog result = super.createDialog();
+				public BuiltDialog createDialog() {
+					BuiltDialog result = super.createDialog();
 					result.setModalityType(ModalityType.APPLICATION_MODAL);
 					return result;
 				}
@@ -890,7 +909,7 @@ public class TestEditor extends JFrame {
 			protected boolean isExtensionTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getCachedClassforName(typeName);
+					clazz = ReflectionUtils.getCachedClassforName(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1027,7 +1046,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getCachedClassforName(typeName);
+					clazz = ReflectionUtils.getCachedClassforName(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1040,7 +1059,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTesterOrSubTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getCachedClassforName(typeName);
+					clazz = ReflectionUtils.getCachedClassforName(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1158,7 +1177,8 @@ public class TestEditor extends JFrame {
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class, null));
+					ITypeInfo propertyValueType = getTypeInfo(
+							new JavaTypeInfoSource(TestEditorReflectionUI.this, PropertyValue.class, null));
 					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
@@ -1275,7 +1295,8 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(InsertPosition.class, null));
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this,
+										InsertPosition.class, null));
 							}
 
 							@Override
@@ -1310,8 +1331,8 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI
-										.getTypeInfo(new JavaTypeInfoSource(CallMainMethodAction.class, null));
+								return reflectionUI.getTypeInfo(
+										new JavaTypeInfoSource(reflectionUI, CallMainMethodAction.class, null));
 							}
 
 							@Override
@@ -1390,19 +1411,19 @@ public class TestEditor extends JFrame {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getTestActionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(ComponentFinder.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getComponentFinderClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(KeyboardInteraction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getKeyboardInteractionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
 					}
 					return result;
 				} else {
@@ -1618,7 +1639,8 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(String.class, null));
+								return reflectionUI.getTypeInfo(
+										new JavaTypeInfoSource(TestEditorReflectionUI.this, String.class, null));
 							}
 
 						});

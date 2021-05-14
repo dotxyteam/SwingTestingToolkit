@@ -64,7 +64,7 @@ public class ComponentPropertyUtil {
 
 	public boolean isSupportedPropertyField(IFieldInfo field) {
 		Class<?> javaType = getFieldJavaType(field);
-		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
+		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
 			return true;
 		}
 		return false;
@@ -86,7 +86,8 @@ public class ComponentPropertyUtil {
 			return null;
 		}
 		try {
-			return introspector.getTypeInfo(new JavaTypeInfoSource(Class.forName(componentClassName), null));
+			return introspector
+					.getTypeInfo(new JavaTypeInfoSource(introspector, Class.forName(componentClassName), null));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
@@ -100,7 +101,7 @@ public class ComponentPropertyUtil {
 		if (field == null) {
 			return null;
 		}
-		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
+		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
 			return fieldValue.toString();
 		} else {
 			throw new AssertionError();
@@ -116,11 +117,11 @@ public class ComponentPropertyUtil {
 			return null;
 		}
 		Class<?> javaType = getFieldJavaType(field);
-		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
+		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
 			if (javaType.equals(String.class)) {
 				return propertyValue;
 			} else {
-				return xy.reflect.ui.util.ClassUtils.primitiveFromString(propertyValue, javaType);
+				return xy.reflect.ui.util.ReflectionUtils.primitiveFromString(propertyValue, javaType);
 			}
 		} else {
 			throw new AssertionError();

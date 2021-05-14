@@ -41,7 +41,6 @@ import javax.swing.tree.TreeModel;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 
-import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TestReport.TestReportStep;
 import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.TestAction;
@@ -273,11 +272,16 @@ public class Tester {
 								reportStep.during(Tester.this);
 							} else {
 								reportStep.log("Component found: " + c.toString());
-								orchestrateComponentHighlighting(c, reportStep);
+								orchestrateComponentHighlighting(c, new Runnable() {
+									public void run() {
+										reportStep.during(Tester.this);
+									}
+								});
 							}
 							testAction.execute(c, Tester.this);
 						} catch (Throwable t) {
 							error[0] = t;
+							reportStep.during(Tester.this);
 						}
 					}
 				});
@@ -309,21 +313,20 @@ public class Tester {
 			}
 		}
 		if (error[0] != null) {
-			reportStep.during(Tester.this);
 			throw error[0];
 		}
 	}
 
 	/**
-	 * Highlight the given component for a short period (depends on
+	 * Highlights the given component for a short period (depends on
 	 * {@link #getComponentHighlightingDurationSeconds()}).
 	 * 
-	 * @param c          The component to highlight.
-	 * @param reportStep The execution report step associated with the current test
-	 *                   action.
+	 * @param c                  The component to highlight.
+	 * @param duringHighlighting An action to be executed during the highlighting or
+	 *                           null.
 	 * @throws InterruptedException If the current thread is interrupted.
 	 */
-	protected void orchestrateComponentHighlighting(Component c, TestReportStep reportStep)
+	protected void orchestrateComponentHighlighting(Component c, Runnable duringHighlighting)
 			throws InterruptedException {
 		currentComponent = c;
 		highlightCurrentComponent();
@@ -331,7 +334,9 @@ public class Tester {
 			MiscUtils.repaintImmediately((JComponent) c);
 		}
 		try {
-			reportStep.during(Tester.this);
+			if (duringHighlighting != null) {
+				duringHighlighting.run();
+			}
 			Thread.sleep(Math.round(getComponentHighlightingDurationSeconds() * 1000));
 		} finally {
 			unhighlightCurrentComponent();
@@ -390,7 +395,7 @@ public class Tester {
 	 * @param t The exception.
 	 */
 	public void logError(Throwable t) {
-		logError(ReflectionUIUtils.getPrintedStackTrace(t));
+		logError(xy.reflect.ui.util.MiscUtils.getPrintedStackTrace(t));
 	}
 
 	/**

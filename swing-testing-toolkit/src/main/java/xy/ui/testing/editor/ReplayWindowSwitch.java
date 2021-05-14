@@ -7,6 +7,7 @@ import javax.swing.SwingUtilities;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.util.Listener;
+import xy.ui.testing.util.MiscUtils;
 
 /**
  * Helper class that replaces temporarily the test editor by the small status
@@ -120,7 +121,10 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 	public class ReplayStatus {
 
 		public String getCurrentActionDescription() {
-			return currentActionDescription;
+			if (currentActionDescription == null) {
+				return null;
+			}
+			return MiscUtils.truncateNicely(currentActionDescription, 47);
 		}
 
 	}
