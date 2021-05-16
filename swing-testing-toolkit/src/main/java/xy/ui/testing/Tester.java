@@ -194,20 +194,15 @@ public class Tester {
 			TestReportStep reportStep = report.nextStep(testAction);
 			reportStep.starting();
 			try {
-				if (Thread.currentThread().isInterrupted()) {
-					logInfo("Replay interrupted");
-					reportStep.setStatus(TestReportStepStatus.CANCELLED);
-					break;
+				if (beforeEachAction != null) {
+					beforeEachAction.handle(testAction);
 				}
-				try {
-					if (beforeEachAction != null) {
-						beforeEachAction.handle(testAction);
-					}
-					if (testAction.isDisabled()) {
-						logInfo("Action disabled. Skipping...");
-						reportStep.log("This action is disabled");
-						reportStep.setStatus(TestReportStepStatus.SKIPPED);
-					} else {
+				if (testAction.isDisabled()) {
+					logInfo("Action disabled. Skipping...");
+					reportStep.log("This action is disabled");
+					reportStep.setStatus(TestReportStepStatus.SKIPPED);
+				} else {
+					try {
 						reportStep.log("Action delayed for " + minimumSecondsToWaitBetwneenActions + " second(s)");
 						Thread.sleep(Math.round(minimumSecondsToWaitBetwneenActions * 1000));
 						orchestrateTestAction(testAction, reportStep);
@@ -216,17 +211,21 @@ public class Tester {
 						}
 						reportStep.log("Action executed successfully");
 						reportStep.setStatus(TestReportStepStatus.SUCCESSFUL);
-					}
-				} catch (Throwable t) {
-					if (t instanceof InterruptedException) {
-						Thread.currentThread().interrupt();
-					} else {
-						logError(t);
-						reportStep.log("An error occured: " + t.toString());
-						reportStep.setStatus(TestReportStepStatus.FAILED);
-						break;
+					} catch (Throwable t) {
+						if (t instanceof InterruptedException) {
+							logInfo("Replay interrupted");
+							reportStep.log("This action was interrupted");
+							reportStep.setStatus(TestReportStepStatus.CANCELLED);
+							break;
+						} else {
+							logError(t);
+							reportStep.log("An error occured: " + t.toString());
+							reportStep.setStatus(TestReportStepStatus.FAILED);
+							break;
+						}
 					}
 				}
+
 			} finally {
 				reportStep.ending();
 			}
@@ -306,11 +305,7 @@ public class Tester {
 			if (remainingSeconds <= 0) {
 				break;
 			}
-			try {
-				Thread.sleep(Math.round(getSecondsToWaitBeforeRetryingToFindComponent() * 1000));
-			} catch (InterruptedException e) {
-				throw new AssertionError(e);
-			}
+			Thread.sleep(Math.round(getSecondsToWaitBeforeRetryingToFindComponent() * 1000));
 		}
 		if (error[0] != null) {
 			throw error[0];
@@ -704,11 +699,15 @@ public class Tester {
 			for (int iCol = 0; iCol < model.getColumnCount(); iCol++) {
 				try {
 					Object cellValue = model.getValueAt(iRow, iCol);
-					TableCellRenderer cellRenderer = table.getCellRenderer(iRow, iCol);
-					Component cellComponent = cellRenderer.getTableCellRendererComponent(table, cellValue, false, false,
-							iRow, iCol);
-					List<String> cellVisibleStrings = extractDisplayedStrings(cellComponent);
-					result.addAll(cellVisibleStrings);
+					if (cellValue instanceof String) {
+						result.add((String) cellValue);
+					} else {
+						TableCellRenderer cellRenderer = table.getCellRenderer(iRow, iCol);
+						Component cellComponent = cellRenderer.getTableCellRendererComponent(table, cellValue, false,
+								false, iRow, iCol);
+						List<String> cellVisibleStrings = extractDisplayedStrings(cellComponent);
+						result.addAll(cellVisibleStrings);
+					}
 				} catch (Exception ignore) {
 				}
 			}
