@@ -3,7 +3,10 @@ package xy.ui.testing.action.component;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -101,9 +104,9 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 				}
 			}
 		} else if (!completenessChecked && orderChecked) {
-			List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-			currentVisibleStrings2.retainAll(visibleStrings);
-			if (!visibleStrings.equals(currentVisibleStrings2)) {
+			Set<String> visibleStringOrderedSet = new LinkedHashSet<String>(currentVisibleStrings);
+			visibleStringOrderedSet.retainAll(visibleStrings);
+			if (!Arrays.equals(visibleStrings.toArray(), visibleStringOrderedSet.toArray())) {
 				checkFailureMessage = "The visible strings order or occurences have changed";
 			}
 		} else if (!completenessChecked && !orderChecked) {
