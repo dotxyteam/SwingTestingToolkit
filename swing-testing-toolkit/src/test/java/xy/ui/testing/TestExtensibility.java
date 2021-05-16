@@ -8,55 +8,75 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.junit.Test;
 
+import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
+/**
+ * If you want a specific test action/assertion that is not available in the
+ * framework, you can easily extend it.
+ * 
+ * Suppose you have a custom component that you need to manipulate during the
+ * automatic replay. You first need to create your action class by extending the
+ * {@link TestAction} class. Most of the time it will be enough to sub-class
+ * {@link TargetComponentTestAction}.
+ * 
+ * Once your action class is created, you must register it with the
+ * {@link TestEditor} instance that you will use in order to be able use it
+ * while creating your test specification through the editor.
+ * 
+ * @author olitank
+ *
+ */
 public class TestExtensibility {
 
+	/**
+	 * JUnit test of this class.
+	 * 
+	 * @throws Exception If the test fails.
+	 */
 	@Test
 	public void test() throws Exception {
 		TestingUtils.assertSuccessfulReplay(new File(System.getProperty("swing-testing-toolkit.project.directory", "./")
 				+ "test-specifications/testExtensibility.stt"));
-		System.out.println("debug");
 	}
 
 	public static void main(String[] args) throws Exception {
-
-		/*
-		 * If you want a specific test action/assertion that is not available in the
-		 * framework, you can easily extend it.
-		 * 
-		 * Suppose you have a custom component that you need to manipulate during the
-		 * automatic replay. You first need to create your action class by extending the
-		 * 'TestAction' class. Most of the time it will be enough to sub-class
-		 * 'TargetComponentTestAction'. See the 'TargetComponentTestAction' sub-class
-		 * below for more information.
-		 * 
-		 * Once your action class is created, you must register it with the TestEditor
-		 * instance that you will use.
-		 */
-		Tester tester = new Tester();
-		TestEditor testEditor = new TestEditor(tester) {
-
-			private static final long serialVersionUID = 1L;
-
+		SwingUtilities.invokeAndWait(new Runnable() {
 			@Override
-			public Class<?>[] getTestActionClasses() {
-				List<Class<?>> result = new ArrayList<Class<?>>(Arrays.asList(super.getTestActionClasses()));
-				result.add(CustomComponentAssertion.class);
-				return result.toArray(new Class<?>[result.size()]);
+			public void run() {
+				/*
+				 * Create the test editor and register the custom action class.
+				 */
+				Tester tester = new Tester();
+				TestEditor testEditor = new TestEditor(tester) {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public Class<?>[] getTestActionClasses() {
+						List<Class<?>> result = new ArrayList<Class<?>>(Arrays.asList(super.getTestActionClasses()));
+						result.add(CustomComponentAssertion.class);
+						return result.toArray(new Class<?>[result.size()]);
+					}
+
+				};
+
+				/*
+				 * Customize and open the test editor.
+				 */
+				testEditor.setDecorationsBackgroundColor(new Color(68, 61, 205));
+				testEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
+				testEditor.open();
 			}
-
-		};
-		testEditor.setDecorationsBackgroundColor(new Color(68, 61, 205));
-		testEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
-		testEditor.open();
-
+		});
 	}
 
 	/*
