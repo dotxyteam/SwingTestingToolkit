@@ -131,20 +131,25 @@ import xy.ui.testing.util.MiscUtils;
  */
 public class TestEditor extends JFrame {
 
-	public static void main(String[] args) {
-		TestEditor testEditor = new TestEditor(new Tester());
-		try {
-			if (args.length > 1) {
-				throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
-			} else if (args.length == 1) {
-				String fileName = args[0];
-				testEditor.getTester().loadFromFile(new File(fileName));
-				testEditor.refresh();
+	public static void main(String[] args) throws Exception {
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					TestEditor testEditor = new TestEditor(new Tester());
+					if (args.length > 1) {
+						throw new Exception("Invalid command line arguments. Expected: [<fileName>]");
+					} else if (args.length == 1) {
+						String fileName = args[0];
+						testEditor.getTester().loadFromFile(new File(fileName));
+						testEditor.refresh();
+					}
+					testEditor.open();
+				} catch (Throwable t) {
+					throw new RuntimeException(t);
+				}
 			}
-			testEditor.open();
-		} catch (Throwable t) {
-			testEditor.getSwingRenderer().handleExceptionsFromDisplayedUI(null, t);
-		}
+		});
 	}
 
 	private static final long serialVersionUID = 1L;
@@ -161,9 +166,8 @@ public class TestEditor extends JFrame {
 			FocusAction.class, CheckVisibleStringsAction.class, CheckWindowVisibleStringsAction.class,
 			ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class, CloseWindowAction.class,
 			CheckNumberOfOpenWindowsAction.class };
-	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] {
-			DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class,
-			MenuItemComponentFinder.class };
+	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] { MenuItemComponentFinder.class,
+			DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class };
 	public static final Class<?>[] BUILT_IN_KEYBOARD_INTERACTION_CLASSES = new Class[] { WriteText.class,
 			SpecialKey.class };
 
@@ -196,6 +200,12 @@ public class TestEditor extends JFrame {
 
 	protected AWTEventListener modalityChangingListener;
 	protected Analytics analytics = new Analytics() {
+
+		@Override
+		public void track(String event, String... details) {
+			logDebug(event + " " + Arrays.asList(details));
+			super.track(event, details);
+		}
 
 		@Override
 		public void sendTracking(Date when, String used, String... details) {
@@ -842,8 +852,8 @@ public class TestEditor extends JFrame {
 			return new ApplicationDialogBuilder(activatorComponent) {
 
 				@Override
-				public BuiltDialog createDialog() {
-					BuiltDialog result = super.createDialog();
+				public RenderedDialog createDialog() {
+					RenderedDialog result = super.createDialog();
 					result.setModalityType(ModalityType.APPLICATION_MODAL);
 					return result;
 				}
@@ -852,8 +862,8 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type, Object parentObject) {
-			Object result = super.onTypeInstanciationRequest(activatorComponent, type, parentObject);
+		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type) {
+			Object result = super.onTypeInstanciationRequest(activatorComponent, type);
 			if (result instanceof ComponentFinder) {
 				if (componentFinderInitializationSource != null) {
 					((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TestEditor.this);
@@ -893,12 +903,12 @@ public class TestEditor extends JFrame {
 
 		@Override
 		public void logError(String msg) {
-			TestEditor.this.logDebug(msg);
+			TestEditor.this.logError(msg);
 		}
 
 		@Override
 		public void logError(Throwable t) {
-			TestEditor.this.logDebug(t);
+			TestEditor.this.logError(t);
 		}
 
 		protected class ExtensionsProxyFactory extends InfoProxyFactory {

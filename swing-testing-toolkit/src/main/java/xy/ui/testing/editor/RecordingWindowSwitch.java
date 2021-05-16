@@ -141,13 +141,13 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 	}
 
 	protected boolean handleNewTestActionInsertionRequest(final TestAction testAction, final Component c,
-			boolean execute) {
+			final boolean execute) {
 		if (openRecordingSettingsWindow(testAction, c)) {
 			getTester().handleCurrentComponentChange(null);
-			if (execute) {
-				new Thread("Executor of: " + testAction) {
-					@Override
-					public void run() {
+			new Thread("InsertionRequestHandler of: " + testAction) {
+				@Override
+				public void run() {
+					if (execute) {
 						try {
 							Thread.sleep(1000);
 						} catch (InterruptedException e) {
@@ -165,11 +165,11 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 							return;
 						}
 						insertNewTestAction(testAction);
+					} else {
+						insertNewTestAction(testAction);
 					}
-				}.start();
-			} else {
-				insertNewTestAction(testAction);
-			}
+				}
+			}.start();
 			return true;
 		}
 		return false;
@@ -185,7 +185,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		List<Integer> descendingSelectionIndexes = new ArrayList<Integer>(ascendingSelectionIndexes);
 		Collections.reverse(descendingSelectionIndexes);
 
-		int insertionIndex;
+		final int insertionIndex;
 
 		if (selectionIndexes.size() > 0) {
 			if (insertPosition == InsertPosition.OverSelection) {
@@ -207,8 +207,14 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 		}
 
 		newTestActionList.add(insertionIndex, testAction);
-		testEditor.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
-		testEditor.setSelectedActionIndex(insertionIndex);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				testEditor
+						.setTestActionsAndUpdateUI(newTestActionList.toArray(new TestAction[newTestActionList.size()]));
+				testEditor.setSelectedActionIndex(insertionIndex);
+			}
+		});
 	}
 
 	protected boolean openRecordingSettingsWindow(TestAction testAction, Component c) {
@@ -517,7 +523,12 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 								} catch (InterruptedException e) {
 									throw new AssertionError(e);
 								}
-								RecordingWindowSwitch.this.setPausedAndUpdateUI(false);
+								SwingUtilities.invokeLater(new Runnable() {
+									@Override
+									public void run() {
+										RecordingWindowSwitch.this.setPausedAndUpdateUI(false);
+									}
+								});
 							}
 						}.start();
 					}
