@@ -254,6 +254,9 @@ public class MiscUtils {
 	 * @return A formatted text listing the given strings.
 	 */
 	public static String formatStringList(List<String> strings) {
+		if(strings.size() == 0) {
+			return "<EMPTY_LIST>";
+		}
 		StrBuilder result = new StrBuilder();
 		for (int i = 0; i < strings.size(); i++) {
 			if (i > 0) {
