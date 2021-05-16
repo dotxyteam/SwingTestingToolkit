@@ -289,7 +289,14 @@ public class TestingUtils {
 			if (TEST_EDITOR_HIDDEN_DURING_ASSERTIONS) {
 				assertSuccessfulReplayWithoutTestEditor(tester, specificationFile);
 			} else {
-				assertSuccessfulReplayWithTestEditor(new TestEditor(tester), specificationFile);
+				final TestEditor[] testEditor = new TestEditor[1];
+				SwingUtilities.invokeAndWait(new Runnable() {
+					@Override
+					public void run() {
+						testEditor[0] = new TestEditor(tester);
+					}
+				});
+				assertSuccessfulReplayWithTestEditor(testEditor[0], specificationFile);
 			}
 		} finally {
 			try {
@@ -340,7 +347,12 @@ public class TestingUtils {
 	 */
 	private static void assertSuccessfulReplayWithTestEditor(final TestEditor testEditor, File specificationFile)
 			throws Exception {
-		testEditor.setLastTesterFile(specificationFile);
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				testEditor.setLastTesterFile(specificationFile);
+			}
+		});
 		final Tester tester = testEditor.getTester();
 		if (!specificationFile.exists()) {
 			SwingUtilities.invokeAndWait(new Runnable() {

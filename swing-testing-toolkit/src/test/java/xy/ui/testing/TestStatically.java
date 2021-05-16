@@ -1,6 +1,5 @@
 package xy.ui.testing;
 
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import javax.swing.SwingUtilities;
 
@@ -24,13 +23,18 @@ public class TestStatically {
 	}
 
 	@Test
-	public void testComponentFinderOnlyOneEmptyContructor() throws IOException {
-		Tester tester = new Tester();
-		TestEditor testEditor = new TestEditor(tester);
-		for (Class<?> cls : testEditor.getComponentFinderClasses()) {
-			Assert.assertTrue(cls.getConstructors().length == 1);
-			Assert.assertTrue(cls.getConstructors()[0].getParameterTypes().length == 0);
-		}
+	public void testComponentFinderOnlyOneEmptyContructor() throws Exception {
+		SwingUtilities.invokeAndWait(new Runnable() {
+			@Override
+			public void run() {
+				Tester tester = new Tester();
+				TestEditor testEditor = new TestEditor(tester);
+				for (Class<?> cls : testEditor.getComponentFinderClasses()) {
+					Assert.assertTrue(cls.getConstructors().length == 1);
+					Assert.assertTrue(cls.getConstructors()[0].getParameterTypes().length == 0);
+				}
+			}
+		});
 	}
 
 	@Test

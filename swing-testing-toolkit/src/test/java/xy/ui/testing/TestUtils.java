@@ -17,12 +17,14 @@ import xy.ui.testing.util.TestingUtils;
 
 public class TestUtils {
 
+	TestEditor testEditor;
+
 	@Test
 	public void testClosingTestableWindows() throws Exception {
-		final TestEditor testEditor = new TestEditor(new Tester());
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
+				testEditor = new TestEditor(new Tester());
 				testEditor.open();
 				testEditor.getComponentInspectionWindowSwitch().activate(true);
 			}
