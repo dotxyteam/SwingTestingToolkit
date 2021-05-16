@@ -146,7 +146,6 @@ public class Analytics {
 		for (int i = 0; i < details.length; i++) {
 			details[i] = escapeNewLines(details[i]);
 		}
-		logInfo("Event: " + event);
 		trackings.add(new Tracking(new Date(), event, details));
 	}
 
