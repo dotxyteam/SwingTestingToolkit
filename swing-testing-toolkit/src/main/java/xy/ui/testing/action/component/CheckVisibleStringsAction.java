@@ -3,10 +3,7 @@ package xy.ui.testing.action.component;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -88,26 +85,27 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 			}
 		} else if (completenessChecked && !orderChecked) {
 			{
-				List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-				currentVisibleStrings2.removeAll(visibleStrings);
-				if (currentVisibleStrings.size() > 0) {
+				List<String> currentVisibleStringsMinusVisibleStrings = new ArrayList<String>(currentVisibleStrings);
+				currentVisibleStringsMinusVisibleStrings.removeAll(visibleStrings);
+				if (currentVisibleStringsMinusVisibleStrings.size() > 0) {
 					checkFailureMessage = "The following visible string(s) were not declared: "
-							+ MiscUtils.formatStringList(new ArrayList<String>(currentVisibleStrings2));
+							+ MiscUtils.formatStringList(currentVisibleStringsMinusVisibleStrings);
 				}
 			}
 			{
-				List<String> visibleStrings2 = new ArrayList<String>(visibleStrings);
-				visibleStrings2.removeAll(currentVisibleStrings);
-				if (visibleStrings2.size() > 0) {
+				List<String> visibleStringsMinusCurrentVisibleStrings = new ArrayList<String>(visibleStrings);
+				visibleStringsMinusCurrentVisibleStrings.removeAll(currentVisibleStrings);
+				if (visibleStringsMinusCurrentVisibleStrings.size() > 0) {
 					checkFailureMessage = "The following declared string(s) are not visible: "
-							+ MiscUtils.formatStringList(new ArrayList<String>(visibleStrings2));
+							+ MiscUtils.formatStringList(visibleStringsMinusCurrentVisibleStrings);
 				}
 			}
 		} else if (!completenessChecked && orderChecked) {
-			Set<String> visibleStringOrderedSet = new LinkedHashSet<String>(currentVisibleStrings);
-			visibleStringOrderedSet.retainAll(visibleStrings);
-			if (!Arrays.equals(visibleStrings.toArray(), visibleStringOrderedSet.toArray())) {
-				checkFailureMessage = "The visible strings order or occurences have changed";
+			List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
+			currentVisibleStrings2.retainAll(visibleStrings);
+			if (!visibleStrings.equals(currentVisibleStrings2)) {
+				checkFailureMessage = "The visible strings order or occurences have changed: "
+						+ MiscUtils.formatStringList(currentVisibleStrings2);
 			}
 		} else if (!completenessChecked && !orderChecked) {
 			SortedSet<String> visibleStringSortedSet = new TreeSet<String>(visibleStrings);
