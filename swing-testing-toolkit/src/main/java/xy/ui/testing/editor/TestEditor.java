@@ -117,6 +117,7 @@ import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
 import xy.ui.testing.finder.DisplayedStringComponentFinder;
 import xy.ui.testing.finder.MenuItemComponentFinder;
+import xy.ui.testing.finder.NameBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.theme.ClassInThemePackage;
@@ -167,7 +168,8 @@ public class TestEditor extends JFrame {
 			ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class, CloseWindowAction.class,
 			CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] { MenuItemComponentFinder.class,
-			DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class, PropertyBasedComponentFinder.class };
+			NameBasedComponentFinder.class, DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class,
+			PropertyBasedComponentFinder.class };
 	public static final Class<?>[] BUILT_IN_KEYBOARD_INTERACTION_CLASSES = new Class[] { WriteText.class,
 			SpecialKey.class };
 

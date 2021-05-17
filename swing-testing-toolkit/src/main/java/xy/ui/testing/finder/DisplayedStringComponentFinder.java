@@ -11,7 +11,8 @@ import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 /**
- * Component finder that finds the components by comparing displayed strings.
+ * Component finder that finds the components by comparing their displayed
+ * strings.
  * 
  * @author olitank
  *
@@ -92,7 +93,7 @@ public class DisplayedStringComponentFinder extends MatchingComponentFinder {
 	@Override
 	public void validate() throws ValidationError {
 		super.validate();
-		if (visibleString == null) {
+		if ((visibleString == null) || (visibleString.length() == 0)) {
 			throw new ValidationError("The visible string to find has not been defined");
 		}
 		if (classMatcher.getComponentClassName() != null) {
