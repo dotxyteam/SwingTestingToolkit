@@ -67,6 +67,10 @@ public class MiscUtils {
 		}
 	}
 
+	public static String colorToString(Color c) {
+		return c.getRed() + "," + c.getGreen() + "," + c.getBlue();
+	}
+
 	public static Image loadImage(File file) {
 		try {
 			return ImageIO.read(file);

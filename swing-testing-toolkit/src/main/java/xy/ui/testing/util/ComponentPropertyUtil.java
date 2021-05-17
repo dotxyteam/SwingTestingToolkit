@@ -1,6 +1,7 @@
 package xy.ui.testing.util;
 
 import java.awt.AWTEvent;
+import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,6 +10,7 @@ import java.util.List;
 import org.apache.commons.lang3.ClassUtils;
 
 import xy.reflect.ui.ReflectionUI;
+import xy.reflect.ui.info.field.FieldInfoProxy;
 import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
@@ -47,6 +49,40 @@ public class ComponentPropertyUtil {
 		this.componentClassName = componentClassName;
 	}
 
+	public IFieldInfo getPropertyFieldInfo() {
+		ITypeInfo componentType = getComponentTypeInfo();
+		if (componentType == null) {
+			return null;
+		}
+		if ("Class".equals(propertyName)) {
+			return new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
+				@Override
+				public Object getValue(Object object) {
+					return object.getClass().getName();
+				}
+
+				@Override
+				public ITypeInfo getType() {
+					return introspector.getTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
+				}
+			};
+		}
+		if ("ToString".equals(propertyName)) {
+			return new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
+				@Override
+				public Object getValue(Object object) {
+					return object.toString();
+				}
+
+				@Override
+				public ITypeInfo getType() {
+					return introspector.getTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
+				}
+			};
+		}
+		return ReflectionUIUtils.findInfoByCaption(componentType.getFields(), propertyName);
+	}
+
 	public List<String> getPropertyNameOptions() {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
@@ -58,6 +94,8 @@ public class ComponentPropertyUtil {
 				result.add(field.getCaption());
 			}
 		}
+		result.add("ToString");
+		result.add("Class");
 		Collections.sort(result);
 		return result;
 	}
@@ -65,6 +103,9 @@ public class ComponentPropertyUtil {
 	public boolean isSupportedPropertyField(IFieldInfo field) {
 		Class<?> javaType = getFieldJavaType(field);
 		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
+			return true;
+		}
+		if (Color.class.equals(javaType)) {
 			return true;
 		}
 		return false;
@@ -103,6 +144,8 @@ public class ComponentPropertyUtil {
 		}
 		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
 			return fieldValue.toString();
+		} else if (Color.class.equals(fieldValue.getClass())) {
+			return MiscUtils.colorToString((Color) fieldValue);
 		} else {
 			throw new AssertionError();
 		}
@@ -123,17 +166,11 @@ public class ComponentPropertyUtil {
 			} else {
 				return xy.reflect.ui.util.ReflectionUtils.primitiveFromString(propertyValue, javaType);
 			}
+		} else if (Color.class.equals(javaType)) {
+			return MiscUtils.stringToColor(propertyValue);
 		} else {
 			throw new AssertionError();
 		}
-	}
-
-	public IFieldInfo getPropertyFieldInfo() {
-		ITypeInfo componentType = getComponentTypeInfo();
-		if (componentType == null) {
-			return null;
-		}
-		return ReflectionUIUtils.findInfoByCaption(componentType.getFields(), propertyName);
 	}
 
 	public boolean initializeSpecificProperties(Component c, AWTEvent event) {
