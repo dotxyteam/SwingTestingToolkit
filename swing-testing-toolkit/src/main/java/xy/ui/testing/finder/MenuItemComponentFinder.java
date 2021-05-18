@@ -114,7 +114,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 				if (i > 0) {
 					result.append(" / ");
 				}
-				String pathEltText = pathElt.getPropertyValue("Text");
+				String pathEltText = pathElt.getPropertyValueExpected("Text");
 				if (pathEltText == null) {
 					pathEltText = "<unknown item>";
 				} else {

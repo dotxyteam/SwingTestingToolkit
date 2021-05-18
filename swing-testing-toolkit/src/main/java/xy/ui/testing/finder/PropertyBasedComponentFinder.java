@@ -62,7 +62,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 		return propertyValues.size();
 	}
 
-	public void setPropertyValue(String propertyName, String propertyValueExpected) {
+	public void setPropertyValue(String propertyName, String propertyValueExpected, boolean regularExpressionExpected) {
 		PropertyValue value = findPropertyValue(propertyName);
 		if (value == null) {
 			value = createPropertyValue();
@@ -70,14 +70,23 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 			addPropertyValue(getPropertyValueCount(), value);
 		}
 		value.setPropertyValueExpected(propertyValueExpected);
+		value.setRegularExpressionExpected(regularExpressionExpected);
 	}
 
-	public String getPropertyValue(String propertyName) {
+	public String getPropertyValueExpected(String propertyName) {
 		PropertyValue value = findPropertyValue(propertyName);
 		if (value == null) {
 			return null;
 		}
 		return value.getPropertyValueExpected();
+	}
+
+	public boolean isRegularExpressionExpected(String propertyName) {
+		PropertyValue value = findPropertyValue(propertyName);
+		if (value == null) {
+			return false;
+		}
+		return value.isRegularExpressionExpected();
 	}
 
 	public PropertyValue findPropertyValue(String propertyName) {
@@ -167,6 +176,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 
 		protected String propertyName;
 		protected String propertyValueExpected;
+		protected boolean regularExpressionExpected = false;
 
 		public String getPropertyName() {
 			return propertyName;
@@ -184,7 +194,16 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 			this.propertyValueExpected = propertyValueExpected;
 		}
 
+		public boolean isRegularExpressionExpected() {
+			return regularExpressionExpected;
+		}
+
+		public void setRegularExpressionExpected(boolean regularExpressionExpected) {
+			this.regularExpressionExpected = regularExpressionExpected;
+		}
+
 		public boolean initialize(final Component c) {
+			regularExpressionExpected = false;
 			LocalComponentPropertyUtil propertyUtil = getPropertyUtil();
 			IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 			if (field != null) {
@@ -209,6 +228,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 			LocalComponentPropertyUtil result = createPropertyUtil();
 			result.setPropertyName(propertyName);
 			result.setPropertyValueExpected(propertyValueExpected);
+			result.setRegularExpressionExpected(regularExpressionExpected);
 			return result;
 		}
 

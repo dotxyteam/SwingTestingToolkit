@@ -24,8 +24,9 @@ import xy.ui.testing.util.ValidationError;
 public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
-	protected String propertyValueExpected;
 	protected ComponentPropertyUtil propertyUtil = new ComponentPropertyUtil();
+	protected String propertyValueExpected;
+	protected boolean regularExpressionExpected = false;
 
 	public String getPropertyValueExpected() {
 		return propertyValueExpected;
@@ -55,9 +56,18 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		return propertyUtil.getPropertyNameOptions();
 	}
 
+	public boolean isRegularExpressionExpected() {
+		return regularExpressionExpected;
+	}
+
+	public void setRegularExpressionExpected(boolean regularExpressionExpected) {
+		this.regularExpressionExpected = regularExpressionExpected;
+	}
+
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 			TestEditor testEditor) {
+		regularExpressionExpected = false;
 		return propertyUtil.initializeSpecificProperties(c, introspectionRequestEvent);
 	}
 
@@ -65,10 +75,27 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	public void execute(final Component c, Tester tester) {
 		IFieldInfo field = propertyUtil.getPropertyFieldInfo();
 		Object currentFieldValue = field.getValue(c);
-		Object expectedFieldValue = propertyUtil.propertyValueToFieldValue(propertyValueExpected);
-		if (!MiscUtils.equalsOrBothNull(currentFieldValue, expectedFieldValue)) {
-			throw new TestFailure("Component property checking failed: Unexpected property value: '" + currentFieldValue
-					+ "'. Expected: '" + expectedFieldValue + "'");
+		String currentPropertyValue = propertyUtil.fieldValueToPropertyValue(currentFieldValue);
+		if (regularExpressionExpected) {
+			if (propertyValueExpected != null) {
+				if ((currentPropertyValue == null) || !currentPropertyValue.matches(propertyValueExpected)) {
+					throw new TestFailure("Component property checking failed: Unexpected property value: "
+							+ ((currentPropertyValue == null) ? "<null>" : ("'" + currentPropertyValue + "'"))
+							+ ". Expected value matching: '" + propertyValueExpected + "'");
+				}
+			} else {
+				if (currentPropertyValue != null) {
+					throw new TestFailure("Component property checking failed: Unexpected property value: '"
+							+ currentPropertyValue + "'. Expected <null>");
+				}
+			}
+		} else {
+			if (!MiscUtils.equalsOrBothNull(currentPropertyValue, propertyValueExpected)) {
+				throw new TestFailure("Component property checking failed: Unexpected property value: "
+						+ ((currentPropertyValue == null) ? "<null>" : ("'" + currentPropertyValue + "'"))
+						+ ". Expected: "
+						+ ((propertyValueExpected == null) ? "<null>" : ("'" + propertyValueExpected + "'")));
+			}
 		}
 	}
 
@@ -86,7 +113,7 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 				propertyValueText = propertyValueExpected;
 			}
 		}
-		return propertyNameText + " = " + propertyValueText;
+		return propertyNameText + (regularExpressionExpected ? " ~ " : " = ") + propertyValueText;
 	}
 
 	@Override

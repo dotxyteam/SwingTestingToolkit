@@ -17,7 +17,10 @@ import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
 
 /**
- * This class allows to infer component properties from the class name.
+ * This class allows to infer component properties from the class name. Note
+ * that a property is typically a field (with a getter and a setter) that is
+ * supported (not supported: image fields, icon fields, ...) and converted to
+ * string.
  * 
  * @author olitank
  *
@@ -144,7 +147,7 @@ public class ComponentPropertyUtil {
 		}
 		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
 			return fieldValue.toString();
-		} else if (Color.class.equals(fieldValue.getClass())) {
+		} else if (Color.class.isAssignableFrom(fieldValue.getClass())) {
 			return MiscUtils.colorToString((Color) fieldValue);
 		} else {
 			throw new AssertionError();

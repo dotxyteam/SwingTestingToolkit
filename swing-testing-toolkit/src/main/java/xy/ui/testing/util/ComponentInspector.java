@@ -62,6 +62,28 @@ public class ComponentInspector {
 		return true;
 	}
 
+	public class InspectedPropertyValue {
+
+		protected PropertyValue underlyingPropertyValue;
+
+		public InspectedPropertyValue(PropertyValue underlyingPropertyValue) {
+			this.underlyingPropertyValue = underlyingPropertyValue;
+		}
+
+		public String getPropertyName() {
+			return underlyingPropertyValue.getPropertyName();
+		}
+
+		public String getValue() {
+			return underlyingPropertyValue.getPropertyValueExpected();
+		}
+
+		@Override
+		public String toString() {
+			return underlyingPropertyValue.toString();
+		}
+	}
+
 	public class ComponentInspectorNode {
 
 		protected PropertyBasedComponentFinder util;
@@ -110,9 +132,12 @@ public class ComponentInspector {
 			return c.getClass();
 		}
 
-		public PropertyValue[] getPropertyValues() {
-			List<PropertyValue> result = createOrGetUtil().getPropertyValueList();
-			return result.toArray(new PropertyValue[result.size()]);
+		public InspectedPropertyValue[] getPropertyValues() {
+			List<InspectedPropertyValue> result = new ArrayList<InspectedPropertyValue>();
+			for (PropertyValue propertyValue : createOrGetUtil().getPropertyValueList()) {
+				result.add(new InspectedPropertyValue(propertyValue));
+			}
+			return result.toArray(new InspectedPropertyValue[result.size()]);
 		}
 
 		public List<ComponentInspectorNode> getChildren() {
