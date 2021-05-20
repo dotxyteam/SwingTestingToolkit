@@ -88,6 +88,7 @@ public class Tester {
 	protected EditingOptions editingOptions = new EditingOptions();
 
 	protected transient Component currentComponent;
+	protected boolean currentComponentOpaque;
 	protected transient Color currentComponentBackground;
 	protected transient Color currentComponentForeground;
 	protected transient MouseListener[] currentComponentMouseListeners;
@@ -423,22 +424,12 @@ public class Tester {
 	/**
 	 * Highlights the current component ({@link #getCurrentComponent()}).
 	 */
-	protected void unhighlightCurrentComponent() {
-		currentComponent.setBackground(currentComponentBackground);
-		currentComponent.setForeground(currentComponentForeground);
-		if (currentComponent instanceof JComponent) {
-			try {
-				((JComponent) currentComponent).setBorder(currentComponentBorder);
-			} catch (Throwable ignore) {
-			}
-		}
-	}
-
-	/**
-	 * Remove the highlighting of the current component
-	 * ({@link #getCurrentComponent()}).
-	 */
 	protected void highlightCurrentComponent() {
+		if (currentComponent instanceof JComponent) {
+			currentComponentOpaque = ((JComponent) currentComponent).isOpaque();
+			((JComponent) currentComponent).setOpaque(true);
+		}
+
 		currentComponentBackground = currentComponent.getBackground();
 		currentComponent.setBackground(HIGHLIGHT_BACKGROUND);
 
@@ -450,6 +441,24 @@ public class Tester {
 			try {
 				((JComponent) currentComponent).setBorder(BorderFactory.createCompoundBorder(
 						BorderFactory.createLineBorder(HIGHLIGHT_FOREGROUND, 1), currentComponentBorder));
+			} catch (Throwable ignore) {
+			}
+		}
+	}
+
+	/**
+	 * Remove the highlighting of the current component
+	 * ({@link #getCurrentComponent()}).
+	 */
+	protected void unhighlightCurrentComponent() {
+		if (currentComponent instanceof JComponent) {
+			((JComponent) currentComponent).setOpaque(currentComponentOpaque);
+		}
+		currentComponent.setBackground(currentComponentBackground);
+		currentComponent.setForeground(currentComponentForeground);
+		if (currentComponent instanceof JComponent) {
+			try {
+				((JComponent) currentComponent).setBorder(currentComponentBorder);
 			} catch (Throwable ignore) {
 			}
 		}
@@ -627,9 +636,9 @@ public class Tester {
 						result[0] = Collections.emptyList();
 					} else {
 						String text = getLabelText(comboBox.getModel(), comboBox.getRenderer(), i);
-						if(text == null) {
+						if (text == null) {
 							result[0] = Collections.emptyList();
-						}else {
+						} else {
 							result[0] = Collections.singletonList(text);
 						}
 					}
