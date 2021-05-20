@@ -3,6 +3,7 @@ package xy.ui.testing.action.component.property;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -78,7 +79,8 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		String currentPropertyValue = propertyUtil.fieldValueToPropertyValue(tester, currentFieldValue);
 		if (regularExpressionExpected) {
 			if (propertyValueExpected != null) {
-				if ((currentPropertyValue == null) || !currentPropertyValue.matches(propertyValueExpected)) {
+				if ((currentPropertyValue == null) || !Pattern.compile(propertyValueExpected, Pattern.DOTALL)
+						.matcher(currentPropertyValue).matches()) {
 					throw new TestFailure("Component property checking failed: Unexpected property value: "
 							+ ((currentPropertyValue == null) ? "<null>" : ("'" + currentPropertyValue + "'"))
 							+ ". Expected value matching: '" + propertyValueExpected + "'");
