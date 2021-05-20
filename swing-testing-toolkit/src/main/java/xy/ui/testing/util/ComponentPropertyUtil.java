@@ -15,6 +15,7 @@ import xy.reflect.ui.info.field.IFieldInfo;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
 import xy.reflect.ui.util.ReflectionUIUtils;
+import xy.ui.testing.Tester;
 
 /**
  * This class allows to infer component properties from the class name. Note
@@ -52,10 +53,23 @@ public class ComponentPropertyUtil {
 		this.componentClassName = componentClassName;
 	}
 
-	public IFieldInfo getPropertyFieldInfo() {
+	public IFieldInfo getPropertyFieldInfo(final Tester tester) {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
 			return null;
+		}
+		if ("To String".equals(propertyName)) {
+			return new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
+				@Override
+				public Object getValue(Object object) {
+					return object.toString();
+				}
+
+				@Override
+				public ITypeInfo getType() {
+					return introspector.getTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
+				}
+			};
 		}
 		if ("Class".equals(propertyName)) {
 			return new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
@@ -70,11 +84,16 @@ public class ComponentPropertyUtil {
 				}
 			};
 		}
-		if ("ToString".equals(propertyName)) {
+		if ("Displayed Strings".equals(propertyName)) {
 			return new FieldInfoProxy(IFieldInfo.NULL_FIELD_INFO) {
 				@Override
 				public Object getValue(Object object) {
-					return object.toString();
+					List<String> strings = TestingUtils.extractComponentTreeDisplayedStrings((Component) object,
+							tester);
+					if (strings.size() == 0) {
+						return "";
+					}
+					return MiscUtils.formatStringList(strings);
 				}
 
 				@Override
@@ -86,24 +105,51 @@ public class ComponentPropertyUtil {
 		return ReflectionUIUtils.findInfoByCaption(componentType.getFields(), propertyName);
 	}
 
-	public List<String> getPropertyNameOptions() {
+	public Class<?> getJavaType() {
+		ITypeInfo componentType = getComponentTypeInfo();
+		if (componentType == null) {
+			return null;
+		}
+		if ("To String".equals(propertyName)) {
+			return String.class;
+		}
+		if ("Class".equals(propertyName)) {
+			return String.class;
+		}
+		if ("Displayed Strings".equals(propertyName)) {
+			return String.class;
+		}
+		IFieldInfo field = ReflectionUIUtils.findInfoByCaption(componentType.getFields(), propertyName);
+		if (field == null) {
+			return null;
+		}
+		return getFieldJavaType(field);
+	}
+
+	public List<String> getPropertyNameOptions(boolean modifiable) {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
 			return Collections.emptyList();
 		}
 		List<String> result = new ArrayList<String>();
 		for (IFieldInfo field : componentType.getFields()) {
-			if (isSupportedPropertyField(field)) {
+			if (isComponentFieldSupported(field, modifiable)) {
 				result.add(field.getCaption());
 			}
 		}
-		result.add("ToString");
-		result.add("Class");
+		if (!modifiable) {
+			result.add("To String");
+			result.add("Class");
+			result.add("Displayed Strings");
+		}
 		Collections.sort(result);
 		return result;
 	}
 
-	public boolean isSupportedPropertyField(IFieldInfo field) {
+	protected boolean isComponentFieldSupported(IFieldInfo field, boolean modifiable) {
+		if (modifiable && field.isGetOnly()) {
+			return false;
+		}
 		Class<?> javaType = getFieldJavaType(field);
 		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
 			return true;
@@ -114,7 +160,7 @@ public class ComponentPropertyUtil {
 		return false;
 	}
 
-	public Class<?> getFieldJavaType(IFieldInfo field) {
+	protected Class<?> getFieldJavaType(IFieldInfo field) {
 		try {
 			return ClassUtils.getClass(field.getType().getName());
 		} catch (ClassNotFoundException e) {
@@ -137,11 +183,11 @@ public class ComponentPropertyUtil {
 		}
 	}
 
-	public String fieldValueToPropertyValue(Object fieldValue) {
+	public String fieldValueToPropertyValue(Tester tester, Object fieldValue) {
 		if (fieldValue == null) {
 			return null;
 		}
-		IFieldInfo field = getPropertyFieldInfo();
+		IFieldInfo field = getPropertyFieldInfo(tester);
 		if (field == null) {
 			return null;
 		}
@@ -154,11 +200,11 @@ public class ComponentPropertyUtil {
 		}
 	}
 
-	public Object propertyValueToFieldValue(String propertyValue) {
+	public Object propertyValueToFieldValue(Tester tester, String propertyValue) {
 		if (propertyValue == null) {
 			return null;
 		}
-		IFieldInfo field = getPropertyFieldInfo();
+		IFieldInfo field = getPropertyFieldInfo(tester);
 		if (field == null) {
 			return null;
 		}
@@ -178,7 +224,7 @@ public class ComponentPropertyUtil {
 
 	public boolean initializeSpecificProperties(Component c, AWTEvent event) {
 		componentClassName = c.getClass().getName();
-		List<String> propertyNameOptions = getPropertyNameOptions();
+		List<String> propertyNameOptions = getPropertyNameOptions(true);
 		if (propertyNameOptions.size() == 0) {
 			return false;
 		}

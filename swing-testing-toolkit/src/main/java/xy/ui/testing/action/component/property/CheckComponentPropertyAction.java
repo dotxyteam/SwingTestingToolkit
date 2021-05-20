@@ -53,7 +53,7 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 	}
 
 	public List<String> getPropertyNameOptions() {
-		return propertyUtil.getPropertyNameOptions();
+		return propertyUtil.getPropertyNameOptions(false);
 	}
 
 	public boolean isRegularExpressionExpected() {
@@ -73,9 +73,9 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		IFieldInfo field = propertyUtil.getPropertyFieldInfo();
+		IFieldInfo field = propertyUtil.getPropertyFieldInfo(tester);
 		Object currentFieldValue = field.getValue(c);
-		String currentPropertyValue = propertyUtil.fieldValueToPropertyValue(currentFieldValue);
+		String currentPropertyValue = propertyUtil.fieldValueToPropertyValue(tester, currentFieldValue);
 		if (regularExpressionExpected) {
 			if (propertyValueExpected != null) {
 				if ((currentPropertyValue == null) || !currentPropertyValue.matches(propertyValueExpected)) {
@@ -106,8 +106,8 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		if (propertyValueExpected == null) {
 			propertyValueText = "<null>";
 		} else {
-			IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
-			if ((propertyFieldInfo != null) && String.class.getName().equals(propertyFieldInfo.getType().getName())) {
+			Class<?> propertyJavaType = propertyUtil.getJavaType();
+			if ((propertyJavaType != null) && String.class.equals(propertyJavaType)) {
 				propertyValueText = "\"" + StringEscapeUtils.escapeJava(propertyValueExpected) + "\"";
 			} else {
 				propertyValueText = propertyValueExpected;

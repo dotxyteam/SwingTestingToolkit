@@ -23,16 +23,7 @@ import xy.ui.testing.util.ValidationError;
 public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	private static final long serialVersionUID = 1L;
 
-	protected ComponentPropertyUtil propertyUtil = new ComponentPropertyUtil() {
-		@Override
-		public boolean isSupportedPropertyField(IFieldInfo field) {
-			if (field.isGetOnly()) {
-				return false;
-			}
-			return super.isSupportedPropertyField(field);
-		}
-
-	};
+	protected ComponentPropertyUtil propertyUtil = new ComponentPropertyUtil();
 	protected String newPropertyValue;
 
 	public String getNewPropertyValue() {
@@ -60,7 +51,7 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	}
 
 	public List<String> getPropertyNameOptions() {
-		return propertyUtil.getPropertyNameOptions();
+		return propertyUtil.getPropertyNameOptions(true);
 	}
 
 	@Override
@@ -71,8 +62,8 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 
 	@Override
 	public void execute(final Component c, Tester tester) {
-		final IFieldInfo field = propertyUtil.getPropertyFieldInfo();
-		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(newPropertyValue);
+		final IFieldInfo field = propertyUtil.getPropertyFieldInfo(tester);
+		final Object newFieldValue = propertyUtil.propertyValueToFieldValue(tester, newPropertyValue);
 		MiscUtils.expectingToBeInUIThread(new Runnable() {
 			@Override
 			public void run() {
@@ -85,8 +76,8 @@ public class ChangeComponentPropertyAction extends TargetComponentTestAction {
 	public String getValueDescription() {
 		String propertyNameText = (getPropertyName() == null) ? "<unspecified-property>" : getPropertyName();
 		String newPropertyValueText = (newPropertyValue == null) ? "<null>" : newPropertyValue;
-		IFieldInfo propertyFieldInfo = propertyUtil.getPropertyFieldInfo();
-		if ((propertyFieldInfo == null) || String.class.getName().equals(propertyFieldInfo.getType().getName())) {
+		Class<?> propertyJavaType = propertyUtil.getJavaType();
+		if ((propertyJavaType == null) || String.class.equals(propertyJavaType)) {
 			newPropertyValueText = "\"" + StringEscapeUtils.escapeJava(newPropertyValueText) + "\"";
 		}
 		return propertyNameText + " <= " + newPropertyValueText;

@@ -25,6 +25,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.CellRendererPane;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JTabbedPane;
@@ -44,6 +45,7 @@ import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 import xy.ui.testing.TestReport.TestReportStep;
 import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.TestAction;
+import xy.ui.testing.action.component.specific.SelectComboBoxItemAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.Analytics;
 import xy.ui.testing.util.Listener;
@@ -612,7 +614,29 @@ public class Tester {
 	 *         overriden typically when testing custom components that need custom
 	 *         testing behavior.
 	 */
-	public List<String> extractDisplayedStrings(Component c) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<String> extractDisplayedStrings(final Component c) {
+		if (c instanceof JComboBox) {
+			final List<String>[] result = new List[1];
+			new SelectComboBoxItemAction() {
+				private static final long serialVersionUID = 1L;
+				{
+					JComboBox comboBox = (JComboBox) c;
+					int i = comboBox.getSelectedIndex();
+					if (i == -1) {
+						result[0] = Collections.emptyList();
+					} else {
+						String text = getLabelText(comboBox.getModel(), comboBox.getRenderer(), i);
+						if(text == null) {
+							result[0] = Collections.emptyList();
+						}else {
+							result[0] = Collections.singletonList(text);
+						}
+					}
+				}
+			};
+			return result[0];
+		}
 		List<String> result = new ArrayList<String>();
 		String s;
 		s = extractDisplayedStringThroughMethod(c, "getTitle");
@@ -651,7 +675,6 @@ public class Tester {
 			result.addAll(extractDisplayedStringsFromTree(tree));
 		}
 		if (c instanceof JList) {
-			@SuppressWarnings("rawtypes")
 			JList list = (JList) c;
 			result.addAll(extractDisplayedStringsFromList(list));
 		}

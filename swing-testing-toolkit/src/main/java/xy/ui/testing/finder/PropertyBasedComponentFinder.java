@@ -109,7 +109,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 				PropertyValue propertyValue = new PropertyValue();
 				propertyValue.setPropertyName(propertyName);
 				try {
-					propertyValue.initialize(c);
+					propertyValue.initialize(testEditor.getTester(), c);
 				} catch (Throwable t) {
 					testEditor.logDebug(new Exception("Skipping <" + propertyName + "> property of <"
 							+ propertyUtil.getComponentClassName() + "> component: " + t.toString(), t));
@@ -119,7 +119,7 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 			}
 		} else {
 			for (PropertyValue propertyValue : propertyValues) {
-				if (!propertyValue.initialize(c)) {
+				if (!propertyValue.initialize(testEditor.getTester(), c)) {
 					return false;
 				}
 			}
@@ -202,13 +202,13 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 			this.regularExpressionExpected = regularExpressionExpected;
 		}
 
-		public boolean initialize(final Component c) {
+		public boolean initialize(Tester tester, Component c) {
 			regularExpressionExpected = false;
 			LocalComponentPropertyUtil propertyUtil = getPropertyUtil();
-			IFieldInfo field = propertyUtil.getPropertyFieldInfo();
+			IFieldInfo field = propertyUtil.getPropertyFieldInfo(tester);
 			if (field != null) {
 				Object fieldValue = field.getValue(c);
-				propertyValueExpected = propertyUtil.fieldValueToPropertyValue(fieldValue);
+				propertyValueExpected = propertyUtil.fieldValueToPropertyValue(tester, fieldValue);
 				return true;
 			} else {
 				return false;
@@ -253,16 +253,16 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 
 		private static final long serialVersionUID = 1L;
 
-		public String fieldValueToPropertyValue(Object fieldValue) {
-			return propertyUtil.fieldValueToPropertyValue(fieldValue);
+		public String fieldValueToPropertyValue(Tester tester, Object fieldValue) {
+			return propertyUtil.fieldValueToPropertyValue(tester, fieldValue);
 		}
 
-		public Object propertyValueToFieldValue(String propertyValue) {
-			return propertyUtil.propertyValueToFieldValue(propertyValue);
+		public Object propertyValueToFieldValue(Tester tester, String propertyValue) {
+			return propertyUtil.propertyValueToFieldValue(tester, propertyValue);
 		}
 
-		public IFieldInfo getPropertyFieldInfo() {
-			return propertyUtil.getPropertyFieldInfo();
+		public IFieldInfo getPropertyFieldInfo(Tester tester) {
+			return propertyUtil.getPropertyFieldInfo(tester);
 		}
 
 	}
