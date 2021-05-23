@@ -1,14 +1,6 @@
 package xy.ui.testing.action.component;
 
-import java.awt.AWTEvent;
-import java.awt.Component;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import xy.ui.testing.Tester;
-import xy.ui.testing.editor.TestEditor;
-import xy.ui.testing.util.MiscUtils;
-import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
 /**
@@ -57,62 +49,6 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 		this.poupTrigger = poupTrigger;
 	}
 
-	@Override
-	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
-			TestEditor testEditor) {
-		return true;
-	}
-
-	@Override
-	public void execute(final Component c, Tester tester) {
-		MiscUtils.expectingToBeInUIThread(new Runnable() {
-			@Override
-			public void run() {
-				click(c);
-				if (doubleClick) {
-					try {
-						Thread.sleep(eventsIntervalMilliseconds);
-					} catch (InterruptedException e) {
-						throw new TestFailure(e);
-					}
-					click(c);
-				}
-			}
-		});
-	}
-
-	protected void click(Component c) {
-		MouseEvent mouseEvent = createPressedEvent(c);
-		for (MouseListener l : c.getMouseListeners()) {
-			if (mouseEvent.isConsumed()) {
-				break;
-			}
-			l.mousePressed(mouseEvent);
-		}
-		try {
-			Thread.sleep(eventsIntervalMilliseconds);
-		} catch (InterruptedException e) {
-			throw new TestFailure(e);
-		}
-		mouseEvent = createReleaseEvent(c);
-		for (MouseListener l : c.getMouseListeners()) {
-			if (mouseEvent.isConsumed()) {
-				break;
-			}
-			l.mouseReleased(mouseEvent);
-		}
-	}
-
-	protected MouseEvent createReleaseEvent(Component c) {
-		return new MouseEvent(c, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, c.getWidth() / 2,
-				c.getHeight() / 2, 1, false, getButtonMask());
-	}
-
-	protected MouseEvent createPressedEvent(Component c) {
-		return new MouseEvent(c, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, c.getWidth() / 2,
-				c.getHeight() / 2, 1, poupTrigger, getButtonMask());
-	}
-
 	protected int getButtonMask() {
 		if (button == ButtonId.LEFT_BUTTON) {
 			return MouseEvent.BUTTON1;
@@ -131,6 +67,14 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 	}
 
 	@Override
+	public void validate() throws ValidationError {
+		if (button == null) {
+			throw new ValidationError("Missing button identifier");
+		}
+		super.validate();
+	};
+
+	@Override
 	public String toString() {
 		return (doubleClick ? "Double-click" : "Click") + " on " + getComponentInformation();
 	}
@@ -138,13 +82,5 @@ public abstract class AbstractClickAction extends TargetComponentTestAction {
 	public enum ButtonId {
 		LEFT_BUTTON, MIDDLE_BUTTON, RIGHT_BUTTON
 	}
-
-	@Override
-	public void validate() throws ValidationError {
-		if (button == null) {
-			throw new ValidationError("Missing button identifier");
-		}
-		super.validate();
-	};
 
 }

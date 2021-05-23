@@ -45,9 +45,6 @@ public class ClickOnTableCellAction extends AbstractClickAction {
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 			TestEditor testEditor) {
-		if (!super.initializeSpecificProperties(c, introspectionRequestEvent, testEditor)) {
-			return false;
-		}
 		if (!(c instanceof JTable)) {
 			return false;
 		}
