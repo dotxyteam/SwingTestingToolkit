@@ -3,41 +3,26 @@ package xy.ui.testing.action.component.specific;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JTree;
-import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 import org.jdesktop.swingx.JXTreeTable;
 
 import xy.ui.testing.Tester;
-import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
-import xy.ui.testing.util.ValidationError;
 
 /**
- * Test action that expands a {@link JXTreeTable} node.
+ * Test action that expands a {@link JXTreeTable}/{@link JXTree} node.
  * 
  * @author olitank
  *
  */
-public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
+public class ExpandTreetTableToItemAction extends AbstractTreeTableItemPathAction {
 
 	private static final long serialVersionUID = 1L;
-	protected List<Integer> itemPath = new ArrayList<Integer>();
-
-	public List<Integer> getItemPath() {
-		return itemPath;
-	}
-
-	public void setItemPath(List<Integer> itemPath) {
-		this.itemPath = itemPath;
-	}
-
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 			TestEditor testEditor) {
@@ -48,9 +33,12 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (treePath == null) {
 				return false;
 			}
-			itemPath = fromTreePathToIntPath(treePath, treeTable.getTreeTableModel());
+			itemPath = treePathToIndexes(treePath, treeTable.getTreeTableModel());
 			if (itemPath == null) {
 				return false;
+			}
+			if (treeTable.getTreeTableModel().getChildCount(treePath.getLastPathComponent()) > 0) {
+				itemPath.add(0);
 			}
 			return true;
 		}
@@ -61,44 +49,16 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			if (treePath == null) {
 				return false;
 			}
-			itemPath = fromTreePathToIntPath(treePath, tree.getModel());
+			itemPath = treePathToIndexes(treePath, tree.getModel());
 			if (itemPath == null) {
 				return false;
+			}
+			if (tree.getModel().getChildCount(treePath.getLastPathComponent()) > 0) {
+				itemPath.add(0);
 			}
 			return true;
 		}
 		return false;
-
-	}
-
-	protected List<Integer> fromTreePathToIntPath(TreePath treePath, TreeModel treeModel) {
-		List<Integer> result = new ArrayList<Integer>();
-		Object pathElementParent = null;
-		for (Object pathElement : treePath.getPath()) {
-			if (pathElementParent != null) {
-				int index = treeModel.getIndexOfChild(pathElementParent, pathElement);
-				if (index == -1) {
-					return null;
-				}
-				result.add(index);
-			}
-			pathElementParent = pathElement;
-		}
-		return result;
-	}
-
-	protected TreePath fromIntPathToTreePath(List<Integer> intPath, TreeModel treeModel) {
-		TreePath result = new TreePath(treeModel.getRoot());
-		Object pathElementParent = treeModel.getRoot();
-		for (int index : intPath) {
-			Object pathElement = treeModel.getChild(pathElementParent, index);
-			if (pathElement == null) {
-				return null;
-			}
-			result = result.pathByAddingChild(pathElement);
-			pathElementParent = pathElement;
-		}
-		return result;
 	}
 
 	@Override
@@ -106,7 +66,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 		if (c instanceof JXTreeTable) {
 			final JXTreeTable treeTable = (JXTreeTable) c;
 			treeTable.collapseAll();
-			final TreePath treePath = fromIntPathToTreePath(itemPath, treeTable.getTreeTableModel());
+			final TreePath treePath = indexesToTreePath(itemPath, treeTable.getTreeTableModel());
 			if (treePath == null) {
 				throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 			}
@@ -121,7 +81,7 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 			for (int row = tree.getRowCount() - 1; row > 0; row--) {
 				tree.collapseRow(row);
 			}
-			final TreePath treePath = fromIntPathToTreePath(itemPath, tree.getModel());
+			final TreePath treePath = indexesToTreePath(itemPath, tree.getModel());
 			if (treePath == null) {
 				throw new TestFailure("Cannot expand to the specified item: The path is not valid: " + itemPath);
 			}
@@ -137,28 +97,8 @@ public class ExpandTreetTableToItemAction extends TargetComponentTestAction {
 	}
 
 	@Override
-	public void validate() throws ValidationError {
-		if (itemPath.size() == 0) {
-			throw new ValidationError("Item path not defined");
-		}
-	}
-
-	@Override
-	public String getValueDescription() {
-		StringBuilder result = new StringBuilder();
-		for (int i = 0; i < itemPath.size(); i++) {
-			int index = itemPath.get(i);
-			if (i > 0) {
-				result.append(" / ");
-			}
-			result.append(MiscUtils.formatOccurrence("item", index));
-		}
-		return result.toString();
-	}
-
-	@Override
 	public String toString() {
-		return "Expand " + getValueDescription() + " from " + getComponentInformation();
+		return "Expand To " + getValueDescription() + " from " + getComponentInformation();
 	}
 
 }

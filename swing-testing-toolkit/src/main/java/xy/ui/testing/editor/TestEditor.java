@@ -106,6 +106,7 @@ import xy.ui.testing.action.component.SendKeysAction.WriteText;
 import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.action.component.specific.ClickOnTableCellAction;
+import xy.ui.testing.action.component.specific.CollapseTreetTableItemAction;
 import xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction;
 import xy.ui.testing.action.component.specific.SelectComboBoxItemAction;
 import xy.ui.testing.action.component.specific.SelectTabAction;
@@ -162,11 +163,11 @@ public class TestEditor extends JFrame {
 
 	public static final Class<?>[] BUILT_IN_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
 			SystemExitCallInterceptionAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
-			SelectComboBoxItemAction.class, SelectTableRowAction.class, SelectTabAction.class,
-			ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class,
-			FocusAction.class, CheckVisibleStringsAction.class, CheckWindowVisibleStringsAction.class,
-			ChangeComponentPropertyAction.class, CheckComponentPropertyAction.class, CloseWindowAction.class,
-			CheckNumberOfOpenWindowsAction.class };
+			CollapseTreetTableItemAction.class, SelectComboBoxItemAction.class, SelectTableRowAction.class,
+			SelectTabAction.class, ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class,
+			SendKeysAction.class, FocusAction.class, CheckVisibleStringsAction.class,
+			CheckWindowVisibleStringsAction.class, ChangeComponentPropertyAction.class,
+			CheckComponentPropertyAction.class, CloseWindowAction.class, CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] { MenuItemComponentFinder.class,
 			NameBasedComponentFinder.class, DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class,
 			PropertyBasedComponentFinder.class };
