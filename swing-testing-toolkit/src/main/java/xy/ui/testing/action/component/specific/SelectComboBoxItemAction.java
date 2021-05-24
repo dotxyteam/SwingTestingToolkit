@@ -77,25 +77,21 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			return false;
 		}
 		JComboBox comboBox = (JComboBox) c;
-		if (comboBox.getItemCount() == 0) {
-			return false;
-		}
 		List<String> allOptions = getAllOptions(comboBox);
-		knownOptions = new Option[allOptions.size()];
-		for (int i = 0; i < allOptions.size(); i++) {
-			knownOptions[i] = new Option(i, allOptions.get(i));
+		if (allOptions.size() == 0) {
+			return false;
 		}
 		String labelText = getLabelText(comboBox.getModel(), comboBox.getRenderer(), 0);
 		if (labelText != null) {
 			selectionMode = SelectionMode.BY_LABEL_TEXT;
-			if (allOptions.size() > 0) {
-				optionToSelect = allOptions.get(0);
-			}
+			optionToSelect = allOptions.get(0);
 		} else {
 			selectionMode = SelectionMode.BY_POSITION;
-			if (allOptions.size() > 0) {
-				optionToSelect = "0";
-			}
+			optionToSelect = "0";
+		}
+		knownOptions = new Option[allOptions.size()];
+		for (int i = 0; i < allOptions.size(); i++) {
+			knownOptions[i] = new Option(i, allOptions.get(i));
 		}
 		return true;
 	}
@@ -133,7 +129,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	}
 
 	protected String getLabelText(ComboBoxModel model, ListCellRenderer renderer, int i) {
-		Object item = model.getElementAt(i);
+		Object item = (i == -1) ? null : model.getElementAt(i);
 		Component cellRenderer = renderer.getListCellRendererComponent(new JList(), item, 0, false, false);
 		if (!(cellRenderer instanceof JLabel)) {
 			return null;

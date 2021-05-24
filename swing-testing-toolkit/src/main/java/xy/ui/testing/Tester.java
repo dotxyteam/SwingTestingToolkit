@@ -598,6 +598,9 @@ public class Tester {
 	 *         actions) is computed with this method.
 	 */
 	public List<Component> getChildrenComponents(Container container) {
+		if (container instanceof JComboBox) {
+			return Collections.emptyList();
+		}
 		List<Component> result = new ArrayList<Component>(Arrays.asList(container.getComponents()));
 		Collections.sort(result, new Comparator<Component>() {
 			@Override
@@ -632,15 +635,11 @@ public class Tester {
 				{
 					JComboBox comboBox = (JComboBox) c;
 					int i = comboBox.getSelectedIndex();
-					if (i == -1) {
+					String text = getLabelText(comboBox.getModel(), comboBox.getRenderer(), i);
+					if ((text == null) || (text.length() == 0)) {
 						result[0] = Collections.emptyList();
 					} else {
-						String text = getLabelText(comboBox.getModel(), comboBox.getRenderer(), i);
-						if (text == null) {
-							result[0] = Collections.emptyList();
-						} else {
-							result[0] = Collections.singletonList(text);
-						}
+						result[0] = Collections.singletonList(text);
 					}
 				}
 			};
