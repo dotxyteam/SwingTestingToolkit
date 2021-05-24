@@ -73,21 +73,23 @@ public abstract class AbstractWindowSwitch {
 		return testEditor.getTester();
 	}
 
-	public void activate(boolean b) {
-		if (b == isActive()) {
+	public void activate() {
+		if (isActive()) {
 			return;
 		}
-		if (b) {
-			statusControlWindow = new StatusControlWindow();
-			statusControlWindow.setVisible(true);
-		} else {
-			TestingUtils.sendWindowClosingEvent(AbstractWindowSwitch.this.statusControlWindow);
-			AbstractWindowSwitch.this.statusControlWindow = null;
+		statusControlWindow = new StatusControlWindow();
+		statusControlWindow.setVisible(true);
+	}
+
+	public void requestDeactivation() {
+		if (!isActive()) {
+			return;
 		}
+		TestingUtils.sendWindowClosingEvent(statusControlWindow);
 	}
 
 	public boolean isActive() {
-		return statusControlWindow != null;
+		return (statusControlWindow != null) && statusControlWindow.isVisible();
 	}
 
 	public Form getStatusControlForm() {
@@ -125,7 +127,7 @@ public abstract class AbstractWindowSwitch {
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override
 				public void run() {
-					AbstractWindowSwitch.this.activate(false);
+					AbstractWindowSwitch.this.requestDeactivation();
 				}
 			});
 		}

@@ -44,6 +44,7 @@ import xy.reflect.ui.control.swing.ListControl;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.builder.DialogBuilder;
 import xy.reflect.ui.control.swing.customizer.CustomizingFieldControlPlaceHolder;
+import xy.reflect.ui.control.swing.customizer.CustomizingForm;
 import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.menu.AbstractFileMenuItem;
@@ -187,7 +188,7 @@ public class TestEditor extends JFrame {
 	protected ComponentInspectionWindowSwitch componentInspectionWindowSwitch = new ComponentInspectionWindowSwitch(
 			this);
 
-	protected SwingRenderer swingRenderer;
+	protected SwingCustomizer swingRenderer;
 	protected CustomizedUI reflectionUI;
 	protected InfoCustomizations infoCustomizations;
 	protected Component componentFinderInitializationSource;
@@ -607,7 +608,7 @@ public class TestEditor extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				recordingWindowSwitch.activate(true);
+				recordingWindowSwitch.activate();
 			}
 		});
 	}
@@ -620,7 +621,7 @@ public class TestEditor extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				replayWindowSwitch.activate(true);
+				replayWindowSwitch.activate();
 			}
 
 		});
@@ -681,7 +682,7 @@ public class TestEditor extends JFrame {
 		return BUILT_IN_KEYBOARD_INTERACTION_CLASSES;
 	}
 
-	protected SwingRenderer createSwingRenderer(CustomizedUI reflectionUI) {
+	protected SwingCustomizer createSwingRenderer(CustomizedUI reflectionUI) {
 		return new TestEditorSwingRenderer(reflectionUI);
 	}
 
@@ -1407,7 +1408,7 @@ public class TestEditor extends JFrame {
 							SwingUtilities.invokeLater(new Runnable() {
 								@Override
 								public void run() {
-									componentInspectionWindowSwitch.activate(true);
+									componentInspectionWindowSwitch.activate();
 								}
 							});
 							return null;

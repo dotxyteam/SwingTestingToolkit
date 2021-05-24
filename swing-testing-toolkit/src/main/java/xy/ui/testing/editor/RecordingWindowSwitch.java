@@ -397,7 +397,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				RecordingWindowSwitch.this.activate(false);
+				RecordingWindowSwitch.this.requestDeactivation();
 			}
 		});
 		options.add(stopRecordingItem);

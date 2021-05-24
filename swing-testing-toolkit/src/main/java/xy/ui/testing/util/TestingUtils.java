@@ -380,7 +380,7 @@ public class TestingUtils {
 			throw new TestFailure("Test specification not found.");
 		} else {
 			tester.loadFromFile(specificationFile);
-			final boolean[] started = new boolean[] { false };
+			final boolean[] activated = new boolean[] { false };
 			testEditor.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowOpened(WindowEvent ev) {
@@ -390,8 +390,8 @@ public class TestingUtils {
 						throw new AssertionError(e);
 					}
 					testEditor.getReplayWindowSwitch().setActionsToReplay(Arrays.asList(tester.getTestActions()));
-					testEditor.getReplayWindowSwitch().activate(true);
-					started[0] = true;
+					testEditor.getReplayWindowSwitch().activate();
+					activated[0] = true;
 					testEditor.removeWindowListener(this);
 				}
 			});
@@ -402,7 +402,7 @@ public class TestingUtils {
 					testEditor.refresh();
 				}
 			});
-			while (!started[0] || testEditor.getReplayWindowSwitch().isActive()) {
+			while (!activated[0] || testEditor.getReplayWindowSwitch().isActive()) {
 				Thread.sleep(1000);
 			}
 			TestReport report = testEditor.getTestReport();

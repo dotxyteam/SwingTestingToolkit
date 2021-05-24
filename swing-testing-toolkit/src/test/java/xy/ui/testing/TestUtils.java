@@ -26,7 +26,7 @@ public class TestUtils {
 			public void run() {
 				testEditor = new TestEditor(new Tester());
 				testEditor.open();
-				testEditor.getComponentInspectionWindowSwitch().activate(true);
+				testEditor.getComponentInspectionWindowSwitch().activate();
 			}
 		});
 		final List<Window> disposeOrder = new ArrayList<Window>();
@@ -106,7 +106,7 @@ public class TestUtils {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				testEditor.getComponentInspectionWindowSwitch().activate(false);
+				testEditor.getComponentInspectionWindowSwitch().requestDeactivation();
 			}
 		});
 		Thread.sleep(5000);
