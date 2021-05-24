@@ -1,25 +1,32 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.MenuSelectionManager;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.TestingUtils;
 import xy.ui.testing.util.ValidationError;
 
 /**
- * Component finder that can handle a menu or sub-menu item.
+ * Component finder that can find popup menu or sub-menu items.
+ * 
+ * Note that for historical reasons a list of
+ * {@link PropertyBasedComponentFinder} is used to identify each menu items. The
+ * problem is that it stores the menu item class name and the popup container
+ * window index that are useless (except for the 1st menu item in the path) and
+ * sometimes wrong for undetermined reasons.
  * 
  * @author olitank
  *
@@ -36,38 +43,6 @@ public class MenuItemComponentFinder extends ComponentFinder {
 
 	public void setMenuItemPath(List<PropertyBasedComponentFinder> menuItemPath) {
 		this.menuItemPath = menuItemPath;
-	}
-
-	@Override
-	public Component find(Tester tester) {
-		if (menuItemPath.size() == 0) {
-			throw new TestFailure("Cannot find menu item: path not set");
-		}
-		for (int i = 0; i < menuItemPath.size(); i++) {
-			PropertyBasedComponentFinder menuItemFinder = menuItemPath.get(i);
-			JMenuItem menuItem = (JMenuItem) menuItemFinder.find(tester);
-			if (menuItem == null) {
-				throw new TestFailure("Unable to find " + menuItemFinder.toString());
-			}
-			boolean lastMenuItem = i == (menuItemPath.size() - 1);
-			if (lastMenuItem) {
-				return menuItem;
-			} else {
-				openMenu((JMenu) menuItem);
-			}
-		}
-		throw new AssertionError();
-	}
-
-	protected void openMenu(JMenu menu) {
-		MouseEvent mouseEvent = new MouseEvent(menu, MouseEvent.MOUSE_ENTERED, System.currentTimeMillis(), 0,
-				menu.getWidth() / 2, menu.getHeight() / 2, 1, false, 0);
-		for (MouseListener l : menu.getMouseListeners()) {
-			if (mouseEvent.isConsumed()) {
-				break;
-			}
-			l.mouseEntered(mouseEvent);
-		}
 	}
 
 	@Override
@@ -101,6 +76,54 @@ public class MenuItemComponentFinder extends ComponentFinder {
 		} else {
 			return -1;
 		}
+	}
+
+	@Override
+	public Component find(Tester tester) {
+		if (menuItemPath.size() == 0) {
+			throw new TestFailure("Cannot find menu item: path not set");
+		}
+		List<MenuElement> allMenuElements = new ArrayList<MenuElement>();
+		JMenuItem lastMenuItem = null;
+		PropertyBasedComponentFinder lastMenuItemFinder = null;
+		for (int i = 0; i < menuItemPath.size(); i++) {
+			lastMenuItemFinder = menuItemPath.get(i);
+			if (i == 0) {
+				lastMenuItem = (JMenuItem) lastMenuItemFinder.find(tester);
+				if (lastMenuItem == null) {
+					throw new TestFailure("Unable to find " + lastMenuItemFinder.toString());
+				}
+				if (!(lastMenuItem instanceof JMenu)) {
+					if (!(lastMenuItem.getParent() instanceof JPopupMenu)) {
+						throw new TestFailure(
+								"Unable to find the popup menu containing " + lastMenuItemFinder.toString());
+					}
+					allMenuElements.add((JPopupMenu) lastMenuItem.getParent());
+				}
+			} else {
+				String expectedSubMenuItemText = lastMenuItemFinder.getPropertyValueExpected("Text");
+				JMenu subMenu = (JMenu) lastMenuItem;
+				allMenuElements.add(subMenu.getPopupMenu());
+				lastMenuItem = null;
+				for (int iMenuItem = 0; iMenuItem < subMenu.getItemCount(); iMenuItem++) {
+					JMenuItem subMenuItem = subMenu.getItem(iMenuItem);
+					if (MiscUtils.equalsOrBothNull(expectedSubMenuItemText, subMenuItem.getText())) {
+						lastMenuItem = subMenuItem;
+						break;
+					}
+				}
+				if (lastMenuItem == null) {
+					throw new TestFailure("Unable to find sub-menu item '" + expectedSubMenuItemText + "'");
+				}
+			}
+			allMenuElements.add(lastMenuItem);
+		}
+		MenuSelectionManager.defaultManager()
+				.setSelectedPath(allMenuElements.toArray(new MenuElement[allMenuElements.size()]));
+		if (!lastMenuItem.isVisible()) {
+			throw new TestFailure("Unable to show " + lastMenuItemFinder.toString());
+		}
+		return lastMenuItem;
 	}
 
 	@Override
