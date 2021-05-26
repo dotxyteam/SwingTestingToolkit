@@ -1,6 +1,7 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
+import java.awt.Window;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
 import javax.swing.MenuSelectionManager;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -25,8 +27,13 @@ import xy.ui.testing.util.ValidationError;
  * Note that for historical reasons a list of
  * {@link PropertyBasedComponentFinder} is used to identify each menu items. The
  * problem is that it stores the menu item class name and the popup container
- * window index that are useless (except for the 1st menu item in the path) and
- * sometimes wrong for undetermined reasons.
+ * window index that are useless and sometimes wrong because swing may reuse the
+ * current window as the popup container or create a new window according to
+ * undetermined circumstances.
+ * 
+ * Note also that this component finder can find {@link JMenu} instances on a
+ * menu bar when it should only be used to find popup menu items. This feature
+ * should be removed since it complicates the code.
  * 
  * @author olitank
  *
@@ -91,13 +98,40 @@ public class MenuItemComponentFinder extends ComponentFinder {
 			if (i == 0) {
 				lastMenuItem = (JMenuItem) lastMenuItemFinder.find(tester);
 				if (lastMenuItem == null) {
+					MenuElement[] menuPath = MenuSelectionManager.defaultManager().getSelectedPath();
+					if ((menuPath.length == 1) && (menuPath[0] instanceof JPopupMenu)) {
+						JPopupMenu rootPopupMenu = (JPopupMenu) menuPath[0];
+						int windowIndex = 0;
+						boolean windowIndexFound = false;
+						Window componentWindow = SwingUtilities.getWindowAncestor(rootPopupMenu);
+						for (Window window : Window.getWindows()) {
+							if (!tester.isTestable(window) || !tester.isVisible(window)) {
+								continue;
+							}
+							if (window == componentWindow) {
+								windowIndexFound = true;
+								break;
+							}
+							windowIndex++;
+						}
+						if (windowIndexFound) {
+							PropertyBasedComponentFinder dynamicPopupWindowMenuItemFinder = new PropertyBasedComponentFinder();
+							dynamicPopupWindowMenuItemFinder
+									.setComponentClassName(lastMenuItemFinder.getComponentClassName());
+							dynamicPopupWindowMenuItemFinder
+									.setOccurrencesToSkip(lastMenuItemFinder.getOccurrencesToSkip());
+							dynamicPopupWindowMenuItemFinder
+									.setPropertyValueList(lastMenuItemFinder.getPropertyValueList());
+							dynamicPopupWindowMenuItemFinder.setWindowIndex(windowIndex);
+							lastMenuItem = (JMenuItem) dynamicPopupWindowMenuItemFinder.find(tester);
+						}
+					}
+
+				}
+				if (lastMenuItem == null) {
 					throw new TestFailure("Unable to find " + lastMenuItemFinder.toString());
 				}
-				if (!(lastMenuItem instanceof JMenu)) {
-					if (!(lastMenuItem.getParent() instanceof JPopupMenu)) {
-						throw new TestFailure(
-								"Unable to find the popup menu containing " + lastMenuItemFinder.toString());
-					}
+				if (lastMenuItem.getParent() instanceof JPopupMenu) {
 					allMenuElements.add((JPopupMenu) lastMenuItem.getParent());
 				}
 			} else {
@@ -120,7 +154,7 @@ public class MenuItemComponentFinder extends ComponentFinder {
 		}
 		MenuSelectionManager.defaultManager()
 				.setSelectedPath(allMenuElements.toArray(new MenuElement[allMenuElements.size()]));
-		if (!lastMenuItem.isVisible()) {
+		if (!lastMenuItem.isDisplayable()) {
 			throw new TestFailure("Unable to show " + lastMenuItemFinder.toString());
 		}
 		return lastMenuItem;
