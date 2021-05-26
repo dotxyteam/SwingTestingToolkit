@@ -4,6 +4,7 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
@@ -33,9 +34,10 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	private static final long serialVersionUID = 1L;
 
-	protected String optionToSelect = "";
+	protected String optionToSelect = null;
 	protected SelectionMode selectionMode = SelectionMode.BY_LABEL_TEXT;
-	protected Option[] knownOptions;
+	protected OptionPair[] knownOptionPairs;
+	protected boolean optionListChecked = false;
 
 	public SelectionMode getSelectionMode() {
 		return selectionMode;
@@ -53,21 +55,41 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		this.optionToSelect = optionToSelect;
 	}
 
+	public boolean isOptionListChecked() {
+		return optionListChecked;
+	}
+
+	public void setOptionListChecked(boolean optionListChecked) {
+		this.optionListChecked = optionListChecked;
+	}
+
 	public List<String> getKnownOptions() {
-		if (knownOptions == null) {
-			return null;
+		if (knownOptionPairs == null) {
+			return Collections.emptyList();
 		}
 		List<String> result = new ArrayList<String>();
-		for (Option option : knownOptions) {
+		for (OptionPair optionPair : knownOptionPairs) {
 			if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
-				result.add(option.getLabel());
+				result.add(optionPair.getLabel());
 			} else if (selectionMode == SelectionMode.BY_POSITION) {
-				result.add(Integer.toString(option.getPosition()));
+				result.add(Integer.toString(optionPair.getPosition()));
 			} else {
 				throw new ReflectionUIError();
 			}
 		}
 		return result;
+	}
+
+	public void setKnownOptions(List<String> newKnownOptions) {
+		if (newKnownOptions.size() == 0) {
+			knownOptionPairs = null;
+			return;
+		}
+		knownOptionPairs = new OptionPair[newKnownOptions.size()];
+		for (int i = 0; i < newKnownOptions.size(); i++) {
+			String option = newKnownOptions.get(i);
+			knownOptionPairs[i] = new OptionPair(i, option);
+		}
 	}
 
 	@Override
@@ -89,10 +111,11 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			selectionMode = SelectionMode.BY_POSITION;
 			optionToSelect = "0";
 		}
-		knownOptions = new Option[allOptions.size()];
+		knownOptionPairs = new OptionPair[allOptions.size()];
 		for (int i = 0; i < allOptions.size(); i++) {
-			knownOptions[i] = new Option(i, allOptions.get(i));
+			knownOptionPairs[i] = new OptionPair(i, allOptions.get(i));
 		}
+		optionListChecked = false;
 		return true;
 	}
 
@@ -141,6 +164,13 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 	public void execute(Component c, Tester tester) {
 		final JComboBox comboBox = (JComboBox) c;
 		List<String> options = getAllOptionsFromUIThread(comboBox);
+		if (optionListChecked) {
+			List<String> knownOptions = getKnownOptions();
+			if (!options.equals(knownOptions)) {
+				throw new TestFailure("The combo box items have changed. These are the expected and actual items:"
+						+ "\n" + MiscUtils.formatStringList(knownOptions) + "\n" + MiscUtils.formatStringList(options));
+			}
+		}
 		int indexToSelect = -1;
 		for (int i = 0; i < options.size(); i++) {
 			String option = options.get(i);
@@ -191,14 +221,17 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	@Override
 	public String getValueDescription() {
-		if (selectionMode == SelectionMode.BY_POSITION) {
-			return MiscUtils.formatOccurrence("item", Integer.valueOf(optionToSelect));
-		} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
-			return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
+		if (optionToSelect == null) {
+			return "<unspecified option>";
 		} else {
-			return "<unspecified selection mode>";
+			if (selectionMode == SelectionMode.BY_POSITION) {
+				return MiscUtils.formatOccurrence("item", Integer.valueOf(optionToSelect));
+			} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
+				return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
+			} else {
+				return "<unspecified selection mode>";
+			}
 		}
-
 	}
 
 	@Override
@@ -206,13 +239,13 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		return "Select option  " + getValueDescription() + " from " + getComponentInformation();
 	}
 
-	public class Option implements Serializable {
+	public class OptionPair implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		private int position;
 		private String label;
 
-		protected Option(int position, String label) {
+		protected OptionPair(int position, String label) {
 			super();
 			this.position = position;
 			this.label = label;
