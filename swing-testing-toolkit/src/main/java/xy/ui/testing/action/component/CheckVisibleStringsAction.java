@@ -137,9 +137,6 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 
 	@Override
 	public void validate() throws ValidationError {
-		if (visibleStrings.size() == 0) {
-			throw new ValidationError("The visible strings to check have not been defined");
-		}
 	}
 
 	@Override
