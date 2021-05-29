@@ -85,11 +85,18 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			knownOptionPairs = null;
 			return;
 		}
-		knownOptionPairs = new OptionPair[newKnownOptions.size()];
+		OptionPair[] newKnownOptionPairs = new OptionPair[newKnownOptions.size()];
 		for (int i = 0; i < newKnownOptions.size(); i++) {
-			String option = newKnownOptions.get(i);
-			knownOptionPairs[i] = new OptionPair(i, option);
+			if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
+				newKnownOptionPairs[i] = new OptionPair(i, newKnownOptions.get(i));
+			} else if (selectionMode == SelectionMode.BY_POSITION) {
+				newKnownOptionPairs[i] = new OptionPair(Integer.valueOf(newKnownOptions.get(i)),
+						"<unknown label " + i + ">");
+			} else {
+				throw new ReflectionUIError();
+			}
 		}
+		knownOptionPairs = newKnownOptionPairs;
 	}
 
 	@Override
@@ -217,6 +224,14 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			throw new ValidationError("Missing selection mode");
 		}
 
+		List<String> options = getKnownOptions();
+		if ((options != null) && (options.size() > 0)) {
+			if (!options.contains(optionToSelect)) {
+				throw new ValidationError(
+						"The option to select is not valid: '" + optionToSelect + "'. Expected: " + options);
+			}
+		}
+
 	}
 
 	@Override
@@ -225,7 +240,11 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 			return "<unspecified option>";
 		} else {
 			if (selectionMode == SelectionMode.BY_POSITION) {
-				return MiscUtils.formatOccurrence("item", Integer.valueOf(optionToSelect));
+				try {
+					return MiscUtils.formatOccurrence("item", Integer.valueOf(optionToSelect));
+				} catch (NumberFormatException e) {
+					return "<invalid item number>";
+				}
 			} else if (selectionMode == SelectionMode.BY_LABEL_TEXT) {
 				return "\"" + StringEscapeUtils.escapeJava(optionToSelect) + "\"";
 			} else {

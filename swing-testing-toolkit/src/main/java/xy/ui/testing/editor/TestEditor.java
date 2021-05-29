@@ -40,12 +40,13 @@ import org.jdesktop.swingx.StackLayout;
 import xy.reflect.ui.CustomizedUI;
 import xy.reflect.ui.control.DefaultFieldControlData;
 import xy.reflect.ui.control.IMethodControlData;
+import xy.reflect.ui.control.IMethodControlInput;
 import xy.reflect.ui.control.swing.ListControl;
+import xy.reflect.ui.control.swing.MethodAction;
 import xy.reflect.ui.control.swing.NullableControl;
 import xy.reflect.ui.control.swing.builder.DialogBuilder;
 import xy.reflect.ui.control.swing.customizer.CustomizingFieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.CustomizingForm;
-import xy.reflect.ui.control.swing.customizer.CustomizingMethodControlPlaceHolder;
 import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.menu.AbstractFileMenuItem;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
@@ -831,23 +832,6 @@ public class TestEditor extends JFrame {
 					};
 				}
 
-				@Override
-				public CustomizingMethodControlPlaceHolder createMethodControlPlaceHolder(IMethodInfo method) {
-					return new CustomizingMethodControlPlaceHolder((SwingCustomizer) swingRenderer, this, method) {
-
-						private static final long serialVersionUID = 1L;
-
-						@Override
-						protected IMethodControlData indicateWhenBusy(IMethodControlData data) {
-							if (method.getName().startsWith("switch")) {
-								return data;
-							} else {
-								return super.indicateWhenBusy(data);
-							}
-						}
-
-					};
-				}
 			};
 		}
 
@@ -874,6 +858,23 @@ public class TestEditor extends JFrame {
 				}
 			}
 			return result;
+		}
+
+		@Override
+		public MethodAction createMethodAction(IMethodControlInput input) {
+			return new MethodAction(this, input) {
+
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				protected IMethodControlData indicateWhenBusy(IMethodControlData data, Component activatorComponent) {
+					if (data.getCaption().startsWith("Switch")) {
+						return data;
+					} else {
+						return super.indicateWhenBusy(data, activatorComponent);
+					}
+				}
+			};
 		}
 
 	}
