@@ -1,6 +1,7 @@
 package xy.ui.testing.finder;
 
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -172,8 +173,10 @@ public class PropertyBasedComponentFinder extends AbstractClassBasedComponentFin
 		}
 	}
 
-	public class PropertyValue {
+	public class PropertyValue  implements Serializable{
 
+		private static final long serialVersionUID = 1L;
+		
 		protected String propertyName;
 		protected String propertyValueExpected;
 		protected boolean regularExpressionExpected = false;
