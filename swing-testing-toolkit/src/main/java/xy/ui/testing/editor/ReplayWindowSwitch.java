@@ -99,7 +99,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 			}
 		}
 		if (replayThreadError != null) {
-			getSwingRenderer().handleExceptionsFromDisplayedUI(ReplayWindowSwitch.this.getWindow(), replayThreadError);
+			getSwingRenderer().handleObjectException(ReplayWindowSwitch.this.getWindow(), replayThreadError);
 		}
 		if (lastTestReport != null) {
 			testEditor.setTestReport(lastTestReport);
