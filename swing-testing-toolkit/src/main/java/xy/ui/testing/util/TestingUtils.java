@@ -285,6 +285,7 @@ public class TestingUtils {
 	 *                   execution fails.
 	 */
 	public static void assertSuccessfulReplay(final Tester tester, File specificationFile) throws Exception {
+		tester.logInfo("Replaying '" + specificationFile + "'...");
 		try {
 			if (TEST_EDITOR_HIDDEN_DURING_ASSERTIONS) {
 				assertSuccessfulReplayWithoutTestEditor(tester, specificationFile);
