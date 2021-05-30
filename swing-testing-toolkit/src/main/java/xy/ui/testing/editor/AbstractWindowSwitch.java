@@ -164,7 +164,12 @@ public abstract class AbstractWindowSwitch {
 				setLocation(getInitialLocation());
 			}
 			addWindowListener(windowListener);
-			hideParent();
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					hideParent();
+				}
+			});
 		}
 
 		@Override
@@ -178,7 +183,12 @@ public abstract class AbstractWindowSwitch {
 			windowManager.uninstall();
 			statusControlForm = null;
 			super.dispose();
-			showParent();
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					showParent();
+				}
+			});
 		}
 
 		protected void hideParent() {
