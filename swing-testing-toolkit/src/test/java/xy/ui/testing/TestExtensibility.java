@@ -92,23 +92,23 @@ public class TestExtensibility {
 		 * and setters for these properties in order to be able to edit them in the
 		 * TestEditor.
 		 */
-		private boolean propertytoCheckExpectpedValue;
-		private int propertytoChangeNewValue;
+		private String expectpedValueOfPropertyToCheck;
+		private int newValueOfPropertyToChange;
 
-		public boolean isPropertytoCheckExpectpedValue() {
-			return propertytoCheckExpectpedValue;
+		public String getExpectpedValueOfPropertyToCheck() {
+			return expectpedValueOfPropertyToCheck;
 		}
 
-		public void setPropertytoCheckExpectpedValue(boolean propertytoCheckExpectpedValue) {
-			this.propertytoCheckExpectpedValue = propertytoCheckExpectpedValue;
+		public void setExpectpedValueOfPropertyToCheck(String expectpedValueOfPropertyToCheck) {
+			this.expectpedValueOfPropertyToCheck = expectpedValueOfPropertyToCheck;
 		}
 
-		public int getPropertytoChangeNewValue() {
-			return propertytoChangeNewValue;
+		public int getNewValueOfPropertyToChange() {
+			return newValueOfPropertyToChange;
 		}
 
-		public void setPropertytoChangeNewValue(int propertytoChangeNewValue) {
-			this.propertytoChangeNewValue = propertytoChangeNewValue;
+		public void setNewValueOfPropertyToChange(int newValueOfPropertyToChange) {
+			this.newValueOfPropertyToChange = newValueOfPropertyToChange;
 		}
 
 		@Override
@@ -122,8 +122,8 @@ public class TestExtensibility {
 			 * handle (return true) the component passed as argument or not (return false).
 			 */
 			if (c instanceof CustomComponent) {
-				propertytoCheckExpectpedValue = ((CustomComponent) c).propertytoCheck;
-				propertytoChangeNewValue = ((CustomComponent) c).propertytoChange + 1;
+				expectpedValueOfPropertyToCheck = ((CustomComponent) c).propertyToCheck;
+				newValueOfPropertyToChange = ((CustomComponent) c).propertyToChange + 1;
 				return true;
 			} else {
 				return false;
@@ -135,8 +135,8 @@ public class TestExtensibility {
 			/*
 			 * Here you actually execute the action/assertion.
 			 */
-			if (((CustomComponent) c).propertytoCheck != propertytoCheckExpectpedValue) {
-				throw new TestFailure("propertytoCheck is not ok");
+			if (!expectpedValueOfPropertyToCheck.equals(((CustomComponent) c).propertyToCheck)) {
+				throw new TestFailure("propertyToCheck is not ok");
 			}
 
 			/*
@@ -144,7 +144,7 @@ public class TestExtensibility {
 			 * execute instructions that updates the UI. No need to use
 			 * SwingUtilities.invoke* methods.
 			 */
-			((CustomComponent) c).propertytoChange = propertytoChangeNewValue;
+			((CustomComponent) c).propertyToChange = newValueOfPropertyToChange;
 		}
 
 		@Override
@@ -153,8 +153,8 @@ public class TestExtensibility {
 			 * Here you can optionally verify your action properties. The thrown exceptions
 			 * will be displayed in the test editor.
 			 */
-			if (propertytoChangeNewValue < 0) {
-				throw new TestFailure("propertytoChange is not ok");
+			if (newValueOfPropertyToChange < 0) {
+				throw new TestFailure("propertyToChange is not ok");
 			}
 		}
 
@@ -164,8 +164,8 @@ public class TestExtensibility {
 			 * Here you should provide informations about your action current property
 			 * values.
 			 */
-			return "propertytoCheck=" + propertytoCheckExpectpedValue + "; propertytoChange="
-					+ propertytoChangeNewValue;
+			return "propertytoCheck=" + expectpedValueOfPropertyToCheck + "; propertytoChange="
+					+ newValueOfPropertyToChange;
 		}
 	}
 
@@ -175,8 +175,8 @@ public class TestExtensibility {
 	public static class CustomComponent extends Component {
 		private static final long serialVersionUID = 1L;
 
-		public boolean propertytoCheck;
-		public int propertytoChange;
+		public String propertyToCheck = "property value";
+		public int propertyToChange = 123;
 	}
 
 }

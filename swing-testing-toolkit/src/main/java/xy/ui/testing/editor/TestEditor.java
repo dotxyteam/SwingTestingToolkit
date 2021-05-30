@@ -1014,7 +1014,9 @@ public class TestEditor extends JFrame {
 			protected InfoCategory getCategory(IFieldInfo field, ITypeInfo containingType) {
 				if (isExtensionTestActionTypeName(containingType.getName())) {
 					if (field.getName().equals("componentFinder")) {
-						return new InfoCategory("Component Location", 1, null);
+						return new InfoCategory("Component Location", 0, null);
+					} else {
+						return new InfoCategory("General", 1, null);
 					}
 				}
 				return super.getCategory(field, containingType);
