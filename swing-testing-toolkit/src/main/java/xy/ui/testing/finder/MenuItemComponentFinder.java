@@ -96,7 +96,11 @@ public class MenuItemComponentFinder extends ComponentFinder {
 		for (int i = 0; i < menuItemPath.size(); i++) {
 			lastMenuItemFinder = menuItemPath.get(i);
 			if (i == 0) {
-				lastMenuItem = (JMenuItem) lastMenuItemFinder.find(tester);
+				try {
+					lastMenuItem = (JMenuItem) lastMenuItemFinder.find(tester);
+				} catch (TestFailure testFailure) {
+					lastMenuItem = null;
+				}
 				if (lastMenuItem == null) {
 					MenuElement[] menuPath = MenuSelectionManager.defaultManager().getSelectedPath();
 					if ((menuPath.length == 1) && (menuPath[0] instanceof JPopupMenu)) {
