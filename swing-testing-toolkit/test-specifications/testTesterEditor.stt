@@ -43,6 +43,7 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
             <propertyValueExpected>&lt;HTML&gt;Add Test Action&lt;/HTML&gt;</propertyValueExpected>
+            <regularExpressionExpected>false</regularExpressionExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -76,6 +77,7 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
             <propertyValueExpected>&lt;HTML&gt;Add Text...&lt;/HTML&gt;</propertyValueExpected>
+            <regularExpressionExpected>false</regularExpressionExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -136,6 +138,7 @@
               <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>Insert Test Action After</propertyValueExpected>
+                <regularExpressionExpected>false</regularExpressionExpected>
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
@@ -152,6 +155,8 @@
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Click</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -173,6 +178,8 @@
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Displayed String Component Finder</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -199,6 +206,7 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
             <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before&lt;br/&gt;or&lt;br/&gt;Insert Test Action After&lt;/HTML&gt;</propertyValueExpected>
+            <regularExpressionExpected>false</regularExpressionExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -219,6 +227,7 @@
               <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>Insert Test Action After</propertyValueExpected>
+                <regularExpressionExpected>false</regularExpressionExpected>
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
@@ -235,6 +244,8 @@
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Check Component Property</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -270,6 +281,8 @@
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Selected</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -317,6 +330,8 @@
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Property Based Component Finder</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -343,6 +358,7 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
             <propertyValueExpected>&lt;HTML&gt;Add Property Value...&lt;/HTML&gt;</propertyValueExpected>
+            <regularExpressionExpected>false</regularExpressionExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -360,6 +376,8 @@
         <windowIndex>1</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Text</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -411,6 +429,7 @@
           <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             <propertyName>Tool Tip Text</propertyName>
             <propertyValueExpected>&lt;HTML&gt;Insert Test Action Before&lt;br/&gt;or&lt;br/&gt;Insert Test Action After&lt;/HTML&gt;</propertyValueExpected>
+            <regularExpressionExpected>false</regularExpressionExpected>
             <outer-class reference="../../.."/>
           </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
         </propertyValueList>
@@ -431,6 +450,7 @@
               <xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
                 <propertyName>Text</propertyName>
                 <propertyValueExpected>Insert Test Action After</propertyValueExpected>
+                <regularExpressionExpected>false</regularExpressionExpected>
                 <outer-class reference="../../.."/>
               </xy.ui.testing.finder.PropertyBasedComponentFinder_-PropertyValue>
             </propertyValueList>
@@ -447,6 +467,8 @@
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
+      <knownOptions class="empty-list"/>
+      <optionListChecked>false</optionListChecked>
       <optionToSelect>Close Window</optionToSelect>
       <selectionMode>BY_LABEL_TEXT</selectionMode>
     </xy.ui.testing.action.component.specific.SelectComboBoxItemAction>
@@ -482,32 +504,6 @@
 100% Completed</string>
       </visibleStrings>
     </xy.ui.testing.action.component.CheckVisibleStringsAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>Update...</visibleString>
-        <visibleStringInTree>false</visibleStringInTree>
-        <windowIndex>0</windowIndex>
-      </componentFinder>
-      <disabled>false</disabled>
-      <doubleClick>false</doubleClick>
-      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
-    <xy.ui.testing.action.component.ClickAction>
-      <button>LEFT_BUTTON</button>
-      <componentFinder class="xy.ui.testing.finder.DisplayedStringComponentFinder">
-        <occurrencesToSkip>0</occurrencesToSkip>
-        <visibleString>Update</visibleString>
-        <visibleStringInTree>false</visibleStringInTree>
-        <windowIndex>1</windowIndex>
-      </componentFinder>
-      <disabled>false</disabled>
-      <doubleClick>false</doubleClick>
-      <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
-      <poupTrigger>false</poupTrigger>
-    </xy.ui.testing.action.component.ClickAction>
     <xy.ui.testing.action.window.CloseWindowAction>
       <disabled>false</disabled>
       <windowIndex>0</windowIndex>

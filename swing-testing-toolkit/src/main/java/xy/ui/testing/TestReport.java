@@ -56,7 +56,7 @@ public class TestReport {
 	 */
 	public void end() {
 		try {
-			saveToFile(getMainFile());
+			saveMainFile();
 		} catch (IOException e) {
 			throw new AssertionError(e);
 		}
@@ -85,19 +85,6 @@ public class TestReport {
 			return null;
 		} else {
 			return new File(directoryPath);
-		}
-	}
-
-	/**
-	 * Changes the directory where the current report is or will be stored.
-	 * 
-	 * @param directory The new directory.
-	 */
-	public void setDirectory(File directory) {
-		if (directory == null) {
-			directoryPath = null;
-		} else {
-			directoryPath = MiscUtils.getOSAgnosticFilePath(directory.getPath());
 		}
 	}
 
@@ -210,13 +197,14 @@ public class TestReport {
 	}
 
 	/**
-	 * Loads the report from a file.
+	 * Loads the report from the given directory.
 	 * 
-	 * @param mainReportFile The input file.
+	 * @param directory The directory where the report is stored.
 	 * @throws IOException If a problem occurs during the loading process.
 	 */
-	public void loadFromFile(File mainReportFile) throws IOException {
-		FileInputStream stream = new FileInputStream(mainReportFile);
+	public void load(File directory) throws IOException {
+		this.directoryPath = directory.getPath();
+		FileInputStream stream = new FileInputStream(getMainFile());
 		try {
 			loadFromStream(stream);
 		} finally {
@@ -228,13 +216,12 @@ public class TestReport {
 	}
 
 	/**
-	 * Saves the report to a file.
+	 * Saves the report index.
 	 * 
-	 * @param output The output file.
 	 * @throws IOException If a problem occurs during the saving process.
 	 */
-	public void saveToFile(File output) throws IOException {
-		FileOutputStream stream = new FileOutputStream(output);
+	protected void saveMainFile() throws IOException {
+		FileOutputStream stream = new FileOutputStream(getMainFile());
 		try {
 			saveToStream(stream);
 		} finally {
@@ -264,7 +251,6 @@ public class TestReport {
 			steps.add(step);
 		}
 		numberOfActions = loaded.numberOfActions;
-		directoryPath = loaded.directoryPath;
 	}
 
 	/**
@@ -278,7 +264,6 @@ public class TestReport {
 		TestReport toSave = new TestReport();
 		toSave.steps = steps;
 		toSave.numberOfActions = numberOfActions;
-		toSave.directoryPath = directoryPath;
 		xstream.toXML(toSave, output);
 	}
 
