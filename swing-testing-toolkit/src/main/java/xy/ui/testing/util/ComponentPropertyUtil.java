@@ -151,7 +151,7 @@ public class ComponentPropertyUtil {
 			return false;
 		}
 		Class<?> javaType = getFieldJavaType(field);
-		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
+		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
 			return true;
 		}
 		if (Color.class.equals(javaType)) {
@@ -191,7 +191,7 @@ public class ComponentPropertyUtil {
 		if (field == null) {
 			return null;
 		}
-		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
+		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(fieldValue.getClass())) {
 			return fieldValue.toString();
 		} else if (Color.class.isAssignableFrom(fieldValue.getClass())) {
 			return MiscUtils.colorToString((Color) fieldValue);
@@ -209,11 +209,11 @@ public class ComponentPropertyUtil {
 			return null;
 		}
 		Class<?> javaType = getFieldJavaType(field);
-		if (xy.reflect.ui.util.ReflectionUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
+		if (xy.reflect.ui.util.ClassUtils.isPrimitiveClassOrWrapperOrString(javaType)) {
 			if (javaType.equals(String.class)) {
 				return propertyValue;
 			} else {
-				return xy.reflect.ui.util.ReflectionUtils.primitiveFromString(propertyValue, javaType);
+				return xy.reflect.ui.util.ReflectionUIUtils.primitiveFromString(propertyValue, javaType);
 			}
 		} else if (Color.class.equals(javaType)) {
 			return MiscUtils.stringToColor(propertyValue);

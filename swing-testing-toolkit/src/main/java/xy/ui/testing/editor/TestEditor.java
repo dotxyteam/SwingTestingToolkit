@@ -16,8 +16,6 @@ import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -84,9 +82,8 @@ import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.IModificationListener;
 import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
-import xy.reflect.ui.util.ReflectionUtils;
+import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.Mapper;
-import xy.reflect.ui.util.ReflectionUIError;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
@@ -924,7 +921,7 @@ public class TestEditor extends JFrame {
 			protected boolean isExtensionTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ReflectionUtils.getCachedClassforName(typeName);
+					clazz = ClassUtils.getCachedClassforName(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1063,7 +1060,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ReflectionUtils.getCachedClassforName(typeName);
+					clazz = ClassUtils.getCachedClassforName(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1076,7 +1073,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTesterOrSubTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ReflectionUtils.getCachedClassforName(typeName);
+					clazz = ClassUtils.getCachedClassforName(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1138,57 +1135,6 @@ public class TestEditor extends JFrame {
 				return super.isFormControlEmbedded(field, containingType);
 			}
 
-			@Override
-			protected void save(ITypeInfo type, Object object, OutputStream out) {
-				if (object instanceof Tester) {
-					try {
-						((Tester) object).saveToStream(out);
-					} catch (Exception e) {
-						throw new ReflectionUIError(e);
-					}
-				} else if (object instanceof TestReport) {
-					try {
-						((TestReport) object).saveToStream(out);
-					} catch (Exception e) {
-						throw new ReflectionUIError(e);
-					}
-				} else {
-					super.save(type, object, out);
-				}
-			}
-
-			@Override
-			protected void load(ITypeInfo type, Object object, InputStream in) {
-				if (object instanceof Tester) {
-					try {
-						((Tester) object).loadFromStream(in);
-					} catch (Exception e) {
-						throw new ReflectionUIError(e);
-					}
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							refresh();
-							showSpecificationTab();
-						}
-					});
-				} else if (object instanceof TestReport) {
-					try {
-						((TestReport) object).loadFromStream(in);
-					} catch (Exception e) {
-						throw new ReflectionUIError(e);
-					}
-					SwingUtilities.invokeLater(new Runnable() {
-						@Override
-						public void run() {
-							refresh();
-							showReportTab();
-						}
-					});
-				} else {
-					super.load(type, object, in);
-				}
-			}
 
 			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
