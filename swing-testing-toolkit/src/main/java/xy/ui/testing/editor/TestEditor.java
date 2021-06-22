@@ -567,7 +567,8 @@ public class TestEditor extends JFrame {
 		ModificationStack modifStack = testerForm.getModificationStack();
 		ReflectionUIUtils.setFieldValueThroughModificationStack(
 				new DefaultFieldControlData(getSwingRenderer().getReflectionUI(), getTester(), testActionsField),
-				testActions, modifStack);
+				testActions, modifStack,
+				ReflectionUIUtils.getDebugLogListener(getSwingRenderer().getReflectionUI()));
 		refresh();
 	}
 
