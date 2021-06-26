@@ -3,6 +3,7 @@ package xy.ui.testing.util;
 import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Component;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +27,9 @@ import xy.ui.testing.Tester;
  * @author olitank
  *
  */
-public class ComponentPropertyUtil {
+public class ComponentPropertyUtil implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	protected static ReflectionUI introspector = ReflectionUIUtils.STANDARD_REFLECTION;
 
