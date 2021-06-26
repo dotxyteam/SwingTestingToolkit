@@ -626,24 +626,26 @@ public class Tester {
 	 *         overriden typically when testing custom components that need custom
 	 *         testing behavior.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes" })
 	public List<String> extractDisplayedStrings(final Component c) {
 		if (c instanceof JComboBox) {
-			final List<String>[] result = new List[1];
+			final List<String> result = new ArrayList<String>();
 			new SelectComboBoxItemAction() {
 				private static final long serialVersionUID = 1L;
 				{
 					JComboBox comboBox = (JComboBox) c;
 					int i = comboBox.getSelectedIndex();
 					String text = getLabelText(comboBox.getModel(), comboBox.getRenderer(), i);
-					if ((text == null) || (text.length() == 0)) {
-						result[0] = Collections.emptyList();
-					} else {
-						result[0] = Collections.singletonList(text);
+					if ((text != null) && (text.length() > 0)) {
+						result.add(text);
 					}
 				}
 			};
-			return result[0];
+			String tooltipText = ((JComboBox) c).getToolTipText();
+			if ((tooltipText != null) && (tooltipText.length() > 0)) {
+				result.add(tooltipText);
+			}
+			return result;
 		}
 		List<String> result = new ArrayList<String>();
 		String s;
