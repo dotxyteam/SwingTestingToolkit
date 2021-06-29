@@ -567,8 +567,7 @@ public class TestEditor extends JFrame {
 		ModificationStack modifStack = testerForm.getModificationStack();
 		ReflectionUIUtils.setFieldValueThroughModificationStack(
 				new DefaultFieldControlData(getSwingRenderer().getReflectionUI(), getTester(), testActionsField),
-				testActions, modifStack,
-				ReflectionUIUtils.getDebugLogListener(getSwingRenderer().getReflectionUI()));
+				testActions, modifStack, ReflectionUIUtils.getDebugLogListener(getSwingRenderer().getReflectionUI()));
 		refresh();
 	}
 
@@ -1136,7 +1135,6 @@ public class TestEditor extends JFrame {
 				return super.isFormControlEmbedded(field, containingType);
 			}
 
-
 			@Override
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
@@ -1426,6 +1424,11 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
+							public boolean isEnabled(Object objet) {
+								return true;
+							}
+
+							@Override
 							public String getOnlineHelp() {
 								return "Replay selected action(s)";
 							}
@@ -1484,6 +1487,11 @@ public class TestEditor extends JFrame {
 
 								@Override
 								public boolean isReadOnly() {
+									return true;
+								}
+
+								@Override
+								public boolean isEnabled(Object objet) {
 									return true;
 								}
 
