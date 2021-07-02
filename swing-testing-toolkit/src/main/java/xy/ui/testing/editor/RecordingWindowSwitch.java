@@ -26,7 +26,6 @@ import javax.swing.tree.DefaultTreeModel;
 
 import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.builder.StandardEditorBuilder;
-import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.util.AbstractControlButton;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
 import xy.reflect.ui.control.swing.util.WindowManager;
@@ -249,13 +248,8 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 					private static final long serialVersionUID = 1L;
 
 					@Override
-					public String retrieveCaption() {
-						return text;
-					}
-
-					@Override
-					public SwingRenderer getSwingRenderer() {
-						return testEditor.getSwingRenderer();
+					public String retrieveText() {
+						return testEditor.getSwingRenderer().prepareMessageToDisplay(text);
 					}
 
 					@Override

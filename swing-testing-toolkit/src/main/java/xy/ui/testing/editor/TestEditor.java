@@ -778,7 +778,7 @@ public class TestEditor extends JFrame {
 
 				@Override
 				public CustomizingFieldControlPlaceHolder createFieldControlPlaceHolder(IFieldInfo field) {
-					return new CustomizingFieldControlPlaceHolder((SwingCustomizer) swingRenderer, this, field) {
+					return new CustomizingFieldControlPlaceHolder(this, field) {
 
 						private static final long serialVersionUID = 1L;
 
@@ -1139,7 +1139,7 @@ public class TestEditor extends JFrame {
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					ITypeInfo propertyValueType = getTypeInfo(
+					ITypeInfo propertyValueType = buildTypeInfo(
 							new JavaTypeInfoSource(TestEditorReflectionUI.this, PropertyValue.class, null));
 					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
@@ -1257,7 +1257,7 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this,
+								return reflectionUI.buildTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this,
 										InsertPosition.class, null));
 							}
 
@@ -1293,7 +1293,7 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(
+								return reflectionUI.buildTypeInfo(
 										new JavaTypeInfoSource(reflectionUI, CallMainMethodAction.class, null));
 							}
 
@@ -1373,19 +1373,19 @@ public class TestEditor extends JFrame {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getTestActionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
+						result.add(buildTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(ComponentFinder.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getComponentFinderClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
+						result.add(buildTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(KeyboardInteraction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getKeyboardInteractionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
+						result.add(buildTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
 					}
 					return result;
 				} else {
@@ -1611,7 +1611,7 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(
+								return reflectionUI.buildTypeInfo(
 										new JavaTypeInfoSource(TestEditorReflectionUI.this, String.class, null));
 							}
 
