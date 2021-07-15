@@ -104,7 +104,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 			List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
 			currentVisibleStrings2.retainAll(visibleStrings);
 			if (!visibleStrings.equals(currentVisibleStrings2)) {
-				checkFailureMessage = "The visible strings order or occurences have changed: "
+				checkFailureMessage = "The visible strings order or occurrences have changed: "
 						+ MiscUtils.formatStringList(currentVisibleStrings2);
 			}
 		} else if (!completenessChecked && !orderChecked) {

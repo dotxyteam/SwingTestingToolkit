@@ -138,7 +138,7 @@ public abstract class MatchingComponentFinder extends ComponentFinder {
 	@Override
 	public void validate() throws ValidationError {
 		if (occurrencesToSkip < 0) {
-			throw new ValidationError("The number of occurences to skip is invalid. Must be >= 0");
+			throw new ValidationError("The number of occurrences to skip is invalid. Must be >= 0");
 		}
 		if (windowIndex < 0) {
 			throw new ValidationError("The window index is invalid. Must be >= 0");

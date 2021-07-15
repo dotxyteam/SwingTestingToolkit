@@ -222,7 +222,7 @@ public class Tester {
 							break;
 						} else {
 							logError(t);
-							reportStep.log("An error occured: " + t.toString());
+							reportStep.log("An error occurred: " + t.toString());
 							reportStep.setStatus(TestReportStepStatus.FAILED);
 							break;
 						}
