@@ -12,7 +12,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -487,9 +489,9 @@ public class Tester {
 	 * 
 	 * @param input The input stream.
 	 */
-	public void loadFromStream(InputStream input) {
+	public void loadFromStream(InputStream input) throws IOException {
 		XStream xstream = getXStream();
-		Tester loaded = (Tester) xstream.fromXML(input);
+		Tester loaded = (Tester) xstream.fromXML(new InputStreamReader(input, "UTF-8"));
 		testActions = loaded.testActions;
 		minimumSecondsToWaitBetwneenActions = loaded.minimumSecondsToWaitBetwneenActions;
 		maximumSecondsToWaitBetwneenActions = loaded.maximumSecondsToWaitBetwneenActions;
@@ -509,7 +511,7 @@ public class Tester {
 		toSave.minimumSecondsToWaitBetwneenActions = minimumSecondsToWaitBetwneenActions;
 		toSave.maximumSecondsToWaitBetwneenActions = maximumSecondsToWaitBetwneenActions;
 		toSave.editingOptions = editingOptions;
-		xstream.toXML(toSave, output);
+		xstream.toXML(toSave, new OutputStreamWriter(output, "UTF-8"));
 	}
 
 	/**

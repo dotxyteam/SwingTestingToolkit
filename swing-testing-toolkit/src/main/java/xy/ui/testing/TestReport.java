@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -237,9 +239,9 @@ public class TestReport {
 	 * 
 	 * @param input The input stream.
 	 */
-	public void loadFromStream(InputStream input) {
+	public void loadFromStream(InputStream input)  throws IOException{
 		XStream xstream = getXStream();
-		TestReport loaded = (TestReport) xstream.fromXML(input);
+		TestReport loaded = (TestReport) xstream.fromXML(new InputStreamReader(input, "UTF-8"));
 		steps = new ArrayList<TestReport.TestReportStep>();
 		for (TestReportStep loadedStep : loaded.steps) {
 			TestReportStep step = new TestReportStep(loadedStep.actionSummary);
@@ -264,7 +266,7 @@ public class TestReport {
 		TestReport toSave = new TestReport();
 		toSave.steps = steps;
 		toSave.numberOfActions = numberOfActions;
-		xstream.toXML(toSave, output);
+		xstream.toXML(toSave, new OutputStreamWriter(output, "UTF-8"));
 	}
 
 	/**
