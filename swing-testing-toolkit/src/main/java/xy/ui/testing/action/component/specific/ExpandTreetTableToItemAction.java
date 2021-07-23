@@ -15,7 +15,7 @@ import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 
 /**
- * Test action that expands a {@link JXTreeTable}/{@link JXTree} node.
+ * Test action that expands a {@link TreePath} node.
  * 
  * @author olitank
  *

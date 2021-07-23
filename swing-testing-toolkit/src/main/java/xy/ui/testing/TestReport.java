@@ -123,7 +123,7 @@ public class TestReport {
 	 * Must be called during the test execution before executing each action.
 	 * 
 	 * @param testAction The next test action.
-	 * @return
+	 * @return the execution step that will be used for the given test action.
 	 */
 	public TestReportStep nextStep(TestAction testAction) {
 		TestReportStep result = new TestReportStep(testAction);

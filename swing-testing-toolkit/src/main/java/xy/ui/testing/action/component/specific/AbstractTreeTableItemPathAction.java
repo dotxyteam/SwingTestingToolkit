@@ -6,15 +6,12 @@ import java.util.List;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
-import org.jdesktop.swingx.JXTreeTable;
-
 import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.ValidationError;
 
 /**
- * Base class test actions that are based on {@link JXTreeTable}/{@link JXTree}
- * node paths.
+ * Base class of test actions that are based on {@link TreePath}.
  * 
  * @author olitank
  *

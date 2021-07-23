@@ -503,12 +503,10 @@ public class TestingUtils {
 	}
 
 	/**
-	 * Retrieves all strings displayed on the given component or any of its
-	 * descendant.
-	 * 
 	 * @param c      The inspected component.
 	 * @param tester The tester instance to use.
-	 * @return
+	 * @return All strings displayed on the given component or any of its
+	 *         descendant.
 	 */
 	public static List<String> extractComponentTreeDisplayedStrings(Component c, final Tester tester) {
 		final List<String> result = new ArrayList<String>();
