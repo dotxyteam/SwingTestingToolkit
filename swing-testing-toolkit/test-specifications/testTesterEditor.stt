@@ -491,9 +491,9 @@
     </xy.ui.testing.action.WaitAction>
     <xy.ui.testing.action.component.CheckVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
-      <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JTextArea</componentClassName>
-        <occurrencesToSkip>1</occurrencesToSkip>
+      <componentFinder class="xy.ui.testing.finder.NameBasedComponentFinder">
+        <componentName>fieldsPanel [parent=form [objectType=xy.ui.testing.TestReport]]</componentName>
+        <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>0</windowIndex>
       </componentFinder>
       <disabled>false</disabled>
