@@ -49,6 +49,7 @@ import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.menu.AbstractFileMenuItem;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.Form;
+import xy.reflect.ui.control.swing.renderer.Form.IRefreshListener;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.util.AlternativeWindowDecorationsPanel;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
@@ -82,6 +83,8 @@ import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.IModificationListener;
 import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
+import xy.reflect.ui.undo.SlaveModificationStack;
+import xy.reflect.ui.util.Accessor;
 import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.Mapper;
 import xy.reflect.ui.util.ReflectionUIUtils;
@@ -178,6 +181,9 @@ public class TestEditor extends JFrame {
 	protected static final ResourcePath EXTENSION_IMAGE_PATH = SwingRendererUtils
 			.putImageInCache(MiscUtils.loadImageResource("ExtensionAction.png"));
 
+	protected static final String REPORT_TAB_NAME = "Report";
+	protected static final String SPECIFICATION_TAB_NAME = "Specification";
+
 	protected Color decorationsForegroundColor;
 	protected Color decorationsBackgroundColor;
 
@@ -225,6 +231,9 @@ public class TestEditor extends JFrame {
 		}
 	};
 
+	protected IModificationListener testerFormModificationListener;
+	protected IModificationListener testReportFormModificationListener;
+
 	public TestEditor(Tester tester) {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
@@ -239,10 +248,30 @@ public class TestEditor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		addComponents();
+		((SlaveModificationStack) getTesterForm().getModificationStack()).addSlaveListener(
+				testerFormModificationListener = showSpecifiedTabOnFormModification(SPECIFICATION_TAB_NAME,
+						new Accessor<Form>() {
+							@Override
+							public Form get() {
+								return getTesterForm();
+							}
+						}));
+		((SlaveModificationStack) getTestReportForm().getModificationStack()).addSlaveListener(
+				testReportFormModificationListener = showSpecifiedTabOnFormModification(REPORT_TAB_NAME,
+						new Accessor<Form>() {
+							@Override
+							public Form get() {
+								return getTestReportForm();
+							}
+						}));
 	}
 
 	@Override
 	public void dispose() {
+		((SlaveModificationStack) getTestReportForm().getModificationStack())
+				.removeSlaveListener(testReportFormModificationListener);
+		((SlaveModificationStack) getTesterForm().getModificationStack())
+				.removeSlaveListener(testerFormModificationListener);
 		removeComponents();
 		cleanupWindowSwitchesEventHandling();
 		cleanupDialogApplicationModalityPrevention();
@@ -255,6 +284,10 @@ public class TestEditor extends JFrame {
 		this.testReport = null;
 		TESTER_BY_EDITOR.remove(this);
 		super.dispose();
+	}
+
+	public boolean isDisposed() {
+		return !TESTER_BY_EDITOR.containsKey(this);
 	}
 
 	protected void addComponents() {
@@ -281,6 +314,59 @@ public class TestEditor extends JFrame {
 	public void setLastTesterFile(File file) {
 		AbstractFileMenuItem.getLastFileByForm().put(getTesterForm(), file);
 		mainForm.refresh(false);
+	}
+
+	protected IModificationListener showSpecifiedTabOnFormModification(final String tabName,
+			final Accessor<Form> formAccessor) {
+		return new AbstractSimpleModificationListener() {
+
+			AbstractSimpleModificationListener thisModificationListener = this;
+			Form form = formAccessor.get();
+			{
+				resubscribeOnStructureRefreshing();
+			}
+
+			@Override
+			protected void handleAnyEvent(IModification modification) {
+				if (!getShownTabName().equals(tabName)) {
+					if (TestEditor.this.isVisible()) {
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								showTab(tabName);
+							}
+						});
+					}
+				}
+			}
+
+			private void resubscribeOnStructureRefreshing() {
+				/*
+				 * In order to maintain this feature in CustomUI design mode, when the GUI is
+				 * rebuilt, then the listener is re-attached to the new form:
+				 */
+				mainForm.getRefreshListeners().add(new IRefreshListener() {
+					IRefreshListener thisRefreshListener = this;
+
+					@Override
+					public void onRefresh(boolean refreshStructure) {
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								form.getRefreshListeners().remove(thisRefreshListener);
+								((SlaveModificationStack) form.getModificationStack())
+										.removeListener(thisModificationListener);
+								form = formAccessor.get();
+								((SlaveModificationStack) form.getModificationStack())
+										.addSlaveListener(thisModificationListener);
+								form.getRefreshListeners().add(thisRefreshListener);
+							}
+						});
+					}
+				});
+			}
+		};
+
 	}
 
 	protected void setupWindowSwitchesEventHandling() {
@@ -540,24 +626,18 @@ public class TestEditor extends JFrame {
 		windowManager.refreshWindowStructureAsMuchAsPossible();
 	}
 
-	public void showReportTab() {
-		mainForm.setDisplayedCategory(new InfoCategory("Report", -1, null));
+	public String getShownTabName() {
+		return mainForm.getDisplayedCategory().getCaption();
+	}
+
+	public void showTab(String tabName) {
+		mainForm.setDisplayedCategory(new InfoCategory(tabName, -1, null));
 		ListControl stepsControl = getTestReportStepsControl();
 		if (stepsControl.getRootListSize() > 0) {
 			BufferedItemPosition lastStepItemPosition = stepsControl
 					.getRootListItemPosition(stepsControl.getRootListSize() - 1);
 			stepsControl.setSingleSelection(lastStepItemPosition);
 			stepsControl.scrollTo(lastStepItemPosition);
-		}
-	}
-
-	public void showSpecificationTab() {
-		mainForm.setDisplayedCategory(new InfoCategory("Specification", -1, null));
-		ListControl testActionsControl = getTestActionsControl();
-		if (testActionsControl.getRootListSize() > 0) {
-			BufferedItemPosition firstActionItemPosition = testActionsControl.getRootListItemPosition(0);
-			testActionsControl.setSingleSelection(firstActionItemPosition);
-			testActionsControl.scrollTo(firstActionItemPosition);
 		}
 	}
 
@@ -1052,16 +1132,6 @@ public class TestEditor extends JFrame {
 							|| (object instanceof ComponentFinder)) {
 						analytics.track(
 								"Invoking " + method.getName() + "(" + invocationData.toString() + ") on " + object);
-					}
-				}
-				if (object instanceof TestReport) {
-					if (method.getName().startsWith("load")) {
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								showReportTab();
-							}
-						});
 					}
 				}
 				return super.invoke(object, invocationData, method, containingType);
@@ -1652,7 +1722,7 @@ public class TestEditor extends JFrame {
 				@Override
 				public void run() {
 					refresh();
-					showSpecificationTab();
+					showTab(SPECIFICATION_TAB_NAME);
 				}
 			});
 		}

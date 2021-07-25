@@ -103,7 +103,7 @@ public class ReplayWindowSwitch extends AbstractWindowSwitch {
 		}
 		if (lastTestReport != null) {
 			testEditor.setTestReport(lastTestReport);
-			testEditor.showReportTab();
+			testEditor.showTab(TestEditor.REPORT_TAB_NAME);
 		}
 	}
 
