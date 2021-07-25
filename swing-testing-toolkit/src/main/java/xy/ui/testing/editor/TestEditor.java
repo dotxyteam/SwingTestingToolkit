@@ -248,30 +248,12 @@ public class TestEditor extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		addComponents();
-		((SlaveModificationStack) getTesterForm().getModificationStack()).addSlaveListener(
-				testerFormModificationListener = showSpecifiedTabOnFormModification(SPECIFICATION_TAB_NAME,
-						new Accessor<Form>() {
-							@Override
-							public Form get() {
-								return getTesterForm();
-							}
-						}));
-		((SlaveModificationStack) getTestReportForm().getModificationStack()).addSlaveListener(
-				testReportFormModificationListener = showSpecifiedTabOnFormModification(REPORT_TAB_NAME,
-						new Accessor<Form>() {
-							@Override
-							public Form get() {
-								return getTestReportForm();
-							}
-						}));
+		setupModificationListeners();
 	}
 
 	@Override
 	public void dispose() {
-		((SlaveModificationStack) getTestReportForm().getModificationStack())
-				.removeSlaveListener(testReportFormModificationListener);
-		((SlaveModificationStack) getTesterForm().getModificationStack())
-				.removeSlaveListener(testerFormModificationListener);
+		cleanupModificationListeners();
 		removeComponents();
 		cleanupWindowSwitchesEventHandling();
 		cleanupDialogApplicationModalityPrevention();
@@ -305,6 +287,34 @@ public class TestEditor extends JFrame {
 		this.windowManager.uninstall();
 		this.mainForm = null;
 		this.windowManager = null;
+	}
+
+	protected void setupModificationListeners() {
+		((SlaveModificationStack) getTesterForm().getModificationStack()).addSlaveListener(
+				testerFormModificationListener = showSpecifiedTabOnFormModification(SPECIFICATION_TAB_NAME,
+						new Accessor<Form>() {
+							@Override
+							public Form get() {
+								return getTesterForm();
+							}
+						}));
+		((SlaveModificationStack) getTestReportForm().getModificationStack()).addSlaveListener(
+				testReportFormModificationListener = showSpecifiedTabOnFormModification(REPORT_TAB_NAME,
+						new Accessor<Form>() {
+							@Override
+							public Form get() {
+								return getTestReportForm();
+							}
+						}));
+	}
+
+	protected void cleanupModificationListeners() {
+		((SlaveModificationStack) getTestReportForm().getModificationStack())
+				.removeSlaveListener(testReportFormModificationListener);
+		testReportFormModificationListener = null;
+		((SlaveModificationStack) getTesterForm().getModificationStack())
+				.removeSlaveListener(testerFormModificationListener);
+		testerFormModificationListener = null;
 	}
 
 	public File getLastTesterFile() {
@@ -829,19 +839,19 @@ public class TestEditor extends JFrame {
 						private static final long serialVersionUID = 1L;
 
 						@Override
-						public Color getTitleBarColor() {
+						public Color getTitleBarBackgroundColor() {
 							if (TestEditor.this.getDecorationsBackgroundColor() != null) {
 								return TestEditor.this.getDecorationsBackgroundColor();
 							}
-							return super.getTitleBarColor();
+							return super.getTitleBarBackgroundColor();
 						}
 
 						@Override
-						public Color getDecorationsForegroundColor() {
+						public Color getTitleBarForegroundColor() {
 							if (TestEditor.this.getDecorationsForegroundColor() != null) {
 								return TestEditor.this.getDecorationsForegroundColor();
 							}
-							return super.getDecorationsForegroundColor();
+							return super.getTitleBarForegroundColor();
 						}
 
 					};
