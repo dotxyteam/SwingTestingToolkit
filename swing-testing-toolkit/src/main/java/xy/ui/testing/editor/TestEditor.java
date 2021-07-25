@@ -1054,6 +1054,16 @@ public class TestEditor extends JFrame {
 								"Invoking " + method.getName() + "(" + invocationData.toString() + ") on " + object);
 					}
 				}
+				if (object instanceof TestReport) {
+					if (method.getName().startsWith("load")) {
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								showReportTab();
+							}
+						});
+					}
+				}
 				return super.invoke(object, invocationData, method, containingType);
 			}
 

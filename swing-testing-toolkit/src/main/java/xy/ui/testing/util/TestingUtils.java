@@ -465,7 +465,7 @@ public class TestingUtils {
 	 */
 	public static Exception generateTestFailure(Tester tester, TestReport report) {
 		return new TestFailure("The replay was not successful." + "\nMore information can be found in this report:"
-				+ "\n" + report.getMainFile().getAbsolutePath() + "\nLast logs:\n" + report.getLastLogs());
+				+ "\n" + report.getDirectory().getAbsolutePath() + "\nLast logs:\n" + report.getLastLogs());
 	}
 
 	/**
