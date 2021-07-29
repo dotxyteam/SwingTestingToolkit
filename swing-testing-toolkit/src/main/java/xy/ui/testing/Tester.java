@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog.ModalityType;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.awt.geom.Point2D;
@@ -607,14 +608,38 @@ public class Tester {
 		Collections.sort(result, new Comparator<Component>() {
 			@Override
 			public int compare(Component c1, Component c2) {
-				Point2D.Double location1 = new Point2D.Double(c1.getBounds().getCenterX(), c1.getBounds().getCenterY());
-				Point2D.Double location2 = new Point2D.Double(c2.getBounds().getCenterX(), c2.getBounds().getCenterY());
+				Rectangle bounds1 = c1.getBounds();
+				Rectangle bounds2 = c2.getBounds();
+				Point2D.Double location1 = new Point2D.Double(bounds1.getCenterX(), bounds1.getCenterY());
+				Point2D.Double location2 = new Point2D.Double(bounds2.getCenterX(), bounds2.getCenterY());
 				int result = 0;
-				result = new Double(location1.y).compareTo(new Double(location2.y));
+				boolean verticalIntersection = new Rectangle(0, bounds1.y, 1, bounds1.height)
+						.intersects(new Rectangle(0, bounds2.y, 1, bounds2.height));
+				if (verticalIntersection) {
+					result = 0;
+				} else {
+					result = new Double(location1.y).compareTo(new Double(location2.y));
+					if (result != 0) {
+						return result;
+					}
+				}
+				boolean horizontalIntersection = new Rectangle(bounds1.x, 0, bounds1.width, 1)
+						.intersects(new Rectangle(bounds2.x, 0, bounds2.width, 1));
+				if (horizontalIntersection) {
+					result = 0;
+				} else {
+					result = new Double(location1.x).compareTo(new Double(location2.x));
+					if (result != 0) {
+						return result;
+					}
+				}
+				result = new Integer(container.getComponentZOrder(c1))
+						.compareTo(new Integer(container.getComponentZOrder(c2)));
 				if (result != 0) {
 					return result;
 				}
-				result = new Double(location1.x).compareTo(new Double(location2.x));
+				result = new Integer(Arrays.asList(container.getComponents()).indexOf(c1))
+						.compareTo(new Integer(Arrays.asList(container.getComponents()).indexOf(c2)));
 				return result;
 			}
 		});
