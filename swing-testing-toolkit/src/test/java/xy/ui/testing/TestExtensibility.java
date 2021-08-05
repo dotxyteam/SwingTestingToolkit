@@ -88,9 +88,9 @@ public class TestExtensibility {
 		private static final long serialVersionUID = 1L;
 
 		/*
-		 * Here are your action settings/properties. IMPORTANT: you must provide getters
-		 * and setters for these properties in order to be able to edit them in the
-		 * TestEditor.
+		 * Here are your action settings/properties. IMPORTANT: you must provide a
+		 * default constructor (implicit or not) and getters and setters for these
+		 * properties in order to be able to edit them in the TestEditor.
 		 */
 		private String expectpedValueOfPropertyToCheck;
 		private int newValueOfPropertyToChange;
@@ -161,7 +161,7 @@ public class TestExtensibility {
 		@Override
 		public String getValueDescription() {
 			/*
-			 * Here you should provide informations about your action current property
+			 * Here you should provide information about your action current property
 			 * values.
 			 */
 			return "propertytoCheck=" + expectpedValueOfPropertyToCheck + "; propertytoChange="
