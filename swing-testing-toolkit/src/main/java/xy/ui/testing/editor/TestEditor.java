@@ -637,17 +637,28 @@ public class TestEditor extends JFrame {
 	}
 
 	public String getShownTabName() {
-		return mainForm.getDisplayedCategory().getCaption();
+		return mainForm.getDisplayedCategories().get(mainForm.getSelectedCategoryIndex()).getCaption();
 	}
 
 	public void showTab(String tabName) {
-		mainForm.setDisplayedCategory(new InfoCategory(tabName, -1, null));
-		ListControl stepsControl = getTestReportStepsControl();
-		if (stepsControl.getRootListSize() > 0) {
-			BufferedItemPosition lastStepItemPosition = stepsControl
-					.getRootListItemPosition(stepsControl.getRootListSize() - 1);
-			stepsControl.setSingleSelection(lastStepItemPosition);
-			stepsControl.scrollTo(lastStepItemPosition);
+		int tabIndex = -1;
+		List<InfoCategory> categories = mainForm.getDisplayedCategories();
+		for (int i = 0; i < categories.size(); i++) {
+			InfoCategory category = categories.get(i);
+			if (category.getCaption().equals(tabName)) {
+				tabIndex = i;
+				break;
+			}
+		}
+		mainForm.setSelectedCategoryIndex(tabIndex);
+		if (REPORT_TAB_NAME.equals(tabName)) {
+			ListControl stepsControl = getTestReportStepsControl();
+			if (stepsControl.getRootListSize() > 0) {
+				BufferedItemPosition lastStepItemPosition = stepsControl
+						.getRootListItemPosition(stepsControl.getRootListSize() - 1);
+				stepsControl.setSingleSelection(lastStepItemPosition);
+				stepsControl.scrollTo(lastStepItemPosition);
+			}
 		}
 	}
 
