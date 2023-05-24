@@ -44,6 +44,7 @@ import javax.swing.tree.TreeModel;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 
 import xy.ui.testing.TestReport.TestReportStep;
 import xy.ui.testing.TestReport.TestReportStepStatus;
@@ -536,6 +537,7 @@ public class Tester {
 	protected XStream getXStream() {
 		XStream result = new XStream();
 		result.registerConverter(new JavaBeanConverter(result.getMapper()), -20);
+		result.addPermission(AnyTypePermission.ANY);
 		return result;
 	}
 
@@ -602,7 +604,7 @@ public class Tester {
 	 */
 	public List<Component> getChildrenComponents(Container container) {
 		if (container instanceof JComboBox) {
-			return Collections.emptyList();
+			return new ArrayList<Component>();
 		}
 		List<Component> result = new ArrayList<Component>(Arrays.asList(container.getComponents()));
 		Collections.sort(result, new Comparator<Component>() {

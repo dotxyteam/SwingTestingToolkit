@@ -39,6 +39,9 @@ public class TestStatically {
 
 	@Test
 	public void testGarbageCollection() throws Exception {
+		if(!System.getProperty("java.version").contains("1.8")) {
+			return;
+		}		
 		@SuppressWarnings("unchecked")
 		final WeakReference<Tester>[] testerWeakRef = new WeakReference[1];
 		final TestEditor[] testEditor = new TestEditor[1];

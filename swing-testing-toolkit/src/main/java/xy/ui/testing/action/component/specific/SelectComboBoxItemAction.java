@@ -4,7 +4,6 @@ import java.awt.AWTEvent;
 import java.awt.Component;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
@@ -65,7 +64,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 
 	public List<String> getKnownOptions() {
 		if (knownOptionPairs == null) {
-			return Collections.emptyList();
+			return new ArrayList<String>();
 		}
 		List<String> result = new ArrayList<String>();
 		for (OptionPair optionPair : knownOptionPairs) {

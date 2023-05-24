@@ -132,7 +132,7 @@ public class ComponentPropertyUtil implements Serializable{
 	public List<String> getPropertyNameOptions(boolean modifiable) {
 		ITypeInfo componentType = getComponentTypeInfo();
 		if (componentType == null) {
-			return Collections.emptyList();
+			return new ArrayList<String>();
 		}
 		List<String> result = new ArrayList<String>();
 		for (IFieldInfo field : componentType.getFields()) {
