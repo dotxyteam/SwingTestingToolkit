@@ -1,3 +1,5 @@
+- bug: sometimes a single finder is shared across multiple actions
+(modifying one finder modifies the others finders)
 - needs a date/time control for testReportStep start and end times ???
 - interesting links:
 	. http://www.drdobbs.com/windows/a-text-ui-for-the-java-awt/184410274
