@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Image;
 import java.awt.Window;
 import java.awt.Dialog.ModalityType;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -257,6 +258,16 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 						if (reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath() != null) {
 							return SwingRendererUtils.loadImageThroughCache(
 									reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath(),
+									ReflectionUIUtils.getErrorLogListener(reflectionUI));
+						}
+						return null;
+					}
+
+					@Override
+					public Font retrieveCustomFont() {
+						if (reflectionUI.getApplicationInfo().getButtonCustomFontResourcePath() != null) {
+							return SwingRendererUtils.loadFontThroughCache(
+									reflectionUI.getApplicationInfo().getButtonCustomFontResourcePath(),
 									ReflectionUIUtils.getErrorLogListener(reflectionUI));
 						}
 						return null;
