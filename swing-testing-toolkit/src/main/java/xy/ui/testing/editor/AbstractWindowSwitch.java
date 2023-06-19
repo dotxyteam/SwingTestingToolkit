@@ -131,6 +131,12 @@ public abstract class AbstractWindowSwitch {
 				}
 			});
 		}
+
+		@Override
+		public String toString() {
+			return "StatusControl [of=" + AbstractWindowSwitch.this.toString() + "]";
+		}
+
 	}
 
 	public class StatusControlWindow extends JFrame {

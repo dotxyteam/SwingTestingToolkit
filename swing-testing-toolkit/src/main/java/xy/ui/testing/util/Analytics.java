@@ -34,6 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import xy.ui.testing.editor.TestEditor;
+
 /**
  * This class allows to optionally gather the toolkit usage statistics.
  * 
@@ -42,11 +44,11 @@ import java.util.Map;
  */
 public class Analytics {
 
-	public static final String TRACKINGS_DELIVERY_URL = System
-			.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
+	public static final String TRACKINGS_DELIVERY_URL = System.getProperty(Analytics.class.getName() + ".trackingDeliveryURL");
 	public static final int TRACKINGS_TRANSMISSION_PACKET_SIZE = 1000;
 	public static final String[] NEW_LINE_SEQUENCES = new String[] { "\r\n", "\n", "\r" };
-	public static final Object TRACKING_CATEGORY_PREFIX = "SwingTestingToolkit";
+	private final Object TRACKING_CATEGORY_PREFIX = TestEditor.class.getPackage().getImplementationTitle();
+	private final String PROJECT_VERSION = TestEditor.class.getPackage().getImplementationVersion();
 
 	private Thread regularSender;
 	private boolean initialized;
@@ -185,7 +187,7 @@ public class Analytics {
 		{
 			categoryId.append(TRACKING_CATEGORY_PREFIX);
 			categoryId.append("-");
-			categoryId.append("b" + BuildProperties.get().getId());
+			categoryId.append("b" + PROJECT_VERSION);
 			arguments.put("ec", categoryId.toString());
 		}
 		arguments.put("ea", used);

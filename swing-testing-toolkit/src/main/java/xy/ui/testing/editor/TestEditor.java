@@ -115,6 +115,7 @@ import xy.ui.testing.action.component.specific.SelectTabAction;
 import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
+import xy.ui.testing.editor.AbstractWindowSwitch.StatusControlObject;
 import xy.ui.testing.editor.RecordingWindowSwitch.InsertPosition;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
@@ -210,8 +211,24 @@ public class TestEditor extends JFrame {
 	protected Analytics analytics = new Analytics() {
 
 		@Override
+		protected void logInfo(String s) {
+			if(!DEBUG) {
+				return;
+			}
+			super.logInfo(s);
+		}
+
+		@Override
+		protected void logError(Throwable t) {
+			if(!DEBUG) {
+				return;
+			}
+			super.logError(t);
+		}
+
+		@Override
 		public void track(String event, String... details) {
-			logDebug(event + " " + Arrays.asList(details));
+			logDebug("Tracking: " + event + " " + Arrays.asList(details));
 			super.track(event, details);
 		}
 
@@ -239,7 +256,6 @@ public class TestEditor extends JFrame {
 		this.tester = tester;
 		this.testReport = new TestReport();
 		analytics.initialize();
-		analytics.track("Initializing test editor...", "tester=" + tester);
 		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();
@@ -260,7 +276,6 @@ public class TestEditor extends JFrame {
 		swingRenderer = null;
 		reflectionUI = null;
 		infoCustomizations = null;
-		analytics.track("Finalizing test editor...", "tester=" + tester);
 		analytics.shutdown();
 		this.tester = null;
 		this.testReport = null;
@@ -1139,7 +1154,8 @@ public class TestEditor extends JFrame {
 			@Override
 			protected void setValue(Object object, Object value, IFieldInfo field, ITypeInfo containingType) {
 				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
-						|| (object instanceof ComponentFinder)) {
+						|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
+						|| (object instanceof EditingOptions)) {
 					analytics.track("Setting(" + object + " - " + field.getName() + ")", String.valueOf(value));
 				}
 				super.setValue(object, value, field, containingType);
@@ -1150,12 +1166,24 @@ public class TestEditor extends JFrame {
 					ITypeInfo containingType) {
 				if (!method.getName().equals("validate")) {
 					if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
-							|| (object instanceof ComponentFinder)) {
+							|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
+							|| (object instanceof EditingOptions)) {
 						analytics.track(
 								"Invoking " + method.getName() + "(" + invocationData.toString() + ") on " + object);
 					}
 				}
 				return super.invoke(object, invocationData, method, containingType);
+			}
+
+			@Override
+			protected boolean onFormVisibilityChange(ITypeInfo type, Object object, boolean visible) {
+				if (visible) {
+					if ((object instanceof Tester) || (object instanceof TestAction)
+							|| (object instanceof EditingOptions)) {
+						analytics.track("Showing", object.toString());
+					}
+				}
+				return super.onFormVisibilityChange(type, object, visible);
 			}
 
 			protected boolean isTestActionTypeName(String typeName) {

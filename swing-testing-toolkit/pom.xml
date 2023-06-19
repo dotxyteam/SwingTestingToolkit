@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.dotxyteam</groupId>
 	<artifactId>swing-testing-toolkit</artifactId>
-	<version>1.8.9</version>
-	<name>Swing Testing</name>
+	<version>1.8.10</version>
+	<name>Swing Testing Toolkit</name>
 	<description>Java Swing UI testing toolkit</description>
 	<url>https://github.com/dotxyteam/SwingTestingToolkit</url>
 	<licenses>
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.github.dotxyteam</groupId>
 			<artifactId>custom-ui</artifactId>
-			<version>5.2.8</version>
+			<version>5.2.10</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -126,6 +126,18 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+					</archive>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
