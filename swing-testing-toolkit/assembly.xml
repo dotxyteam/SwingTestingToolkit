@@ -22,7 +22,8 @@
 		<fileSet>
 			<directory>${project.basedir}</directory>
 			<includes>
-				<include>readme.txt</include>
+				<include>*.txt</include>
+				<include>*.xml</include>
 			</includes>
 			<excludes>
 				<exclude>.*</exclude>
