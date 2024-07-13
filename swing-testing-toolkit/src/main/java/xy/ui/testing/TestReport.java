@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.util.MiscUtils;
@@ -195,6 +196,7 @@ public class TestReport {
 
 	protected XStream getXStream() {
 		XStream result = new XStream();
+		result.addPermission(AnyTypePermission.ANY);
 		return result;
 	}
 
