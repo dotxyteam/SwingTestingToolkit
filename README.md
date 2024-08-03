@@ -34,7 +34,7 @@ Tested on Java  1.8 and 17
         <dependency>
         <groupId>com.github.dotxyteam</groupId>
         <artifactId>swing-testing-toolkit</artifactId>
-        <version>1.8.9</version>
+        <version>1.8.12</version>
         </dependency>
     Or download the “*dist*.zip” package (see the download section below)
     -    Extract it
