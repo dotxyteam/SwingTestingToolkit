@@ -6,6 +6,7 @@ import java.security.Permission;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.editor.TestEditor;
+import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
 /**
@@ -44,10 +45,16 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	}
 
 	public static void enableInterception() {
+		if(isInterceptionEnabled()) {
+			throw new TestFailure("Cannot enable system exit call interception: It is already enabled");
+		}
 		System.setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
 	}
 
 	public static void disableInterception() {
+		if(!isInterceptionEnabled()) {
+			throw new TestFailure("Cannot disable system exit call interception: It is already disabled");
+		}
 		System.setSecurityManager(((NoExitSecurityManager) System.getSecurityManager()).getInitialSecurityManager());
 	}
 
@@ -73,9 +80,9 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	@Override
 	public String toString() {
 		if (oppposite) {
-			return "Intercept System.exit() calls";
+			return "Do not intercept System.exit() calls";			
 		} else {
-			return "Do not intercept System.exit() calls";
+			return "Intercept System.exit() calls";
 		}
 	}
 
