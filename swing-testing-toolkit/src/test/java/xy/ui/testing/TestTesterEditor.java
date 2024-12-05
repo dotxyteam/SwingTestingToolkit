@@ -9,8 +9,8 @@ import javax.swing.SwingUtilities;
 
 import org.junit.Test;
 
+import xy.reflect.ui.ReflectionUI;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
-import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.editor.TestEditor;
 import xy.ui.testing.util.TestingUtils;
 
@@ -59,7 +59,7 @@ public class TestTesterEditor {
 					testEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
 					testEditor.open();
 				} else if ((args.length == 1) && args[0].equals("TestTesterEditor dialog")) {
-					new SwingRenderer(ReflectionUIUtils.STANDARD_REFLECTION).openObjectDialog(null,
+					new SwingRenderer(ReflectionUI.getDefault()).openObjectDialog(null,
 							new TestTesterEditor(), null, null, false, false);
 				}
 			}

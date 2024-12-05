@@ -31,7 +31,7 @@ public class ComponentPropertyUtil implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	protected static ReflectionUI introspector = ReflectionUIUtils.STANDARD_REFLECTION;
+	protected static ReflectionUI introspector = ReflectionUI.getDefault();
 
 	protected String propertyName;
 	protected String componentClassName;
