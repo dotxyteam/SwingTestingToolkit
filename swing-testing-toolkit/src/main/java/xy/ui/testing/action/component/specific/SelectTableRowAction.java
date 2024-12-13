@@ -15,7 +15,7 @@ import xy.ui.testing.util.TestFailure;
 import xy.ui.testing.util.ValidationError;
 
 /**
- * Test action that selects a {@link JTable} row.
+ * Test action that selects a {@link JTable} or {@link JList} row.
  * 
  * @author olitank
  *
@@ -102,11 +102,10 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 			});
 		} else if (c instanceof JList) {
 			final JList list = (JList) c;
-			if ((firstItemToSelect >= list.getModel().getSize())
-					|| (lastItemToSelect >= list.getModel().getSize())) {
-				throw new TestFailure("Could not select from row (index) " + firstItemToSelect + " to "
-						+ lastItemToSelect + ": Invalid row index(es). Maximum row index: "
-						+ (list.getModel().getSize() - 1));
+			if ((firstItemToSelect >= list.getModel().getSize()) || (lastItemToSelect >= list.getModel().getSize())) {
+				throw new TestFailure(
+						"Could not select from row (index) " + firstItemToSelect + " to " + lastItemToSelect
+								+ ": Invalid row index(es). Maximum row index: " + (list.getModel().getSize() - 1));
 			}
 			MiscUtils.expectingToBeInUIThread(new Runnable() {
 				@Override

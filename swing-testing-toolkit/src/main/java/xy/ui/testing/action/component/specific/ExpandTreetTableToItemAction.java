@@ -15,7 +15,8 @@ import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
 
 /**
- * Test action that expands a {@link TreePath} node.
+ * Test action that expands the tree of a {@link JTree} or {@link JXTreeTable}
+ * control.
  * 
  * @author olitank
  *
@@ -23,6 +24,7 @@ import xy.ui.testing.util.TestFailure;
 public class ExpandTreetTableToItemAction extends AbstractTreeTableItemPathAction {
 
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected boolean initializeSpecificProperties(Component c, AWTEvent introspectionRequestEvent,
 			TestEditor testEditor) {

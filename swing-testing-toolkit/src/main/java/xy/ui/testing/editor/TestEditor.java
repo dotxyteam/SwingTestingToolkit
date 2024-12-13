@@ -107,6 +107,7 @@ import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
 import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
+import xy.ui.testing.action.component.specific.CheckSelectionAction;
 import xy.ui.testing.action.component.specific.ClickOnTableCellAction;
 import xy.ui.testing.action.component.specific.CollapseTreetTableItemAction;
 import xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction;
@@ -167,9 +168,9 @@ public class TestEditor extends JFrame {
 	public static final Class<?>[] BUILT_IN_TEST_ACTION_CLASSES = new Class[] { CallMainMethodAction.class,
 			SystemExitCallInterceptionAction.class, WaitAction.class, ExpandTreetTableToItemAction.class,
 			CollapseTreetTableItemAction.class, SelectComboBoxItemAction.class, SelectTableRowAction.class,
-			SelectTabAction.class, ClickOnTableCellAction.class, ClickOnMenuItemAction.class, ClickAction.class,
-			SendKeysAction.class, FocusAction.class, CheckVisibleStringsAction.class,
-			CheckWindowVisibleStringsAction.class, ChangeComponentPropertyAction.class,
+			CheckSelectionAction.class, SelectTabAction.class, ClickOnTableCellAction.class,
+			ClickOnMenuItemAction.class, ClickAction.class, SendKeysAction.class, FocusAction.class,
+			CheckVisibleStringsAction.class, CheckWindowVisibleStringsAction.class, ChangeComponentPropertyAction.class,
 			CheckComponentPropertyAction.class, CloseWindowAction.class, CheckNumberOfOpenWindowsAction.class };
 	public static final Class<?>[] BUILT_IN_COMPONENT_FINDRER_CLASSES = new Class[] { MenuItemComponentFinder.class,
 			NameBasedComponentFinder.class, DisplayedStringComponentFinder.class, ClassBasedComponentFinder.class,
@@ -212,7 +213,7 @@ public class TestEditor extends JFrame {
 
 		@Override
 		protected void logInfo(String s) {
-			if(!DEBUG) {
+			if (!DEBUG) {
 				return;
 			}
 			super.logInfo(s);
@@ -220,7 +221,7 @@ public class TestEditor extends JFrame {
 
 		@Override
 		protected void logError(Throwable t) {
-			if(!DEBUG) {
+			if (!DEBUG) {
 				return;
 			}
 			super.logError(t);
