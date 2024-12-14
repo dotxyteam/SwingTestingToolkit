@@ -66,8 +66,8 @@ public class TestReport {
 	}
 
 	protected String buildDirectoryPath(Tester tester) {
-		String formattedInstanciationDate = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(instantiationDate);
-		String fileName = "test-report-" + formattedInstanciationDate + "-" + tester;
+		String formattedInstantiationDate = new SimpleDateFormat("yyyy.MM.dd-HH.mm.ss").format(instantiationDate);
+		String fileName = "test-report-" + formattedInstantiationDate + "-" + tester;
 		File file = new File(getAllTestReportsDirectory(), fileName);
 		return MiscUtils.getOSAgnosticFilePath(file.getPath());
 	}
@@ -197,6 +197,7 @@ public class TestReport {
 	protected XStream getXStream() {
 		XStream result = new XStream();
 		result.addPermission(AnyTypePermission.ANY);
+		result.ignoreUnknownElements();
 		return result;
 	}
 

@@ -51,7 +51,6 @@ import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.TestAction;
 import xy.ui.testing.action.component.specific.SelectComboBoxItemAction;
 import xy.ui.testing.editor.TestEditor;
-import xy.ui.testing.util.Analytics;
 import xy.ui.testing.util.Listener;
 import xy.ui.testing.util.MiscUtils;
 import xy.ui.testing.util.TestFailure;
@@ -538,6 +537,7 @@ public class Tester {
 		XStream result = new XStream();
 		result.registerConverter(new JavaBeanConverter(result.getMapper()), -20);
 		result.addPermission(AnyTypePermission.ANY);
+		result.ignoreUnknownElements();
 		return result;
 	}
 
@@ -843,7 +843,6 @@ public class Tester {
 		protected boolean testableWindowsAlwaysOnTopFeatureDisabled = true;
 		protected boolean testableModalWindowsForcedToDocumentModality = true;
 		protected ControlsTheme controlsTheme = ControlsTheme.classic;
-		protected boolean analyticsEnabled = true;
 
 		/**
 		 * @return The current test editor window theme.
@@ -903,27 +902,6 @@ public class Tester {
 		public void setTestableModalWindowsForcedToDocumentModality(
 				boolean testableModalWindowsForcedToDocumentModality) {
 			this.testableModalWindowsForcedToDocumentModality = testableModalWindowsForcedToDocumentModality;
-		}
-
-		/**
-		 * @return Whether some logs are sent to help improve the toolkit. Note that the
-		 *         target URL must be specified (see @link
-		 *         {@link Analytics#TRACKINGS_DELIVERY_URL}) for this feature to be
-		 *         available.
-		 */
-		public boolean isAnalyticsEnabled() {
-			return analyticsEnabled;
-		}
-
-		/**
-		 * Updates whether some logs are sent to help improve the toolkit. Note that the
-		 * target URL must be specified (see @link
-		 * {@link Analytics#TRACKINGS_DELIVERY_URL}) for this feature to be available.
-		 * 
-		 * @param analyticsEnabled The new flag.
-		 */
-		public void setAnalyticsEnabled(boolean analyticsEnabled) {
-			this.analyticsEnabled = analyticsEnabled;
 		}
 
 	}

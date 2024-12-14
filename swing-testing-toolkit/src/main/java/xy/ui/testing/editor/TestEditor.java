@@ -18,7 +18,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -126,7 +125,6 @@ import xy.ui.testing.finder.NameBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder;
 import xy.ui.testing.finder.PropertyBasedComponentFinder.PropertyValue;
 import xy.ui.testing.theme.ClassInThemePackage;
-import xy.ui.testing.util.Analytics;
 import xy.ui.testing.util.MiscUtils;
 
 /**
@@ -209,39 +207,6 @@ public class TestEditor extends JFrame {
 	protected Set<Window> allWindows = new HashSet<Window>();
 
 	protected AWTEventListener modalityChangingListener;
-	protected Analytics analytics = new Analytics() {
-
-		@Override
-		protected void logInfo(String s) {
-			if (!DEBUG) {
-				return;
-			}
-			super.logInfo(s);
-		}
-
-		@Override
-		protected void logError(Throwable t) {
-			if (!DEBUG) {
-				return;
-			}
-			super.logError(t);
-		}
-
-		@Override
-		public void track(String event, String... details) {
-			logDebug("Tracking: " + event + " " + Arrays.asList(details));
-			super.track(event, details);
-		}
-
-		@Override
-		public void sendTracking(Date when, String used, String... details) {
-			if (!tester.getEditingOptions().isAnalyticsEnabled()) {
-				return;
-			}
-			super.sendTracking(when, used, details);
-		}
-
-	};
 	protected IModificationListener backgroundImageUpdater = new AbstractSimpleModificationListener() {
 		@Override
 		protected void handleAnyEvent(IModification modification) {
@@ -256,7 +221,6 @@ public class TestEditor extends JFrame {
 		TESTER_BY_EDITOR.put(this, tester);
 		this.tester = tester;
 		this.testReport = new TestReport();
-		analytics.initialize();
 		setupWindowSwitchesEventHandling();
 		preventDialogApplicationModality();
 		infoCustomizations = createInfoCustomizations();
@@ -277,7 +241,6 @@ public class TestEditor extends JFrame {
 		swingRenderer = null;
 		reflectionUI = null;
 		infoCustomizations = null;
-		analytics.shutdown();
 		this.tester = null;
 		this.testReport = null;
 		TESTER_BY_EDITOR.remove(this);
@@ -964,8 +927,8 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		public Object onTypeInstanciationRequest(Component activatorComponent, ITypeInfo type) {
-			Object result = super.onTypeInstanciationRequest(activatorComponent, type);
+		public Object onTypeInstantiationRequest(Component activatorComponent, ITypeInfo type) {
+			Object result = super.onTypeInstantiationRequest(activatorComponent, type);
 			if (result instanceof ComponentFinder) {
 				if (componentFinderInitializationSource != null) {
 					((ComponentFinder) result).initializeFrom(componentFinderInitializationSource, TestEditor.this);
@@ -1157,7 +1120,6 @@ public class TestEditor extends JFrame {
 				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
 						|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
 						|| (object instanceof EditingOptions)) {
-					analytics.track("Setting(" + object + " - " + field.getName() + ")", String.valueOf(value));
 				}
 				super.setValue(object, value, field, containingType);
 			}
@@ -1169,8 +1131,6 @@ public class TestEditor extends JFrame {
 					if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
 							|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
 							|| (object instanceof EditingOptions)) {
-						analytics.track(
-								"Invoking " + method.getName() + "(" + invocationData.toString() + ") on " + object);
 					}
 				}
 				return super.invoke(object, invocationData, method, containingType);
@@ -1181,7 +1141,6 @@ public class TestEditor extends JFrame {
 				if (visible) {
 					if ((object instanceof Tester) || (object instanceof TestAction)
 							|| (object instanceof EditingOptions)) {
-						analytics.track("Showing", object.toString());
 					}
 				}
 				return super.onFormVisibilityChange(type, object, visible);
@@ -1287,18 +1246,6 @@ public class TestEditor extends JFrame {
 				} else {
 					return super.getFields(type);
 				}
-			}
-
-			@Override
-			protected boolean isHidden(IFieldInfo field, ITypeInfo containingType) {
-				if (Analytics.TRACKINGS_DELIVERY_URL == null) {
-					if (containingType.getName().equals(EditingOptions.class.getName())) {
-						if (field.getName().equals("analyticsEnabled")) {
-							return true;
-						}
-					}
-				}
-				return super.isHidden(field, containingType);
 			}
 
 			@Override
