@@ -70,7 +70,7 @@ public class ComponentPropertyUtil implements Serializable{
 
 				@Override
 				public ITypeInfo getType() {
-					return introspector.buildTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
+					return introspector.getTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
 				}
 			};
 		}
@@ -83,7 +83,7 @@ public class ComponentPropertyUtil implements Serializable{
 
 				@Override
 				public ITypeInfo getType() {
-					return introspector.buildTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
+					return introspector.getTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
 				}
 			};
 		}
@@ -101,7 +101,7 @@ public class ComponentPropertyUtil implements Serializable{
 
 				@Override
 				public ITypeInfo getType() {
-					return introspector.buildTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
+					return introspector.getTypeInfo(new JavaTypeInfoSource(introspector, String.class, null));
 				}
 			};
 		}
@@ -180,7 +180,7 @@ public class ComponentPropertyUtil implements Serializable{
 		}
 		try {
 			return introspector
-					.buildTypeInfo(new JavaTypeInfoSource(introspector, Class.forName(componentClassName), null));
+					.getTypeInfo(new JavaTypeInfoSource(introspector, Class.forName(componentClassName), null));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
