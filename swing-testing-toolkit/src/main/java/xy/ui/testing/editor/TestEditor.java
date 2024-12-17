@@ -1033,11 +1033,11 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo containingType) {
-				if (isExtensionTestActionEncapsulationTypeName(containingType.getName())) {
+			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo objectType) {
+				if (isExtensionTestActionEncapsulationTypeName(objectType.getName())) {
 					return true;
 				}
-				return super.isFormControlEmbedded(field, containingType);
+				return super.isFormControlEmbedded(field, objectType);
 			}
 
 			@Override
@@ -1088,15 +1088,15 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected InfoCategory getCategory(IFieldInfo field, ITypeInfo containingType) {
-				if (isExtensionTestActionTypeName(containingType.getName())) {
+			protected InfoCategory getCategory(IFieldInfo field, ITypeInfo objectType) {
+				if (isExtensionTestActionTypeName(objectType.getName())) {
 					if (field.getName().equals("componentFinder")) {
 						return new InfoCategory("Component Location", 0, null);
 					} else {
 						return new InfoCategory("General", 1, null);
 					}
 				}
-				return super.getCategory(field, containingType);
+				return super.getCategory(field, objectType);
 			}
 
 			@Override
@@ -1116,24 +1116,24 @@ public class TestEditor extends JFrame {
 					"^Encapsulation \\[context=FieldContext \\[fieldName=componentFinder.*\\], subContext=PolymorphicInstance.*\\]$");
 
 			@Override
-			protected void setValue(Object object, Object value, IFieldInfo field, ITypeInfo containingType) {
+			protected void setValue(Object object, Object value, IFieldInfo field, ITypeInfo objectType) {
 				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
 						|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
 						|| (object instanceof EditingOptions)) {
 				}
-				super.setValue(object, value, field, containingType);
+				super.setValue(object, value, field, objectType);
 			}
 
 			@Override
 			protected Object invoke(Object object, InvocationData invocationData, IMethodInfo method,
-					ITypeInfo containingType) {
+					ITypeInfo objectType) {
 				if (!method.getName().equals("validate")) {
 					if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
 							|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
 							|| (object instanceof EditingOptions)) {
 					}
 				}
-				return super.invoke(object, invocationData, method, containingType);
+				return super.invoke(object, invocationData, method, objectType);
 			}
 
 			@Override
@@ -1216,12 +1216,12 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo containingType) {
-				if (polymorphicComponentFindeFieldEncapsulationTypeNamePattern.matcher(containingType.getName())
+			protected boolean isFormControlEmbedded(IFieldInfo field, ITypeInfo objectType) {
+				if (polymorphicComponentFindeFieldEncapsulationTypeNamePattern.matcher(objectType.getName())
 						.matches()) {
 					return true;
 				}
-				return super.isFormControlEmbedded(field, containingType);
+				return super.isFormControlEmbedded(field, objectType);
 			}
 
 			@Override
@@ -1249,14 +1249,14 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected boolean isHidden(IMethodInfo method, ITypeInfo containingType) {
-				if (isTestActionTypeName(containingType.getName())) {
+			protected boolean isHidden(IMethodInfo method, ITypeInfo objectType) {
+				if (isTestActionTypeName(objectType.getName())) {
 					if (method.getSignature().equals(ReflectionUIUtils.buildMethodSignature("void", "prepare",
 							Arrays.asList(Tester.class.getName())))) {
 						return true;
 					}
 				}
-				return super.isHidden(method, containingType);
+				return super.isHidden(method, objectType);
 			}
 
 			@Override
