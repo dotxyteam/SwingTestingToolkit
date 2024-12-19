@@ -255,9 +255,9 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 					@Override
 					public Image retrieveBackgroundImage() {
-						if (reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath() != null) {
+						if (reflectionUI.getApplicationInfo().getButtonBackgroundImagePath() != null) {
 							return SwingRendererUtils.loadImageThroughCache(
-									reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath(),
+									reflectionUI.getApplicationInfo().getButtonBackgroundImagePath(),
 									ReflectionUIUtils.getErrorLogListener(reflectionUI));
 						}
 						return null;
@@ -275,27 +275,27 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 
 					@Override
 					public Color retrieveBackgroundColor() {
-						if (reflectionUI.getApplicationInfo().getMainButtonBackgroundColor() != null) {
+						if (reflectionUI.getApplicationInfo().getButtonBackgroundColor() != null) {
 							return SwingRendererUtils
-									.getColor(reflectionUI.getApplicationInfo().getMainButtonBackgroundColor());
+									.getColor(reflectionUI.getApplicationInfo().getButtonBackgroundColor());
 						}
 						return null;
 					}
 
 					@Override
 					public Color retrieveForegroundColor() {
-						if (reflectionUI.getApplicationInfo().getMainButtonForegroundColor() != null) {
+						if (reflectionUI.getApplicationInfo().getButtonForegroundColor() != null) {
 							return SwingRendererUtils
-									.getColor(reflectionUI.getApplicationInfo().getMainButtonForegroundColor());
+									.getColor(reflectionUI.getApplicationInfo().getButtonForegroundColor());
 						}
 						return null;
 					}
 
 					@Override
 					public Color retrieveBorderColor() {
-						if (reflectionUI.getApplicationInfo().getMainButtonBorderColor() != null) {
+						if (reflectionUI.getApplicationInfo().getButtonBorderColor() != null) {
 							return SwingRendererUtils
-									.getColor(reflectionUI.getApplicationInfo().getMainButtonBorderColor());
+									.getColor(reflectionUI.getApplicationInfo().getButtonBorderColor());
 						}
 						return null;
 					}

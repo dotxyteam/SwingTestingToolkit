@@ -90,7 +90,6 @@ import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TestReport;
 import xy.ui.testing.Tester;
 import xy.ui.testing.Tester.ControlsTheme;
-import xy.ui.testing.Tester.EditingOptions;
 import xy.ui.testing.action.CallMainMethodAction;
 import xy.ui.testing.action.CheckNumberOfOpenWindowsAction;
 import xy.ui.testing.action.SystemExitCallInterceptionAction;
@@ -115,7 +114,6 @@ import xy.ui.testing.action.component.specific.SelectTabAction;
 import xy.ui.testing.action.component.specific.SelectTableRowAction;
 import xy.ui.testing.action.window.CheckWindowVisibleStringsAction;
 import xy.ui.testing.action.window.CloseWindowAction;
-import xy.ui.testing.editor.AbstractWindowSwitch.StatusControlObject;
 import xy.ui.testing.editor.RecordingWindowSwitch.InsertPosition;
 import xy.ui.testing.finder.ClassBasedComponentFinder;
 import xy.ui.testing.finder.ComponentFinder;
@@ -1114,37 +1112,6 @@ public class TestEditor extends JFrame {
 
 			protected final Pattern polymorphicComponentFindeFieldEncapsulationTypeNamePattern = Pattern.compile(
 					"^Encapsulation \\[context=FieldContext \\[fieldName=componentFinder.*\\], subContext=PolymorphicInstance.*\\]$");
-
-			@Override
-			protected void setValue(Object object, Object value, IFieldInfo field, ITypeInfo objectType) {
-				if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
-						|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
-						|| (object instanceof EditingOptions)) {
-				}
-				super.setValue(object, value, field, objectType);
-			}
-
-			@Override
-			protected Object invoke(Object object, InvocationData invocationData, IMethodInfo method,
-					ITypeInfo objectType) {
-				if (!method.getName().equals("validate")) {
-					if ((object instanceof Tester) || (object instanceof TestReport) || (object instanceof TestAction)
-							|| (object instanceof ComponentFinder) || (object instanceof StatusControlObject)
-							|| (object instanceof EditingOptions)) {
-					}
-				}
-				return super.invoke(object, invocationData, method, objectType);
-			}
-
-			@Override
-			protected boolean onFormVisibilityChange(ITypeInfo type, Object object, boolean visible) {
-				if (visible) {
-					if ((object instanceof Tester) || (object instanceof TestAction)
-							|| (object instanceof EditingOptions)) {
-					}
-				}
-				return super.onFormVisibilityChange(type, object, visible);
-			}
 
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;

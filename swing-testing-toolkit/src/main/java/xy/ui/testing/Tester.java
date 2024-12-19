@@ -568,7 +568,7 @@ public class Tester {
 	 * @param c The tested component.
 	 * @return Whether a component is considered as visible or not during the
 	 *         execution of test actions. This method is used instead of
-	 *         {@link Component#isVisible()} by test actions. Can then be overriden
+	 *         {@link Component#isVisible()} by test actions. Can then be overridden
 	 *         typically when testing custom components that need custom testing
 	 *         behavior.
 	 */
@@ -583,7 +583,7 @@ public class Tester {
 	 * @param c The tested component.
 	 * @return Whether a component is considered as testable or not. Normally all
 	 *         components that are not part or owned by the test editor are
-	 *         testable. This method is used by test actions. Can then be overriden
+	 *         testable. This method is used by test actions. Can then be overridden
 	 *         typically when testing custom components that need custom testing
 	 *         behavior.
 	 */
@@ -652,7 +652,7 @@ public class Tester {
 	 * @param c The inspected component.
 	 * @return The list of strings displayed on the given component. This method is
 	 *         used by test actions that depend on visible strings. Can then be
-	 *         overriden typically when testing custom components that need custom
+	 *         overridden typically when testing custom components that need custom
 	 *         testing behavior.
 	 */
 	@SuppressWarnings({ "rawtypes" })
