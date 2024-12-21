@@ -1478,6 +1478,11 @@ public class TestEditor extends JFrame {
 							}
 
 							@Override
+							public DisplayMode getDisplayMode() {
+								return DisplayMode.getDefault();
+							}
+
+							@Override
 							public Object invoke(Object object, InvocationData invocationData) {
 								try {
 									List<TestAction> selectedActions = new ArrayList<TestAction>();
@@ -1544,6 +1549,11 @@ public class TestEditor extends JFrame {
 									return "Replay from selected action to end";
 								}
 
+								@Override
+								public DisplayMode getDisplayMode() {
+									return DisplayMode.getDefault();
+								}
+
 							});
 						}
 						return result;
@@ -1594,6 +1604,11 @@ public class TestEditor extends JFrame {
 							@Override
 							public Object[] getValueOptions(Object object) {
 								return new Object[] { ENABLED, DISABLED };
+							}
+
+							@Override
+							public DisplayMode getDisplayMode() {
+								return DisplayMode.getDefault();
 							}
 
 							@Override
