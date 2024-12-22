@@ -1023,11 +1023,11 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected ResourcePath getIconImagePath(ITypeInfo type) {
+			protected ResourcePath getIconImagePath(ITypeInfo type, Object object) {
 				if (isExtensionTestActionTypeName(type.getName())) {
 					return EXTENSION_IMAGE_PATH;
 				}
-				return super.getIconImagePath(type);
+				return super.getIconImagePath(type, object);
 			}
 
 			@Override
