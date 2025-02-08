@@ -72,8 +72,8 @@ import xy.reflect.ui.info.type.factory.InfoProxyFactory;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
-import xy.reflect.ui.info.type.iterable.util.AbstractListAction;
-import xy.reflect.ui.info.type.iterable.util.AbstractListProperty;
+import xy.reflect.ui.info.type.iterable.util.AbstractDynamicListAction;
+import xy.reflect.ui.info.type.iterable.util.AbstractDynamicListProperty;
 import xy.reflect.ui.info.type.iterable.util.IDynamicListAction;
 import xy.reflect.ui.info.type.iterable.util.IDynamicListProperty;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
@@ -1445,7 +1445,7 @@ public class TestEditor extends JFrame {
 						&& TestAction.class.getName().equals(listType.getItemType().getName())) {
 					if (selection.size() > 0) {
 						List<IDynamicListAction> result = new ArrayList<IDynamicListAction>();
-						result.add(new AbstractListAction() {
+						result.add(new AbstractDynamicListAction() {
 
 							@Override
 							public boolean isNullReturnValueDistinct() {
@@ -1499,7 +1499,7 @@ public class TestEditor extends JFrame {
 
 						});
 						if (selection.size() == 1) {
-							result.add(new AbstractListAction() {
+							result.add(new AbstractDynamicListAction() {
 
 								@Override
 								public boolean isNullReturnValueDistinct() {
@@ -1571,7 +1571,7 @@ public class TestEditor extends JFrame {
 					List<IDynamicListProperty> result = new ArrayList<IDynamicListProperty>(
 							super.getDynamicProperties(listType, selection, listModificationFactoryAccessor));
 					if (selection.size() >= 1) {
-						result.add(new AbstractListProperty() {
+						result.add(new AbstractDynamicListProperty() {
 
 							String DISABLED = "Disabled";
 							String ENABLED = "Enabled";
