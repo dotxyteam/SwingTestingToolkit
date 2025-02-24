@@ -207,10 +207,6 @@ public class TestEditor extends JFrame {
 	protected AWTEventListener modalityChangingListener;
 	protected IModificationListener backgroundImageUpdater = new AbstractSimpleModificationListener() {
 		@Override
-		public void beforeModification() {
-		}
-
-		@Override
 		protected void handleAnyEvent(IModification modification) {
 			windowManager.refreshWindowStructureAsMuchAsPossible();
 		}
@@ -315,10 +311,6 @@ public class TestEditor extends JFrame {
 			Form form = formAccessor.get();
 			{
 				resubscribeOnStructureRefreshing();
-			}
-
-			@Override
-			public void beforeModification() {
 			}
 
 			@Override
