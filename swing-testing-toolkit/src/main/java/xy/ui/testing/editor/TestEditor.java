@@ -1196,7 +1196,7 @@ public class TestEditor extends JFrame {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
 					ITypeInfo propertyValueType = getTypeInfo(
-							new JavaTypeInfoSource(TestEditorReflectionUI.this, PropertyValue.class, null));
+							new JavaTypeInfoSource(PropertyValue.class, null));
 					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
@@ -1301,7 +1301,7 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this,
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(
 										InsertPosition.class, null));
 							}
 
@@ -1338,7 +1338,7 @@ public class TestEditor extends JFrame {
 							@Override
 							public ITypeInfo getType() {
 								return reflectionUI.getTypeInfo(
-										new JavaTypeInfoSource(reflectionUI, CallMainMethodAction.class, null));
+										new JavaTypeInfoSource(CallMainMethodAction.class, null));
 							}
 
 							@Override
@@ -1417,19 +1417,19 @@ public class TestEditor extends JFrame {
 				if (type.getName().equals(TestAction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getTestActionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(ComponentFinder.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getComponentFinderClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
 					}
 					return result;
 				} else if (type.getName().equals(KeyboardInteraction.class.getName())) {
 					List<ITypeInfo> result = new ArrayList<ITypeInfo>();
 					for (Class<?> clazz : getKeyboardInteractionClasses()) {
-						result.add(getTypeInfo(new JavaTypeInfoSource(TestEditorReflectionUI.this, clazz, null)));
+						result.add(getTypeInfo(new JavaTypeInfoSource(clazz, null)));
 					}
 					return result;
 				} else {
@@ -1671,7 +1671,7 @@ public class TestEditor extends JFrame {
 							@Override
 							public ITypeInfo getType() {
 								return reflectionUI.getTypeInfo(
-										new JavaTypeInfoSource(TestEditorReflectionUI.this, String.class, null));
+										new JavaTypeInfoSource(String.class, null));
 							}
 
 						});
