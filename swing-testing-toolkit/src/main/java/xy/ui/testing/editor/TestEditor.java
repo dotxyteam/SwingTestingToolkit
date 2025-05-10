@@ -55,6 +55,7 @@ import xy.reflect.ui.control.swing.util.SwingRendererUtils;
 import xy.reflect.ui.control.swing.util.WindowManager;
 import xy.reflect.ui.info.InfoCategory;
 import xy.reflect.ui.info.ResourcePath;
+import xy.reflect.ui.info.ValidationSession;
 import xy.reflect.ui.info.ValueReturnMode;
 import xy.reflect.ui.info.app.IApplicationInfo;
 import xy.reflect.ui.info.custom.InfoCustomizations;
@@ -1098,11 +1099,11 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected void validate(ITypeInfo type, Object object) throws Exception {
+			protected void validate(ITypeInfo type, Object object, ValidationSession session) throws Exception {
 				if (isExtensionTestActionTypeName(type.getName())) {
 					((TestAction) object).validate();
 				} else {
-					super.validate(type, object);
+					super.validate(type, object, session);
 				}
 			}
 
@@ -1195,8 +1196,7 @@ public class TestEditor extends JFrame {
 			protected List<IFieldInfo> getFields(ITypeInfo type) {
 				if (type.getName().equals(PropertyBasedComponentFinder.class.getName())) {
 					List<IFieldInfo> result = new ArrayList<IFieldInfo>(super.getFields(type));
-					ITypeInfo propertyValueType = getTypeInfo(
-							new JavaTypeInfoSource(PropertyValue.class, null));
+					ITypeInfo propertyValueType = getTypeInfo(new JavaTypeInfoSource(PropertyValue.class, null));
 					result.add(new ImplicitListFieldInfo(TestEditor.this.reflectionUI, "propertyValues", type,
 							propertyValueType, "createPropertyValue", "getPropertyValue", "addPropertyValue",
 							"removePropertyValue", "propertyValueCount"));
@@ -1301,8 +1301,7 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(
-										InsertPosition.class, null));
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(InsertPosition.class, null));
 							}
 
 							@Override
@@ -1337,8 +1336,8 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(
-										new JavaTypeInfoSource(CallMainMethodAction.class, null));
+								return reflectionUI
+										.getTypeInfo(new JavaTypeInfoSource(CallMainMethodAction.class, null));
 							}
 
 							@Override
@@ -1670,8 +1669,7 @@ public class TestEditor extends JFrame {
 
 							@Override
 							public ITypeInfo getType() {
-								return reflectionUI.getTypeInfo(
-										new JavaTypeInfoSource(String.class, null));
+								return reflectionUI.getTypeInfo(new JavaTypeInfoSource(String.class, null));
 							}
 
 						});
