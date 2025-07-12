@@ -48,7 +48,7 @@ import xy.reflect.ui.control.swing.customizer.SwingCustomizer;
 import xy.reflect.ui.control.swing.menu.AbstractFileMenuItem;
 import xy.reflect.ui.control.swing.renderer.FieldControlPlaceHolder;
 import xy.reflect.ui.control.swing.renderer.Form;
-import xy.reflect.ui.control.swing.renderer.Form.IRefreshListener;
+import xy.reflect.ui.control.swing.renderer.Form.IFormListener;
 import xy.reflect.ui.control.swing.renderer.SwingRenderer;
 import xy.reflect.ui.control.swing.util.AlternativeWindowDecorationsPanel;
 import xy.reflect.ui.control.swing.util.SwingRendererUtils;
@@ -333,23 +333,27 @@ public class TestEditor extends JFrame {
 				 * In order to maintain this feature in CustomUI design mode, when the GUI is
 				 * rebuilt, then the listener is re-attached to the new form:
 				 */
-				mainForm.getRefreshListeners().add(new IRefreshListener() {
-					IRefreshListener thisRefreshListener = this;
+				mainForm.getListeners().add(new IFormListener() {
+					IFormListener thisRefreshListener = this;
 
 					@Override
 					public void onRefresh(boolean refreshStructure) {
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								form.getRefreshListeners().remove(thisRefreshListener);
+								form.getListeners().remove(thisRefreshListener);
 								((SlaveModificationStack) form.getModificationStack())
 										.removeListener(thisModificationListener);
 								form = formAccessor.get();
 								((SlaveModificationStack) form.getModificationStack())
 										.addSlaveListener(thisModificationListener);
-								form.getRefreshListeners().add(thisRefreshListener);
+								form.getListeners().add(thisRefreshListener);
 							}
 						});
+					}
+
+					@Override
+					public void afterValidation(Exception validationError) {
 					}
 				});
 			}
