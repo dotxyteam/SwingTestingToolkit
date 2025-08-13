@@ -1004,7 +1004,7 @@ public class TestEditor extends JFrame {
 			protected boolean isExtensionTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getCachedClassForName(typeName);
+					clazz = ClassUtils.getClassThroughCache(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1121,7 +1121,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getCachedClassForName(typeName);
+					clazz = ClassUtils.getClassThroughCache(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1134,7 +1134,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTesterOrSubTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getCachedClassForName(typeName);
+					clazz = ClassUtils.getClassThroughCache(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
