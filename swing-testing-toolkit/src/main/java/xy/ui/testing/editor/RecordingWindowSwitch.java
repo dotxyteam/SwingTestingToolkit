@@ -258,7 +258,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 						if (reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath() != null) {
 							return SwingRendererUtils.loadImageThroughCache(
 									reflectionUI.getApplicationInfo().getMainButtonBackgroundImagePath(),
-									ReflectionUIUtils.getErrorLogListener(reflectionUI));
+									ReflectionUIUtils.getErrorLogListener(reflectionUI), null);
 						}
 						return null;
 					}
@@ -268,7 +268,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 						if (reflectionUI.getApplicationInfo().getButtonCustomFontResourcePath() != null) {
 							return SwingRendererUtils.loadFontThroughCache(
 									reflectionUI.getApplicationInfo().getButtonCustomFontResourcePath(),
-									ReflectionUIUtils.getErrorLogListener(reflectionUI));
+									ReflectionUIUtils.getErrorLogListener(reflectionUI), null);
 						}
 						return null;
 					}
