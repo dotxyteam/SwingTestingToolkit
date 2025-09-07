@@ -966,7 +966,7 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		protected ITypeInfo getTypeInfoBeforeCustomizations(ITypeInfo type) {
+		public ITypeInfo getTypeInfoBeforeCustomizations(ITypeInfo type) {
 			ITypeInfo result = type;
 			result = new StandardProxyFactory().wrapTypeInfo(result);
 			result = new ExtensionsProxyFactory().wrapTypeInfo(result);
