@@ -1248,7 +1248,7 @@ public class TestEditor extends JFrame {
 
 						@Override
 						public String getCaption() {
-							return "Start Recording";
+							return "Start Recording...";
 						}
 
 						@Override
