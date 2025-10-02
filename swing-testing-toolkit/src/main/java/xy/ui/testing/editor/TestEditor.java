@@ -69,7 +69,9 @@ import xy.reflect.ui.info.parameter.IParameterInfo;
 import xy.reflect.ui.info.parameter.ParameterInfoProxy;
 import xy.reflect.ui.info.type.ITypeInfo;
 import xy.reflect.ui.info.type.ITypeInfo.CategoriesStyle;
+import xy.reflect.ui.info.type.factory.IInfoProxyFactory;
 import xy.reflect.ui.info.type.factory.InfoProxyFactory;
+import xy.reflect.ui.info.type.factory.InfoProxyFactoryChain;
 import xy.reflect.ui.info.type.iterable.IListTypeInfo;
 import xy.reflect.ui.info.type.iterable.item.BufferedItemPosition;
 import xy.reflect.ui.info.type.iterable.item.ItemPosition;
@@ -966,19 +968,8 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
-		public ITypeInfo getTypeInfoBeforeCustomizations(ITypeInfo type) {
-			ITypeInfo result = type;
-			result = new StandardProxyFactory().wrapTypeInfo(result);
-			result = new ExtensionsProxyFactory().wrapTypeInfo(result);
-			return result;
-		}
-
-		@Override
-		public IApplicationInfo getApplicationInfo() {
-			IApplicationInfo result = super.getApplicationInfo();
-			result = new StandardProxyFactory().wrapApplicationInfo(result);
-			result = new ExtensionsProxyFactory().wrapApplicationInfo(result);
-			return result;
+		protected IInfoProxyFactory createBeforeInfoCustomizationsFactory() {
+			return new InfoProxyFactoryChain(new StandardProxyFactory(), new ExtensionsProxyFactory());
 		}
 
 		@Override
