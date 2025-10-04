@@ -994,7 +994,7 @@ public class TestEditor extends JFrame {
 			protected boolean isExtensionTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = reflectionUI.loadClassThroughCache(typeName);
+					clazz = reflectionUI.getReflectedClass(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1111,7 +1111,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = reflectionUI.loadClassThroughCache(typeName);
+					clazz = reflectionUI.getReflectedClass(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1124,7 +1124,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTesterOrSubTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = reflectionUI.loadClassThroughCache(typeName);
+					clazz = reflectionUI.getReflectedClass(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
