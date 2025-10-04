@@ -87,7 +87,6 @@ import xy.reflect.ui.undo.ListModificationFactory;
 import xy.reflect.ui.undo.ModificationStack;
 import xy.reflect.ui.undo.SlaveModificationStack;
 import xy.reflect.ui.util.Accessor;
-import xy.reflect.ui.util.ClassUtils;
 import xy.reflect.ui.util.Mapper;
 import xy.reflect.ui.util.ReflectionUIUtils;
 import xy.ui.testing.TestReport;
@@ -995,7 +994,7 @@ public class TestEditor extends JFrame {
 			protected boolean isExtensionTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getClassThroughCache(typeName);
+					clazz = reflectionUI.loadClassThroughCache(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1112,7 +1111,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTestActionTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getClassThroughCache(typeName);
+					clazz = reflectionUI.loadClassThroughCache(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
@@ -1125,7 +1124,7 @@ public class TestEditor extends JFrame {
 			protected boolean isTesterOrSubTypeName(String typeName) {
 				Class<?> clazz;
 				try {
-					clazz = ClassUtils.getClassThroughCache(typeName);
+					clazz = reflectionUI.loadClassThroughCache(typeName);
 				} catch (ClassNotFoundException e) {
 					return false;
 				}
