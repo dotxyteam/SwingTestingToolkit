@@ -4113,7 +4113,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d0e</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-106c</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c50</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4147,7 +4147,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d0b</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-106b</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c51</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -4209,7 +4209,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d06</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-106a</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c52</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4243,7 +4243,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d03</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1069</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c53</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4304,7 +4304,7 @@
             <uniqueIdentifier>1dda0157:15c51b20c8e:-4585</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1068</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c54</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4339,7 +4339,7 @@
             <uniqueIdentifier>2bf0649b:1799689fafc:-6662</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1067</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c55</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -5193,7 +5193,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cc6</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1066</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c56</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -5255,7 +5255,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cc1</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1065</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c57</uniqueIdentifier>
                 <caption>Key Events</caption>
                 <name>Key Events</name>
             </category>
@@ -5289,7 +5289,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cb9</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1064</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c58</uniqueIdentifier>
                 <caption>Key Events</caption>
                 <name>Key Events</name>
             </category>
@@ -6699,7 +6699,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c42</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1063</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c59</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -6733,7 +6733,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c3f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1062</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5a</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -6795,7 +6795,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c3a</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1061</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5b</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -6830,7 +6830,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c37</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1060</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5c</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -7267,7 +7267,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bf5</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-105f</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5d</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7301,7 +7301,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bf2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-105e</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5e</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -7363,7 +7363,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bed</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-105d</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5f</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7430,7 +7430,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b70</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-105c</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c60</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7466,7 +7466,7 @@
             <uniqueIdentifier>-38a93630:1797c15617d:6896</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-105b</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c61</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7501,7 +7501,7 @@
             <uniqueIdentifier>-38a93630:1797c15617d:6f69</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-105a</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c62</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7564,7 +7564,7 @@
             <uniqueIdentifier>-5c174026:1797c32afca:7474</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1059</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c63</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7940,7 +7940,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b53</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1058</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c64</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -7974,7 +7974,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b50</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1057</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c65</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8008,7 +8008,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b4d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1056</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c66</uniqueIdentifier>
                 <caption>Table Location</caption>
                 <name>Table Location</name>
             </category>
@@ -8070,7 +8070,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b48</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1055</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c67</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8104,7 +8104,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b45</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1054</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c68</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8138,7 +8138,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b42</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1053</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c69</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8199,7 +8199,7 @@
             <uniqueIdentifier>-2cf7fb31:15c51b77b51:-42c7</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1052</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6a</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8569,7 +8569,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b26</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1051</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6b</uniqueIdentifier>
                 <caption>Tree Location</caption>
                 <name>Tree Location</name>
             </category>
@@ -8631,7 +8631,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b21</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1050</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6c</uniqueIdentifier>
                 <caption>Item Expansion</caption>
                 <name>Item Expansion</name>
             </category>
@@ -9035,7 +9035,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b05</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-104f</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6d</uniqueIdentifier>
                 <caption>Combo Box Location</caption>
                 <name>Combo Box Location</name>
             </category>
@@ -9097,7 +9097,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b00</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-104e</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6e</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9132,7 +9132,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7afd</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-104d</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6f</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9173,7 +9173,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7af3</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-104c</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c70</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9234,7 +9234,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:-53b3</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-104b</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c71</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9270,7 +9270,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:-47cf</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-104a</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c72</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9306,7 +9306,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:13c</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1049</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c73</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9340,7 +9340,7 @@
             <uniqueIdentifier>ed8c69:179a02dce2f:-6526</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1048</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c74</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9708,7 +9708,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ad4</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1047</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c75</uniqueIdentifier>
                 <caption>Tabbed Pane Location</caption>
                 <name>Tabbed Pane Location</name>
             </category>
@@ -9743,7 +9743,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ad1</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1046</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c76</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9777,13 +9777,13 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ace</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1045</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c77</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
             <categoryCaption>Tab Selection</categoryCaption>
             <categoryName>Tab Selection</categoryName>
-            <hidden>false</hidden>
+            <hidden>true</hidden>
             <displayedAsSingletonList>false</displayedAsSingletonList>
             <duplicateGenerated>false</duplicateGenerated>
             <fieldName>knownTabs</fieldName>
@@ -9796,7 +9796,7 @@
             </nullReplacement>
             <nullStatusFieldExported>false</nullStatusFieldExported>
             <nullValueDistinctForced>false</nullValueDistinctForced>
-            <setterGenerated>false</setterGenerated>
+            <setterGenerated>true</setterGenerated>
             <specificTypeCustomizations>
                 <applicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-5a9c</uniqueIdentifier>
@@ -9811,7 +9811,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7acb</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1044</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c78</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9861,6 +9861,76 @@
             <specificTypeCustomizations>
                 <applicationCustomization>
                     <uniqueIdentifier>-673fad02:1667413d169:-5a8e</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </applicationCustomization>
+            </specificTypeCustomizations>
+            <transientForced>false</transientForced>
+            <valueValidityDetectionForced>false</valueValidityDetectionForced>
+        </fieldsCustomization>
+        <fieldsCustomization>
+            <uniqueIdentifier>399dc634:199dec9bbe1:-2c4e</uniqueIdentifier>
+            <specificProperties/>
+            <category>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c79</uniqueIdentifier>
+                <caption>Tab Selection</caption>
+                <name>Tab Selection</name>
+            </category>
+            <categoryCaption>Tab Selection</categoryCaption>
+            <categoryName>Tab Selection</categoryName>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>knownTabGroup</encapsulationFieldName>
+            <fieldName>knownTabNameChoosers</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>399dc634:199dec9bbe1:-2c4c</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <applicationCustomization>
+                    <uniqueIdentifier>399dc634:199dec9bbe1:-2c4d</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </applicationCustomization>
+            </specificTypeCustomizations>
+            <transientForced>false</transientForced>
+            <valueValidityDetectionForced>false</valueValidityDetectionForced>
+        </fieldsCustomization>
+        <fieldsCustomization>
+            <uniqueIdentifier>399dc634:199dec9bbe1:-24fc</uniqueIdentifier>
+            <specificProperties/>
+            <category>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7a</uniqueIdentifier>
+                <caption>Tab Selection</caption>
+                <name>Tab Selection</name>
+            </category>
+            <categoryCaption>Tab Selection</categoryCaption>
+            <categoryName>Tab Selection</categoryName>
+            <hidden>false</hidden>
+            <customFieldCaption>Known Tabs</customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>knownTabGroup</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>true</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>399dc634:199dec9bbe1:-24fa</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <applicationCustomization>
+                    <uniqueIdentifier>399dc634:199dec9bbe1:-24fb</uniqueIdentifier>
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </applicationCustomization>
@@ -10180,6 +10250,42 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <methodsCustomization>
+            <uniqueIdentifier>399dc634:199dec9bbe1:-25f2</uniqueIdentifier>
+            <specificProperties/>
+            <category>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7b</uniqueIdentifier>
+                <caption>Tab Selection</caption>
+                <name>Tab Selection</name>
+            </category>
+            <categoryCaption>Tab Selection</categoryCaption>
+            <categoryName>Tab Selection</categoryName>
+            <hidden>false</hidden>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <encapsulationFieldName>knownTabGroup</encapsulationFieldName>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <lastInvocationDataUsageDisabled>false</lastInvocationDataUsageDisabled>
+            <methodName>knownTabs.set</methodName>
+            <methodSignature>void knownTabs.set([Ljava.lang.String;)</methodSignature>
+            <parametersCustomization>
+                <uniqueIdentifier>399dc634:199dec9bbe1:-25f1</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>399dc634:199dec9bbe1:-25f0</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>knownTabs</parameterName>
+            </parametersCustomization>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <returnValueValidityDetectionForced>false</returnValueValidityDetectionForced>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <validating>false</validating>
+        </methodsCustomization>
         <typeName>xy.ui.testing.action.component.specific.SelectTabAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -10209,7 +10315,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aad</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1043</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7c</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10244,7 +10350,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aaa</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1042</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7d</uniqueIdentifier>
                 <caption>Table / List Location</caption>
                 <name>Table/List Location</name>
             </category>
@@ -10306,7 +10412,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aa5</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1041</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7e</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10341,7 +10447,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aa2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1040</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7f</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -13535,7 +13641,7 @@
             <uniqueIdentifier>35992cef:15dee06d0ea:473</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-103f</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c80</uniqueIdentifier>
                 <caption>Ancestors</caption>
                 <name>Ancestors</name>
             </category>
@@ -13674,7 +13780,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7983</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-103e</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c81</uniqueIdentifier>
                 <caption>Compatible Finders</caption>
                 <name>Compatible Finders</name>
             </category>
@@ -13865,7 +13971,7 @@
             <uniqueIdentifier>3c9a6419:15c42c25512:-584</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-103d</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c82</uniqueIdentifier>
                 <caption>Displayed Strings</caption>
                 <name>Displayed Strings</name>
             </category>
@@ -13901,7 +14007,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7990</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-103c</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c83</uniqueIdentifier>
                 <caption>Visible Strings</caption>
                 <name>Visible Strings</name>
             </category>
@@ -22874,7 +22980,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-103b</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c84</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -22909,7 +23015,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-103a</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c85</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -22998,7 +23104,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4437</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1039</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c86</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23032,7 +23138,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4435</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1038</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c87</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -23067,7 +23173,7 @@
             <uniqueIdentifier>-37dbf736:15deeb03c9d:7fd</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1037</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c88</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23102,7 +23208,7 @@
             <uniqueIdentifier>22a553b4:1797703bf83:6f0d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1036</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c89</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23271,7 +23377,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4430</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1035</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8a</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23573,7 +23679,7 @@
             <uniqueIdentifier>1193428d:15c895035cd:-4571</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1034</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8b</uniqueIdentifier>
                 <caption>Specification</caption>
                 <name>Specification</name>
             </category>
@@ -23610,7 +23716,7 @@
             <uniqueIdentifier>1193428d:15c895035cd:-456f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1033</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8c</uniqueIdentifier>
                 <caption>Report</caption>
                 <name>Report</name>
             </category>
@@ -23646,8 +23752,8 @@
         </fieldsCustomization>
         <formWidth>
             <uniqueIdentifier>57bf9c34:16684422982:-4c0e</uniqueIdentifier>
-            <unit>SCREEN_PERCENT</unit>
-            <value>75</value>
+            <unit>PIXELS</unit>
+            <value>800</value>
         </formWidth>
         <immutableForced>false</immutableForced>
         <memberCategory>
@@ -23691,7 +23797,7 @@
             <uniqueIdentifier>-43746914:15c8ebc3886:-42cc</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1032</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8d</uniqueIdentifier>
                 <caption>Report</caption>
                 <name>Report</name>
             </category>
@@ -24598,7 +24704,7 @@
             <uniqueIdentifier>-13902084:15c8c9d5a2c:5ba</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1031</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8e</uniqueIdentifier>
                 <caption>Logs</caption>
                 <name>Logs</name>
             </category>
@@ -26115,7 +26221,7 @@
             <uniqueIdentifier>-6e6031be:17943fbd036:6829</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-1030</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8f</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -26150,7 +26256,7 @@
             <uniqueIdentifier>-320352c5:17943fe0b5c:5b38</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-102f</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c90</uniqueIdentifier>
                 <caption>Focus</caption>
                 <name>Focus</name>
             </category>
@@ -26858,7 +26964,7 @@
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66f2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-102e</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c91</uniqueIdentifier>
                 <caption>Item Collapsing</caption>
                 <name>Item Collapsing</name>
             </category>
@@ -26893,7 +26999,7 @@
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66ef</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-102d</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c92</uniqueIdentifier>
                 <caption>Tree Location</caption>
                 <name>Tree Location</name>
             </category>
@@ -27800,7 +27906,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-45ae</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-102c</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c93</uniqueIdentifier>
                 <caption>Selection Checking</caption>
                 <name>Selection Checking</name>
             </category>
@@ -27861,7 +27967,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-45a2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-102b</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c94</uniqueIdentifier>
                 <caption>Table / List Location</caption>
                 <name>Table/List Location</name>
             </category>
@@ -27895,7 +28001,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-459d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-7c0ae575:199d9fff6fa:-102a</uniqueIdentifier>
+                <uniqueIdentifier>-5ca903e9:199df56a86c:5c95</uniqueIdentifier>
                 <caption>Tree / Table / List Location</caption>
                 <name>Tree/Table/List Location</name>
             </category>
@@ -28228,6 +28334,179 @@
             <uniqueIdentifier>-2d76e0dd:199d9ae2808:-24bb</uniqueIdentifier>
         </menuModel>
         <typeName>SubListGroupItemTypeInfo [of=subListGroup [containingItemType=java.lang.Class], itemField=nestMembers]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+        <validationRequirementForced>false</validationRequirementForced>
+    </typeCustomization>
+    <typeCustomization>
+        <uniqueIdentifier>399dc634:199dec9bbe1:-24f9</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <anyPersistenceMemberIncluded>false</anyPersistenceMemberIncluded>
+        <copyForbidden>false</copyForbidden>
+        <fieldsCustomization>
+            <uniqueIdentifier>399dc634:199dec9bbe1:-24f7</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>knownTabNameChoosers</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>399dc634:199dec9bbe1:-2c4c</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <applicationCustomization>
+                    <uniqueIdentifier>399dc634:199dec9bbe1:-2c4d</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </applicationCustomization>
+                <typeCustomization>
+                    <uniqueIdentifier>399dc634:199dec9bbe1:-2c22</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.swing.plugin.DetailedListControlPlugin</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">rO0ABXNyAFZ4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLkRldGFpbGVkTGlzdENvbnRyb2xQbHVnaW4kRGV0YWlsZWRMaXN0Q29uZmlndXJhdGlvbgAAAAAAAAABAgAFSQANZ3JpZERpbWVuc2lvbloAEnNlbGVjdGlvbkZvcmJpZGRlbloAGHN0cmV0Y2hDZWxsc0hvcml6b250YWxseVoAFnN0cmV0Y2hDZWxsc1ZlcnRpY2FsbHlMAAZsYXlvdXR0AFFMeHkvcmVmbGVjdC91aS9jb250cm9sL3N3aW5nL3BsdWdpbi9EZXRhaWxlZExpc3RDb250cm9sUGx1Z2luJERldGFpbGVkTGlzdExheW91dDt4cgBfeHkucmVmbGVjdC51aS5jb250cm9sLnBsdWdpbi5BYnN0cmFjdFNpbXBsZUN1c3RvbWl6YWJsZUZpZWxkQ29udHJvbFBsdWdpbiRBYnN0cmFjdENvbmZpZ3VyYXRpb24AAAAAAAAAAQIAAHhwAAAAAwEAAH5yAE94eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLkRldGFpbGVkTGlzdENvbnRyb2xQbHVnaW4kRGV0YWlsZWRMaXN0TGF5b3V0AAAAAAAAAAASAAB4cgAOamF2YS5sYW5nLkVudW0AAAAAAAAAABIAAHhwdAAPSE9SSVpPTlRBTF9GTE9X</value>
+                        </entry>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.DetailedListControlPlugin</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <anyPersistenceMemberIncluded>false</anyPersistenceMemberIncluded>
+                    <copyForbidden>false</copyForbidden>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>399dc634:199dec9bbe1:-2c21</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.util.List</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                    <validationRequirementForced>false</validationRequirementForced>
+                </typeCustomization>
+            </specificTypeCustomizations>
+            <transientForced>false</transientForced>
+            <valueValidityDetectionForced>false</valueValidityDetectionForced>
+        </fieldsCustomization>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>399dc634:199dec9bbe1:-24f8</uniqueIdentifier>
+        </menuModel>
+        <methodsCustomization>
+            <uniqueIdentifier>73f80537:199dee0f55d:-2bc5</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customMethodCaption>Edit List...</customMethodCaption>
+            <detachedReturnValueForced>false</detachedReturnValueForced>
+            <duplicateGenerated>false</duplicateGenerated>
+            <ignoredReturnValueForced>false</ignoredReturnValueForced>
+            <lastInvocationDataUsageDisabled>false</lastInvocationDataUsageDisabled>
+            <methodName>knownTabs.set</methodName>
+            <methodSignature>void knownTabs.set([Ljava.lang.String;)</methodSignature>
+            <parametersCustomization>
+                <uniqueIdentifier>73f80537:199dee0f55d:-2bc4</uniqueIdentifier>
+                <specificProperties/>
+                <defaultValue>
+                    <uniqueIdentifier>73f80537:199dee0f55d:-2bc3</uniqueIdentifier>
+                </defaultValue>
+                <displayedAsField>false</displayedAsField>
+                <hidden>false</hidden>
+                <nullValueDistinctForced>false</nullValueDistinctForced>
+                <parameterName>knownTabs</parameterName>
+            </parametersCustomization>
+            <readOnlyForced>false</readOnlyForced>
+            <returnValueFieldGenerated>false</returnValueFieldGenerated>
+            <returnValueValidityDetectionForced>false</returnValueValidityDetectionForced>
+            <runWhenObjectHidden>false</runWhenObjectHidden>
+            <runWhenObjectShown>false</runWhenObjectShown>
+            <validating>false</validating>
+        </methodsCustomization>
+        <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectTabAction], fieldName=knownTabGroup]</typeName>
+        <undoManagementHidden>false</undoManagementHidden>
+        <validationRequirementForced>false</validationRequirementForced>
+    </typeCustomization>
+    <typeCustomization>
+        <uniqueIdentifier>73f80537:199dee0f55d:-2bb8</uniqueIdentifier>
+        <specificProperties/>
+        <abstractForced>false</abstractForced>
+        <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+        <anyPersistenceMemberIncluded>false</anyPersistenceMemberIncluded>
+        <copyForbidden>false</copyForbidden>
+        <fieldsCustomization>
+            <uniqueIdentifier>73f80537:199dee0f55d:-2bb6</uniqueIdentifier>
+            <specificProperties/>
+            <hidden>false</hidden>
+            <customFieldCaption></customFieldCaption>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>tabName</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>73f80537:199dee0f55d:-2bb4</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <applicationCustomization>
+                    <uniqueIdentifier>73f80537:199dee0f55d:-2bb5</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </applicationCustomization>
+                <typeCustomization>
+                    <uniqueIdentifier>73f80537:199dee0f55d:-2a34</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.swing.plugin.StyledTextPlugin</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">rO0ABXNyAEt4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLlN0eWxlZFRleHRQbHVnaW4kU3R5bGVkVGV4dENvbmZpZ3VyYXRpb24AAAAAAAAAAQIACloACGZvbnRCb2xkWgAKZm9udEl0YWxpY0kACGZvbnRTaXplWgANc3RydWNrVGhyb3VnaFoACnVuZGVybGluZWRMAAVjb2xvcnQAJ0x4eS9yZWZsZWN0L3VpL2luZm8vQ29sb3JTcGVjaWZpY2F0aW9uO0wACGZvbnROYW1ldAASTGphdmEvbGFuZy9TdHJpbmc7TAAGaGVpZ2h0dABrTHh5L3JlZmxlY3QvdWkvY29udHJvbC9zd2luZy9wbHVnaW4vU3R5bGVkVGV4dFBsdWdpbiRTdHlsZWRUZXh0Q29uZmlndXJhdGlvbiRDb250cm9sRGltZW5zaW9uU3BlY2lmaWNhdGlvbjtMABNob3Jpem9udGFsQWxpZ25tZW50dABhTHh5L3JlZmxlY3QvdWkvY29udHJvbC9zd2luZy9wbHVnaW4vU3R5bGVkVGV4dFBsdWdpbiRTdHlsZWRUZXh0Q29uZmlndXJhdGlvbiRIb3Jpem9udGFsQWxpZ25tZW50O0wABXdpZHRocQB+AAN4cgBfeHkucmVmbGVjdC51aS5jb250cm9sLnBsdWdpbi5BYnN0cmFjdFNpbXBsZUN1c3RvbWl6YWJsZUZpZWxkQ29udHJvbFBsdWdpbiRBYnN0cmFjdENvbmZpZ3VyYXRpb24AAAAAAAAAAQIAAHhwAQAAAAAPAABwdAAJU2Fuc1NlcmlmcH5yAF94eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLlN0eWxlZFRleHRQbHVnaW4kU3R5bGVkVGV4dENvbmZpZ3VyYXRpb24kSG9yaXpvbnRhbEFsaWdubWVudAAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABkNFTlRFUnA=</value>
+                        </entry>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.StyledTextPlugin</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <anyPersistenceMemberIncluded>false</anyPersistenceMemberIncluded>
+                    <copyForbidden>false</copyForbidden>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>73f80537:199dee0f55d:-2a33</uniqueIdentifier>
+                    </menuModel>
+                    <typeName>java.lang.String</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                    <validationRequirementForced>false</validationRequirementForced>
+                </typeCustomization>
+            </specificTypeCustomizations>
+            <transientForced>false</transientForced>
+            <valueValidityDetectionForced>false</valueValidityDetectionForced>
+        </fieldsCustomization>
+        <formBackgroundColor>
+            <blue>51</blue>
+            <green>0</green>
+            <red>102</red>
+        </formBackgroundColor>
+        <formForegroundColor>
+            <blue>204</blue>
+            <green>204</green>
+            <red>255</red>
+        </formForegroundColor>
+        <immutableForced>false</immutableForced>
+        <menuModel>
+            <uniqueIdentifier>73f80537:199dee0f55d:-2bb7</uniqueIdentifier>
+        </menuModel>
+        <typeName>xy.ui.testing.action.component.specific.SelectTabAction$TabNameChooser</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
     </typeCustomization>

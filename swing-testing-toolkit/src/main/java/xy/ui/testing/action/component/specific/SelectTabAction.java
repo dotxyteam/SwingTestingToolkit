@@ -2,6 +2,9 @@ package xy.ui.testing.action.component.specific;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.JTabbedPane;
 
@@ -35,6 +38,17 @@ public class SelectTabAction extends TargetComponentTestAction {
 
 	public String[] getKnownTabs() {
 		return knownTabs;
+	}
+
+	public void setKnownTabs(String[] knownTabs) {
+		this.knownTabs = knownTabs;
+	}
+
+	public List<TabNameChooser> getKnownTabNameChoosers() {
+		if (knownTabs == null) {
+			return null;
+		}
+		return Arrays.stream(knownTabs).map(TabNameChooser::new).collect(Collectors.toList());
 	}
 
 	@Override
@@ -93,5 +107,21 @@ public class SelectTabAction extends TargetComponentTestAction {
 	@Override
 	public String toString() {
 		return "Select " + getValueDescription() + " from " + getComponentInformation();
+	}
+
+	public class TabNameChooser {
+		protected String tabName;
+
+		public TabNameChooser(String tabName) {
+			this.tabName = tabName;
+		}
+
+		public String getTabName() {
+			return tabName;
+		}
+
+		public void choose() {
+			SelectTabAction.this.tabToSelect = this.tabName;
+		}
 	}
 }
