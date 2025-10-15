@@ -222,15 +222,6 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		if (selectionMode == null) {
 			throw new ValidationError("Missing selection mode");
 		}
-
-		List<String> options = getKnownOptions();
-		if ((options != null) && (options.size() > 0)) {
-			if (!options.contains(optionToSelect)) {
-				throw new ValidationError(
-						"The option to select is not valid: '" + optionToSelect + "'. Expected: " + options);
-			}
-		}
-
 	}
 
 	@Override

@@ -46,6 +46,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.converters.javabean.JavaBeanConverter;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 
+import xy.reflect.ui.control.swing.util.HyperlinkTooltip;
 import xy.ui.testing.TestReport.TestReportStep;
 import xy.ui.testing.TestReport.TestReportStepStatus;
 import xy.ui.testing.action.TestAction;
@@ -674,6 +675,10 @@ public class Tester {
 			if ((tooltipText != null) && (tooltipText.length() > 0)) {
 				result.add(tooltipText);
 			}
+			HyperlinkTooltip hyperlinkTooltip = HyperlinkTooltip.get(c);
+			if(hyperlinkTooltip != null) {
+				result.add(hyperlinkTooltip.getMessage());
+			}
 			return result;
 		}
 		List<String> result = new ArrayList<String>();
@@ -689,6 +694,10 @@ public class Tester {
 		s = extractDisplayedStringThroughMethod(c, "getToolTipText");
 		if (s != null) {
 			result.add(s);
+		}
+		HyperlinkTooltip hyperlinkTooltip = HyperlinkTooltip.get(c);
+		if(hyperlinkTooltip != null) {
+			result.add(hyperlinkTooltip.getMessage());
 		}
 		if (c instanceof JTabbedPane) {
 			JTabbedPane tabbedPane = (JTabbedPane) c;

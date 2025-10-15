@@ -195,6 +195,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>(xy.ui.testing.action.CallMainMethodAction+xy.reflect.ui.info.type.iterable.structure.CustomizedStructuralInfo$1@5a372f43)(xy.ui.testing.action.CallMainMethodAction)xy.ui.testing.action.CallMainMethodAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -227,6 +228,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>(xy.ui.testing.action.CallMainMethodAction+xy.reflect.ui.info.type.iterable.structure.CustomizedStructuralInfo$1@66650e56)(xy.ui.testing.action.CallMainMethodAction)xy.ui.testing.action.CallMainMethodAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -259,6 +261,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>(xy.ui.testing.action.WaitAction+xy.reflect.ui.info.type.iterable.structure.CustomizedStructuralInfo$1@39402772)(xy.ui.testing.action.WaitAction)xy.ui.testing.action.WaitAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -291,6 +294,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>(xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction+xy.reflect.ui.info.type.iterable.structure.CustomizedStructuralInfo$1@4f3cc73c)(xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction)xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -323,6 +327,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>(xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction+xy.reflect.ui.info.type.iterable.structure.CustomizedStructuralInfo$1@561ba49d)(xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction)xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -355,6 +360,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>(xy.ui.testing.action.component.specific.SelectComboBoxItemAction+xy.reflect.ui.info.type.iterable.structure.CustomizedStructuralInfo$1@2c9b33a1)(xy.ui.testing.action.component.specific.SelectComboBoxItemAction)xy.ui.testing.action.component.specific.SelectComboBoxItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -397,6 +403,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1bc4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=, fieldType=Menu Item Component Finder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -439,6 +446,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1bbe</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=, fieldType=Visible String Component Finder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -481,6 +489,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1bb8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -523,6 +532,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1bb2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -565,6 +575,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1bac</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -607,6 +618,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1ba6</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=, fieldType=xy.ui.testing.finder.DisplayedStringComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -649,6 +661,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1ba0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -691,6 +704,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1b9a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -733,6 +747,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1b94</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -775,6 +790,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1b8e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Polymorphic Value, fieldType=xy.ui.testing.finder.DisplayedStringComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -2689,6 +2705,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <savingMethodName>saveToFile</savingMethodName>
         <typeName>xy.ui.testing.Tester</typeName>
         <undoManagementHidden>false</undoManagementHidden>
@@ -2733,6 +2750,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-19fd</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TesterEditor$AbstractWindowSwitch$StatusControlObject</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -2776,6 +2794,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-19f7</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TesterEditor$PlayingControl</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -2837,6 +2856,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TesterEditor$RecordingControl</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -2880,6 +2900,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-19ea</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TesterEditor$RecordingWindowSwitch$RecordingStatus</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -2923,6 +2944,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-19e4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TesterEditor$ReplayWindowSwitch$ReplayStatus</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -3357,6 +3379,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.CallMainMethodAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -3734,6 +3757,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.CheckNumberOfOpenWindowsAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -4083,6 +4107,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.WaitAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -4113,7 +4138,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d0e</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c50</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c55</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4147,7 +4172,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d0b</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c51</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c56</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -4209,7 +4234,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d06</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c52</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c57</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4243,7 +4268,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d03</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c53</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c58</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4304,7 +4329,7 @@
             <uniqueIdentifier>1dda0157:15c51b20c8e:-4585</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c54</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c59</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4339,7 +4364,7 @@
             <uniqueIdentifier>2bf0649b:1799689fafc:-6662</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c55</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c5a</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4682,6 +4707,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.ClickAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -5165,6 +5191,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.ClickOnMenuItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -5193,7 +5220,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cc6</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c56</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c5b</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -5255,7 +5282,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cc1</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c57</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c5c</uniqueIdentifier>
                 <caption>Key Events</caption>
                 <name>Key Events</name>
             </category>
@@ -5289,7 +5316,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cb9</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c58</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c5d</uniqueIdentifier>
                 <caption>Key Events</caption>
                 <name>Key Events</name>
             </category>
@@ -5658,6 +5685,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.SendKeysAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -5741,6 +5769,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>true</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <javaClassBasedTypeInfoFinder>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c8d</uniqueIdentifier>
             <className>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA</className>
@@ -5970,6 +5999,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -6183,6 +6213,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -6396,6 +6427,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -6609,6 +6641,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -6669,6 +6702,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>true</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.SendKeysAction$WriteText</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -6699,7 +6733,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c42</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c59</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c5e</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -6733,7 +6767,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c3f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5a</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c5f</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -6795,7 +6829,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c3a</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5b</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c60</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -6830,7 +6864,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c37</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5c</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c61</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -7232,6 +7266,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.property.ChangeComponentPropertyAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -7267,7 +7302,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bf5</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5d</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c62</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7301,7 +7336,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bf2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5e</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c63</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -7363,7 +7398,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bed</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c5f</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c64</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7430,7 +7465,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b70</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c60</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c65</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7466,7 +7501,7 @@
             <uniqueIdentifier>-38a93630:1797c15617d:6896</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c61</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c66</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7501,7 +7536,7 @@
             <uniqueIdentifier>-38a93630:1797c15617d:6f69</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c62</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c67</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7564,7 +7599,7 @@
             <uniqueIdentifier>-5c174026:1797c32afca:7474</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c63</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c68</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7906,6 +7941,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.property.CheckComponentPropertyAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -7940,7 +7976,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b53</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c64</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c69</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -7974,7 +8010,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b50</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c65</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c6a</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8008,7 +8044,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b4d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c66</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c6b</uniqueIdentifier>
                 <caption>Table Location</caption>
                 <name>Table Location</name>
             </category>
@@ -8070,7 +8106,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b48</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c67</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c6c</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8104,7 +8140,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b45</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c68</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c6d</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8138,7 +8174,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b42</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c69</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c6e</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8199,7 +8235,7 @@
             <uniqueIdentifier>-2cf7fb31:15c51b77b51:-42c7</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6a</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c6f</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8542,6 +8578,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.ClickOnTableCellAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -8569,7 +8606,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b26</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6b</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c70</uniqueIdentifier>
                 <caption>Tree Location</caption>
                 <name>Tree Location</name>
             </category>
@@ -8631,7 +8668,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b21</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6c</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c71</uniqueIdentifier>
                 <caption>Item Expansion</caption>
                 <name>Item Expansion</name>
             </category>
@@ -9001,6 +9038,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -9035,7 +9073,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b05</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6d</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c72</uniqueIdentifier>
                 <caption>Combo Box Location</caption>
                 <name>Combo Box Location</name>
             </category>
@@ -9097,7 +9135,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b00</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6e</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c73</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9132,7 +9170,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7afd</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c6f</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c74</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9173,7 +9211,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7af3</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c70</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c75</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9234,7 +9272,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:-53b3</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c71</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c76</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9270,7 +9308,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:-47cf</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c72</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c77</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9306,7 +9344,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:13c</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c73</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c78</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9340,7 +9378,7 @@
             <uniqueIdentifier>ed8c69:179a02dce2f:-6526</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c74</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c79</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9684,6 +9722,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.SelectComboBoxItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -9708,7 +9747,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ad4</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c75</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c7a</uniqueIdentifier>
                 <caption>Tabbed Pane Location</caption>
                 <name>Tabbed Pane Location</name>
             </category>
@@ -9743,7 +9782,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ad1</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c76</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c7b</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9777,7 +9816,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ace</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c77</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c7c</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9811,7 +9850,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7acb</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c78</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c7d</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9872,7 +9911,7 @@
             <uniqueIdentifier>399dc634:199dec9bbe1:-2c4e</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c79</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c7e</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9907,7 +9946,7 @@
             <uniqueIdentifier>399dc634:199dec9bbe1:-24fc</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7a</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c7f</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -10254,7 +10293,7 @@
             <uniqueIdentifier>399dc634:199dec9bbe1:-25f2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7b</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c80</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -10286,6 +10325,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.SelectTabAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -10315,7 +10355,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aad</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7c</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c81</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10350,7 +10390,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aaa</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7d</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c82</uniqueIdentifier>
                 <caption>Table / List Location</caption>
                 <name>Table/List Location</name>
             </category>
@@ -10412,7 +10452,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aa5</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7e</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c83</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10447,7 +10487,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aa2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c7f</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c84</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10817,6 +10857,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.SelectTableRowAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -11326,6 +11367,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.window.CheckWindowVisibleStringsAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -11742,6 +11784,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.window.CloseWindowAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -11933,6 +11976,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.finder.ClassBasedComponentFinder</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -12199,6 +12243,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.finder.MenuItemComponentFinder</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -12896,6 +12941,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.finder.PropertyBasedComponentFinder</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -13225,6 +13271,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -13473,6 +13520,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.finder.DisplayedStringComponentFinder</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -13620,6 +13668,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1260</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.util.ComponentInspector</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -13641,7 +13690,7 @@
             <uniqueIdentifier>35992cef:15dee06d0ea:473</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c80</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c85</uniqueIdentifier>
                 <caption>Ancestors</caption>
                 <name>Ancestors</name>
             </category>
@@ -13780,7 +13829,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7983</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c81</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c86</uniqueIdentifier>
                 <caption>Compatible Finders</caption>
                 <name>Compatible Finders</name>
             </category>
@@ -13971,7 +14020,7 @@
             <uniqueIdentifier>3c9a6419:15c42c25512:-584</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c82</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c87</uniqueIdentifier>
                 <caption>Displayed Strings</caption>
                 <name>Displayed Strings</name>
             </category>
@@ -14007,7 +14056,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7990</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c83</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c88</uniqueIdentifier>
                 <caption>Visible Strings</caption>
                 <name>Visible Strings</name>
             </category>
@@ -14161,6 +14210,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-121a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.util.ComponentInspector$ComponentInspectorNode</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14203,6 +14253,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1214</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Polymorphic Value, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14250,6 +14301,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-120e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action, fieldType=xy.ui.testing.action.TestAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14292,6 +14344,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1208</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14334,6 +14387,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1202</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14376,6 +14430,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11fc</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14418,6 +14473,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11f6</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14460,6 +14516,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11f0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14502,6 +14559,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11ea</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.SelectTabAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14544,6 +14602,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11e4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14586,6 +14645,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11de</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14628,6 +14688,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11d8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14670,6 +14731,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11d2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14712,6 +14774,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11cc</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.window.CloseWindowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14754,6 +14817,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11c6</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14796,6 +14860,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11c0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.property.CheckComponentPropertyAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14838,6 +14903,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11ba</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14880,6 +14946,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11b4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Action - Dynamic Wrapper, fieldType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14896,6 +14963,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11b1</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Property Value, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14938,6 +15006,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11ab</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Property Based Component Finder, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -14980,6 +15049,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-11a5</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Dynamic Wrapper, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15022,6 +15092,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-118e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interaction - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction$WriteText, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15064,6 +15135,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1188</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interaction - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15106,6 +15178,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1182</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interaction - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15148,6 +15221,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-117c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interaction - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15190,6 +15264,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1176</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interaction - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15232,6 +15307,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1170</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interaction - Dynamic Wrapper, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15274,6 +15350,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-116a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Dynamic Wrapper, fieldType=xy.ui.testing.finder.DisplayedStringComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15316,6 +15393,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1164</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Dynamic Wrapper, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15358,6 +15436,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-115e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Finder - Dynamic Wrapper, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15454,6 +15533,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1152</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.ClickAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15496,6 +15576,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-114c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Nullable - Replay Status, fieldType=xy.ui.testing.TesterEditor$ReplayWindowSwitch$ReplayStatus, fieldCaption=Status]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15592,6 +15673,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1140</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15634,6 +15716,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-113a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Nullable - Recording Status, fieldType=xy.ui.testing.TesterEditor$RecordingWindowSwitch$RecordingStatus, fieldCaption=Status]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15681,6 +15764,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1134</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Nullable - String, fieldType=java.lang.String, fieldCaption=Status]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15777,6 +15861,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1128</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.CallMainMethodAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15873,6 +15958,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-111c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.WaitAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -15969,6 +16055,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1110</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16065,6 +16152,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1104</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Component Finder, fieldType=xy.ui.testing.finder.DisplayedStringComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16161,6 +16249,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10f8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Component Finder, fieldType=xy.ui.testing.finder.ClassBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16257,6 +16346,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10ec</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Component Finder, fieldType=xy.ui.testing.finder.MenuItemComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16353,6 +16443,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10e0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16449,6 +16540,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10d4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.specific.SelectTableRowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16545,6 +16637,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10c8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.specific.SelectTabAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16641,6 +16734,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10bc</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.specific.ClickOnTableCellAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16737,6 +16831,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10b0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.ClickOnMenuItemAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16833,6 +16928,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-10a4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16929,6 +17025,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1098</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.SendKeysAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -16998,6 +17095,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-108f</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Keyboard Interaction, fieldType=xy.ui.testing.action.component.SendKeysAction$WriteText, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17040,6 +17138,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1089</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Keyboard Interaction, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17109,6 +17208,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1080</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Special Key, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17178,6 +17278,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1077</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Special Key, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17247,6 +17348,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-106e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Special Key, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17316,6 +17418,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1065</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Special Key, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17385,6 +17488,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-105c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Special Key, fieldType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17481,6 +17585,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1050</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.window.CloseWindowAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17577,6 +17682,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1044</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.component.property.CheckComponentPropertyAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17673,6 +17779,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1038</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Test Action, fieldType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17715,6 +17822,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-101c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Polymorphic - Component Finder, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17758,6 +17866,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1016</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Test Actions - Item, fieldType=xy.ui.testing.action.TestAction, fieldCaption=Test Action]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17801,6 +17910,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1010</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Item Path (by index) - Item, fieldType=java.lang.Integer, fieldCaption=Integer]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17844,6 +17954,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-100a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Property Values - Item, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue, fieldCaption=Property Value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17887,6 +17998,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-1004</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Menu Item Path - Item, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=Property Based Component Finder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17929,6 +18041,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ffe</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Nullable - Property Based Component Finder, fieldType=xy.ui.testing.finder.PropertyBasedComponentFinder, fieldCaption=Property Based Component Finder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -17972,6 +18085,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ff8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Arguments - Item, fieldType=java.lang.String, fieldCaption=String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18015,6 +18129,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ff2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Keyboard Interactions - Item, fieldType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction, fieldCaption=Keyboard Interaction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18058,6 +18173,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fec</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Visible Strings - Item, fieldType=java.lang.String, fieldCaption=String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18101,6 +18217,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fe6</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [method=void loadVisibleStringsFromText(java.lang.String), objectType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18143,6 +18260,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fe0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Nullable - Replay Status, fieldType=xy.ui.testing.TesterEditor$ReplayWindowSwitch$ReplayStatus, fieldCaption=]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18270,6 +18388,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.editor.AbstractWindowSwitch$StatusControlObject</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18285,6 +18404,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fc7</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Inspector Node, fieldType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode, fieldCaption=]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18300,6 +18420,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fc4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [typeCaption=Component Inspector, fieldType=xy.ui.testing.util.ComponentInspector, fieldCaption=]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18351,6 +18472,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fbb</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void loadFromFile(java.io.File), objectType=xy.ui.testing.Tester]]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18402,6 +18524,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fb2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void saveToFile(java.io.File), objectType=xy.ui.testing.Tester]]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18446,6 +18569,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fa9</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=rootNode, objectType=xy.ui.testing.util.ComponentInspector], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18488,6 +18612,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-fa0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=compatibleFinders, objectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.finder.ComponentFinder]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18532,6 +18657,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f97</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [encapsulatedObjectType=xy.ui.testing.util.ComponentInspector]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18574,6 +18700,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f8e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.CallMainMethodAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18616,6 +18743,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f85</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.WaitAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18658,6 +18786,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f7c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18674,6 +18803,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f73</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=itemPath, objectType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction], subContext=ListItem, encapsulatedObjectType=java.lang.Integer]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18716,6 +18846,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f6a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18758,6 +18889,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f61</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18800,6 +18932,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f5b</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18842,6 +18975,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f55</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ExpandTreetTableToItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18884,6 +19018,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f4c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18926,6 +19061,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f43</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -18968,6 +19104,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f3a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19010,6 +19147,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f34</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19054,6 +19192,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f2b</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19096,6 +19235,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f22</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19138,6 +19278,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f19</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.specific.SelectTableRowAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19180,6 +19321,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f10</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTableRowAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19222,6 +19364,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f0a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTableRowAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19264,6 +19407,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-f01</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTableRowAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19306,6 +19450,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-efb</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTableRowAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19348,6 +19493,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ef2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.specific.SelectTabAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19390,6 +19536,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ee9</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTabAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19432,6 +19579,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ee3</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTabAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19474,6 +19622,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-edd</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTabAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19516,6 +19665,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ed7</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.SelectTabAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19558,6 +19708,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ece</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.specific.ClickOnTableCellAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19600,6 +19751,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ec5</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ClickOnTableCellAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19642,6 +19794,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ebf</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ClickOnTableCellAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19684,6 +19837,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-eb9</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ClickOnTableCellAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19726,6 +19880,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-eb3</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.specific.ClickOnTableCellAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19768,6 +19923,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-eaa</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.ClickOnMenuItemAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19810,6 +19966,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ea1</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.ClickAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19852,6 +20009,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e98</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.ClickAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19894,6 +20052,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e92</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.ClickAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19936,6 +20095,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e8c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.ClickAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -19978,6 +20138,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e86</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.ClickAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20020,6 +20181,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e7d</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20062,6 +20224,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e77</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=keyboardInteractions, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$WriteText]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20104,6 +20267,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e71</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=keyboardInteractions, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20146,6 +20310,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e6b</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=keyboardInteractions, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlA]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20188,6 +20353,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e65</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=keyboardInteractions, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlC]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20230,6 +20396,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e5f</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=keyboardInteractions, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlX]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20272,6 +20439,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e59</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=keyboardInteractions, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$KeyboardInteraction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.SendKeysAction$SpecialKey$CtrlV]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20314,6 +20482,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e50</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20356,6 +20525,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e4a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20398,6 +20568,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e44</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20440,6 +20611,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e3e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.SendKeysAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20482,6 +20654,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e35</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.window.CloseWindowAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20524,6 +20697,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e2c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20566,6 +20740,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e23</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20608,6 +20783,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e1a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20650,6 +20826,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e11</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20692,6 +20869,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-e08</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.ChangeComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20734,6 +20912,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-dff</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20776,6 +20955,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-df6</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20818,6 +20998,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-df0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.ClassBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20860,6 +21041,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-dea</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20902,6 +21084,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-de4</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentFinder, objectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.MenuItemComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20944,6 +21127,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ddb</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.window.CheckWindowVisibleStringsAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -20986,6 +21170,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-dd2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.CheckNumberOfOpenWindowsAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21214,6 +21399,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21269,6 +21455,7 @@
                     <menuModel>
                         <uniqueIdentifier>-15ce88ad:15dede02824:-c4c</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.lang.String</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21281,6 +21468,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-c4b</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.editor.ReplayWindowSwitch$ReplayStatus</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21340,6 +21528,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]], fieldName=1]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21399,6 +21588,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]], fieldName=3]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21458,6 +21648,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]], fieldName=2]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21510,6 +21701,7 @@
                     <menuModel>
                         <uniqueIdentifier>-15ce88ad:15dede02824:-c25</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>int</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21534,6 +21726,7 @@
                     <menuModel>
                         <uniqueIdentifier>-3fdd0104:16d936e34b1:627a</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>double</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21581,6 +21774,7 @@
                     <menuModel>
                         <uniqueIdentifier>-15ce88ad:15dede02824:-c1f</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>int</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21605,6 +21799,7 @@
                     <menuModel>
                         <uniqueIdentifier>-3fdd0104:16d936e34b1:6278</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>double</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21650,6 +21845,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-c1e</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=seconds]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21777,6 +21973,7 @@
                     <menuModel>
                         <uniqueIdentifier>-15ce88ad:15dede02824:-c0d</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.awt.Image</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21791,6 +21988,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-c0c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=top]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21841,6 +22039,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-aed</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=NULL_PARAMETER_INFO, objectType=MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(xy.ui.testing.action.CallMainMethodAction), objectType=xy.ui.testing.Tester]]], subContext=NullableInstance, encapsulatedObjectType=xy.ui.testing.action.CallMainMethodAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21883,6 +22082,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-ada</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=NULL_PARAMETER_INFO, objectType=MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(xy.ui.testing.action.CallMainMethodAction), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]]]], subContext=NullableInstance, encapsulatedObjectType=xy.ui.testing.action.CallMainMethodAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -21963,6 +22163,7 @@
                     <menuModel>
                         <uniqueIdentifier>-673fad02:1667414d0fb:-5320</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>testActionsRecordingStartOption</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -21975,6 +22176,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-aca</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(testActionsRecordingStartOption, xy.ui.testing.action.CallMainMethodAction), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]]]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22210,6 +22412,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.window.CloseAllWindowsAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22260,6 +22463,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-a94</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.window.CloseAllWindowsAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22687,6 +22891,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.SystemExitCallInterceptionAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22737,6 +22942,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-a3f</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.SystemExitCallInterceptionAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22753,6 +22959,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-a36</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentTreeDisplayedStrings, objectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=java.lang.String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22768,6 +22975,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-a14</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=compatibleFinders, objectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.finder.ComponentFinder]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22810,6 +23018,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-a00</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=compatibleFinders, objectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.finder.ComponentFinder]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.PropertyBasedComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22914,6 +23123,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-9e8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.Tester$EditingOptions</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22956,6 +23166,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-9df</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=editingOptionsGroup]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -22980,7 +23191,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c84</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c89</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23015,7 +23226,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c85</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c8a</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23104,7 +23315,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4437</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c86</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c8b</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23138,7 +23349,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4435</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c87</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c8c</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -23173,7 +23384,7 @@
             <uniqueIdentifier>-37dbf736:15deeb03c9d:7fd</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c88</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c8d</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23208,7 +23419,7 @@
             <uniqueIdentifier>22a553b4:1797703bf83:6f0d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c89</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c8e</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23377,7 +23588,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4430</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8a</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c8f</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23520,6 +23731,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.CheckVisibleStringsAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -23562,6 +23774,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-96a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.component.CheckVisibleStringsAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -23578,6 +23791,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-94d</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=visibleStrings, objectType=xy.ui.testing.action.component.CheckVisibleStringsAction], subContext=ListItem, encapsulatedObjectType=java.lang.String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -23620,6 +23834,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-93b</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=compatibleFinders, objectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.finder.ComponentFinder]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.finder.DisplayedStringComponentFinder]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -23664,6 +23879,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-932</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListDynamicProperty [name=disabled], encapsulatedObjectType=boolean]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -23679,7 +23895,7 @@
             <uniqueIdentifier>1193428d:15c895035cd:-4571</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8b</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c90</uniqueIdentifier>
                 <caption>Specification</caption>
                 <name>Specification</name>
             </category>
@@ -23716,7 +23932,7 @@
             <uniqueIdentifier>1193428d:15c895035cd:-456f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8c</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c91</uniqueIdentifier>
                 <caption>Report</caption>
                 <name>Report</name>
             </category>
@@ -23753,7 +23969,7 @@
         <formWidth>
             <uniqueIdentifier>57bf9c34:16684422982:-4c0e</uniqueIdentifier>
             <unit>PIXELS</unit>
-            <value>800</value>
+            <value>1000</value>
         </formWidth>
         <immutableForced>false</immutableForced>
         <memberCategory>
@@ -23797,7 +24013,7 @@
             <uniqueIdentifier>-43746914:15c8ebc3886:-42cc</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8d</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c92</uniqueIdentifier>
                 <caption>Report</caption>
                 <name>Report</name>
             </category>
@@ -23818,6 +24034,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.editor.TestEditor$MainObject</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -24630,6 +24847,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TestReport</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -24704,7 +24922,7 @@
             <uniqueIdentifier>-13902084:15c8c9d5a2c:5ba</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8e</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c93</uniqueIdentifier>
                 <caption>Logs</caption>
                 <name>Logs</name>
             </category>
@@ -24836,6 +25054,7 @@
                     <menuModel>
                         <uniqueIdentifier>-15ce88ad:15dede02824:-868</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.awt.Image</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -25025,6 +25244,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.TestReport$TestReportStep</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25069,6 +25289,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-849</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=steps, objectType=xy.ui.testing.TestReport], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.TestReport$TestReportStep]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25112,6 +25333,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-7db</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListDynamicProperty [name=disabled], encapsulatedObjectType=java.lang.String]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25154,6 +25376,7 @@
         <menuModel>
             <uniqueIdentifier>-15ce88ad:15dede02824:-7c9</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=startCallMainMethodAction, objectType=MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(testActionsRecordingStartOption, xy.ui.testing.action.CallMainMethodAction), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]]]], subContext=NullableInstance, encapsulatedObjectType=xy.ui.testing.action.CallMainMethodAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25196,6 +25419,7 @@
         <menuModel>
             <uniqueIdentifier>690462d8:15dede40e63:-4ab</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>java.lang.Class</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25253,6 +25477,7 @@
         <menuModel>
             <uniqueIdentifier>35992cef:15dee06d0ea:3941</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=componentClass, objectType=xy.ui.testing.util.ComponentInspector$ComponentInspectorNode], subContext=ListItem, encapsulatedObjectType=java.lang.Class]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25417,6 +25642,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.TestReport], fieldName=status]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25441,6 +25667,7 @@
         <menuModel>
             <uniqueIdentifier>-7a1ce546:1668796f06b:-351a</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>boolean</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25528,6 +25755,7 @@
                     <menuModel>
                         <uniqueIdentifier>-2549b32b:16690c3fdd2:1fdc</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -25574,6 +25802,7 @@
         <menuModel>
             <uniqueIdentifier>-2549b32b:16690c3fdd2:1fd2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]]]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25616,6 +25845,7 @@
         <menuModel>
             <uniqueIdentifier>-eff71c2:16691af1420:5c02</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.TestReport], fieldName=directory]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25691,6 +25921,7 @@
         <menuModel>
             <uniqueIdentifier>4b3827d4:16691bf7249:4e6</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.TestReport], fieldName=directoryGroup]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25745,6 +25976,7 @@
                     <menuModel>
                         <uniqueIdentifier>4b3827d4:16691bf7249:348c</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.io.File</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -25757,6 +25989,7 @@
         <menuModel>
             <uniqueIdentifier>4b3827d4:16691bf7249:3487</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void directory.set(java.io.File), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.TestReport], fieldName=directoryGroup]], fieldName=directoryUpdateGroup]]]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25807,6 +26040,7 @@
                     <menuModel>
                         <uniqueIdentifier>4b3827d4:16691bf7249:1fe9</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.io.File</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -25864,6 +26098,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.TestReport], fieldName=status]], fieldName=directoryActions]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -25918,6 +26153,7 @@
                     <menuModel>
                         <uniqueIdentifier>-7e519ec8:178a24c9da7:476d</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.io.File</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -25930,6 +26166,7 @@
         <menuModel>
             <uniqueIdentifier>-7e519ec8:178a24c9da7:4768</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void directory.set(java.io.File), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.TestReport], fieldName=status]], fieldName=directoryActions]]]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26064,6 +26301,7 @@
         <menuModel>
             <uniqueIdentifier>-1f820e44:17925e033c8:24df</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>SubListGroupItemTypeInfo [of=subListGroup [containingItemType=java.lang.Class], itemField=superclass]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26152,6 +26390,7 @@
         <menuModel>
             <uniqueIdentifier>-1f820e44:17925e033c8:24f5</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>SubListGroupItemTypeInfo [of=subListGroup [containingItemType=java.lang.Class], itemField=interfaces]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26221,7 +26460,7 @@
             <uniqueIdentifier>-6e6031be:17943fbd036:6829</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c8f</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c94</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -26256,7 +26495,7 @@
             <uniqueIdentifier>-320352c5:17943fe0b5c:5b38</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c90</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c95</uniqueIdentifier>
                 <caption>Focus</caption>
                 <name>Focus</name>
             </category>
@@ -26437,6 +26676,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>true</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.FocusAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26491,6 +26731,7 @@
                     <menuModel>
                         <uniqueIdentifier>-320352c5:17943fe0b5c:7202</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.lang.String</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -26503,6 +26744,7 @@
         <menuModel>
             <uniqueIdentifier>-320352c5:17943fe0b5c:70b7</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=status, objectType=xy.ui.testing.editor.AbstractWindowSwitch$StatusControlObject], subContext=MutableInstance, encapsulatedObjectType=java.lang.String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26547,6 +26789,7 @@
         <menuModel>
             <uniqueIdentifier>3277c8ef:1797293dc2a:64e8</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=startCallMainMethodAction, objectType=MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]]]], subContext=NullableInstance, encapsulatedObjectType=xy.ui.testing.action.CallMainMethodAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26677,6 +26920,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.finder.NameBasedComponentFinder</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26755,6 +26999,7 @@
         <menuModel>
             <uniqueIdentifier>-38a93630:1797c15617d:6f6d</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.property.CheckComponentPropertyAction], fieldName=value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26803,6 +27048,7 @@
         <menuModel>
             <uniqueIdentifier>702eda11:17980943f6e:-2753</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.finder.PropertyBasedComponentFinder$PropertyValue], fieldName=value]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26874,6 +27120,7 @@
         <menuModel>
             <uniqueIdentifier>6e9ebe32:17980b25362:-478c</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.util.ComponentInspector$InspectedPropertyValue</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26894,6 +27141,7 @@
         <menuModel>
             <uniqueIdentifier>6d7e46ce:17980f99a76:7e7b</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=value, objectType=xy.ui.testing.util.ComponentInspector$InspectedPropertyValue], subContext=NullableInstance, encapsulatedObjectType=java.lang.String]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -26964,7 +27212,7 @@
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66f2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c91</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c96</uniqueIdentifier>
                 <caption>Item Collapsing</caption>
                 <name>Item Collapsing</name>
             </category>
@@ -26999,7 +27247,7 @@
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66ef</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c92</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c97</uniqueIdentifier>
                 <caption>Tree Location</caption>
                 <name>Tree Location</name>
             </category>
@@ -27181,6 +27429,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.CollapseTreetTableItemAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27197,6 +27446,7 @@
         <menuModel>
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66a2</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=itemPath, objectType=xy.ui.testing.action.component.specific.CollapseTreetTableItemAction], subContext=ListItem, encapsulatedObjectType=java.lang.Integer]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27299,6 +27549,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.util.LocationOnComponent</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27412,6 +27663,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.util.Value</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27454,6 +27706,7 @@
         <menuModel>
             <uniqueIdentifier>2bf0649b:1799689fafc:-5986</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=locationOnComponent, objectType=xy.ui.testing.action.component.ClickAction], subContext=NullableInstance, encapsulatedObjectType=xy.ui.testing.util.LocationOnComponent]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27636,6 +27889,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], fieldName=selectableOption]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27737,6 +27991,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], fieldName=option]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27753,6 +28008,7 @@
         <menuModel>
             <uniqueIdentifier>9374e3e:179969b4db4:2921</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=selectableOption, objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], fieldName=option]], encapsulatedObjectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], fieldName=selectableOption]]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27823,6 +28079,7 @@
         <menuModel>
             <uniqueIdentifier>-4365631e:179a5a28ea6:-3889</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectComboBoxItemAction], fieldName=selectableOption]], fieldName=editOptions]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27878,6 +28135,7 @@
                     <menuModel>
                         <uniqueIdentifier>15b03eef:179f0d314f8:-65ba</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.io.File</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -27890,6 +28148,7 @@
         <menuModel>
             <uniqueIdentifier>15b03eef:179f0d314f8:-65c0</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>MethodSetupObject [context=MethodContext [methodSignature=void load(java.io.File), objectType=xy.ui.testing.TestReport]]</typeName>
         <undoManagementHidden>true</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -27906,7 +28165,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-45ae</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c93</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c98</uniqueIdentifier>
                 <caption>Selection Checking</caption>
                 <name>Selection Checking</name>
             </category>
@@ -27967,7 +28226,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-45a2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c94</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c99</uniqueIdentifier>
                 <caption>Table / List Location</caption>
                 <name>Table/List Location</name>
             </category>
@@ -28001,7 +28260,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-459d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>-5ca903e9:199df56a86c:5c95</uniqueIdentifier>
+                <uniqueIdentifier>6e0844f1:199e9240e14:5c9a</uniqueIdentifier>
                 <caption>Tree / Table / List Location</caption>
                 <name>Tree/Table/List Location</name>
             </category>
@@ -28183,6 +28442,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.CheckSelectionAction</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -28227,6 +28487,7 @@
         <menuModel>
             <uniqueIdentifier>-2d76e0dd:199d999d4c5:6a20</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [encapsulatedObjectType=MethodSetupObject [context=MethodContext [methodSignature=void switchToRecording(xy.ui.testing.editor.RecordingWindowSwitch$InsertPosition, xy.ui.testing.action.CallMainMethodAction), objectType=CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.Tester], fieldName=buttons]]]]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -28271,6 +28532,7 @@
         <menuModel>
             <uniqueIdentifier>-2d76e0dd:199d99e3b4e:2e01</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>Encapsulation [context=FieldContext [fieldName=, objectType=Encapsulation [context=FieldContext [fieldName=testActions, objectType=xy.ui.testing.Tester], subContext=ListItem, encapsulatedObjectType=xy.ui.testing.action.TestAction]], subContext=PolymorphicInstance, encapsulatedObjectType=xy.ui.testing.action.TestAction]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -28333,6 +28595,7 @@
         <menuModel>
             <uniqueIdentifier>-2d76e0dd:199d9ae2808:-24bb</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>SubListGroupItemTypeInfo [of=subListGroup [containingItemType=java.lang.Class], itemField=nestMembers]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -28388,6 +28651,7 @@
                     <menuModel>
                         <uniqueIdentifier>399dc634:199dec9bbe1:-2c21</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.util.List</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -28429,6 +28693,7 @@
             <runWhenObjectShown>false</runWhenObjectShown>
             <validating>false</validating>
         </methodsCustomization>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>CapsuleFieldType [context=EncapsulationContext [objectType=xy.ui.testing.action.component.specific.SelectTabAction], fieldName=knownTabGroup]</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>
@@ -28484,6 +28749,7 @@
                     <menuModel>
                         <uniqueIdentifier>73f80537:199dee0f55d:-2a33</uniqueIdentifier>
                     </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
                     <typeName>java.lang.String</typeName>
                     <undoManagementHidden>false</undoManagementHidden>
                     <validationRequirementForced>false</validationRequirementForced>
@@ -28506,6 +28772,7 @@
         <menuModel>
             <uniqueIdentifier>73f80537:199dee0f55d:-2bb7</uniqueIdentifier>
         </menuModel>
+        <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
         <typeName>xy.ui.testing.action.component.specific.SelectTabAction$TabNameChooser</typeName>
         <undoManagementHidden>false</undoManagementHidden>
         <validationRequirementForced>false</validationRequirementForced>

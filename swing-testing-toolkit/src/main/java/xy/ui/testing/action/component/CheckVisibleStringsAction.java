@@ -80,8 +80,25 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 		List<String> currentVisibleStrings = TestingUtils.extractComponentTreeDisplayedStrings(c, tester);
 		String checkFailureMessage = null;
 		if (completenessChecked && orderChecked) {
-			if (!visibleStrings.equals(currentVisibleStrings)) {
-				checkFailureMessage = "The visible string(s) have changed";
+			int i = 0;
+			for (String visibleString : visibleStrings) {
+				if (i == currentVisibleStrings.size()) {
+					checkFailureMessage = "The last visible string(s) from '" + visibleString + "' (no. " + (i + 1)
+							+ ") are missing";
+					break;
+				}
+				if (!visibleString.equals(currentVisibleStrings.get(i))) {
+					checkFailureMessage = "Unexpected visible string (no. " + (i + 1) + "): '"
+							+ currentVisibleStrings.get(i) + "', expected '" + visibleString + "'";
+					break;
+				}
+				i++;
+			}
+			if (checkFailureMessage == null) {
+				if (i < currentVisibleStrings.size()) {
+					checkFailureMessage = "Unexpected visible string(s) (from no. " + (i + 1) + "): "
+							+ currentVisibleStrings.subList(i, currentVisibleStrings.size());
+				}
 			}
 		} else if (completenessChecked && !orderChecked) {
 			{
@@ -101,11 +118,27 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 				}
 			}
 		} else if (!completenessChecked && orderChecked) {
-			List<String> currentVisibleStrings2 = new ArrayList<String>(currentVisibleStrings);
-			currentVisibleStrings2.retainAll(visibleStrings);
-			if (!visibleStrings.equals(currentVisibleStrings2)) {
-				checkFailureMessage = "The visible strings order or occurrences have changed: "
-						+ MiscUtils.formatStringList(currentVisibleStrings2);
+			int i = 0;
+			for (String visibleString : visibleStrings) {
+				if (i == currentVisibleStrings.size()) {
+					checkFailureMessage = "The last visible string(s) from '" + visibleString + "' (no. " + (i + 1)
+							+ ") are missing";
+					break;
+				}
+				int j = i;
+				while (!visibleString.equals(currentVisibleStrings.get(j))) {
+					j++;
+					if (j == currentVisibleStrings.size()) {
+						checkFailureMessage = "Unexpected visible string (no. " + (i + 1) + "): '"
+								+ currentVisibleStrings.get(i) + "', expected '" + visibleString + "'";
+						break;
+					}
+				}
+				if (checkFailureMessage != null) {
+					break;
+				}
+				i = j;
+				i++;
 			}
 		} else if (!completenessChecked && !orderChecked) {
 			SortedSet<String> visibleStringSortedSet = new TreeSet<String>(visibleStrings);
