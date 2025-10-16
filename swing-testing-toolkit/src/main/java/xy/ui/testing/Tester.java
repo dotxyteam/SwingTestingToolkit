@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -37,6 +36,7 @@ import javax.swing.JTree;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
@@ -676,7 +676,7 @@ public class Tester {
 				result.add(tooltipText);
 			}
 			HyperlinkTooltip hyperlinkTooltip = HyperlinkTooltip.get(c);
-			if(hyperlinkTooltip != null) {
+			if (hyperlinkTooltip != null) {
 				result.add(hyperlinkTooltip.getMessage());
 			}
 			return result;
@@ -696,7 +696,7 @@ public class Tester {
 			result.add(s);
 		}
 		HyperlinkTooltip hyperlinkTooltip = HyperlinkTooltip.get(c);
-		if(hyperlinkTooltip != null) {
+		if (hyperlinkTooltip != null) {
 			result.add(hyperlinkTooltip.getMessage());
 		}
 		if (c instanceof JTabbedPane) {
@@ -708,10 +708,7 @@ public class Tester {
 		if (c instanceof JComponent) {
 			Border border = ((JComponent) c).getBorder();
 			if (border != null) {
-				s = extracDisplayedStringFromBorder(border);
-				if ((s != null) && (s.trim().length() > 0)) {
-					result.add(s);
-				}
+				result.addAll(extracDisplayedStringsFromBorder(border));
 			}
 		}
 		if (c instanceof JTable) {
@@ -730,18 +727,28 @@ public class Tester {
 		return result;
 	}
 
-	protected String extracDisplayedStringFromBorder(Border border) {
+	protected List<String> extracDisplayedStringsFromBorder(Border border) {
+		List<String> result = new ArrayList<String>();
 		if (border instanceof TitledBorder) {
 			String s = ((TitledBorder) border).getTitle();
 			if ((s != null) && (s.trim().length() > 0)) {
-				return s;
+				result.add(s);
+			}
+		} else if (border instanceof CompoundBorder) {
+			Border insideBorder = ((CompoundBorder) border).getInsideBorder();
+			if (insideBorder != null) {
+				result.addAll(extracDisplayedStringsFromBorder(insideBorder));
+			}
+			Border outsideBorder = ((CompoundBorder) border).getOutsideBorder();
+			if (outsideBorder != null) {
+				result.addAll(extracDisplayedStringsFromBorder(outsideBorder));
 			}
 		}
-		return null;
+		return result;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Collection<String> extractDisplayedStringsFromList(JList list) {
+	protected List<String> extractDisplayedStringsFromList(JList list) {
 		List<String> result = new ArrayList<String>();
 		ListModel model = list.getModel();
 		ListCellRenderer cellRenderer = list.getCellRenderer();
