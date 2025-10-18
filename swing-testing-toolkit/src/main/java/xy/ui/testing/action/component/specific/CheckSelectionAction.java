@@ -151,6 +151,7 @@ public class CheckSelectionAction extends TargetComponentTestAction {
 				throw new TestFailure("Invalid selection index found: " + i);
 			}
 		}
+		super.validate();
 	}
 
 	@Override

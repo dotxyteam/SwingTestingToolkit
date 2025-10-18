@@ -130,6 +130,7 @@ public class SelectTableRowAction extends TargetComponentTestAction {
 		if (lastItemToSelect < 0) {
 			throw new ValidationError("Invalid last selection index: Cannot be < 0");
 		}
+		super.validate();
 
 	}
 

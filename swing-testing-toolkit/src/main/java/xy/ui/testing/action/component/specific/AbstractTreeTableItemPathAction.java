@@ -65,6 +65,7 @@ public abstract class AbstractTreeTableItemPathAction extends TargetComponentTes
 		if (itemPath.size() == 0) {
 			throw new ValidationError("Item path not defined");
 		}
+		super.validate();
 	}
 
 	@Override

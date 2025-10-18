@@ -222,6 +222,7 @@ public class SelectComboBoxItemAction extends TargetComponentTestAction {
 		if (selectionMode == null) {
 			throw new ValidationError("Missing selection mode");
 		}
+		super.validate();
 	}
 
 	@Override

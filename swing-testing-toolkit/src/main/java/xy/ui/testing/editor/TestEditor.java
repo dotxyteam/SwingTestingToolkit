@@ -105,6 +105,7 @@ import xy.ui.testing.action.component.SendKeysAction;
 import xy.ui.testing.action.component.SendKeysAction.KeyboardInteraction;
 import xy.ui.testing.action.component.SendKeysAction.SpecialKey;
 import xy.ui.testing.action.component.SendKeysAction.WriteText;
+import xy.ui.testing.action.component.TargetComponentTestAction;
 import xy.ui.testing.action.component.property.ChangeComponentPropertyAction;
 import xy.ui.testing.action.component.property.CheckComponentPropertyAction;
 import xy.ui.testing.action.component.specific.CheckSelectionAction;
@@ -1034,22 +1035,38 @@ public class TestEditor extends JFrame {
 			}
 
 			@Override
-			protected List<IFieldInfo> getFields(ITypeInfo type) {
-				if (isExtensionTestActionTypeName(type.getName())) {
-					List<IFieldInfo> result = new ArrayList<IFieldInfo>();
-					for (IFieldInfo field : super.getFields(type)) {
-						if (field.getName().equals("componentInformation")) {
-							continue;
-						}
-						if (field.getName().equals("valueDescription")) {
-							continue;
-						}
-						result.add(field);
+			protected boolean isHidden(IFieldInfo field, ITypeInfo objectType) {
+				if (isExtensionTestActionTypeName(objectType.getName())) {
+					if (field.getName().equals("componentInformation")) {
+						return true;
 					}
-					return result;
-				} else {
-					return super.getFields(type);
+					if (field.getName().equals("valueDescription")) {
+						return true;
+					}
 				}
+				return super.isHidden(field, objectType);
+			}
+
+			@Override
+			protected boolean isHidden(IMethodInfo method, ITypeInfo objectType) {
+				if (isExtensionTestActionTypeName(objectType.getName())) {
+					if (method.getName().equals("validate")) {
+						return true;
+					}
+					if (method.getName().equals("matchIntrospectionRequestEvent")) {
+						return true;
+					}
+					if (method.getName().equals("initializeFrom")) {
+						return true;
+					}
+					if (method.getName().equals("execute")) {
+						return true;
+					}
+					if (method.getName().equals("findComponent")) {
+						return true;
+					}
+				}
+				return super.isHidden(method, objectType);
 			}
 
 			@Override
@@ -1121,6 +1138,19 @@ public class TestEditor extends JFrame {
 				return false;
 			}
 
+			protected boolean isTargetComponentTestActionTypeName(String typeName) {
+				Class<?> clazz;
+				try {
+					clazz = reflectionUI.getReflectedClass(typeName);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+				if (TargetComponentTestAction.class.isAssignableFrom(clazz)) {
+					return true;
+				}
+				return false;
+			}
+
 			protected boolean isTesterOrSubTypeName(String typeName) {
 				Class<?> clazz;
 				try {
@@ -1175,6 +1205,16 @@ public class TestEditor extends JFrame {
 				} else {
 					return super.toString(type, object);
 				}
+			}
+
+			@Override
+			protected boolean isControlValueValiditionEnabled(IFieldInfo field, ITypeInfo objectType) {
+				if (isTargetComponentTestActionTypeName(objectType.getName())) {
+					if(field.getName().equals("componentFinder")) {
+						return true;
+					}
+				}
+				return super.isControlValueValiditionEnabled(field, objectType);
 			}
 
 			@Override

@@ -83,12 +83,12 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 			int i = 0;
 			for (String visibleString : visibleStrings) {
 				if (i == currentVisibleStrings.size()) {
-					checkFailureMessage = "The last visible string(s) from '" + visibleString + "' (no. " + (i + 1)
+					checkFailureMessage = "The last visible string(s) from '" + visibleString + "' (no." + (i + 1)
 							+ ") are missing";
 					break;
 				}
 				if (!visibleString.equals(currentVisibleStrings.get(i))) {
-					checkFailureMessage = "Unexpected visible string (no. " + (i + 1) + "): '"
+					checkFailureMessage = "Unexpected visible string (no." + (i + 1) + "): '"
 							+ currentVisibleStrings.get(i) + "', expected '" + visibleString + "'";
 					break;
 				}
@@ -96,7 +96,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 			}
 			if (checkFailureMessage == null) {
 				if (i < currentVisibleStrings.size()) {
-					checkFailureMessage = "Unexpected visible string(s) (from no. " + (i + 1) + "): "
+					checkFailureMessage = "Unexpected visible string(s) (from no." + (i + 1) + "): "
 							+ currentVisibleStrings.subList(i, currentVisibleStrings.size());
 				}
 			}
@@ -121,15 +121,14 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 			int i = 0;
 			for (String visibleString : visibleStrings) {
 				if (i == currentVisibleStrings.size()) {
-					checkFailureMessage = "The last visible string(s) from '" + visibleString + "' (no. " + (i + 1)
-							+ ") are missing";
+					checkFailureMessage = "The last visible string(s) from '" + visibleString + "' are missing";
 					break;
 				}
 				int j = i;
 				while (!visibleString.equals(currentVisibleStrings.get(j))) {
 					j++;
 					if (j == currentVisibleStrings.size()) {
-						checkFailureMessage = "Unexpected visible string (no. " + (i + 1) + "): '"
+						checkFailureMessage = "Unexpected visible string '"
 								+ currentVisibleStrings.get(i) + "', expected '" + visibleString + "'";
 						break;
 					}
@@ -170,6 +169,7 @@ public class CheckVisibleStringsAction extends TargetComponentTestAction {
 
 	@Override
 	public void validate() throws ValidationError {
+		super.validate();
 	}
 
 	@Override

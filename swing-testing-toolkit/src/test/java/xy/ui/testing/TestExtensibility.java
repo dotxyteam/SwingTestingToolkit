@@ -156,6 +156,7 @@ public class TestExtensibility {
 			if (newValueOfPropertyToChange < 0) {
 				throw new TestFailure("propertyToChange is not ok");
 			}
+			super.validate();
 		}
 
 		@Override

@@ -102,6 +102,7 @@ public class SelectTabAction extends TargetComponentTestAction {
 		if (tabToSelect == null) {
 			throw new ValidationError("Missing tab to select");
 		}
+		super.validate();
 	}
 
 	@Override
