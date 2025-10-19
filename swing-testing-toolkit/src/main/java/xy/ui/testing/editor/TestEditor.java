@@ -79,7 +79,10 @@ import xy.reflect.ui.info.type.iterable.util.AbstractDynamicListAction;
 import xy.reflect.ui.info.type.iterable.util.AbstractDynamicListProperty;
 import xy.reflect.ui.info.type.iterable.util.IDynamicListAction;
 import xy.reflect.ui.info.type.iterable.util.IDynamicListProperty;
+import xy.reflect.ui.info.type.source.ITypeInfoSource;
 import xy.reflect.ui.info.type.source.JavaTypeInfoSource;
+import xy.reflect.ui.info.type.source.SpecificitiesIdentifier;
+import xy.reflect.ui.info.type.source.TypeInfoSourceProxy;
 import xy.reflect.ui.undo.AbstractSimpleModificationListener;
 import xy.reflect.ui.undo.IModification;
 import xy.reflect.ui.undo.IModificationListener;
@@ -973,6 +976,12 @@ public class TestEditor extends JFrame {
 		}
 
 		@Override
+		protected IInfoProxyFactory createInfoCustomizationsSetupFactory() {
+			// TODO Auto-generated method stub
+			return super.createInfoCustomizationsSetupFactory();
+		}
+
+		@Override
 		public void logDebug(String msg) {
 			TestEditor.this.logDebug(msg);
 		}
@@ -1184,11 +1193,38 @@ public class TestEditor extends JFrame {
 				return CategoriesStyle.MODERN;
 			}
 
+			
+
 			@Override
 			protected String getName(ITypeInfo type) {
 				String result = super.getName(type);
 				if (isTesterOrSubTypeName(result)) {
 					result = Tester.class.getName();
+				}
+				return result;
+			}
+
+			@Override
+			protected ITypeInfoSource getSource(ITypeInfo type) {
+				ITypeInfoSource result = super.getSource(type);
+				if (result.getSpecificitiesIdentifier() != null) {
+					if (isTesterOrSubTypeName(result.getSpecificitiesIdentifier().getObjectTypeName())) {
+						result = new TypeInfoSourceProxy(result) {
+
+							@Override
+							protected String getTypeInfoProxyFactoryIdentifier() {
+								return "TesterSubClassRenamingFactory [subClass="
+										+ StandardProxyFactory.super.getName(type) + ", parentFactory="
+										+ StandardProxyFactory.this.getIdentifier() + "]";
+							}
+
+							@Override
+							public SpecificitiesIdentifier getSpecificitiesIdentifier() {
+								return new SpecificitiesIdentifier(Tester.class.getName(),
+										super.getSpecificitiesIdentifier().getFieldName());
+							}
+						};
+					}
 				}
 				return result;
 			}
@@ -1210,7 +1246,7 @@ public class TestEditor extends JFrame {
 			@Override
 			protected boolean isControlValueValiditionEnabled(IFieldInfo field, ITypeInfo objectType) {
 				if (isTargetComponentTestActionTypeName(objectType.getName())) {
-					if(field.getName().equals("componentFinder")) {
+					if (field.getName().equals("componentFinder")) {
 						return true;
 					}
 				}

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Window;
 import java.io.File;
+import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 
@@ -59,8 +60,10 @@ public class TestTesterEditor {
 					testEditor.setDecorationsForegroundColor(new Color(216, 214, 245));
 					testEditor.open();
 				} else if ((args.length == 1) && args[0].equals("TestTesterEditor dialog")) {
-					new SwingRenderer(ReflectionUI.getDefault()).openObjectDialog(null,
-							new TestTesterEditor(), null, null, false, false);
+					new SwingRenderer(ReflectionUI.getDefault()).openObjectDialog(null, new TestTesterEditor(), null,
+							null, false, false);
+				} else {
+					throw new IllegalArgumentException(Arrays.toString(args));
 				}
 			}
 		});
