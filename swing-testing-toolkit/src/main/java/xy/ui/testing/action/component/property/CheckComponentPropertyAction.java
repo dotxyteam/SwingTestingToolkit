@@ -79,23 +79,23 @@ public class CheckComponentPropertyAction extends TargetComponentTestAction {
 		String currentPropertyValue = propertyUtil.fieldValueToPropertyValue(tester, currentFieldValue);
 		if (regularExpressionExpected) {
 			if (propertyValueExpected != null) {
-				if ((currentPropertyValue == null) || !Pattern.compile(propertyValueExpected, Pattern.DOTALL)
+				if ((currentPropertyValue == null) || !Pattern.compile(propertyValueExpected, Pattern.DOTALL|Pattern.MULTILINE)
 						.matcher(currentPropertyValue).matches()) {
 					throw new TestFailure("Component property checking failed: Unexpected property value: "
 							+ ((currentPropertyValue == null) ? "<null>" : ("'" + currentPropertyValue + "'"))
-							+ ". Expected value matching: '" + propertyValueExpected + "'");
+							+ ".\nExpected value matching: '" + propertyValueExpected + "'");
 				}
 			} else {
 				if (currentPropertyValue != null) {
 					throw new TestFailure("Component property checking failed: Unexpected property value: '"
-							+ currentPropertyValue + "'. Expected <null>");
+							+ currentPropertyValue + "'.\nExpected <null>");
 				}
 			}
 		} else {
 			if (!MiscUtils.equalsOrBothNull(currentPropertyValue, propertyValueExpected)) {
 				throw new TestFailure("Component property checking failed: Unexpected property value: "
 						+ ((currentPropertyValue == null) ? "<null>" : ("'" + currentPropertyValue + "'"))
-						+ ". Expected: "
+						+ ".\nExpected: "
 						+ ((propertyValueExpected == null) ? "<null>" : ("'" + propertyValueExpected + "'")));
 			}
 		}

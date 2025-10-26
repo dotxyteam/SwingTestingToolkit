@@ -147,6 +147,7 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 			new Thread("InsertionRequestHandler of: " + testAction) {
 				@Override
 				public void run() {
+					insertNewTestAction(testAction);
 					if (execute) {
 						try {
 							Thread.sleep(1000);
@@ -161,12 +162,14 @@ public class RecordingWindowSwitch extends AbstractWindowSwitch {
 								}
 							});
 						} catch (Throwable t) {
-							getSwingRenderer().openErrorDetailsDialog(c, t);
+							SwingUtilities.invokeLater(new Runnable() {
+								@Override
+								public void run() {
+									getSwingRenderer().openErrorDetailsDialog(c, t);
+								}
+							});
 							return;
 						}
-						insertNewTestAction(testAction);
-					} else {
-						insertNewTestAction(testAction);
 					}
 				}
 			}.start();
