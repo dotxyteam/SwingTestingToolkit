@@ -45,21 +45,32 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	}
 
 	public static void enableInterception() {
-		if(isInterceptionEnabled()) {
+		if (isInterceptionEnabled()) {
 			throw new TestFailure("Cannot enable system exit call interception: It is already enabled");
 		}
-		System.setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
+		setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
 	}
 
 	public static void disableInterception() {
-		if(!isInterceptionEnabled()) {
+		if (!isInterceptionEnabled()) {
 			throw new TestFailure("Cannot disable system exit call interception: It is already disabled");
 		}
-		System.setSecurityManager(((NoExitSecurityManager) System.getSecurityManager()).getInitialSecurityManager());
+		setSecurityManager(((NoExitSecurityManager) System.getSecurityManager()).getInitialSecurityManager());
 	}
 
 	public static boolean isInterceptionEnabled() {
 		return System.getSecurityManager() instanceof NoExitSecurityManager;
+	}
+
+	protected static void setSecurityManager(SecurityManager SecurityManager) {
+		try {
+			System.setSecurityManager(new NoExitSecurityManager(System.getSecurityManager()));
+		} catch (UnsupportedOperationException e) {
+			throw new UnsupportedOperationException(
+					"(may be resolved for Java17+ by setting property -Djava.security.manager=allow)"
+							+ ((e.getMessage() != null) ? (" " + e.getMessage()) : ""),
+					e);
+		}
 	}
 
 	@Override
@@ -80,7 +91,7 @@ public class SystemExitCallInterceptionAction extends TestAction {
 	@Override
 	public String toString() {
 		if (oppposite) {
-			return "Do not intercept System.exit() calls";			
+			return "Do not intercept System.exit() calls";
 		} else {
 			return "Intercept System.exit() calls";
 		}
