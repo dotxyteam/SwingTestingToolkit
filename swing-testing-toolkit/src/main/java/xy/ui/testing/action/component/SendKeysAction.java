@@ -121,12 +121,18 @@ public class SendKeysAction extends TargetComponentTestAction {
 			List<KeyEvent> result = new ArrayList<KeyEvent>();
 			if (text != null) {
 				for (char ch : text.toCharArray()) {
-					int id = KeyEvent.KEY_TYPED;
 					long when = System.currentTimeMillis();
 					int modifiers = 0;
-					int keyCode = KeyEvent.VK_UNDEFINED;
 					char keyChar = ch;
+					int id = KeyEvent.KEY_TYPED;
+					int keyCode = KeyEvent.VK_UNDEFINED;
+					if (ch == '\n') {
+						result.add(new KeyEvent(c, KeyEvent.KEY_PRESSED, when, modifiers, KeyEvent.VK_ENTER, keyChar));
+					}
 					result.add(new KeyEvent(c, id, when, modifiers, keyCode, keyChar));
+					if (ch == '\n') {
+						result.add(new KeyEvent(c, KeyEvent.KEY_RELEASED, when, modifiers, KeyEvent.VK_ENTER, keyChar));
+					}
 				}
 			}
 			return result;

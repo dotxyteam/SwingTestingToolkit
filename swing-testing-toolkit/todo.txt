@@ -4,3 +4,4 @@
 - interesting links:
 	. http://www.drdobbs.com/windows/a-text-ui-for-the-java-awt/184410274
 - do a regression test on swing set example
+- allow to negate each action

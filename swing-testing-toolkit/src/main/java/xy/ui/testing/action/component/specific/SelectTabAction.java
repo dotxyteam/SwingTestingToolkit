@@ -2,11 +2,15 @@ package xy.ui.testing.action.component.specific;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.swing.JTabbedPane;
+import javax.swing.SwingUtilities;
 
 import xy.ui.testing.Tester;
 import xy.ui.testing.action.component.TargetComponentTestAction;
@@ -62,10 +66,22 @@ public class SelectTabAction extends TargetComponentTestAction {
 			return false;
 		}
 		knownTabs = new String[tabbedPane.getTabCount()];
+		int indexToSelect = 0;
 		for (int i = 0; i < tabbedPane.getTabCount(); i++) {
 			knownTabs[i] = tabbedPane.getTitleAt(i);
+			Rectangle tabBounds = tabbedPane.getBoundsAt(i);
+			if (tabBounds != null) {
+				MouseEvent mouseEvt = (MouseEvent) introspectionRequestEvent;
+				Point mousePointerLocation = mouseEvt.getLocationOnScreen();
+				SwingUtilities.convertPointFromScreen(mousePointerLocation, tabbedPane);
+				if (tabBounds.contains(mousePointerLocation)) {
+					indexToSelect = i;
+				}
+			}
 		}
-		tabToSelect = knownTabs[0];
+		if (knownTabs.length > 0) {
+			tabToSelect = knownTabs[indexToSelect];
+		}
 		return true;
 	}
 

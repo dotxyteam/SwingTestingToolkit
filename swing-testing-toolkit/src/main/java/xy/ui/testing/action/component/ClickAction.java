@@ -23,6 +23,15 @@ public class ClickAction extends AbstractClickAction {
 	private static final long serialVersionUID = 1L;
 
 	protected LocationOnComponent locationOnComponent;
+	protected EventMode eventMode = EventMode.PRESS_AND_RELEASE;
+
+	public EventMode getEventMode() {
+		return eventMode;
+	}
+
+	public void setEventMode(EventMode eventMode) {
+		this.eventMode = eventMode;
+	}
 
 	public LocationOnComponent getLocationOnComponent() {
 		return locationOnComponent;
@@ -57,24 +66,36 @@ public class ClickAction extends AbstractClickAction {
 	}
 
 	protected void click(Component c) {
-		MouseEvent mouseEvent = createPressedEvent(c);
-		for (MouseListener l : c.getMouseListeners()) {
-			if (mouseEvent.isConsumed()) {
-				break;
+		if (eventMode == EventMode.CLICK) {
+			MouseEvent mouseEvent = createClickedEvent(c);
+			for (MouseListener l : c.getMouseListeners()) {
+				if (mouseEvent.isConsumed()) {
+					break;
+				}
+				l.mouseClicked(mouseEvent);
 			}
-			l.mousePressed(mouseEvent);
-		}
-		try {
-			Thread.sleep(eventsIntervalMilliseconds);
-		} catch (InterruptedException e) {
-			throw new TestFailure(e);
-		}
-		mouseEvent = createReleaseEvent(c);
-		for (MouseListener l : c.getMouseListeners()) {
-			if (mouseEvent.isConsumed()) {
-				break;
+		} else if (eventMode == EventMode.PRESS_AND_RELEASE) {
+			MouseEvent mouseEvent = createPressedEvent(c);
+			for (MouseListener l : c.getMouseListeners()) {
+				if (mouseEvent.isConsumed()) {
+					break;
+				}
+				l.mousePressed(mouseEvent);
 			}
-			l.mouseReleased(mouseEvent);
+			try {
+				Thread.sleep(eventsIntervalMilliseconds);
+			} catch (InterruptedException e) {
+				throw new TestFailure(e);
+			}
+			mouseEvent = createReleaseEvent(c);
+			for (MouseListener l : c.getMouseListeners()) {
+				if (mouseEvent.isConsumed()) {
+					break;
+				}
+				l.mouseReleased(mouseEvent);
+			}
+		} else {
+			throw new AssertionError();
 		}
 	}
 
@@ -88,6 +109,12 @@ public class ClickAction extends AbstractClickAction {
 		return result;
 	}
 
+	protected MouseEvent createClickedEvent(Component c) {
+		Point point = getPoint(c);
+		return new MouseEvent(c, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, point.x, point.y, 1,
+				poupTrigger, getButtonMask());
+	}
+
 	protected MouseEvent createReleaseEvent(Component c) {
 		Point point = getPoint(c);
 		return new MouseEvent(c, MouseEvent.MOUSE_RELEASED, System.currentTimeMillis(), 0, point.x, point.y, 1, false,
@@ -98,6 +125,11 @@ public class ClickAction extends AbstractClickAction {
 		Point point = getPoint(c);
 		return new MouseEvent(c, MouseEvent.MOUSE_PRESSED, System.currentTimeMillis(), 0, point.x, point.y, 1,
 				poupTrigger, getButtonMask());
+	}
+
+	public enum EventMode {
+		CLICK, PRESS_AND_RELEASE
+
 	}
 
 }

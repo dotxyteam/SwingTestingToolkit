@@ -4128,17 +4128,21 @@
         <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
         <anyPersistenceMemberIncluded>false</anyPersistenceMemberIncluded>
         <copyForbidden>false</copyForbidden>
+        <customFieldsOrderEntry>componentInformation</customFieldsOrderEntry>
+        <customFieldsOrderEntry>valueDescription</customFieldsOrderEntry>
+        <customFieldsOrderEntry>locationOnComponent</customFieldsOrderEntry>
         <customFieldsOrderEntry>doubleClick</customFieldsOrderEntry>
         <customFieldsOrderEntry>poupTrigger</customFieldsOrderEntry>
         <customFieldsOrderEntry>button</customFieldsOrderEntry>
         <customFieldsOrderEntry>eventsIntervalMilliseconds</customFieldsOrderEntry>
+        <customFieldsOrderEntry>eventMode</customFieldsOrderEntry>
         <customFieldsOrderEntry>componentFinder</customFieldsOrderEntry>
         <customTypeCaption>Click</customTypeCaption>
         <fieldsCustomization>
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d0e</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6133</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e2</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4172,7 +4176,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d0b</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6134</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e3</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -4234,7 +4238,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d06</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6135</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e4</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4268,7 +4272,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7d03</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6136</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e5</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4329,7 +4333,7 @@
             <uniqueIdentifier>1dda0157:15c51b20c8e:-4585</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6137</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e6</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4364,7 +4368,7 @@
             <uniqueIdentifier>2bf0649b:1799689fafc:-6662</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6138</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e7</uniqueIdentifier>
                 <caption>Click</caption>
                 <name>Click</name>
             </category>
@@ -4391,6 +4395,65 @@
                     <specificProperties/>
                     <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
                 </applicationCustomization>
+            </specificTypeCustomizations>
+            <transientForced>false</transientForced>
+            <valueValidityDetectionForced>false</valueValidityDetectionForced>
+        </fieldsCustomization>
+        <fieldsCustomization>
+            <uniqueIdentifier>6a7d0edf:19a44dc60c4:51f3</uniqueIdentifier>
+            <specificProperties/>
+            <category>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e8</uniqueIdentifier>
+                <caption>Click</caption>
+                <name>Click</name>
+            </category>
+            <categoryCaption>Click</categoryCaption>
+            <categoryName>Click</categoryName>
+            <hidden>false</hidden>
+            <displayedAsSingletonList>false</displayedAsSingletonList>
+            <duplicateGenerated>false</duplicateGenerated>
+            <fieldName>eventMode</fieldName>
+            <formControlCreationForced>false</formControlCreationForced>
+            <formControlEmbeddingForced>false</formControlEmbeddingForced>
+            <getOnlyForced>false</getOnlyForced>
+            <getterGenerated>false</getterGenerated>
+            <nullReplacement>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:51f5</uniqueIdentifier>
+            </nullReplacement>
+            <nullStatusFieldExported>false</nullStatusFieldExported>
+            <nullValueDistinctForced>false</nullValueDistinctForced>
+            <setterGenerated>false</setterGenerated>
+            <specificTypeCustomizations>
+                <applicationCustomization>
+                    <uniqueIdentifier>6a7d0edf:19a44dc60c4:51f4</uniqueIdentifier>
+                    <specificProperties/>
+                    <systemIntegrationCrossPlatform>false</systemIntegrationCrossPlatform>
+                </applicationCustomization>
+                <typeCustomization>
+                    <uniqueIdentifier>6a7d0edf:19a44dc60c4:51fe</uniqueIdentifier>
+                    <specificProperties>
+                        <entry>
+                            <key>xy.reflect.ui.control.plugin.IFieldControlPlugin.CHOSEN</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">xy.reflect.ui.control.swing.plugin.OptionButtonsPlugin</value>
+                        </entry>
+                        <entry>
+                            <key>xy.reflect.ui.control.swing.plugin.OptionButtonsPlugin</key>
+                            <value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">rO0ABXNyAFF4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLk9wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uc0NvbmZpZ3VyYXRpb24AAAAAAAAAAQIAA0kAB3NwYWNpbmdMAApidXR0b25UeXBldABJTHh5L3JlZmxlY3QvdWkvY29udHJvbC9zd2luZy9wbHVnaW4vT3B0aW9uQnV0dG9uc1BsdWdpbiRPcHRpb25CdXR0b25UeXBlO0wABmxheW91dHQATEx4eS9yZWZsZWN0L3VpL2NvbnRyb2wvc3dpbmcvcGx1Z2luL09wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uc0xheW91dDt4cgBfeHkucmVmbGVjdC51aS5jb250cm9sLnBsdWdpbi5BYnN0cmFjdFNpbXBsZUN1c3RvbWl6YWJsZUZpZWxkQ29udHJvbFBsdWdpbiRBYnN0cmFjdENvbmZpZ3VyYXRpb24AAAAAAAAAAQIAAHhwAAAAFH5yAEd4eS5yZWZsZWN0LnVpLmNvbnRyb2wuc3dpbmcucGx1Z2luLk9wdGlvbkJ1dHRvbnNQbHVnaW4kT3B0aW9uQnV0dG9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABVJBRElPfnIASnh5LnJlZmxlY3QudWkuY29udHJvbC5zd2luZy5wbHVnaW4uT3B0aW9uQnV0dG9uc1BsdWdpbiRPcHRpb25CdXR0b25zTGF5b3V0AAAAAAAAAAASAAB4cQB+AAZ0AA9IT1JJWk9OVEFMX0ZMT1c=</value>
+                        </entry>
+                    </specificProperties>
+                    <abstractForced>false</abstractForced>
+                    <anyDefaultObjectMemberIncluded>false</anyDefaultObjectMemberIncluded>
+                    <anyPersistenceMemberIncluded>false</anyPersistenceMemberIncluded>
+                    <copyForbidden>false</copyForbidden>
+                    <immutableForced>false</immutableForced>
+                    <menuModel>
+                        <uniqueIdentifier>6a7d0edf:19a44dc60c4:51ff</uniqueIdentifier>
+                    </menuModel>
+                    <polymorphicInstanceAbstractTypeOptionAllowed>false</polymorphicInstanceAbstractTypeOptionAllowed>
+                    <typeName>xy.ui.testing.action.component.ClickAction$EventMode</typeName>
+                    <undoManagementHidden>false</undoManagementHidden>
+                    <validationRequirementForced>false</validationRequirementForced>
+                </typeCustomization>
             </specificTypeCustomizations>
             <transientForced>false</transientForced>
             <valueValidityDetectionForced>false</valueValidityDetectionForced>
@@ -5220,7 +5283,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cc6</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6139</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66e9</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -5282,7 +5345,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cc1</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:613a</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66ea</uniqueIdentifier>
                 <caption>Key Events</caption>
                 <name>Key Events</name>
             </category>
@@ -5316,7 +5379,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7cb9</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:613b</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66eb</uniqueIdentifier>
                 <caption>Key Events</caption>
                 <name>Key Events</name>
             </category>
@@ -6733,7 +6796,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c42</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:613c</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66ec</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -6767,7 +6830,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c3f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:613d</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66ed</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -6829,7 +6892,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c3a</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:613e</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66ee</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -6864,7 +6927,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7c37</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:613f</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66ef</uniqueIdentifier>
                 <caption>Property</caption>
                 <name>Property</name>
             </category>
@@ -7302,7 +7365,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bf5</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6140</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f0</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7336,7 +7399,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bf2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6141</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f1</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -7398,7 +7461,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7bed</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6142</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f2</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7465,7 +7528,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b70</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6143</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f3</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7501,7 +7564,7 @@
             <uniqueIdentifier>-38a93630:1797c15617d:6896</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6144</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f4</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7536,7 +7599,7 @@
             <uniqueIdentifier>-38a93630:1797c15617d:6f69</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6145</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f5</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7599,7 +7662,7 @@
             <uniqueIdentifier>-5c174026:1797c32afca:7474</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6146</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f6</uniqueIdentifier>
                 <caption>Property Checking</caption>
                 <name>Property Checking</name>
             </category>
@@ -7976,7 +8039,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b53</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6147</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f7</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8010,7 +8073,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b50</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6148</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f8</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8044,7 +8107,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b4d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6149</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66f9</uniqueIdentifier>
                 <caption>Table Location</caption>
                 <name>Table Location</name>
             </category>
@@ -8106,7 +8169,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b48</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:614a</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66fa</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8140,7 +8203,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b45</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:614b</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66fb</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8174,7 +8237,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b42</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:614c</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66fc</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8235,7 +8298,7 @@
             <uniqueIdentifier>-2cf7fb31:15c51b77b51:-42c7</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:614d</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66fd</uniqueIdentifier>
                 <caption>Cell Click</caption>
                 <name>Cell Click</name>
             </category>
@@ -8606,7 +8669,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b26</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:614e</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66fe</uniqueIdentifier>
                 <caption>Tree Location</caption>
                 <name>Tree Location</name>
             </category>
@@ -8668,7 +8731,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b21</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:614f</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:66ff</uniqueIdentifier>
                 <caption>Item Expansion</caption>
                 <name>Item Expansion</name>
             </category>
@@ -9073,7 +9136,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b05</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6150</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6700</uniqueIdentifier>
                 <caption>Combo Box Location</caption>
                 <name>Combo Box Location</name>
             </category>
@@ -9135,7 +9198,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7b00</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6151</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6701</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9170,7 +9233,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7afd</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6152</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6702</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9211,7 +9274,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7af3</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6153</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6703</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9272,7 +9335,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:-53b3</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6154</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6704</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9308,7 +9371,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:-47cf</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6155</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6705</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9344,7 +9407,7 @@
             <uniqueIdentifier>9374e3e:179969b4db4:13c</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6156</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6706</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9378,7 +9441,7 @@
             <uniqueIdentifier>ed8c69:179a02dce2f:-6526</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6157</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6707</uniqueIdentifier>
                 <caption>Item Selection</caption>
                 <name>Item Selection</name>
             </category>
@@ -9747,7 +9810,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ad4</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6158</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6708</uniqueIdentifier>
                 <caption>Tabbed Pane Location</caption>
                 <name>Tabbed Pane Location</name>
             </category>
@@ -9782,7 +9845,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ad1</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6159</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6709</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9816,7 +9879,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7ace</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:615a</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:670a</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9850,7 +9913,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7acb</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:615b</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:670b</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9911,7 +9974,7 @@
             <uniqueIdentifier>399dc634:199dec9bbe1:-2c4e</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:615c</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:670c</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -9946,7 +10009,7 @@
             <uniqueIdentifier>399dc634:199dec9bbe1:-24fc</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:615d</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:670d</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -10293,7 +10356,7 @@
             <uniqueIdentifier>399dc634:199dec9bbe1:-25f2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:615e</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:670e</uniqueIdentifier>
                 <caption>Tab Selection</caption>
                 <name>Tab Selection</name>
             </category>
@@ -10355,7 +10418,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aad</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:615f</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:670f</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10390,7 +10453,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aaa</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6160</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6710</uniqueIdentifier>
                 <caption>Table / List Location</caption>
                 <name>Table/List Location</name>
             </category>
@@ -10452,7 +10515,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aa5</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6161</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6711</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -10487,7 +10550,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7aa2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6162</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6712</uniqueIdentifier>
                 <caption>Row Selection</caption>
                 <name>Row Selection</name>
             </category>
@@ -13746,7 +13809,7 @@
             <uniqueIdentifier>35992cef:15dee06d0ea:473</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6163</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6713</uniqueIdentifier>
                 <caption>Ancestors</caption>
                 <name>Ancestors</name>
             </category>
@@ -13885,7 +13948,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7983</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6164</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6714</uniqueIdentifier>
                 <caption>Compatible Finders</caption>
                 <name>Compatible Finders</name>
             </category>
@@ -14076,7 +14139,7 @@
             <uniqueIdentifier>3c9a6419:15c42c25512:-584</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6165</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6715</uniqueIdentifier>
                 <caption>Displayed Strings</caption>
                 <name>Displayed Strings</name>
             </category>
@@ -14112,7 +14175,7 @@
             <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-7990</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6166</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6716</uniqueIdentifier>
                 <caption>Visible Strings</caption>
                 <name>Visible Strings</name>
             </category>
@@ -23247,7 +23310,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6167</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6717</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23282,7 +23345,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-443d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6168</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6718</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23371,7 +23434,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4437</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6169</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6719</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23405,7 +23468,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4435</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:616a</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:671a</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -23440,7 +23503,7 @@
             <uniqueIdentifier>-37dbf736:15deeb03c9d:7fd</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:616b</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:671b</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23475,7 +23538,7 @@
             <uniqueIdentifier>22a553b4:1797703bf83:6f0d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:616c</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:671c</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23644,7 +23707,7 @@
             <uniqueIdentifier>1e87d7c4:15c4ba035b3:-4430</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:616d</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:671d</uniqueIdentifier>
                 <caption>Check</caption>
                 <name>Check</name>
             </category>
@@ -23951,7 +24014,7 @@
             <uniqueIdentifier>1193428d:15c895035cd:-4571</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:616e</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:671e</uniqueIdentifier>
                 <caption>Specification</caption>
                 <name>Specification</name>
             </category>
@@ -23988,7 +24051,7 @@
             <uniqueIdentifier>1193428d:15c895035cd:-456f</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:616f</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:671f</uniqueIdentifier>
                 <caption>Report</caption>
                 <name>Report</name>
             </category>
@@ -24069,7 +24132,7 @@
             <uniqueIdentifier>-43746914:15c8ebc3886:-42cc</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6170</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6720</uniqueIdentifier>
                 <caption>Report</caption>
                 <name>Report</name>
             </category>
@@ -24978,7 +25041,7 @@
             <uniqueIdentifier>-13902084:15c8c9d5a2c:5ba</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6171</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6721</uniqueIdentifier>
                 <caption>Logs</caption>
                 <name>Logs</name>
             </category>
@@ -26541,7 +26604,7 @@
             <uniqueIdentifier>-6e6031be:17943fbd036:6829</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6172</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6722</uniqueIdentifier>
                 <caption>Component Location</caption>
                 <name>Component Location</name>
             </category>
@@ -26576,7 +26639,7 @@
             <uniqueIdentifier>-320352c5:17943fe0b5c:5b38</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6173</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6723</uniqueIdentifier>
                 <caption>Focus</caption>
                 <name>Focus</name>
             </category>
@@ -27293,7 +27356,7 @@
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66f2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6174</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6724</uniqueIdentifier>
                 <caption>Item Collapsing</caption>
                 <name>Item Collapsing</name>
             </category>
@@ -27328,7 +27391,7 @@
             <uniqueIdentifier>-7d41b6ce:17995ad2240:-66ef</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6175</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6725</uniqueIdentifier>
                 <caption>Tree Location</caption>
                 <name>Tree Location</name>
             </category>
@@ -28246,7 +28309,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-45ae</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6176</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6726</uniqueIdentifier>
                 <caption>Selection Checking</caption>
                 <name>Selection Checking</name>
             </category>
@@ -28307,7 +28370,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-45a2</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6177</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6727</uniqueIdentifier>
                 <caption>Table / List Location</caption>
                 <name>Table/List Location</name>
             </category>
@@ -28341,7 +28404,7 @@
             <uniqueIdentifier>2014ce1f:193c1b70b4f:-459d</uniqueIdentifier>
             <specificProperties/>
             <category>
-                <uniqueIdentifier>5b208d18:19a20415c4d:6178</uniqueIdentifier>
+                <uniqueIdentifier>6a7d0edf:19a44dc60c4:6728</uniqueIdentifier>
                 <caption>Tree / Table / List Location</caption>
                 <name>Tree/Table/List Location</name>
             </category>
