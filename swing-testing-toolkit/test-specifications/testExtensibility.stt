@@ -24,6 +24,7 @@
       </componentFinder>
       <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventMode>PRESS_AND_RELEASE</eventMode>
       <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <locationOnComponent class="null"/>
       <poupTrigger>false</poupTrigger>
@@ -184,7 +185,7 @@
     <xy.ui.testing.action.component.CheckVisibleStringsAction>
       <completenessChecked>false</completenessChecked>
       <componentFinder class="xy.ui.testing.finder.ClassBasedComponentFinder">
-        <componentClassName>javax.swing.JTextArea</componentClassName>
+        <componentClassName>javax.swing.JTextPane</componentClassName>
         <occurrencesToSkip>0</occurrencesToSkip>
         <windowIndex>1</windowIndex>
       </componentFinder>
@@ -207,6 +208,7 @@ Continue?</string>
       </componentFinder>
       <disabled>false</disabled>
       <doubleClick>false</doubleClick>
+      <eventMode>PRESS_AND_RELEASE</eventMode>
       <eventsIntervalMilliseconds>100</eventsIntervalMilliseconds>
       <locationOnComponent class="null"/>
       <poupTrigger>false</poupTrigger>
