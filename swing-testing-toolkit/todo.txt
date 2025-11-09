@@ -1,3 +1,4 @@
+- bug: JUnit JVM does not terminate at the end of unit tests
 - bug: sometimes a single finder is shared across multiple actions
 (modifying one finder modifies the others finders)
 - needs a date/time control for testReportStep start and end times ???
