@@ -26,7 +26,7 @@ It is not a universal GUI testing framework. It focuses on a single library (Swi
 - Extensible (can easily add custom test actions and component finders)
 
 ## Requirements
-Tested on Java  1.8 and 17
+Tested on Java  1.8 and 21
 
 ## Usage
 
@@ -34,7 +34,7 @@ Tested on Java  1.8 and 17
         <dependency>
         <groupId>com.github.dotxyteam</groupId>
         <artifactId>swing-testing-toolkit</artifactId>
-        <version>1.8.13</version>
+        <version>1.8.15</version>
         </dependency>
     Or download the “*dist*.zip” package (see the download section below)
     -    Extract it
