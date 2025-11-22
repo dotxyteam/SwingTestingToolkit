@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.dotxyteam</groupId>
 	<artifactId>swing-testing-toolkit</artifactId>
-	<version>1.8.15</version>
+	<version>1.9.0</version>
 	<name>Swing Testing Toolkit</name>
 	<description>Java Swing UI testing toolkit</description>
 	<url>https://github.com/dotxyteam/SwingTestingToolkit</url>
