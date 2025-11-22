@@ -3,6 +3,7 @@ package xy.ui.testing.action.component.specific;
 import java.awt.AWTEvent;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
+import java.util.Arrays;
 
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
@@ -94,7 +95,8 @@ public class ExpandTreetTableToItemAction extends AbstractTreeTableItemPathActio
 				}
 			});
 		} else {
-			throw new AssertionError();
+			throw new TestFailure("Cannot expand to the specified item: Unexpected target control type: " + c.getClass()
+					+ ". Expected type compatible with one of " + Arrays.asList(JTree.class, JXTreeTable.class));
 		}
 	}
 
