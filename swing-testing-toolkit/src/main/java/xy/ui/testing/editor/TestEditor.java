@@ -807,13 +807,13 @@ public class TestEditor extends JFrame {
 				}
 
 				@Override
-				protected void layoutContentPane(Container contentPane) {
+				protected void layoutMainContainer(Container container) {
 					if ((TestEditor.this.getDecorationsBackgroundColor() != null)
 							|| (TestEditor.this.getDecorationsForegroundColor() != null)) {
-						alternativeDecorationsPanel = createAlternativeWindowDecorationsPanel(window, contentPane);
+						alternativeDecorationsPanel = createAlternativeWindowDecorationsPanel(window, container);
 						rootPane.add(alternativeDecorationsPanel, StackLayout.TOP);
 					} else {
-						super.layoutContentPane(contentPane);
+						super.layoutMainContainer(container);
 					}
 				}
 
@@ -1192,8 +1192,6 @@ public class TestEditor extends JFrame {
 			protected CategoriesStyle getCategoriesStyle(ITypeInfo type) {
 				return CategoriesStyle.MODERN;
 			}
-
-			
 
 			@Override
 			protected String getName(ITypeInfo type) {
