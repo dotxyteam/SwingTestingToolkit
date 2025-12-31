@@ -603,7 +603,7 @@ public class Tester {
 	 *         that the position of a component among similar ones (needed by test
 	 *         actions) is computed with this method.
 	 */
-	public List<Component> getChildrenComponents(Container container) {
+	public List<Component> getChildComponents(Container container) {
 		if (container instanceof JComboBox) {
 			return new ArrayList<Component>();
 		}

@@ -103,8 +103,8 @@ public class MenuItemComponentFinder extends ComponentFinder {
 				}
 				if (lastMenuItem == null) {
 					MenuElement[] menuPath = MenuSelectionManager.defaultManager().getSelectedPath();
-					if ((menuPath.length == 1) && (menuPath[0] instanceof JPopupMenu)) {
-						JPopupMenu rootPopupMenu = (JPopupMenu) menuPath[0];
+					if ((menuPath.length > 0) && (menuPath[menuPath.length - 1] instanceof JPopupMenu)) {
+						JPopupMenu rootPopupMenu = (JPopupMenu) menuPath[menuPath.length - 1];
 						int windowIndex = 0;
 						boolean windowIndexFound = false;
 						Window componentWindow = SwingUtilities.getWindowAncestor(rootPopupMenu);

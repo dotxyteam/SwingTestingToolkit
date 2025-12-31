@@ -145,7 +145,7 @@ public class ComponentInspector {
 				chilren = new ArrayList<ComponentInspectorNode>();
 				if (c instanceof Container) {
 					Container container = (Container) c;
-					for (Component child : testEditor.getTester().getChildrenComponents(container)) {
+					for (Component child : testEditor.getTester().getChildComponents(container)) {
 						chilren.add(new ComponentInspectorNode(this, child, testEditor));
 					}
 				}

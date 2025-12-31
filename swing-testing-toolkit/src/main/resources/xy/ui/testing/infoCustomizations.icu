@@ -1686,8 +1686,8 @@
             <duplicateGenerated>false</duplicateGenerated>
             <ignoredReturnValueForced>false</ignoredReturnValueForced>
             <lastInvocationDataUsageDisabled>false</lastInvocationDataUsageDisabled>
-            <methodName>getChildrenComponents</methodName>
-            <methodSignature>java.util.List getChildrenComponents(java.awt.Container)</methodSignature>
+            <methodName>getChildComponents</methodName>
+            <methodSignature>java.util.List getChildComponents(java.awt.Container)</methodSignature>
             <parametersCustomization>
                 <uniqueIdentifier>-70d5a2a9:15bf6ce897e:-50be</uniqueIdentifier>
                 <specificProperties/>

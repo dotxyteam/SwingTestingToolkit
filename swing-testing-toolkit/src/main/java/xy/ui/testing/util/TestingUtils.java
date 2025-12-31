@@ -499,7 +499,7 @@ public class TestingUtils {
 			return false;
 		}
 		if (treeRoot instanceof Container) {
-			List<Component> components = tester.getChildrenComponents((Container) treeRoot);
+			List<Component> components = tester.getChildComponents((Container) treeRoot);
 			for (Component childComponent : components) {
 				if (!visitComponentTree(tester, childComponent, visitor, skipNonVisibleComponents)) {
 					return false;
