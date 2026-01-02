@@ -30,17 +30,19 @@ Tested on Java  1.8 and 21
 
 ## Usage
 
-    Use Maven:
+* Use Maven:
+```xml
         <dependency>
         <groupId>com.github.dotxyteam</groupId>
         <artifactId>swing-testing-toolkit</artifactId>
-        <version>1.8.15</version>
+        <version>LATEST</version>
         </dependency>
-    Or download the “*dist*.zip” package (see the download section below)
+```
+* Or download the “*dist*.zip” package (see the download section below)
     -    Extract it
     -    Include “target” and “target/dependency” directories jars in your classpath
-    Run the main class “xy.ui.testing.editor.TestEditor”
-    Read the user guide
+* Run the main class “xy.ui.testing.editor.TestEditor”
+* Read the user guide below
 
 ## Download
 Binaries and sources archive are available [here](https://github.com/dotxyteam/SwingTestingToolkit/releases).
